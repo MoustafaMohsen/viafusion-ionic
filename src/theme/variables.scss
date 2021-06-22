@@ -1,75 +1,74 @@
-// Ionic Variables and Theming. For more info, please see:
-// http://ionicframework.com/docs/theming/
+@import "mixins";
+@import "colors";
 
-/** Ionic CSS Variables **/
 :root {
   /** primary **/
-  --ion-color-primary: #3880ff;
-  --ion-color-primary-rgb: 56, 128, 255;
+  --ion-color-primary: #{$primary};
+  --ion-color-primary-rgb: #{rgbstring($primary)};
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
   --ion-color-primary-shade: #3171e0;
   --ion-color-primary-tint: #4c8dff;
 
   /** secondary **/
-  --ion-color-secondary: #3dc2ff;
-  --ion-color-secondary-rgb: 61, 194, 255;
+  --ion-color-secondary: #{$secondary};
+  --ion-color-secondary-rgb: #{rgbstring($secondary)};
   --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
   --ion-color-secondary-shade: #36abe0;
   --ion-color-secondary-tint: #50c8ff;
 
   /** tertiary **/
-  --ion-color-tertiary: #5260ff;
-  --ion-color-tertiary-rgb: 82, 96, 255;
+  --ion-color-tertiary: #{$tertiary};
+  --ion-color-tertiary-rgb: #{rgbstring($tertiary)};
   --ion-color-tertiary-contrast: #ffffff;
   --ion-color-tertiary-contrast-rgb: 255, 255, 255;
   --ion-color-tertiary-shade: #4854e0;
   --ion-color-tertiary-tint: #6370ff;
 
   /** success **/
-  --ion-color-success: #2dd36f;
-  --ion-color-success-rgb: 45, 211, 111;
+  --ion-color-success: #{$success};
+  --ion-color-success-rgb: #{rgbstring($success)};
   --ion-color-success-contrast: #ffffff;
   --ion-color-success-contrast-rgb: 255, 255, 255;
   --ion-color-success-shade: #28ba62;
   --ion-color-success-tint: #42d77d;
 
   /** warning **/
-  --ion-color-warning: #ffc409;
-  --ion-color-warning-rgb: 255, 196, 9;
+  --ion-color-warning: #{$warning};
+  --ion-color-warning-rgb: #{rgbstring($warning)};
   --ion-color-warning-contrast: #000000;
   --ion-color-warning-contrast-rgb: 0, 0, 0;
   --ion-color-warning-shade: #e0ac08;
   --ion-color-warning-tint: #ffca22;
 
   /** danger **/
-  --ion-color-danger: #eb445a;
-  --ion-color-danger-rgb: 235, 68, 90;
+  --ion-color-danger: #{$danger};
+  --ion-color-danger-rgb: #{rgbstring($danger)};
   --ion-color-danger-contrast: #ffffff;
   --ion-color-danger-contrast-rgb: 255, 255, 255;
   --ion-color-danger-shade: #cf3c4f;
   --ion-color-danger-tint: #ed576b;
 
   /** dark **/
-  --ion-color-dark: #222428;
-  --ion-color-dark-rgb: 34, 36, 40;
+  --ion-color-dark: #{$dark};
+  --ion-color-dark-rgb: #{rgbstring($dark)};
   --ion-color-dark-contrast: #ffffff;
   --ion-color-dark-contrast-rgb: 255, 255, 255;
   --ion-color-dark-shade: #1e2023;
   --ion-color-dark-tint: #383a3e;
 
   /** medium **/
-  --ion-color-medium: #92949c;
-  --ion-color-medium-rgb: 146, 148, 156;
+  --ion-color-medium: #{$medium};
+  --ion-color-medium-rgb: #{rgbstring($medium)};
   --ion-color-medium-contrast: #ffffff;
   --ion-color-medium-contrast-rgb: 255, 255, 255;
   --ion-color-medium-shade: #808289;
   --ion-color-medium-tint: #9d9fa6;
 
   /** light **/
-  --ion-color-light: #f4f5f8;
-  --ion-color-light-rgb: 244, 245, 248;
+  --ion-color-light: #{$light};
+  --ion-color-light-rgb: #{rgbstring($light)};
   --ion-color-light-contrast: #000000;
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
@@ -77,25 +76,23 @@
 }
 @media (prefers-color-scheme: dark) {
   .ios body, .md body{
-    // $gradient-color: #0d0d0d;
-    $gradient-color: #0d0d0d;
 
-    --ion-background-color: #{$gradient-color};
-    --ion-background-color-rgb: 18,18,18;
+    --ion-background-color: #{$bg-gradient-color};
+    --ion-background-color-rgb: #{rgbstring($bg-gradient-color)};;
     --ion-text-color: #ffffff;
-    --ion-text-color-rgb: 255,255,255;
-    --ion-item-background: #{$gradient-color};
-    --ion-card-background: lighten($gradient-color, 1);
+    --ion-text-color-rgb: #{rgbstring(#ffffff)};;
+    --ion-item-background: #{$bg-gradient-color};
+    --ion-card-background: lighten($bg-gradient-color, 1);
 
-    --ion-border-color: lighten($gradient-color,6);
+    --ion-border-color: lighten($bg-gradient-color,6);
 
-    --ion-toolbar-background: lighten($gradient-color,6);//#1f1f1f;
-    --ion-tab-bar-background: lighten($gradient-color,6);//#1f1f1f;
+    --ion-toolbar-background: lighten($bg-gradient-color,6);//#1f1f1f;
+    --ion-tab-bar-background: lighten($bg-gradient-color,6);//#1f1f1f;
 
     $steps: 19;
     $amount: 4;
     @for $i from 1 through $steps {
-      --ion-color-step-#{$i*50}: #{lighten($gradient-color, $i * $amount)};
+      --ion-color-step-#{$i*50}: #{lighten($bg-gradient-color, $i * $amount)};
     }
   }
 
