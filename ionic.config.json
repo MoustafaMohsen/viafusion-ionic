@@ -1,0 +1,7 @@
+{
+  "name": "viafusion",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
