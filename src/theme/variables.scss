@@ -79,22 +79,22 @@
 @media (prefers-color-scheme: dark) {
   .ios body, .md body{
 
-    --ion-background-color: #{$bg-gradient-color};
-    --ion-background-color-rgb: #{rgbstring($bg-gradient-color)};;
+    --ion-background-color: #{$bg-color};
+    --ion-background-color-rgb: #{rgbstring($bg-color)};;
     --ion-text-color: #{$color};
     --ion-text-color-rgb: #{rgbstring($color)};;
-    --ion-item-background: #{$bg-gradient-color};
-    --ion-card-background: lighten($bg-gradient-color, 1);
+    --ion-item-background: #{$bg-color};
+    --ion-card-background: lighten($bg-color, 1);
 
-    --ion-border-color: lighten($bg-gradient-color,6);
+    --ion-border-color: lighten($bg-color,6);
 
-    --ion-toolbar-background: lighten($bg-gradient-color,6);//#1f1f1f;
-    --ion-tab-bar-background: lighten($bg-gradient-color,6);//#1f1f1f;
+    --ion-toolbar-background: lighten($bg-color,6);//#1f1f1f;
+    --ion-tab-bar-background: lighten($bg-color,6);//#1f1f1f;
 
     $steps: 19;
     $amount: 4;
     @for $i from 1 through $steps {
-      --ion-color-step-#{$i*50}: #{lighten($bg-gradient-color, $i * $amount)};
+      --ion-color-step-#{$i*50}: #{lighten($bg-color, $i * $amount)};
     }
   }
 
