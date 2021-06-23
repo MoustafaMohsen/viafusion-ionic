@@ -1,3 +1,44 @@
 <ion-content [fullscreen]="true">
+  <div class="container">
+
+    <div class="row header-row">
+      <h1 class="text-7xl">Signup/Login</h1>
+      <p class="text-gray-600 pt-4">continue in 30 seconds</p>
+    </div>
+    <div class="row phone-row pt-40">
+      <label for="price" class="block text-sm font-medium text-gray-700">
+        Phone number
+      </label>
+      <div class="mt-1 relative rounded-md shadow-sm">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <span class="text-gray-500 sm:text-sm">
+            <ion-icon name="call"></ion-icon>
+          </span>
+        </div>
+        <div class="absolute inset-y-0 left-10 flex items-center">
+          <select id="country_select" name="country" class="focus:ring-indigo-500 py-2 px-4 border-t border-r border-gray-300 border-b bo focus:border-indigo-500 h-full pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-r-md">
+            <option>
+              EGP
+            </option>
+            <option>
+              CAD
+            </option>
+            <option>
+              USA
+            </option>
+          </select>
+        </div>
+        <input type="tel" name="phone_number" id="phone_number" class="focus:ring-indigo-500 border-l border-b border-t border-gray-300 py-2 pl-32 focus:border-indigo-500 block w-full sm:text-sm rounded-md" placeholder="xxx" />
+      </div>
+    </div>
+
+    <div class="row button-row">
+
+      <button type="button" class="py-4 px-6  bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full">
+        Continue <ion-icon name="arrow-forward-outline"></ion-icon>
+      </button>
+
+    </div>
+  </div>
 
 </ion-content>

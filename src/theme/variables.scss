@@ -2,6 +2,8 @@
 @import "colors";
 
 :root {
+  --color:#{$color};
+  --ion-text-color:#{$color};
   /** primary **/
   --ion-color-primary: #{$primary};
   --ion-color-primary-rgb: #{rgbstring($primary)};
@@ -79,8 +81,8 @@
 
     --ion-background-color: #{$bg-gradient-color};
     --ion-background-color-rgb: #{rgbstring($bg-gradient-color)};;
-    --ion-text-color: #ffffff;
-    --ion-text-color-rgb: #{rgbstring(#ffffff)};;
+    --ion-text-color: #{$color};
+    --ion-text-color-rgb: #{rgbstring($color)};;
     --ion-item-background: #{$bg-gradient-color};
     --ion-card-background: lighten($bg-gradient-color, 1);
 
