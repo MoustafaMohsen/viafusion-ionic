@@ -9,3 +9,10 @@ ion-content{
 .gold-gradient {
   @apply bg-gradient-to-r from-yellow-700 via-yellow-600 to-yellow-500 ;
 }
+
+.outline-unset{
+  outline: none !important;
+}
+.letspac-1{
+  letter-spacing: 1px !important;
+}
