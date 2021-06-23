@@ -11,6 +11,7 @@ import { AppComponent } from './components/entry/app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ApiService } from './services/api.service';
 import { LoginPage } from './pages/login/login.page';
+import { DashboardPage } from './pages/dashboard/dashboard.page';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { LoginPage } from './pages/login/login.page';
     AppComponent,
     LoginPage,
     OtpPage,
+    DashboardPage,
   ],
   entryComponents: [],
   providers: [

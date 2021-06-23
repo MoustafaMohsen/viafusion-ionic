@@ -2,6 +2,7 @@ import { OtpPage } from './pages/otp/otp.page';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginPage } from './pages/login/login.page';
+import { DashboardPage } from './pages/dashboard/dashboard.page';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'otp',
     component: OtpPage
+  },
+  {
+    path: 'dashboard',
+    component: DashboardPage
   },
 ];
 
