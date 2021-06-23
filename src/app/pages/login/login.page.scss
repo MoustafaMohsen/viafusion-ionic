@@ -1,5 +1,16 @@
 ion-content{
+  .header-row {
+    h1 {
+      letter-spacing: 1px;
+    }
+    p{
+      letter-spacing: 1px;
+    }
+  }
   .phone-row{
+    label {
+      color: #d97706;
+    }
     p{
     }
   }

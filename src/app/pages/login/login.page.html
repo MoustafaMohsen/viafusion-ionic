@@ -1,12 +1,19 @@
 <ion-content [fullscreen]="true">
 
-    <div class="row header-row">
-      <h1 class="text-7xl">Signup/Login</h1>
-      <p class="text-gray-600 pt-4">continue in 30 seconds</p>
+    <div class="row">
+      <img src="../../../assets/images/logo/logoipsum-logo-15.svg" alt="" srcset="">
     </div>
-    <div class="row phone-row pt-40">
-      <label for="price" class="block text-sm font-medium text-gray-700">
-        Phone number
+
+    <div class="row mt-8">
+      <img src="../../../assets/images/undraw_Login_re_4vu2.svg" alt="" srcset="">
+    </div>
+    <div class="row header-row">
+      <h1 class="text-7xl font-bold">Welcome ! </h1>
+      <p class="text-gray-600 pl-2 text-2xl">Login in only 30 seconds</p>
+    </div>
+    <div class="row phone-row pt-8">
+      <label for="price" class="block font-medium text-gray-700 text-2xl mb-2">
+        Phone Number :
       </label>
       <div class="mt-1 relative rounded-md shadow-sm">
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -27,12 +34,13 @@
             </option>
           </select>
         </div>
-        <input [(ngModel)]="phone" type="tel" name="phone_number" id="phone_number" class="focus:ring-indigo-500 border-l border-b border-t border-gray-300 py-2 pl-32 focus:border-indigo-500 block w-full sm:text-sm rounded-md" placeholder="xxx" />
+        <input [(ngModel)]="phone" type="tel" name="phone_number" id="phone_number" class="focus:ring-indigo-500 border-l border-b border-t border-gray-300 pl-32 focus:border-indigo-500 block w-full sm:text-sm shadow-lg rounded-full p-4 bg-white py-5 px-20" placeholder="xxx-xxx-xxxx" />
+   
       </div>
     </div>
 
     <div class="row button-row">
-      <button [disabled]="loading.loading" (click)="submit()" type="button" class="py-4 px-6  bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center">
+      <button [disabled]="loading.loading" (click)="submit()" type="button" class="py-4 px-6 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient  ">
         Continue <ion-icon name="arrow-forward-outline"></ion-icon>
       </button>
     </div>
