@@ -1,3 +1,5 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OtpPage } from './pages/otp/otp.page';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -8,18 +10,23 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './components/entry/app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ApiService } from './services/api.service';
+import { LoginPage } from './pages/login/login.page';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
   ],
+  declarations: [
+    AppComponent,
+    LoginPage,
+    OtpPage,
+  ],
+  entryComponents: [],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     ApiService,
