@@ -1,5 +1,18 @@
 <ion-content>
 
+  <div class="top-buttons-section">
+
+    <div class="flex justify-between top-button-row">
+      <button [disabled]="loading.loading" (click)="make_transaction()" type="button" class="py-4 px-6   focus:ring-offset-blue-200 text-white w-1/3 transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+        Make Transaction <ion-icon name="arrow-down-outline" class="ml-3 text-2xl"></ion-icon>
+      </button>
+      <button [disabled]="loading.loading" (click)="send()" type="button" class="py-4 px-6   focus:ring-offset-blue-200 text-white w-1/3 transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+        Send <ion-icon name="arrow-up-outline" class="ml-3 text-2xl"></ion-icon>
+      </button>
+    </div>
+
+  </div>
+
   <div class="dashboard-section">
     <ion-text color="primary">
       <h1>Overview</h1>
