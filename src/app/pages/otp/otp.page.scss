@@ -1,0 +1,86 @@
+ion-content {
+  .header-row {
+    h5 {
+      background: #ffcc91;
+      border-radius: 40px;
+      padding: 1rem 0.2rem;
+      font-weight: 600;
+    }
+    p {
+      width: 85%;
+      margin: auto;
+      color: #666;
+    }
+  }
+  .phone-row {
+    input,
+    select {
+      --tw-ring-color: transparent;
+    }
+
+    label {
+     
+    }
+    p {
+    }
+    span {
+      color: var(--ion-color-primary);
+    }
+  }
+  .button-row {
+    p {
+      color: #666;
+    }
+  }
+
+  .seperator-container {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    pointer-events: none;
+    .v-line {
+      height: 100%;
+      width: 2px;
+      background: #eee;
+    }
+  }
+}
+.code-input {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+.code-label {
+  margin-bottom: 16px;
+  color: var(--ion-color-primary);
+}
+.code-inputs {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.code-inputs input {
+  border: none;
+  background-image: none;
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  text-align: center;
+    height: 47px;
+    width: 47px;
+    border-radius: 10px;
+    margin: 0 4px;
+    border: 2px solid #4f5b66;
+    font-size: 25px;
+}
+.code-inputs input:focus {
+  outline: none;
+}
+.code-inputs input:nth-child(3n) {
+  margin-right: 24px;
+}
