@@ -6,6 +6,11 @@ ion-content{
   --padding-top: 2rem;
   @apply container;
 }
+ion-header{
+  padding: 2rem;
+  padding-top: 3rem; 
+}
+
 .gold-gradient {
   @apply bg-gradient-to-r from-yellow-700 via-yellow-600 to-yellow-500 ;
 }
@@ -15,6 +20,9 @@ ion-content{
 }
 .letspac-1{
   letter-spacing: 1px !important;
+}
+.letspac-2{
+  letter-spacing: 2px !important;
 }
 
 .danger{

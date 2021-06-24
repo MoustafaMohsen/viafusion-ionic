@@ -5,6 +5,7 @@
   --color:#{$color};
   --ion-text-color:#{$color};
   /** primary **/
+  --primary: #{$primary};
   --ion-color-primary: #{$primary};
   --ion-color-primary-rgb: #{rgbstring($primary)};
   --ion-color-primary-contrast: #ffffff;
@@ -12,8 +13,10 @@
   --ion-color-primary-shade: #3171e0;
   --ion-color-primary-tint: #4c8dff;
 
+
   /** secondary **/
   --ion-color-secondary: #{$secondary};
+  --secondary: #{$secondary};
   --ion-color-secondary-rgb: #{rgbstring($secondary)};
   --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
