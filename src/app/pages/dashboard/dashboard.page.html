@@ -10,6 +10,14 @@
     </div>
   </div>
 
+  <div class="pending-transactions-section">
+    <ion-text color="primary">
+      <h1>Pending Transactions</h1>
+    </ion-text>
+
+    <app-transaction-item class="block relative mt-4" *ngFor="let t of past_transactions" [transaction]="t"></app-transaction-item>
+
+  </div>
 
 
 </ion-content>
