@@ -24,7 +24,7 @@ ion-content {
     p {
     }
     span {
-      color: var(--ion-color-primary);
+      color: var(--secondary);
     }
   }
   .button-row {
@@ -56,7 +56,7 @@ ion-content {
 }
 .code-label {
   margin-bottom: 16px;
-  color: var(--ion-color-primary);
+  color: var(--secondary);
 }
 .code-inputs {
   display: flex;
