@@ -7,21 +7,36 @@
     <h5 class="text-4xl">Verify Account</h5>
     <p class=" pt-4 letspac-1">Please , Enter the verification code we sent to your mobile number</p>
   </div>
-  
+
   <div class="row phone-row pt-24">
     <div class="code-input">
       <label for="price" class="code-label block font-medium text-gray-700 text-2xl mb-2">Enter Code : </label>
       <div class="code-inputs">
-        <input *ngFor="let i of [1,2,3,4,5,6]" type="text" inputMode="numeric" maxLength="1" />
+        <input (ngModelChange)="update_code($event,i)" [id]="'code_input_'+i" [(ngModel)]="otp[i]" *ngFor="let i of [1,2,3,4,5,6]" type="text" inputMode="numeric" maxLength="1" />
       </div>
     </div>
   </div>
 
   <div class="row button-row mt-4">
-    <div class="validating flex justify-between">
-      <p class="letspac-1 ml-2">Validating</p>
+
+    <div *ngIf="!loading.loading" class="validating flex justify-between">
+      <p class="letspac-1 ml-2 sms-subtext">please enter sms code here</p>
+    </div>
+
+    <div *ngIf="!loading.loading && this.success=='incorrect'" class="validating flex justify-between">
+      <p class="letspac-1 ml-2 danger">Incorrect code</p>
+    </div>
+
+    <div *ngIf="loading.loading" class="validating flex justify-between">
+      <p class="letspac-1 ml-2 sms-subtext">Validating</p>
       <ion-spinner name="crescent"></ion-spinner>
     </div>
+
+    <div *ngIf="this.success=='correct'" class="validating flex justify-between">
+      <p class="letspac-1 ml-2 sms-subtext success">Logged in</p>
+      <ion-icon name="checkmark-done-outline"></ion-icon>
+    </div>
+
   </div>
 
 </ion-content>
