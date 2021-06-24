@@ -12,8 +12,9 @@ export interface Transaction{
 export interface TransactionPoint{
   id?:string;
   name?:string;
+  type?:TPoint;
   amount?:number;
-  status?:string;
+  status?:TStatus;
   start_date?:Date;
 }
 
@@ -22,6 +23,18 @@ export enum TDirection{
   down=-1,
   internal=0
 }
+
+export enum TPoint{
+  wallet=0,
+  bank=1,
+  pcard=2,
+  cash=3,
+  crypto=4,
+  vcard=5,
+  stock=6,
+}
+
+
 export enum TStatus{
   success=1,
   failed=0,
