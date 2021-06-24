@@ -1,6 +1,7 @@
 import { TPoint, TransactionPoint } from './../../services/static/interfaces';
 import { TDirection as _TDirection, Transaction, TStatus  as _TStatus } from 'src/app/services/static/interfaces';
 import { Component, OnInit } from '@angular/core';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,7 @@ export class DashboardPage implements OnInit {
   past_transactions:Transaction[]=[];
   TDirection = _TDirection;
   TStatus = _TStatus;
-  constructor() { }
+  constructor(public loading:LoadingService) { }
 
   ngOnInit() {
     let points:TransactionPoint[]=[{
@@ -60,6 +61,13 @@ export class DashboardPage implements OnInit {
         status:this.TStatus.failed
       },
     ]
+  }
+
+  make_transaction(){
+
+  }
+  send(){
+
   }
 
 }
