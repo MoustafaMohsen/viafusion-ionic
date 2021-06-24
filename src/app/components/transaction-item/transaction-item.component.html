@@ -26,4 +26,27 @@
       </path>
     </svg>
   </button>
+
+  <div class="relative block w-full h-10">
+    <ng-container *ngFor="let p of transaction.points;let i = index">
+      <div class="point" [ngClass]="{'point-start': i==0}">
+
+
+        <ion-icon *ngIf="p?.type == TPoint.bank" name="business-outline"></ion-icon>
+        <ion-icon *ngIf="p?.type == TPoint.pcard" name="card"></ion-icon>
+        <ion-icon *ngIf="p?.type == TPoint.cash" name="cash"></ion-icon>
+        <ion-icon *ngIf="p?.type == TPoint.wallet" name="logo-usd"></ion-icon>
+        <ion-icon *ngIf="p?.type == TPoint.crypto" name="logo-bitcoin"></ion-icon>
+        <ion-icon *ngIf="p?.type == TPoint.vcard" name="card-outline"></ion-icon>
+        <ion-icon *ngIf="p?.type == TPoint.stock" name="trending-up"></ion-icon>
+
+        <!-- will have class point_count_2 if there are two point, 3 if three etc. -->
+        <!-- usefull if you wan to set dash width as a percentage % -->
+        <div *ngIf="i!=(transaction.points.length-1)" class="dash" [ngClass]="dash_class(transaction.points.length,i)"></div>
+
+      </div>
+    </ng-container>
+
+
+  </div>
 </div>
