@@ -13,6 +13,7 @@ import { ApiService } from './services/api.service';
 import { LoginPage } from './pages/login/login.page';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { MethodsDashboardComponent } from './components/methods-dashboard/methods-dashboard.component';
+import { TransactionItemComponent } from './components/transaction-item/transaction-item.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { MethodsDashboardComponent } from './components/methods-dashboard/method
     OtpPage,
     DashboardPage,
     MethodsDashboardComponent,
+    TransactionItemComponent,
   ],
   entryComponents: [],
   providers: [
