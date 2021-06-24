@@ -1,0 +1,105 @@
+.methods-dashboard{
+
+  // define starting points for points
+  $width: 80px;
+  $height: 80px;
+  $top:32px;
+  $left:16px;
+  $right:16px;
+  $top-disatance:96px;
+
+
+  .method-point {
+    @apply shadow-lg;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    background-color: white;
+    width: $width;
+    height: $height;
+    position: absolute;
+    left: $left;
+    top: $top;
+
+    .brand-icon-contaienr {
+      background-color: rgba(221, 214, 254, 0.75);
+      width: 110%;
+      position: absolute;
+      @apply shadow-sm;
+      top: -8px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: nowrap;
+      align-items: center;
+      border-radius: 16px;
+
+      ion-icon {
+        padding: 5px;
+        background: transparent;
+        color: #333;
+        font-size: 1rem;
+      }
+      p{
+        font-size: 0.75rem;
+        text-align: center;
+      }
+    }
+
+    .amount-text-container {
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: #333;
+      padding-left: 0.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .amount {
+      }
+    }
+
+    // points positions
+    // left
+    &.bank-point{
+      top: $top + ($top-disatance)*0;
+
+    }
+    &.pysical-cards-point{
+      top: $top + ($top-disatance)*1;
+    }
+    &.cash-point{
+      top: $top + ($top-disatance)*2;
+    }
+
+    // right
+    &.crypto-point{
+      top: $top + ($top-disatance)*0;
+      right: $right;
+      left: unset;
+    }
+    &.virtual-card-point{
+      top: $top + ($top-disatance)*1;
+      right: $right;
+      left: unset;
+    }
+    &.stocks-point{
+      top: $top + ($top-disatance)*2;
+      right: $right;
+      left: unset;
+    }
+
+    // main-point The wallet
+    &.main-point{
+      top: 128px;
+      right: unset;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 16px;
+      .amount{
+        color: #333;
+      }
+    }
+  }
+}
