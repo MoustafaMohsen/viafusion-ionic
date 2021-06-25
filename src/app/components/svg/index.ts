@@ -1,3 +1,5 @@
+import { logoIcon } from './consts/logo';
+import { loginIcon } from './consts/login';
 import { nfcIcon } from './consts/nfc';
 import { recieveIcon } from './consts/recieve';
 import { sendIcon } from './consts/send';
@@ -10,5 +12,7 @@ export const  icons = [
     sendIcon,
     transferIcon,
     notificationIcon,
+    loginIcon,
+    logoIcon
 
 ];
