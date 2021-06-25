@@ -78,6 +78,9 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  // others
+  --raised-card-by:#{$raised-card-by};
 }
 @media (prefers-color-scheme: dark) {
   .ios body, .md body{

@@ -1,69 +1,69 @@
-<ion-header>
-  <div class="flex justify-between mb-4">
-    <div class="">
-      <h3 class="text-5xl">
-        $ 50,000
-      </h3>
-    </div>
-    <div class="notification">
-      <ion-icon name="notifications-outline" class="mt-3 text-4xl"></ion-icon>
-    </div>
-  </div>
-  <p class="text-gray-300 letspac-1 text-xl">
-    Available balance
-  </p>
-
-  <div class="row mt-6 buttons-row">
-    <div class="container flex justify-between">
-      <div class="">
-        <button [disabled]="loading.loading" (click)="send()" type="button"
-          class="  focus:ring-offset-blue-200 text-gray-300 transition ease-in duration-200 text-center focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-2xl  justify-center items-center flex flex-wrap letspac-1 ">
-          <div class="p-2 text-gray-700 shadow-lg bg-gray-50 rounded-2xl mb-2">
-            <svg-icon key="send" color="hotpink" fontSize="40px"></svg-icon>
-          </div>
-          <span>Send</span>
-        </button>
-      </div>
-      <div class="">
-        <button [disabled]="loading.loading" (click)="send()" type="button"
-          class="  focus:ring-offset-blue-200 text-gray-300 transition ease-in duration-200 text-center focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-2xl  justify-center items-center flex flex-wrap letspac-1 ">
-          <div class="p-2 text-gray-700 shadow-lg bg-gray-50 rounded-2xl mb-2">
-            <svg-icon key="recieve" color="hotpink" fontSize="40px"></svg-icon>
-          </div>
-          <span>Request</span>
-        </button>
-      </div>
-      <div class="">
-        <button [disabled]="loading.loading" (click)="send()" type="button"
-          class="  focus:ring-offset-blue-200 text-gray-300 transition ease-in duration-200 text-center focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-2xl  justify-center items-center flex flex-wrap letspac-1 ">
-          <div class="p-2 text-gray-700 shadow-lg bg-gray-50 rounded-2xl mb-2">
-            <svg-icon key="nfc" fontSize="40px"></svg-icon>
-          </div>
-          <span>NFC</span>
-        </button>
-      </div>
-      <div class="">
-        <button [disabled]="loading.loading" (click)="send()" type="button"
-          class="  focus:ring-offset-blue-200 text-gray-300 transition ease-in duration-200 text-center focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-2xl  justify-center items-center flex flex-wrap letspac-1 ">
-          <div class="p-2 text-gray-700 shadow-lg bg-gray-50 rounded-2xl mb-2">
-            <svg-icon key="transfer" color="hotpink" fontSize="40px"></svg-icon>
-          </div>
-          <span>Move</span>
-        </button>
-      </div>
-    </div>
-  </div>
-  <!-- <div class="top-buttons-section">
-    <div class="flex justify-between top-button-row">
-     
-    
-    </div>
-
-  </div> -->
-</ion-header>
 
 <ion-content>
-
+  <ion-header>
+    <div class="flex justify-between mb-4">
+      <div class="">
+        <h3 class="text-5xl">
+          $ 50,000
+        </h3>
+      </div>
+      <div class="notification">
+        <svg-icon class="svg-white flex mt-3" key="notification" fontSize="35px"></svg-icon>
+      </div>
+    </div>
+    <p class="text-gray-300 letspac-1 text-xl">
+      Available balance
+    </p>
+  
+    <div class="row mt-6 buttons-row">
+      <div class="container flex justify-between">
+        <div class="">
+          <button [disabled]="loading.loading" (click)="send()" type="button"
+            class="  focus:ring-offset-blue-200 text-gray-300 transition ease-in duration-200 text-center focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-2xl  justify-center items-center flex flex-wrap letspac-1 ">
+            <div class="p-2 text-gray-700 shadow-lg bg-gray-50 rounded-2xl mb-2">
+              <svg-icon class="svg-secondary flex" key="send" fontSize="35px"></svg-icon>
+            </div>
+            <span>Send</span>
+          </button>
+        </div>
+        <div class="">
+          <button [disabled]="loading.loading" (click)="send()" type="button"
+            class="  focus:ring-offset-blue-200 text-gray-300 transition ease-in duration-200 text-center focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-2xl  justify-center items-center flex flex-wrap letspac-1 ">
+            <div class="p-2 text-gray-700 shadow-lg bg-gray-50 rounded-2xl mb-2">
+              <svg-icon class="svg-secondary flex" key="recieve" fontSize="35px"></svg-icon>
+            </div>
+            <span>Request</span>
+          </button>
+        </div>
+        <div class="">
+          <button [disabled]="loading.loading" (click)="send()" type="button"
+            class="  focus:ring-offset-blue-200 text-gray-300 transition ease-in duration-200 text-center focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-2xl  justify-center items-center flex flex-wrap letspac-1 ">
+            <div class="p-2 text-gray-700 shadow-lg bg-gray-50 rounded-2xl mb-2">
+              <svg-icon class="svg-secondary flex" key="nfc" fontSize="35px"></svg-icon>
+            </div>
+            <span>NFC</span>
+          </button>
+        </div>
+        <div class="">
+          <button [disabled]="loading.loading" (click)="send()" type="button"
+            class="  focus:ring-offset-blue-200 text-gray-300 transition ease-in duration-200 text-center focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-2xl  justify-center items-center flex flex-wrap letspac-1 ">
+            <div class="p-2 text-gray-700 shadow-lg bg-gray-50 rounded-2xl mb-2">
+              <svg-icon class="svg-secondary flex" key="transfer" fontSize="35px"></svg-icon>
+            </div>
+            <span>Move</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="top-buttons-section">
+      <div class="flex justify-between top-button-row">
+       
+      
+      </div>
+  
+    </div> -->
+  </ion-header>
+<div class="raised-content">
 
   <div class="dashboard-section">
     <ion-text color="primary">
@@ -85,5 +85,5 @@
 
   </div>
 
-
+</div>
 </ion-content>
