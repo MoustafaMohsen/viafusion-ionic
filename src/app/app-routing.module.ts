@@ -1,3 +1,4 @@
+import { SourcesPage } from './pages/send/sources-page/sources.page';
 import { OtpPage } from './pages/otp/otp.page';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
@@ -22,6 +23,11 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardPage
   },
+  {
+    path: 'sources',
+    component:SourcesPage
+  },
+
 ];
 
 @NgModule({
