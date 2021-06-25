@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { TPoint, TransactionPoint } from './../../services/static/interfaces';
 import { TDirection as _TDirection, Transaction, TStatus  as _TStatus } from 'src/app/services/static/interfaces';
 import { Component, OnInit } from '@angular/core';
@@ -13,7 +14,7 @@ export class DashboardPage implements OnInit {
   past_transactions:Transaction[]=[];
   TDirection = _TDirection;
   TStatus = _TStatus;
-  constructor(public loading:LoadingService) { }
+  constructor(public loading:LoadingService, public router:Router) { }
 
   ngOnInit() {
     let points:TransactionPoint[]=[{
@@ -67,7 +68,7 @@ export class DashboardPage implements OnInit {
 
   }
   send(){
-
+    this.router.navigateByUrl("sources");
   }
 
 }
