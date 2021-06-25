@@ -18,6 +18,8 @@ import { SvgIconsModule } from '@ngneat/svg-icon';
 import  {icons} from './components/svg/index';
 import { SourcesPage } from './pages/send/sources-page/sources.page';
 import { SourceItemComponent } from './components/source-item/source-item.component';
+import { CreateVirtualCreditCardPage } from './pages/create/create-virtual-credit-card/create-virtual-credit-card.page';
+import { CreditCardComponent } from './components/views/credit-card/credit-card.component';
 
 @NgModule({
   imports: [
@@ -49,6 +51,8 @@ import { SourceItemComponent } from './components/source-item/source-item.compon
     TransactionItemComponent,
     SourcesPage,
     SourceItemComponent,
+    CreateVirtualCreditCardPage,
+    CreditCardComponent,
   ],
   entryComponents: [],
   providers: [
