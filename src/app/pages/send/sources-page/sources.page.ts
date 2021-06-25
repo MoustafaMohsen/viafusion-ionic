@@ -11,5 +11,12 @@ export class SourcesPage implements OnInit {
 
   ngOnInit() {
   }
+  continue_to_destination(){
+
+  }
+
+  add_source(){
+
+  }
 
 }
