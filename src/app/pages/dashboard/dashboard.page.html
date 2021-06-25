@@ -66,9 +66,7 @@
 <div class="raised-content">
 
   <div class="dashboard-section">
-    <ion-text color="primary">
-      <h1>Overview</h1>
-    </ion-text>
+    
 
     <div class="relative">
       <app-methods-dashboard></app-methods-dashboard>
@@ -77,7 +75,8 @@
 
   <div class="pending-transactions-section">
     <ion-text color="primary">
-      <h1>Pending Transactions</h1>
+      <h1 class="letspac-2 font-bold text-xl text-gray-800
+      ">Pending Transactions :</h1>
     </ion-text>
 
     <app-transaction-item class="block relative mt-4" *ngFor="let t of past_transactions" [transaction]="t">

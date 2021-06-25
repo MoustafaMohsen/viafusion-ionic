@@ -2,10 +2,27 @@
 @import "colors";
 
 :root {
+  --primary: #{$primary};
+  --secondary: #{$secondary};
+  --tertiary: #{$tertiary};
+
+
+  --primary-tint: #{$primary-tint};
+  --secondary-tint: #{$secondary-tint};
+  --tertiary-tint: #{$tertiary-tint};
+
+
+  --primary-shade: #{$primary-shade};
+  --secondary-shade: #{$secondary-shade};
+  --tertiary-shade: #{$tertiary-shade};
+
+  --bg-color:#{$bg-color};
+
+
+  // === Ionic Colors
   --color:#{$color};
   --ion-text-color:#{$color};
   /** primary **/
-  --primary: #{$primary};
   --ion-color-primary: #{$primary};
   --ion-color-primary-rgb: #{rgbstring($primary)};
   --ion-color-primary-contrast: #ffffff;
@@ -16,7 +33,6 @@
 
   /** secondary **/
   --ion-color-secondary: #{$secondary};
-  --secondary: #{$secondary};
   --ion-color-secondary-rgb: #{rgbstring($secondary)};
   --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
