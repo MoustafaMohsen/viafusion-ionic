@@ -1,3 +1,4 @@
+import { CreateVirtualCreditCardPage } from './pages/create/create-virtual-credit-card/create-virtual-credit-card.page';
 import { SourcesPage } from './pages/send/sources-page/sources.page';
 import { OtpPage } from './pages/otp/otp.page';
 import { NgModule } from '@angular/core';
@@ -27,6 +28,11 @@ const routes: Routes = [
     path: 'sources',
     component:SourcesPage
   },
+  {
+    path: 'create-virtual-credit-card',
+    component:CreateVirtualCreditCardPage
+  },
+
 
 ];
 
