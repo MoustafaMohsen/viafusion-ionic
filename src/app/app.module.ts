@@ -16,6 +16,8 @@ import { MethodsDashboardComponent } from './components/methods-dashboard/method
 import { TransactionItemComponent } from './components/transaction-item/transaction-item.component';
 import { SvgIconsModule } from '@ngneat/svg-icon';
 import  {icons} from './components/svg/index';
+import { SourcesPage } from './pages/send/sources-page/sources.page';
+import { SourceItemComponent } from './components/source-item/source-item.component';
 
 @NgModule({
   imports: [
@@ -45,6 +47,8 @@ import  {icons} from './components/svg/index';
     DashboardPage,
     MethodsDashboardComponent,
     TransactionItemComponent,
+    SourcesPage,
+    SourceItemComponent,
   ],
   entryComponents: [],
   providers: [

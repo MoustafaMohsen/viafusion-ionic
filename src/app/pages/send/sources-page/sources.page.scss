@@ -1,0 +1,35 @@
+
+
+.footer-section{
+  position: absolute;
+  bottom: 3rem;
+  width: 100%;
+  height: 5rem;
+  left: 0;
+  padding: 2rem;
+
+  .progress-indication{
+    display: flex;
+    .point{
+      width: 1.5rem;
+      z-index: 5;
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      &.source-point{
+      }
+
+      &.destination-point{
+      }
+
+    }
+    .connecting-dash{
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+
+  }
+}
