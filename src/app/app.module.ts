@@ -15,6 +15,7 @@ import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { MethodsDashboardComponent } from './components/methods-dashboard/methods-dashboard.component';
 import { TransactionItemComponent } from './components/transaction-item/transaction-item.component';
 import { SvgIconsModule } from '@ngneat/svg-icon';
+import  {icons} from './components/svg/index';
 
 @NgModule({
   imports: [
@@ -25,7 +26,16 @@ import { SvgIconsModule } from '@ngneat/svg-icon';
     AppRoutingModule,
     HttpClientModule,
     SvgIconsModule.forRoot({
-      icons: [],
+      sizes: {
+        xs: '10px',
+        sm: '12px',
+        md: '16px',
+        lg: '20px',
+        xl: '25px',
+        xxl: '30px'
+      },
+      defaultSize: 'md',
+      icons
     }),
   ],
   declarations: [
