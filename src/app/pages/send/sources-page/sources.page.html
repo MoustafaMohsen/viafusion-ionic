@@ -1,3 +1,49 @@
 <ion-content>
 
+  <!-- refrence -->
+  <!-- https://dribbble.com/shots/7188812-Nomad-App-Light-Theme -->
+  <div class="ballance-header">
+    <div class="transaction-ballance">
+      <h3>Transfer Amount</h3>
+      <h1>$5,000</h1>
+      <p>of <small>$20,000 available</small></p>
+    </div>
+  </div>
+
+  <div class="sourecs-container">
+    <app-source-item></app-source-item>
+    <app-source-item></app-source-item>
+    <div class="flex w-full relative add-source">
+      <ion-button (click)="add_source()" expand="block" fill="outline" shape="round">
+        Add Source
+      </ion-button>
+    </div>
+  </div>
+
+  <div class="footer-section">
+    <div class="progress-indication">
+
+      <!-- sourece icon -->
+      <div class="point source-point">
+        <ion-icon name="pin-outline"></ion-icon>
+      </div>
+
+      <!-- connection -->
+      <div class="connecting-dash">
+        <ion-progress-bar reversed="true" value="0" buffer="0"></ion-progress-bar>
+      </div>
+
+      <!-- destination icon -->
+      <div class="point destination-point">
+        <ion-icon name="pin-outline"></ion-icon>
+      </div>
+
+    </div>
+
+    <div class="continue-button">
+      <ion-button (click)="continue_to_destination()" expand="full" fill="solid" shape="round">
+        Continue to Destination
+      </ion-button>
+    </div>
+  </div>
 </ion-content>
