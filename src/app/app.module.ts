@@ -14,6 +14,7 @@ import { LoginPage } from './pages/login/login.page';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { MethodsDashboardComponent } from './components/methods-dashboard/methods-dashboard.component';
 import { TransactionItemComponent } from './components/transaction-item/transaction-item.component';
+import { SvgIconsModule } from '@ngneat/svg-icon';
 
 @NgModule({
   imports: [
@@ -23,6 +24,9 @@ import { TransactionItemComponent } from './components/transaction-item/transact
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
+    SvgIconsModule.forRoot({
+      icons: [],
+    }),
   ],
   declarations: [
     AppComponent,
