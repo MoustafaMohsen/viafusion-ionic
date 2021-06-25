@@ -14,7 +14,7 @@
     <p class="text-gray-300 letspac-1 text-xl">
       Available balance
     </p>
-  
+
     <div class="row mt-6 buttons-row">
       <div class="container flex justify-between">
         <div class="">
@@ -57,16 +57,16 @@
     </div>
     <!-- <div class="top-buttons-section">
       <div class="flex justify-between top-button-row">
-       
-      
+
+
       </div>
-  
+
     </div> -->
   </ion-header>
 <div class="raised-content">
 
   <div class="dashboard-section">
-    
+
 
     <div class="relative">
       <app-methods-dashboard></app-methods-dashboard>
@@ -82,6 +82,16 @@
     <app-transaction-item class="block relative mt-4" *ngFor="let t of past_transactions" [transaction]="t">
     </app-transaction-item>
 
+  </div>
+
+  <div class="">
+    <ion-text color="primary">
+      <h1 class="letspac-2 font-bold text-xl text-gray-800
+      ">Pending Transactions :</h1>
+    </ion-text>
+
+    <app-transaction-item class="block relative mt-4" *ngFor="let t of past_transactions" [transaction]="t">
+    </app-transaction-item>
   </div>
 
 </div>
