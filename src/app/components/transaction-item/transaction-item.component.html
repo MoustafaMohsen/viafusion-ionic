@@ -1,10 +1,23 @@
-<div class="transition duration-500 shadow ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 rounded-md flex flex-1 items-center p-4">
-  <ion-icon *ngIf="transaction.direction == TDirection.up" name="arrow-up-outline"></ion-icon>
-  <ion-icon *ngIf="transaction.direction == TDirection.down" name="arrow-down-outline"></ion-icon>
-  <div class="flex-1 pl-1 md:mr-16">
-    <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">
-      {{transaction.name}}
-    </h3>
+<div
+  class="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 items-center p-4">
+
+  <div class="title-row pl-1 md:mr-16 w-full flex justify-between items-center">
+    <div *ngIf="transaction.direction == TDirection.up"
+      class="flex text-lg leading-6 font-medium text-gray-900 dark:text-white">
+      <h4>Sent</h4>
+      <ion-icon name="arrow-up-outline"></ion-icon>
+    </div>
+    <div *ngIf="transaction.direction == TDirection.down"
+      class="flex text-lg leading-6 font-medium text-gray-900 dark:text-white">
+      <h4>Recived</h4>
+      <ion-icon name="arrow-down-outline"></ion-icon>
+    </div>
+    <div *ngIf="transaction.direction == TDirection.internal"
+      class="flex text-lg leading-6 font-medium text-gray-900 dark:text-white">
+      <h4>Internal</h4>
+      <ion-icon name="circle-outline"></ion-icon>
+    </div>
+
     <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
       <span aria-hidden="true" class="absolute inset-0 bg-green-200 opacity-50 rounded-full">
       </span>
@@ -12,17 +25,21 @@
         {{transaction.amount | currency}}
       </span>
     </span>
-
-    <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-200">
-      {{transaction.description}}
-    </p>
   </div>
+
+  <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-200">
+    {{transaction.description}}
+  </p>
   <div class="text-gray-600 dark:text-gray-200 text-xs">
     {{transaction.start_date | date}}
   </div>
+
   <button class="w-24 text-right flex justify-end">
-    <svg width="12" fill="currentColor" height="12" class="hover:text-gray-800 dark:hover:text-white dark:text-gray-200 text-gray-500" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-      <path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z">
+    <svg width="12" fill="currentColor" height="12"
+      class="hover:text-gray-800 dark:hover:text-white dark:text-gray-200 text-gray-500" viewBox="0 0 1792 1792"
+      xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z">
       </path>
     </svg>
   </button>
@@ -42,11 +59,13 @@
 
         <!-- will have class point_count_2 if there are two point, 3 if three etc. -->
         <!-- usefull if you wan to set dash width as a percentage % -->
-        <div *ngIf="i!=(transaction.points.length-1)" class="dash" [ngClass]="dash_class(transaction.points.length,i)"></div>
+        <div *ngIf="i!=(transaction.points.length-1)" class="dash" [ngClass]="dash_class(transaction.points.length,i)">
+        </div>
 
       </div>
     </ng-container>
 
 
   </div>
+
 </div>

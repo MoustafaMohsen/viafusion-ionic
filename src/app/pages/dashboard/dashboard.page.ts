@@ -34,7 +34,7 @@ export class DashboardPage implements OnInit {
   ]
     this.past_transactions=[
       {
-        name:"First Transaction",
+        name:"",
         description:"Details about Transaction status",
         points:points,
         start_date:new Date(),
@@ -43,7 +43,7 @@ export class DashboardPage implements OnInit {
         status:this.TStatus.pending
       },
       {
-        name:"Second Transaction",
+        name:"",
         description:"Details about Transaction status",
         points:points,
         start_date:new Date(),
@@ -52,7 +52,7 @@ export class DashboardPage implements OnInit {
         status:this.TStatus.success
       },
       {
-        name:"First Transaction",
+        name:"",
         description:"Details about Transaction status",
         points:[points[1], points[2]],
         start_date:new Date(),
