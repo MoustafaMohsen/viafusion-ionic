@@ -3,17 +3,17 @@
 
   <div class="title-row pl-1 md:mr-16 w-full flex justify-between items-center">
     <div *ngIf="transaction.direction == TDirection.up"
-      class="flex text-lg leading-6 font-medium text-gray-900 dark:text-white">
-      <h4>Sent</h4>
+      class="flex text-lg leading-6 font-medium dark:text-white text-gray-800">
+      <h4 class="">Sent</h4>
       <ion-icon name="arrow-up-outline"></ion-icon>
     </div>
     <div *ngIf="transaction.direction == TDirection.down"
-      class="flex text-lg leading-6 font-medium text-gray-900 dark:text-white">
+      class="flex text-lg leading-6 font-medium text-gray-800 dark:text-white">
       <h4>Recived</h4>
       <ion-icon name="arrow-down-outline"></ion-icon>
     </div>
     <div *ngIf="transaction.direction == TDirection.internal"
-      class="flex text-lg leading-6 font-medium text-gray-900 dark:text-white">
+      class="flex text-lg leading-6 font-medium text-gray-800 dark:text-white">
       <h4>Internal</h4>
       <ion-icon name="circle-outline"></ion-icon>
     </div>
@@ -27,18 +27,33 @@
     </span>
   </div>
 
+  <div class="status-row md:mr-16 w-full flex justify-between items-center">
+    <div class="">
+         <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+      <span aria-hidden="true" class="absolute inset-0 bg-green-200 opacity-50 rounded-full">
+      </span>
+      <span class="relative">
+        {{transaction.amount | currency}}
+      </span>
+    </span>
+
+    </div>
+
+    <div class="date flex">
+     <div class="text-gray-600 dark:text-gray-200 text-sm">
+      {{transaction.start_date | date}}
+    </div>
+
+    </div>
+  </div>
+
 
   <div class="details-row flex justify-between items-center my-2">
 
     <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-200">
       {{transaction.description}}
     </p>
-    <div class="date flex">
-     <div class="text-gray-600 dark:text-gray-200 text-base">
-      {{transaction.start_date | date}}
-    </div>
 
-    </div>
   </div>
 
 
