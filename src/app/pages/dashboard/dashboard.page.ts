@@ -31,6 +31,11 @@ export class DashboardPage implements OnInit {
       name:"Virtural Card",
       type:TPoint.vcard,
       status:this.TStatus.pending
+    },
+    {
+      name:"Physical Card",
+      type:TPoint.pcard,
+      status:this.TStatus.pending
     }
   ]
     this.past_transactions=[
