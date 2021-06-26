@@ -64,10 +64,21 @@ export class DashboardPage implements OnInit {
     ]
   }
 
-  make_transaction(){
 
+
+  add_btn(){
+    this.router.navigateByUrl("create-virtual-credit-card");
   }
-  send(){
+
+  nfc_btn(){
+    this.router.navigateByUrl("nfc-payment");
+  }
+
+  move_btn(){
+    this.router.navigateByUrl("internal-transaction");
+  }
+
+  send_btn(){
     this.router.navigateByUrl("sources");
   }
 
