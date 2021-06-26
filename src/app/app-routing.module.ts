@@ -1,3 +1,4 @@
+import { NfcPaymentPage } from './pages/create/nfc-payment/nfc-payment.page';
 import { CreateVirtualCreditCardPage } from './pages/create/create-virtual-credit-card/create-virtual-credit-card.page';
 import { SourcesPage } from './pages/send/sources-page/sources.page';
 import { OtpPage } from './pages/otp/otp.page';
@@ -32,6 +33,11 @@ const routes: Routes = [
     path: 'create-virtual-credit-card',
     component:CreateVirtualCreditCardPage
   },
+  {
+    path: 'nfc-payment',
+    component:NfcPaymentPage
+  },
+
 
 
 ];
