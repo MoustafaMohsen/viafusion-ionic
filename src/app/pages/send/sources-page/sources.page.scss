@@ -1,23 +1,56 @@
 
 
+.ballance-header {
+  h3 {
+    font-size: 2rem;
+  }
+  h1
+  {
+    font-size: 2.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background: var(--secondary-shade);
+    width: 50%;
+    border-radius: 40px;
+    padding: 0.5rem;
+    margin: unset;
+    padding-left: 1.2rem;
+  }
+  p
+  {
+    font-size: 2rem;
+    letter-spacing: 1px;
+  }
+}
+
 .footer-section{
   position: absolute;
-  bottom: 3rem;
+  bottom: 0rem;
   width: 100%;
-  height: 5rem;
+  height: 14rem;
   left: 0;
   padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  > *{
+    width: 100%;
+  }
 
   .progress-indication{
     display: flex;
     .point{
-      width: 1.5rem;
+      width: 3.5rem;
       z-index: 5;
       position: relative;
       display: flex;
       align-items: center;
 
-      &.source-point{
+      &.source-point
+      {
+
       }
 
       &.destination-point{
@@ -31,5 +64,10 @@
     }
 
 
+
   }
+  span {
+    font-size: 1.4rem;
+  }
+
 }
