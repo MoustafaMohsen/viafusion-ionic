@@ -1,47 +1,16 @@
-<div class="transition duration-500 shadow ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 rounded-md flex flex-1 items-center p-4">
-  <div class="flex-1 pl-1 md:mr-16">
-    <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">
-      {{transaction.name}}
-    </h3>
-    <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-      <span aria-hidden="true" class="absolute inset-0 bg-green-200 opacity-50 rounded-full">
-      </span>
-      <span class="relative">
-        {{transaction.amount | currency}}
-      </span>
-    </span>
+<div class="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 flex justify-between items-center source-item">
 
-    <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-200">
-      {{transaction.description}}
-    </p>
-  </div>
-  <div class="text-gray-600 dark:text-gray-200 text-xs">
-    {{transaction.start_date | date}}
-  </div>
-  <button class="w-24 text-right flex justify-end">
-    <svg width="12" fill="currentColor" height="12" class="hover:text-gray-800 dark:hover:text-white dark:text-gray-200 text-gray-500" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-      <path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z">
-      </path>
-    </svg>
-  </button>
+  <ion-icon class="w-7 text-xl" name="wallet-outline"></ion-icon>
 
-  <div class="relative block w-full h-10">
-    <div class="source-point">
-
-
-      <ion-icon *ngIf="transaction?.type == TSourcePoint.bank" name="business-outline"></ion-icon>
-      <ion-icon *ngIf="transaction?.type == TSourcePoint.pcard" name="card"></ion-icon>
-      <ion-icon *ngIf="transaction?.type == TSourcePoint.cash" name="cash"></ion-icon>
-      <ion-icon *ngIf="transaction?.type == TSourcePoint.wallet" name="logo-usd"></ion-icon>
-      <ion-icon *ngIf="transaction?.type == TSourcePoint.crypto" name="logo-bitcoin"></ion-icon>
-      <ion-icon *ngIf="transaction?.type == TSourcePoint.vcard" name="card-outline"></ion-icon>
-      <ion-icon *ngIf="transaction?.type == TSourcePoint.stock" name="trending-up"></ion-icon>
-
-      <!-- will have class point_count_2 if there are two point, 3 if three etc. -->
-      <!-- usefull if you wan to set dash width as a percentage % -->
-      <div class="sourece_dash"></div>
-
+    <div class="flex text-lg leading-6 font-medium dark:text-white text-gray-800">
+      <h4 class="">{{transaction.name}}</h4>
     </div>
 
-  </div>
+    <span class="relative px-3 py-1 flex flex-wrap">
+      <span class="relative font-bold text-green-900 leading-tight">
+        {{transaction.amount | currency}}
+      </span>
+      <small>of $1,000 available</small>
+    </span>
+
 </div>
