@@ -8,14 +8,14 @@
     <div class="transaction-ballance">
       <h3 class="letspac-1">Transfer Amount</h3>
       <h1>$5,000</h1>
-      <p>of <small>$20,000 available</small></p>
+      <!-- <p>of <small>$20,000 available</small></p> -->
     </div>
   </div>
 
   <div class="sourecs-container pt-8">
 
-    <app-source-item></app-source-item>
-    <app-source-item class="block relative mt-8"></app-source-item>
+    <app-destination-item></app-destination-item>
+    <app-destination-item class="block relative mt-8"></app-destination-item>
     <div class="flex w-full relative add-source justify-start mt-8">
       <ion-button (click)="add_destination()" expand="block" fill="outline" shape="round">
         Add Destination
@@ -51,8 +51,12 @@
     </div>
 
     <div class="continue-button">
+
       <ion-button (click)="continue_to_overview()" expand="full" fill="solid" shape="round">
-        Continue to Destination
+        Continue
+      </ion-button>
+<ion-button (click)="continue_to_overview()" expand="full" fill="clear" shape="round">
+        Back
       </ion-button>
     </div>
   </div>
