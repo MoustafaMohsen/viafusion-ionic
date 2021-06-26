@@ -87,4 +87,7 @@ export class DashboardPage implements OnInit {
     this.router.navigateByUrl("sources");
   }
 
+  view_all_btn(){
+    this.router.navigateByUrl("transaction-history");
+  }
 }
