@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,12 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SourcesPage implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit() {
   }
   continue_to_destination(){
-
+    this.router.navigateByUrl("destination");
   }
 
   add_source(){

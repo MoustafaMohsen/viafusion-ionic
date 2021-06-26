@@ -21,6 +21,7 @@ import { SourceItemComponent } from './components/source-item/source-item.compon
 import { CreateVirtualCreditCardPage } from './pages/create/create-virtual-credit-card/create-virtual-credit-card.page';
 import { CreditCardComponent } from './components/views/credit-card/credit-card.component';
 import { NfcPaymentPage } from './pages/create/nfc-payment/nfc-payment.page';
+import { DestinationPage } from './pages/send/destination/destination.page';
 
 @NgModule({
   imports: [
@@ -55,6 +56,7 @@ import { NfcPaymentPage } from './pages/create/nfc-payment/nfc-payment.page';
     CreateVirtualCreditCardPage,
     CreditCardComponent,
     NfcPaymentPage,
+    DestinationPage,
   ],
   entryComponents: [],
   providers: [
