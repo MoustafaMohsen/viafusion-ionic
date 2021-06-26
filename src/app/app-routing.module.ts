@@ -41,7 +41,11 @@ const routes: Routes = [
   {
     path: 'nfc-payment',
     component:NfcPaymentPage
+  },  {
+    path: 'list-of-cc',
+    loadChildren: () => import('./pages/list-of-cc/list-of-cc.module').then( m => m.ListOfCcPageModule)
   },
+
 
 
 
