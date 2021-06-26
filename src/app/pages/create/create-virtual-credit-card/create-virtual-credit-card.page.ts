@@ -12,4 +12,10 @@ export class CreateVirtualCreditCardPage implements OnInit {
   ngOnInit() {
   }
 
+  view_all_btn(){
+  }
+
+  create_vcard_btn(){
+  }
+
 }
