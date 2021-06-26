@@ -25,7 +25,7 @@ export class TransactionItemComponent implements OnInit {
   ngOnInit() {}
 
   dash_class(p_lenght:number,i:number){
-    let key = "points_count_"+(p_lenght+1)
+    let key = "points_count_"+p_lenght
     return {
       [key]:true
     }
