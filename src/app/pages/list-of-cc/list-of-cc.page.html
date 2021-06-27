@@ -4,7 +4,11 @@
       <h1 class="letspac-1 text-gray-900 text-5xl">Cards</h1>
   </div>
   <div class="add-btn">
-    <ion-icon name="add-circle-outline" class="text-gray-900 text-5xl"></ion-icon>
+    <ion-button (click)="create_cc_btn()" expand="block" fill="outline" shape="round">
+       <span> create</span>
+
+    </ion-button>
+
   </div>
 </div>
 
@@ -20,8 +24,16 @@
 
 </div>
 
+<div class="cards-row mt-8">
+  <div class="card mt-4">
+    <app-cc class=""></app-cc>
+  </div>
 
-<app-cc></app-cc>
-<app-cc></app-cc>
+  <div class="card mt-4">
+    <app-cc class=""></app-cc>
+  </div>
+
+</div>
+
 
 </ion-content>
