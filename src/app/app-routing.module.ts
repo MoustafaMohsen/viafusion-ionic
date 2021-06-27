@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginPage } from './pages/login/login.page';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
+import { VccHistoryPage } from './pages/vcc-history/vcc-history.page';
 
 const routes: Routes = [
   {
@@ -47,6 +48,11 @@ const routes: Routes = [
     path: 'list-of-cc',
     component:ListOfCcPage
   },
+  {
+    path: 'vcc-history',
+    component:VccHistoryPage
+  },
+
 
 
 
