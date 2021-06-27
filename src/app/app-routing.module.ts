@@ -1,3 +1,4 @@
+import { ListOfCcPage } from './pages/list-of-cc/list-of-cc.page';
 import { DestinationPage } from './pages/send/destination/destination.page';
 import { NfcPaymentPage } from './pages/create/nfc-payment/nfc-payment.page';
 import { CreateVirtualCreditCardPage } from './pages/create/create-virtual-credit-card/create-virtual-credit-card.page';
@@ -41,9 +42,10 @@ const routes: Routes = [
   {
     path: 'nfc-payment',
     component:NfcPaymentPage
-  },  {
+  },
+  {
     path: 'list-of-cc',
-    loadChildren: () => import('./pages/list-of-cc/list-of-cc.module').then( m => m.ListOfCcPageModule)
+    component:ListOfCcPage
   },
 
 

@@ -1,3 +1,4 @@
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OtpPage } from './pages/otp/otp.page';
 import { NgModule } from '@angular/core';
@@ -23,6 +24,8 @@ import { CreditCardComponent } from './components/views/credit-card/credit-card.
 import { NfcPaymentPage } from './pages/create/nfc-payment/nfc-payment.page';
 import { DestinationPage } from './pages/send/destination/destination.page';
 import { DestinationItemComponent } from './components/items/destination-item/destination-item.component';
+import { CcComponent } from './components/views/cc/cc.component';
+import { ListOfCcPage } from './pages/list-of-cc/list-of-cc.page';
 
 @NgModule({
   imports: [
@@ -59,6 +62,8 @@ import { DestinationItemComponent } from './components/items/destination-item/de
     NfcPaymentPage,
     DestinationPage,
     DestinationItemComponent,
+    CcComponent,
+    ListOfCcPage,
 
   ],
   entryComponents: [],
