@@ -12,4 +12,7 @@ export class ListOfCcPage implements OnInit {
   ngOnInit() {
   }
 
+  create_cc_btn(){
+
+  }
 }
