@@ -15,4 +15,7 @@ export class ListOfCcPage implements OnInit {
   create_cc_btn(){
 
   }
+  back(){
+
+  }
 }
