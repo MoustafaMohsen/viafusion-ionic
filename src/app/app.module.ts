@@ -26,8 +26,9 @@ import { DestinationPage } from './pages/send/destination/destination.page';
 import { DestinationItemComponent } from './components/items/destination-item/destination-item.component';
 import { CcComponent } from './components/views/cc/cc.component';
 import { ListOfCcPage } from './pages/list-of-cc/list-of-cc.page';
-import { VccHistoryPage } from './pages/vcc-history/vcc-history.page';
-import { VccSettingsPage } from './pages/vcc-history/vcc-settings/vcc-settings.page';
+import { VccSettingsPage } from './pages/vcc-details/vcc-settings/vcc-settings.page';
+import { VccHistoryPage } from './pages/vcc-details/vcc-history/vcc-history.page';
+import { VccDetailsPage } from './pages/vcc-details/vcc-details.page';
 
 @NgModule({
   imports: [
@@ -68,6 +69,7 @@ import { VccSettingsPage } from './pages/vcc-history/vcc-settings/vcc-settings.p
     ListOfCcPage,
     VccHistoryPage,
     VccSettingsPage,
+    VccDetailsPage,
   ],
   entryComponents: [],
   providers: [

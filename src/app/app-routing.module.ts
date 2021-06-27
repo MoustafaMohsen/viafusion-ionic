@@ -1,3 +1,4 @@
+import { VccDetailsPage } from './pages/vcc-details/vcc-details.page';
 import { ListOfCcPage } from './pages/list-of-cc/list-of-cc.page';
 import { DestinationPage } from './pages/send/destination/destination.page';
 import { NfcPaymentPage } from './pages/create/nfc-payment/nfc-payment.page';
@@ -8,8 +9,8 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginPage } from './pages/login/login.page';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
-import { VccHistoryPage } from './pages/vcc-history/vcc-history.page';
-import { VccSettingsPage } from './pages/vcc-history/vcc-settings/vcc-settings.page';
+import { VccSettingsPage } from './pages/vcc-details/vcc-settings/vcc-settings.page';
+import { VccHistoryPage } from './pages/vcc-details/vcc-history/vcc-history.page';
 
 const routes: Routes = [
   {
@@ -50,19 +51,20 @@ const routes: Routes = [
     component:ListOfCcPage
   },
   {
-    path: 'vcc-history',
-    component:VccHistoryPage,
+    path: 'vcc-details',
+    component:VccDetailsPage,
+
     children:[
       {
         path: 'settings',
         component: VccSettingsPage
+      },
+      {
+        path: 'history',
+        component:VccHistoryPage,
       }
     ]
-  },  {
-    path: 'vcc-details',
-    loadChildren: () => import('./pages/vcc-details/vcc-details.module').then( m => m.VccDetailsPageModule)
   },
-
 
 
 

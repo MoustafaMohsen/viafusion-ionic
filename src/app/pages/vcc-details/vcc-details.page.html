@@ -1,9 +1,18 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>vcc-details</ion-title>
-  </ion-toolbar>
+<ion-header class="block relative pb-0">
+  <app-cc></app-cc>
+
+  <div class="mt-4">
+    <ion-segment (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="history">
+        <ion-label>history</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="settings">
+        <ion-label>settings</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
 </ion-header>
-
 <ion-content>
-
+  <ion-router-outlet></ion-router-outlet>
 </ion-content>
+
