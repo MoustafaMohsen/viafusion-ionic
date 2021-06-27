@@ -1,3 +1,4 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,11 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VccHistoryPage implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router,private route:ActivatedRoute) { }
 
   ngOnInit() {
   }
   segmentChanged(e){
+    let tab = e.detail.value;
+    this.router.navigate(["settings"], {relativeTo:this.route})
+    console.log(e);
+    var target = e.target;
+    console.log(target);
+    return;
+
 
   }
 }

@@ -1,30 +1,21 @@
+<ion-header>
+  <app-cc></app-cc>
 
+  <div class="mt-4">
+    <ion-segment (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="history">
+        <ion-label>history</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="settings">
+        <ion-label>settings</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+</ion-header>
 <ion-content>
-<app-cc></app-cc>
 
-<div class="mt-4">
-  <ion-segment (ionChange)="segmentChanged($event)">
-  <ion-segment-button value="history">
-    <ion-label>history</ion-label>
-  </ion-segment-button>
-  <ion-segment-button value="settings">
-    <ion-label>settings</ion-label>
-  </ion-segment-button>
-</ion-segment>
-</div>
+  <ion-router-outlet></ion-router-outlet>
 
-<div class="history mt-4">
-  <div class="mt-4">
-    <app-transaction-item></app-transaction-item>
-  </div>
-  <div class="mt-4">
-    <app-transaction-item></app-transaction-item>
-  </div>
-  <div class="mt-4">
-    <app-transaction-item></app-transaction-item>
-  </div>
-
-</div>
 
 
 

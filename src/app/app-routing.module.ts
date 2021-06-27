@@ -9,6 +9,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginPage } from './pages/login/login.page';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { VccHistoryPage } from './pages/vcc-history/vcc-history.page';
+import { VccSettingsPage } from './pages/vcc-history/vcc-settings/vcc-settings.page';
 
 const routes: Routes = [
   {
@@ -50,8 +51,18 @@ const routes: Routes = [
   },
   {
     path: 'vcc-history',
-    component:VccHistoryPage
+    component:VccHistoryPage,
+    children:[
+      {
+        path: 'settings',
+        component: VccSettingsPage
+      }
+    ]
+  },  {
+    path: 'vcc-details',
+    loadChildren: () => import('./pages/vcc-details/vcc-details.module').then( m => m.VccDetailsPageModule)
   },
+
 
 
 

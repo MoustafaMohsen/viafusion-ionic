@@ -27,6 +27,7 @@ import { DestinationItemComponent } from './components/items/destination-item/de
 import { CcComponent } from './components/views/cc/cc.component';
 import { ListOfCcPage } from './pages/list-of-cc/list-of-cc.page';
 import { VccHistoryPage } from './pages/vcc-history/vcc-history.page';
+import { VccSettingsPage } from './pages/vcc-history/vcc-settings/vcc-settings.page';
 
 @NgModule({
   imports: [
@@ -66,7 +67,7 @@ import { VccHistoryPage } from './pages/vcc-history/vcc-history.page';
     CcComponent,
     ListOfCcPage,
     VccHistoryPage,
-
+    VccSettingsPage,
   ],
   entryComponents: [],
   providers: [
