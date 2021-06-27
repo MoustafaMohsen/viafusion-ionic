@@ -29,6 +29,8 @@ import { ListOfCcPage } from './pages/list-of-cc/list-of-cc.page';
 import { VccSettingsPage } from './pages/vcc-details/vcc-settings/vcc-settings.page';
 import { VccHistoryPage } from './pages/vcc-details/vcc-history/vcc-history.page';
 import { VccDetailsPage } from './pages/vcc-details/vcc-details.page';
+import { AddPccPage } from './pages/add-pcc/add-pcc.page';
+import { SchedulePaymentPage } from './pages/schedule-payment/schedule-payment.page';
 
 @NgModule({
   imports: [
@@ -70,6 +72,8 @@ import { VccDetailsPage } from './pages/vcc-details/vcc-details.page';
     VccHistoryPage,
     VccSettingsPage,
     VccDetailsPage,
+    AddPccPage,
+    SchedulePaymentPage,
   ],
   entryComponents: [],
   providers: [

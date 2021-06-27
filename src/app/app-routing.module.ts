@@ -11,6 +11,8 @@ import { LoginPage } from './pages/login/login.page';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { VccSettingsPage } from './pages/vcc-details/vcc-settings/vcc-settings.page';
 import { VccHistoryPage } from './pages/vcc-details/vcc-history/vcc-history.page';
+import { AddPccPage } from './pages/add-pcc/add-pcc.page';
+import { SchedulePaymentPage } from './pages/schedule-payment/schedule-payment.page';
 
 const routes: Routes = [
   {
@@ -65,6 +67,17 @@ const routes: Routes = [
       }
     ]
   },
+
+   {
+        path: 'add-pcc',
+        component:AddPccPage,
+      },
+  {
+    path: 'schedule-payment',
+    component:SchedulePaymentPage,
+    }
+
+
 
 
 
