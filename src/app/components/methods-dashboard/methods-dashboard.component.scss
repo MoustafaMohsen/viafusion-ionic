@@ -1,0 +1,109 @@
+.methods-dashboard{
+
+  // define starting points for points
+  --d-width: 90px; // for a single point
+  --d-height: 60px; // for a single point
+  --d-top:10px; // starting position
+  --d-left:0px; // starting position
+  --d-right:var(--d-left); // starting position
+  --d-top-disatance:110px; // vertical distance between each point
+  --d-main-top:120px;
+  // --d-main-top:calc( ((var(--d-top) + ( var(--d-top-disatance) * 2 )) + var(--d-height)) / 2);
+
+  .method-point {
+    @apply shadow-lg;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    background-color: white;
+    width: var(--d-width);
+    height: var(--d-height);
+    position: absolute;
+    left: var(--d-left);
+    top: var(--d-top);
+
+   
+
+    .brand-icon-contaienr {
+      background-color: var(--secondary-shade);
+      width: 110%;
+      position: absolute;
+      @apply shadow-sm;
+      top: -8px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: nowrap;
+      align-items: center;
+      border-radius: 16px;
+
+      ion-icon {
+        padding: 5px;
+        background: transparent;
+        color: #333;
+        font-size: 1rem;
+      }
+      p{
+        font-size: 1rem;
+        text-align: center;
+      }
+    }
+
+    .amount-text-container {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #333;
+      display: flex;
+      padding-left: 0.25rem;
+      padding-top: 1rem;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .amount {
+      }
+    }
+
+    // points positions
+    // left
+    &.bank-point{
+      top: calc( var(--d-top) + ( var(--d-top-disatance) * 0 ) );
+
+    }
+    &.pysical-cards-point{
+      top: calc( var(--d-top) + ( var(--d-top-disatance) * 1 ) );
+    }
+    &.cash-point{
+      top: calc( var(--d-top) + ( var(--d-top-disatance) * 2 ) );
+    }
+
+    // right
+    &.crypto-point{
+      top: calc( var(--d-top) + ( var(--d-top-disatance) * 0 ) );
+      right: var(--d-right);
+      left: unset;
+    }
+    &.virtual-card-point{
+      top: calc( var(--d-top) + ( var(--d-top-disatance) * 1 ) );
+      right: var(--d-right);
+      left: unset;
+    }
+    &.stocks-point{
+      top: calc( var(--d-top) + ( var(--d-top-disatance) * 2 ) );
+      right: var(--d-right);
+      left: unset;
+    }
+
+    // main-point The wallet
+    &.main-point{
+      top: var(--d-main-top);
+      right: unset;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 16px;
+      .amount{
+        color: #333;
+      }
+    }
+  }
+}

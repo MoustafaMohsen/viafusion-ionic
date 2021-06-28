@@ -2,6 +2,24 @@
 @import "colors";
 
 :root {
+  --primary: #{$primary};
+  --secondary: #{$secondary};
+  --tertiary: #{$tertiary};
+
+
+  --primary-tint: #{$primary-tint};
+  --secondary-tint: #{$secondary-tint};
+  --tertiary-tint: #{$tertiary-tint};
+
+
+  --primary-shade: #{$primary-shade};
+  --secondary-shade: #{$secondary-shade};
+  --tertiary-shade: #{$tertiary-shade};
+
+  --bg-color:#{$bg-color};
+
+
+  // === Ionic Colors
   --color:#{$color};
   --ion-text-color:#{$color};
   /** primary **/
@@ -11,6 +29,7 @@
   --ion-color-primary-contrast-rgb: 255, 255, 255;
   --ion-color-primary-shade: #3171e0;
   --ion-color-primary-tint: #4c8dff;
+
 
   /** secondary **/
   --ion-color-secondary: #{$secondary};
@@ -75,6 +94,9 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  // others
+  --raised-card-by:#{$raised-card-by};
 }
 @media (prefers-color-scheme: dark) {
   .ios body, .md body{

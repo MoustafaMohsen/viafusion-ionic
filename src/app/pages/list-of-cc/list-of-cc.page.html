@@ -1,0 +1,46 @@
+<ion-content>
+  <div class="listofcc-header flex justify-between items-center">
+  <div class="">
+      <h1 class="letspac-1 text-gray-900 text-5xl">Cards</h1>
+  </div>
+  <div class="add-btn">
+    <ion-button (click)="create_cc_btn()" expand="block" fill="outline" shape="round">
+       <span> create</span>
+
+    </ion-button>
+
+  </div>
+</div>
+
+<div class="cards-type flex justify-between mt-4">
+  <div class="pc-button">
+    <a href="" target="_blank" rel="noopener noreferrer"> physical cards
+</a>
+  </div>
+  <div class="vc-button">
+    <a href="" target="_blank" rel="noopener noreferrer"> virtual cards
+    </a>
+  </div>
+
+</div>
+
+<div class="cards-row mt-8">
+  <div class="card mt-4">
+    <app-cc class=""></app-cc>
+  </div>
+
+  <div class="card mt-4">
+    <app-cc class=""></app-cc>
+  </div>
+
+</div>
+
+<div class="footer-section">
+
+<ion-button (click)="back()" expand="full" fill="outline" shape="round">
+        Back
+</ion-button>
+</div>
+
+
+</ion-content>
