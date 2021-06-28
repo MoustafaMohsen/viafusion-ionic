@@ -13,6 +13,8 @@ import { VccSettingsPage } from './pages/vcc-details/vcc-settings/vcc-settings.p
 import { VccHistoryPage } from './pages/vcc-details/vcc-history/vcc-history.page';
 import { AddPccPage } from './pages/add-pcc/add-pcc.page';
 import { SchedulePaymentPage } from './pages/schedule-payment/schedule-payment.page';
+import { TransactionHistoryPage } from './transaction-history/transaction-history.page';
+import { VerificationPage } from './pages/verification/verification.page';
 
 const routes: Routes = [
   {
@@ -75,7 +77,19 @@ const routes: Routes = [
   {
     path: 'schedule-payment',
     component:SchedulePaymentPage,
-    }
+    },
+  {
+    path: 'transaction-history',
+    component:TransactionHistoryPage,
+
+  },
+  {
+    path: 'verification',
+    component:VerificationPage,
+  },
+
+
+
 
 
 

@@ -31,6 +31,9 @@ import { VccHistoryPage } from './pages/vcc-details/vcc-history/vcc-history.page
 import { VccDetailsPage } from './pages/vcc-details/vcc-details.page';
 import { AddPccPage } from './pages/add-pcc/add-pcc.page';
 import { SchedulePaymentPage } from './pages/schedule-payment/schedule-payment.page';
+import { TransactionHistoryPage } from './transaction-history/transaction-history.page';
+import { VerificationPage } from './pages/verification/verification.page';
+import { VerificationFormComponent } from './components/verification/verification-form/verification-form.component';
 
 @NgModule({
   imports: [
@@ -74,6 +77,9 @@ import { SchedulePaymentPage } from './pages/schedule-payment/schedule-payment.p
     VccDetailsPage,
     AddPccPage,
     SchedulePaymentPage,
+    TransactionHistoryPage,
+    VerificationPage,
+    VerificationFormComponent
   ],
   entryComponents: [],
   providers: [

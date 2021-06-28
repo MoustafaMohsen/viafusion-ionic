@@ -1,3 +1,4 @@
+import { scheduleIcon } from './consts/schedule';
 import { destinationIcon } from './consts/destination';
 import { sendmoneyIcon } from './consts/sendmoney';
 import { logoIcon } from './consts/logo';
@@ -17,6 +18,7 @@ export const  icons = [
     loginIcon,
     logoIcon,
     sendmoneyIcon,
-    destinationIcon
+    destinationIcon,
+    scheduleIcon
 
 ];
