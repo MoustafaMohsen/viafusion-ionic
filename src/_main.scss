@@ -6,6 +6,11 @@ ion-content{
   --padding-top: 2rem;
   @apply container;
 }
+ion-header{
+  padding: 2rem;
+  padding-top: 3rem; 
+}
+
 .gold-gradient {
   @apply bg-gradient-to-r from-yellow-700 via-yellow-600 to-yellow-500 ;
 }
@@ -16,10 +21,34 @@ ion-content{
 .letspac-1{
   letter-spacing: 1px !important;
 }
+.letspac-2{
+  letter-spacing: 2px !important;
+}
 
 .danger{
   color: var(--ion-color-danger);
 }
 .success{
   color: var(--ion-color-success);
+}
+.svg-primary svg{
+  color: var(--primary);
+}
+.svg-secondary svg{
+  color: var(--secondary);
+}
+.svg-white svg{
+  color: #fff;
+}
+
+.raised-content {
+  border-top-left-radius: var(--raised-card-by);
+  border-top-right-radius: var(--raised-card-by);
+  margin-top: calc(var(--raised-card-by) * -1);
+  padding-top: var(--raised-card-by);
+  background: var(--bg-color);
+  z-index: 997;
+  position: relative;
+  @apply shadow-lg;
+  padding: var(--raised-card-by);
 }

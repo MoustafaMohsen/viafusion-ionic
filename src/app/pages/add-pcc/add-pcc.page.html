@@ -1,0 +1,60 @@
+<ion-content>
+
+    <div class="pcc-header">
+    <div class="">
+        <p class="letspac-1 text-gray-800 text-3xl">Add Card</p>
+        <small class="text-gray-400">add your credit card</small>
+    </div>
+    </div>
+
+    <div class="card mt-4">
+      <app-cc></app-cc>
+    </div>
+
+    <div class="card-form mt-8">
+      <form class="w-full max-w-lg">
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+              Card Number
+            </label>
+            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-first-name" type="text" placeholder="xxxx xxxx xxxx xxxx">
+          </div>
+          <div class="w-full md:w-1/2 px-3">
+            <label class="block tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+              Card Name
+            </label>
+            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="john deo">
+          </div>
+        </div>
+
+        <div class="flex flex-wrap -mx-3 mb-2">
+          <div class="w-1/2 md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
+              Expire Date
+            </label>
+            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="number" placeholder="24/6">
+          </div>
+          <div class="w-1/2 md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
+              CCV
+            </label>
+            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="321">
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+
+    <div class="footer-section">
+
+      <ion-button (click)="continue_btn()" expand="full" fill="solid" shape="round">
+              continue
+      </ion-button>
+      <ion-button (click)="back_btn()" expand="full" fill="clear" shape="round">
+              back
+      </ion-button>
+      </div>
+
+</ion-content>

@@ -1,7 +1,7 @@
 ion-content {
   .header-row {
     h5 {
-      background: #ffcc91;
+      background: var(--secondary-shade);
       border-radius: 40px;
       padding: 1rem 0.2rem;
       font-weight: 600;
@@ -24,7 +24,7 @@ ion-content {
     p {
     }
     span {
-      color: var(--ion-color-primary);
+      color: var(--secondary);
     }
   }
   .button-row {
@@ -56,7 +56,7 @@ ion-content {
 }
 .code-label {
   margin-bottom: 16px;
-  color: var(--ion-color-primary);
+  color: var(--secondary);
 }
 .code-inputs {
   display: flex;

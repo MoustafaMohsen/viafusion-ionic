@@ -1,13 +1,14 @@
 .methods-dashboard{
 
   // define starting points for points
-  $width: 80px; // for a single point
-  $height: 80px; // for a single point
-  $top:32px; // starting position
-  $left:0px; // starting position
-  $right:0px; // starting position
-  $top-disatance:96px; // vertical distance between each point
-
+  --d-width: 90px; // for a single point
+  --d-height: 60px; // for a single point
+  --d-top:10px; // starting position
+  --d-left:0px; // starting position
+  --d-right:var(--d-left); // starting position
+  --d-top-disatance:110px; // vertical distance between each point
+  --d-main-top:120px;
+  // --d-main-top:calc( ((var(--d-top) + ( var(--d-top-disatance) * 2 )) + var(--d-height)) / 2);
 
   .method-point {
     @apply shadow-lg;
@@ -17,14 +18,16 @@
     flex-wrap: wrap;
     align-items: center;
     background-color: white;
-    width: $width;
-    height: $height;
+    width: var(--d-width);
+    height: var(--d-height);
     position: absolute;
-    left: $left;
-    top: $top;
+    left: var(--d-left);
+    top: var(--d-top);
+
+   
 
     .brand-icon-contaienr {
-      background-color: rgba(221, 214, 254, 0.75);
+      background-color: var(--secondary-shade);
       width: 110%;
       position: absolute;
       @apply shadow-sm;
@@ -42,17 +45,18 @@
         font-size: 1rem;
       }
       p{
-        font-size: 0.75rem;
+        font-size: 1rem;
         text-align: center;
       }
     }
 
     .amount-text-container {
       font-weight: 700;
-      font-size: 0.75rem;
+      font-size: 0.9rem;
       color: #333;
-      padding-left: 0.25rem;
       display: flex;
+      padding-left: 0.25rem;
+      padding-top: 1rem;
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -63,36 +67,36 @@
     // points positions
     // left
     &.bank-point{
-      top: $top + ($top-disatance)*0;
+      top: calc( var(--d-top) + ( var(--d-top-disatance) * 0 ) );
 
     }
     &.pysical-cards-point{
-      top: $top + ($top-disatance)*1;
+      top: calc( var(--d-top) + ( var(--d-top-disatance) * 1 ) );
     }
     &.cash-point{
-      top: $top + ($top-disatance)*2;
+      top: calc( var(--d-top) + ( var(--d-top-disatance) * 2 ) );
     }
 
     // right
     &.crypto-point{
-      top: $top + ($top-disatance)*0;
-      right: $right;
+      top: calc( var(--d-top) + ( var(--d-top-disatance) * 0 ) );
+      right: var(--d-right);
       left: unset;
     }
     &.virtual-card-point{
-      top: $top + ($top-disatance)*1;
-      right: $right;
+      top: calc( var(--d-top) + ( var(--d-top-disatance) * 1 ) );
+      right: var(--d-right);
       left: unset;
     }
     &.stocks-point{
-      top: $top + ($top-disatance)*2;
-      right: $right;
+      top: calc( var(--d-top) + ( var(--d-top-disatance) * 2 ) );
+      right: var(--d-right);
       left: unset;
     }
 
     // main-point The wallet
     &.main-point{
-      top: 128px;
+      top: var(--d-main-top);
       right: unset;
       left: 50%;
       transform: translateX(-50%);
