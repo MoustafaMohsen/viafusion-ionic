@@ -11,5 +11,8 @@ export class SchedulePaymentPage implements OnInit {
 
   ngOnInit() {
   }
+  save_btn(){
+
+  }
 
 }
