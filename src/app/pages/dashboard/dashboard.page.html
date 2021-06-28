@@ -1,22 +1,73 @@
+
 <ion-content>
-
-  <div class="top-buttons-section">
-
-    <div class="flex justify-between top-button-row">
-      <button [disabled]="loading.loading" (click)="make_transaction()" type="button" class="py-4 px-6   focus:ring-offset-blue-200 text-white w-1/3 transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
-        Make Transaction <ion-icon name="arrow-down-outline" class="ml-3 text-2xl"></ion-icon>
-      </button>
-      <button [disabled]="loading.loading" (click)="send()" type="button" class="py-4 px-6   focus:ring-offset-blue-200 text-white w-1/3 transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
-        Send <ion-icon name="arrow-up-outline" class="ml-3 text-2xl"></ion-icon>
-      </button>
+  <ion-header>
+    <div class="flex justify-between mb-4">
+      <div class="">
+        <h3 class="text-5xl">
+          $ 50,000
+        </h3>
+      </div>
+      <div class="notification">
+        <svg-icon class="svg-white flex mt-3" key="notification" fontSize="35px"></svg-icon>
+      </div>
     </div>
+    <p class="text-gray-300 letspac-1 text-xl">
+      Available balance
+    </p>
 
-  </div>
+    <div class="row mt-6 buttons-row">
+      <div class="container flex justify-between">
+
+        <div class="">
+          <button [disabled]="loading.loading" (click)="add_btn()" type="button"
+            class="  focus:ring-offset-blue-200 text-gray-300 transition ease-in duration-200 text-center focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-2xl  justify-center items-center flex flex-wrap letspac-1 ">
+            <div class="p-2 text-gray-700 shadow-lg bg-gray-50 rounded-2xl mb-2">
+              <svg-icon class="svg-secondary flex" key="recieve" fontSize="35px"></svg-icon>
+            </div>
+            <span>Add</span>
+          </button>
+        </div>
+        <div class="">
+          <button [disabled]="loading.loading" (click)="nfc_btn()" type="button"
+            class="  focus:ring-offset-blue-200 text-gray-300 transition ease-in duration-200 text-center focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-2xl  justify-center items-center flex flex-wrap letspac-1 ">
+            <div class="p-2 text-gray-700 shadow-lg bg-gray-50 rounded-2xl mb-2">
+              <svg-icon class="svg-secondary flex" key="nfc" fontSize="35px"></svg-icon>
+            </div>
+            <span>NFC</span>
+          </button>
+        </div>
+        <div class="">
+          <button [disabled]="loading.loading" (click)="move_btn()" type="button"
+            class="  focus:ring-offset-blue-200 text-gray-300 transition ease-in duration-200 text-center focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-2xl  justify-center items-center flex flex-wrap letspac-1 ">
+            <div class="p-2 text-gray-700 shadow-lg bg-gray-50 rounded-2xl mb-2">
+              <svg-icon class="svg-secondary flex" key="transfer" fontSize="35px"></svg-icon>
+            </div>
+            <span>Move</span>
+          </button>
+        </div>
+        <div class="">
+          <button [disabled]="loading.loading" (click)="send_btn()" type="button"
+            class="  focus:ring-offset-blue-200 text-gray-300 transition ease-in duration-200 text-center focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-2xl  justify-center items-center flex flex-wrap letspac-1 ">
+            <div class="p-2 text-gray-700 shadow-lg bg-gray-50 rounded-2xl mb-2">
+              <svg-icon class="svg-secondary flex" key="send" fontSize="35px"></svg-icon>
+            </div>
+            <span>Send</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="top-buttons-section">
+      <div class="flex justify-between top-button-row">
+
+
+      </div>
+
+    </div> -->
+  </ion-header>
+<div class="raised-content">
 
   <div class="dashboard-section">
-    <ion-text color="primary">
-      <h1>Overview</h1>
-    </ion-text>
+
 
     <div class="relative">
       <app-methods-dashboard></app-methods-dashboard>
@@ -25,12 +76,23 @@
 
   <div class="pending-transactions-section">
     <ion-text color="primary">
-      <h1>Pending Transactions</h1>
+      <h1 class="letspac-2 font-bold text-xl text-gray-800
+      ">Recent Transactions :</h1>
     </ion-text>
 
-    <app-transaction-item class="block relative mt-4" *ngFor="let t of past_transactions" [transaction]="t"></app-transaction-item>
+    <app-transaction-item class="block relative mt-4" *ngFor="let t of past_transactions" [transaction]="t">
+    </app-transaction-item>
+
+
+    <div class="row button-row mt-4">
+      <ion-button (click)="view_all_btn()" expand="full" fill="outline" shape="round">
+        View all
+      </ion-button>
+    </div>
 
   </div>
 
 
+
+</div>
 </ion-content>

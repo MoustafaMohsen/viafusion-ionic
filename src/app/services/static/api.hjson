@@ -1,0 +1,81 @@
+// issuing/cards
+[
+// request
+  {
+    "ewallet_contact": "cont_006410035cbc13a62e133cae8fbe28f5",
+    "country": "US"
+  },
+
+// response
+  {
+    "status": {
+      "error_code": "",
+      "status": "SUCCESS",
+      "message": "",
+      "response_code": "",
+      "operation_id": "8959421c-37bb-4881-9cac-f0cef2f911e1"
+    },
+    "data": {
+      "id": "ci_9686237908024bfb691cd168f0667006",
+      "ewallet_contact": {
+        "id": "cont_006410035cbc13a62e133cae8fbe28f5",
+        "first_name": "John",
+        "last_name": "Doe",
+        "middle_name": "",
+        "second_last_name": "",
+        "gender": "not_applicable",
+        "marital_status": "not_applicable",
+        "house_type": "",
+        "contact_type": "personal",
+        "phone_number": "+14155551311",
+        "email": "johndoe@rapyd.net",
+        "identification_type": "PA",
+        "identification_number": "1234567890",
+        "preferred_name": "",
+        "date_of_birth": "2000-11-22",
+        "country": "US",
+        "nationality": "FR",
+        "address": {
+          "id": "address_356e3c485d6ea853d38e1cc033534415",
+          "name": "John Doe",
+          "line_1": "123 Main Street",
+          "line_2": "",
+          "line_3": "",
+          "city": "Albany",
+          "state": "NY",
+          "country": "US",
+          "zip": "12345",
+          "phone_number": "+14155551111",
+          "metadata": {},
+          "canton": "",
+          "district": "",
+          "created_at": 1624680156
+        },
+        "ewallet": "ewallet_db7c88e9622222bdfad963b1a3c55c62",
+        "created_at": 1624680156,
+        "metadata": {},
+        "business_details": null,
+        "compliance_profile": 0,
+        "verification_status": "not verified",
+        "send_notifications": false,
+        "mothers_name": "Jane Smith"
+      },
+      "status": "INA",
+      "card_id": "card_4663897c18b30717ee1372824098b621",
+      "assigned_at": 1624680266,
+      "activated_at": 0,
+      "metadata": {},
+      "country_iso_alpha_2": "US",
+      "created_at": 1624680266,
+      "blocked_reason": "none",
+      "card_tracking_id": null,
+      "card_program": null,
+      "card_number": "5286428760315355",
+      "cvv": "731",
+      "expiration_month": "06",
+      "expiration_year": "24",
+      "bin": "528642",
+      "sub_bin": "76"
+    }
+  }
+]
