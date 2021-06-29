@@ -64,3 +64,13 @@ export enum TSourcePoint{
   vcard=5,
   stock=6,
 }
+
+
+// ==== int
+export interface IAddSourceItem{
+  id?:number,
+  title?: string,
+  description?: string ,
+  type?: TSourcePoint,
+  available_funds:number,
+}
