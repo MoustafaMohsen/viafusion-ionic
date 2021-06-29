@@ -1,0 +1,17 @@
+<div class="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 flex justify-between items-center source-item">
+
+  <ion-icon class="w-7 text-xl" name="wallet-outline"></ion-icon>
+
+    <div class="flex text-lg leading-6 font-medium dark:text-white text-gray-800">
+      <h4 class="">{{transaction.name}}</h4>
+    </div>
+
+    <span class="w-36 mr-0 relative pr-3 py-1 flex flex-wrap justify-end ">
+      <span class="relative font-bold text-green-900 leading-tight">
+        {{transaction.amount | currency}}
+      </span>
+      <small>of $1,000 available</small>
+    </span>
+
+</div>
+

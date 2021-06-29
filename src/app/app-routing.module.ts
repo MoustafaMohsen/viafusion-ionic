@@ -13,8 +13,9 @@ import { VccSettingsPage } from './pages/vcc-details/vcc-settings/vcc-settings.p
 import { VccHistoryPage } from './pages/vcc-details/vcc-history/vcc-history.page';
 import { AddPccPage } from './pages/add-pcc/add-pcc.page';
 import { SchedulePaymentPage } from './pages/schedule-payment/schedule-payment.page';
-import { TransactionHistoryPage } from './transaction-history/transaction-history.page';
+import { TransactionHistoryPage } from './pages/transaction-history/transaction-history.page';
 import { VerificationPage } from './pages/verification/verification.page';
+import { AddSourcePage } from './pages/add-source/add-source.page';
 
 const routes: Routes = [
   {
@@ -87,6 +88,11 @@ const routes: Routes = [
     path: 'verification',
     component:VerificationPage,
   },
+  {
+    path: 'add-source',
+    component:AddSourcePage,
+  },
+
 
 
 
