@@ -35,7 +35,6 @@ import { TransactionHistoryPage } from './pages/transaction-history/transaction-
 import { VerificationPage } from './pages/verification/verification.page';
 import { VerificationFormComponent } from './components/verification/verification-form/verification-form.component';
 import { AddSourcePage } from './pages/add-source/add-source.page';
-import { AddSourceItemComponent } from './components/add-source-item/add-source-item.component';
 
 @NgModule({
   imports: [
@@ -83,7 +82,6 @@ import { AddSourceItemComponent } from './components/add-source-item/add-source-
     VerificationPage,
     VerificationFormComponent,
     AddSourcePage,
-    AddSourceItemComponent,
 
   ],
   entryComponents: [],
