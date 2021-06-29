@@ -13,7 +13,7 @@ export class SourceItemComponent implements OnInit {
   TStatus = _TStatus;
   TSourcePoint = _TSourcePoint;
 
-  @Input() transaction:ISource = {
+  @Input() source_item:ISource = {
     name:"First Transaction",
     description:"Details about Transaction status",
     start_date:new Date(),
