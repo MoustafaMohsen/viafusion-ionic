@@ -17,6 +17,8 @@ import { VccSettingsPage } from './pages/_cc/_vcc/_vcc-details/vcc-settings/vcc-
 import { VccHistoryPage } from './pages/_cc/_vcc/_vcc-details/vcc-history/vcc-history.page';
 import { AddSourcePage } from './pages/_transactions/_sources/add-source/add-source.page';
 import { CreateVccPage } from './pages/_cc/_vcc/create-vcc/create-vcc.page';
+import { PccDetailsPage } from './pages/_cc/_pcc/_pcc-details/pcc-details.page';
+import { PccHistoryPage } from './pages/_cc/_pcc/_pcc-details/pcc-history/pcc-history.page';
 
 const routes: Routes = [
   //
@@ -56,6 +58,20 @@ const routes: Routes = [
           {
             path: 'add-pcc',
             component: AddPccPage,
+          },
+          {
+            path: 'pcc-details',
+            component:PccDetailsPage,
+            children: [
+              {
+                path: 'pcc-history',
+                component: PccHistoryPage,
+                },
+              {
+                path: 'pcc-settings',
+                component: PccDetailsPage,
+               }
+            ]
           },
         ],
       },
@@ -157,10 +173,9 @@ const routes: Routes = [
   {
     path: 'verification',
     component: VerificationPage,
-  },  {
-    path: 'pcc-details',
-    loadChildren: () => import('./pages/_cc/_pcc/pcc-details/pcc-details.module').then( m => m.PccDetailsPageModule)
   },
+  
+
 
 ];
 
