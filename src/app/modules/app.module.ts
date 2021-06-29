@@ -29,12 +29,12 @@ import { VerificationFormComponent } from '../components/verification/verificati
 import { LoginPage } from '../pages/_auth/login/login.page';
 import { OtpPage } from '../pages/_auth/otp/otp.page';
 import { NfcPaymentPage } from '../pages/_payment/nfc-payment/nfc-payment.page';
-import { DestinationPage } from '../pages/_transactions/_destination/list-destination/destination.page';
+import { DestinationPage } from '../pages/_transactions/_destinations/list-destinations/destination.page';
 import { VccHistoryPage } from '../pages/_cc/_vcc/vcc-history/vcc-history.page';
 import { VccSettingsPage } from '../pages/_cc/_vcc/vcc-settings/vcc-settings.page';
 import { VccDetailsPage } from '../pages/_cc/_vcc/vcc-details/vcc-details.page';
 import { AddSourcePage } from '../pages/_transactions/_sources/add-source/add-source.page';
-import { CreateVcc } from '../pages/_cc/_vcc/create-vcc/create-vcc.page';
+import { CreateVccPage } from '../pages/_cc/_vcc/create-vcc/create-vcc.page';
 
 @NgModule({
   imports: [
@@ -66,7 +66,7 @@ import { CreateVcc } from '../pages/_cc/_vcc/create-vcc/create-vcc.page';
     TransactionItemComponent,
     SourcesPage,
     SourceItemComponent,
-    CreateVcc,
+    CreateVccPage,
     CreditCardComponent,
     NfcPaymentPage,
     DestinationPage,

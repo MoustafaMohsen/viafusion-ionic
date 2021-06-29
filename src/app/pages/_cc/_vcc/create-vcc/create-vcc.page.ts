@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './create-vcc.html',
   styleUrls: ['./create-vcc.scss'],
 })
-export class CreateVcc implements OnInit {
+export class CreateVccPage implements OnInit {
 
   constructor() { }
 
