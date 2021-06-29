@@ -72,22 +72,23 @@ export class DashboardPage implements OnInit {
 
 
   add_btn(){
-    this.router.navigateByUrl("create-virtual-credit-card");
+    this.router.navigateByUrl("cc/vcc/create-vcc");
   }
 
   nfc_btn(){
-    this.router.navigateByUrl("nfc-payment");
+    this.router.navigateByUrl("payment/nfc-payment");
   }
 
   move_btn(){
+    // TODO create internal transaction page 
     this.router.navigateByUrl("internal-transaction");
   }
 
   send_btn(){
-    this.router.navigateByUrl("sources");
+    this.router.navigateByUrl("transaction/sources/list-sources");
   }
 
   view_all_btn(){
-    this.router.navigateByUrl("transaction-history");
+    this.router.navigateByUrl("transaction/transaction-history");
   }
 }

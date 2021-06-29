@@ -1,4 +1,4 @@
-import { VccDetailsPage } from '../pages/_cc/_vcc/vcc-details/vcc-details.page';
+import { VccDetailsPage } from '../pages/_cc/_vcc/_vcc-details/vcc-details.page';
 import { ListOfCcPage } from '../pages/_cc/list-of-cc/list-of-cc.page';
 import { NfcPaymentPage } from '../pages/_payment/nfc-payment/nfc-payment.page';
 import { SourcesPage } from '../pages/_transactions/_sources/list-sources/sources.page';
@@ -13,8 +13,8 @@ import { AddDestinationPage } from '../pages/_transactions/_destinations/add-des
 import { LoginPage } from '../pages/_auth/login/login.page';
 import { OtpPage } from '../pages/_auth/otp/otp.page';
 import { DestinationPage } from '../pages/_transactions/_destinations/list-destinations/destination.page';
-import { VccSettingsPage } from '../pages/_cc/_vcc/vcc-settings/vcc-settings.page';
-import { VccHistoryPage } from '../pages/_cc/_vcc/vcc-history/vcc-history.page';
+import { VccSettingsPage } from '../pages/_cc/_vcc/_vcc-details/vcc-settings/vcc-settings.page';
+import { VccHistoryPage } from '../pages/_cc/_vcc/_vcc-details/vcc-history/vcc-history.page';
 import { AddSourcePage } from '../pages/_transactions/_sources/add-source/add-source.page';
 import { CreateVccPage } from '../pages/_cc/_vcc/create-vcc/create-vcc.page';
 
@@ -22,15 +22,15 @@ const routes: Routes = [
   //
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'auth/login',
     pathMatch: 'full',
   },
 
   // _auth
   {
     path: 'auth',
-    redirectTo: 'login',
-    pathMatch: 'full',
+    // redirectTo: 'login',
+    // pathMatch: 'full',
     children: [
       {
         path: 'login',
@@ -46,12 +46,12 @@ const routes: Routes = [
   // _cc
   {
     path: 'cc',
-    redirectTo: 'list-of-cc',
-    pathMatch: 'full',
+    // redirectTo: 'list-of-cc',
+    // pathMatch: 'full',
     children: [
       {
         path: 'pcc',
-        redirectTo: 'pcc-details',
+        // redirectTo: 'pcc-details',
         children: [
           {
             path: 'add-pcc',
@@ -61,7 +61,7 @@ const routes: Routes = [
       },
       {
         path: 'vcc',
-        redirectTo: 'vcc-details',
+        // redirectTo: 'vcc-details',
         children: [
           {
             path: 'create-vcc',
@@ -70,8 +70,8 @@ const routes: Routes = [
           {
             path: 'vcc-details',
             component: VccDetailsPage,
-          },
-          {
+            children: [
+              {
             path: 'vcc-history',
             component: VccHistoryPage,
           },
@@ -79,6 +79,9 @@ const routes: Routes = [
             path: 'vcc-settings',
             component: VccSettingsPage,
           },
+            ]
+          },
+          
         ],
       },
       {
@@ -91,8 +94,8 @@ const routes: Routes = [
   //_payment
   {
     path: 'payment',
-    redirectTo: 'nfc-payment',
-    pathMatch: 'full',
+    // redirectTo: 'nfc-payment',
+    // pathMatch: 'full',
     children: [
       {
         path: 'nfc-payment',
@@ -104,12 +107,12 @@ const routes: Routes = [
   //_transaction
   {
     path: 'transaction',
-    redirectTo: 'transaction-history',
-    pathMatch: 'full',
+    // redirectTo: 'transaction-history',
+    // pathMatch: 'full',
     children: [
       {
         path: 'destinations',
-        redirectTo: 'list-destinations',
+        // redirectTo: 'list-destinations',
         children: [
           {
             path: 'add-destination',
@@ -123,7 +126,7 @@ const routes: Routes = [
       },
       {
         path: 'sources',
-        redirectTo: 'list-sources',
+        // redirectTo: 'list-sources',
         children: [
           {
             path: 'add-source',

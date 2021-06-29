@@ -13,11 +13,11 @@ export class SourcesPage implements OnInit {
   ngOnInit() {
   }
   continue_to_destination(){
-    this.router.navigateByUrl("destination");
+    this.router.navigateByUrl("transaction/destinations/list-destinations");
   }
 
   add_source(){
-    this.router.navigateByUrl("add-source");
+    this.router.navigateByUrl("transaction/sources/add-source");
   }
 
 }
