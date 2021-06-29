@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-create-virtual-credit-card',
-  templateUrl: './create-virtual-credit-card.page.html',
-  styleUrls: ['./create-virtual-credit-card.page.scss'],
+  templateUrl: './create-vcc.html',
+  styleUrls: ['./create-vcc.scss'],
 })
-export class CreateVirtualCreditCardPage implements OnInit {
+export class CreateVcc implements OnInit {
 
   constructor() { }
 

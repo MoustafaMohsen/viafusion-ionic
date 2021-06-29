@@ -1,6 +1,6 @@
-import { LoadingService } from './../../services/loading.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-login',

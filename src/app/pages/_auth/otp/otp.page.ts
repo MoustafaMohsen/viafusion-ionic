@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { LoadingService } from './../../services/loading.service';
+import { LoadingService } from '../../../services/loading.service';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 @Component({
