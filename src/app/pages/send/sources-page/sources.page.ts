@@ -17,7 +17,7 @@ export class SourcesPage implements OnInit {
   }
 
   add_source(){
-
+    this.router.navigateByUrl("add-source");
   }
 
 }
