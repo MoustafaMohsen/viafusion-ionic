@@ -15,7 +15,7 @@ export class VccDetailsPage implements OnInit {
 
   segmentChanged(e){
     let tab = e.detail.value;
-    this.router.navigate(["vcc-details",tab])
+    this.router.navigate(["cc","vcc","vcc-details","vcc-"+tab])
   }
 
 }

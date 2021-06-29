@@ -14,7 +14,7 @@ export class VccHistoryPage implements OnInit {
   }
   segmentChanged(e){
     let tab = e.detail.value;
-    this.router.navigate(["settings"], {relativeTo:this.route})
+    this.router.navigate(["cc","vcc","vcc-details","vcc-"+tab], {relativeTo:this.route})
     console.log(e);
     var target = e.target;
     console.log(target);

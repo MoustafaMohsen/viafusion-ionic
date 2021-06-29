@@ -15,7 +15,7 @@ export class LoginPage {
   async submit(){
     this.loading.loading$.next(true);
     setTimeout(async () => {
-      await this.router.navigateByUrl("/otp");
+      await this.router.navigateByUrl("auth/otp");
       this.loading.loading$.next(false);
     }, 0);
   }
