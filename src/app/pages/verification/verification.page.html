@@ -1,11 +1,42 @@
 <ion-content>
+  <div class="verification-header">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="dashboard"></ion-back-button>
+    </ion-buttons>
+    <p class="letspac-1 text-gray-800 text-3xl">Verify your Identity</p>
+    <small class="text-gray-400">this is small text</small>
+  </div>
 
-<div class="verification-header">
-  <p class="letspac-1 text-gray-800 text-3xl">Verify your Identity</p>
-      <small class="text-gray-400">this is small text</small>
-</div>
 
-  <div class="form mt-8">
+  <div class="progress-section">
+
+    <div class="relative">
+
+      <circle-progress
+        [percent]="progress_percent"
+        [maxPercent]="100"
+        [radius]="radius"
+        [showTitle]="false"
+        [showSubtitle]="true"
+        [subtitle]="subtitle"
+        [subtitleFontSize]="'40'"
+        [showUnits]="false"
+        [outerStrokeWidth]="16"
+        [outerStrokeColor]="'#8000FF'"
+        [showZeroOuterStroke]="false"
+        [backgroundStroke]="'#33003F'"
+        [backgroundStrokeWidth]="3"
+        [outerStrokeGradient]="true"
+        [outerStrokeGradientStopColor]="'#FF00CB'"
+        [showInnerStroke]="false"></circle-progress>
+
+    </div>
+
+  </div>
+
+  <div class="form-page mt-8">
+    <app-verification-form></app-verification-form>
+    <app-verification-form></app-verification-form>
     <app-verification-form></app-verification-form>
   </div>
 
