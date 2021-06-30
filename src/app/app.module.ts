@@ -40,6 +40,11 @@ import { PccHistoryPage } from './pages/_cc/_pcc/_pcc-details/pcc-history/pcc-hi
 import { PccSettingsPage } from './pages/_cc/_pcc/_pcc-details/pcc-settings/pcc-settings.page';
 import { TransactionOverviewPage } from './pages/_transactions/transaction-overview/transaction-overview.page';
 import { InternalTransactionPage } from './pages/_transactions/internal-transaction/internal-transaction.page';
+import { ConfirmPinPage } from './pages/_auth/confirm-pin/confirm-pin.page';
+import { FingerprintPage } from './pages/_auth/fingerprint/fingerprint.page';
+import { LoginWithPinPage } from './pages/_auth/login-with-pin/login-with-pin.page';
+import { QrPaymentPage } from './pages/_payment/qr-payment/qr-payment.page';
+import { RequestPaymentPage } from './pages/_transactions/request-payment/request-payment.page';
 
 @NgModule({
   imports: [
@@ -91,7 +96,12 @@ import { InternalTransactionPage } from './pages/_transactions/internal-transact
     PccHistoryPage,
     PccSettingsPage,
     TransactionOverviewPage,
-    InternalTransactionPage
+    InternalTransactionPage,
+    ConfirmPinPage,
+    FingerprintPage,
+    LoginWithPinPage,
+    QrPaymentPage,
+    RequestPaymentPage
   ],
   entryComponents: [],
   providers: [
