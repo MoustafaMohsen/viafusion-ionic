@@ -46,6 +46,7 @@ import { LoginWithPinPage } from './pages/_auth/login-with-pin/login-with-pin.pa
 import { QrPaymentPage } from './pages/_payment/qr-payment/qr-payment.page';
 import { RequestPaymentPage } from './pages/_transactions/request-payment/request-payment.page';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { PinDialpadComponent } from './components/pin-dialpad/pin-dialpad.component';
 
 @NgModule({
   imports: [
@@ -114,7 +115,8 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     FingerprintPage,
     LoginWithPinPage,
     QrPaymentPage,
-    RequestPaymentPage
+    RequestPaymentPage,
+    PinDialpadComponent
   ],
   entryComponents: [],
   providers: [

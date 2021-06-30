@@ -8,6 +8,7 @@ import { recieveIcon } from './consts/recieve';
 import { sendIcon } from './consts/send';
 import { transferIcon } from './consts/transfer';
 import { notificationIcon } from './consts/notification';
+import { dialIcon } from './consts/dial';
 
 export const  icons = [
     nfcIcon,
@@ -19,6 +20,7 @@ export const  icons = [
     logoIcon,
     sendmoneyIcon,
     destinationIcon,
-    scheduleIcon
+    scheduleIcon,
+    dialIcon
 
 ];
