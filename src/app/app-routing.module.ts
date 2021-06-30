@@ -19,6 +19,9 @@ import { AddSourcePage } from './pages/_transactions/_sources/add-source/add-sou
 import { CreateVccPage } from './pages/_cc/_vcc/create-vcc/create-vcc.page';
 import { PccDetailsPage } from './pages/_cc/_pcc/_pcc-details/pcc-details.page';
 import { PccHistoryPage } from './pages/_cc/_pcc/_pcc-details/pcc-history/pcc-history.page';
+import { PccSettingsPage } from './pages/_cc/_pcc/_pcc-details/pcc-settings/pcc-settings.page';
+import { InternalTransactionPage } from './pages/_transactions/internal-transaction/internal-transaction.page';
+import { TransactionOverviewPage } from './pages/_transactions/transaction-overview/transaction-overview.page';
 
 const routes: Routes = [
   //
@@ -61,17 +64,17 @@ const routes: Routes = [
           },
           {
             path: 'pcc-details',
-            component:PccDetailsPage,
+            component: PccDetailsPage,
             children: [
               {
                 path: 'pcc-history',
                 component: PccHistoryPage,
-                },
+              },
               {
                 path: 'pcc-settings',
-                component: PccDetailsPage,
-               }
-            ]
+                component: PccSettingsPage,
+              },
+            ],
           },
         ],
       },
@@ -88,16 +91,15 @@ const routes: Routes = [
             component: VccDetailsPage,
             children: [
               {
-            path: 'vcc-history',
-            component: VccHistoryPage,
+                path: 'vcc-history',
+                component: VccHistoryPage,
+              },
+              {
+                path: 'vcc-settings',
+                component: VccSettingsPage,
+              },
+            ],
           },
-          {
-            path: 'vcc-settings',
-            component: VccSettingsPage,
-          },
-            ]
-          },
-          
         ],
       },
       {
@@ -162,6 +164,15 @@ const routes: Routes = [
         path: 'transaction-history',
         component: TransactionHistoryPage,
       },
+      
+  {
+    path: 'internal-transaction',
+    component: InternalTransactionPage
+  },
+  {
+    path: 'transaction-overview',
+    component : TransactionOverviewPage
+  },
     ],
   },
   //_dashboard
@@ -173,9 +184,7 @@ const routes: Routes = [
   {
     path: 'verification',
     component: VerificationPage,
-  },
-  
-
+  }
 
 ];
 

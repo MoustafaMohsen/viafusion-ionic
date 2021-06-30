@@ -81,7 +81,7 @@ export class DashboardPage implements OnInit {
 
   move_btn(){
     // TODO create internal transaction page 
-    this.router.navigateByUrl("internal-transaction");
+    this.router.navigateByUrl("transaction/internal-transaction");
   }
 
   send_btn(){
