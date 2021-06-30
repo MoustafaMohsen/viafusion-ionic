@@ -22,6 +22,11 @@ import { PccHistoryPage } from './pages/_cc/_pcc/_pcc-details/pcc-history/pcc-hi
 import { PccSettingsPage } from './pages/_cc/_pcc/_pcc-details/pcc-settings/pcc-settings.page';
 import { InternalTransactionPage } from './pages/_transactions/internal-transaction/internal-transaction.page';
 import { TransactionOverviewPage } from './pages/_transactions/transaction-overview/transaction-overview.page';
+import { FingerprintPage } from './pages/_auth/fingerprint/fingerprint.page';
+import { LoginWithPinPage } from './pages/_auth/login-with-pin/login-with-pin.page';
+import { ConfirmPinPage } from './pages/_auth/confirm-pin/confirm-pin.page';
+import { QrPaymentPage } from './pages/_payment/qr-payment/qr-payment.page';
+import { RequestPaymentPage } from './pages/_transactions/request-payment/request-payment.page';
 
 const routes: Routes = [
   //
@@ -45,6 +50,18 @@ const routes: Routes = [
         path: 'otp',
         component: OtpPage,
       },
+      {
+        path: 'fingerprint',
+        component: FingerprintPage
+      },
+      {
+        path: 'login-with-pin',
+        component: LoginWithPinPage
+     },
+      {
+        path: 'confirm-pin',
+        component : ConfirmPinPage
+     }
     ],
   },
 
@@ -119,6 +136,11 @@ const routes: Routes = [
         path: 'nfc-payment',
         component: NfcPaymentPage,
       },
+      {
+        path: 'qr-payment',
+        component : QrPaymentPage
+      },
+    
     ],
   },
 
@@ -173,6 +195,10 @@ const routes: Routes = [
     path: 'transaction-overview',
     component : TransactionOverviewPage
   },
+  {
+    path: 'request-payment',
+    component: RequestPaymentPage
+  },
     ],
   },
   //_dashboard
@@ -184,7 +210,13 @@ const routes: Routes = [
   {
     path: 'verification',
     component: VerificationPage,
-  }
+  },
+  
+  
+
+  
+ 
+
 
 ];
 
