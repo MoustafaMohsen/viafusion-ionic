@@ -45,6 +45,7 @@ import { FingerprintPage } from './pages/_auth/fingerprint/fingerprint.page';
 import { LoginWithPinPage } from './pages/_auth/login-with-pin/login-with-pin.page';
 import { QrPaymentPage } from './pages/_payment/qr-payment/qr-payment.page';
 import { RequestPaymentPage } from './pages/_transactions/request-payment/request-payment.page';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 @NgModule({
   imports: [
@@ -66,6 +67,18 @@ import { RequestPaymentPage } from './pages/_transactions/request-payment/reques
       defaultSize: 'md',
       icons
     }),
+    NgCircleProgressModule.forRoot({
+      // set defaults here
+      radius: 100,
+      outerStrokeWidth: 16,
+      innerStrokeWidth: 8,
+      outerStrokeColor: "#78C000",
+      innerStrokeColor: "#C7E596",
+      animation: false,
+      responsive: true,
+      renderOnClick: false
+    }),
+
   ],
   declarations: [
     AppComponent,
