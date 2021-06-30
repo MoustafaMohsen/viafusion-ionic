@@ -52,16 +52,16 @@ const routes: Routes = [
       },
       {
         path: 'fingerprint',
-        component: FingerprintPage
+        component: FingerprintPage,
       },
       {
         path: 'login-with-pin',
-        component: LoginWithPinPage
-     },
+        component: LoginWithPinPage,
+      },
       {
         path: 'confirm-pin',
-        component : ConfirmPinPage
-     }
+        component: ConfirmPinPage,
+      },
     ],
   },
 
@@ -138,9 +138,8 @@ const routes: Routes = [
       },
       {
         path: 'qr-payment',
-        component : QrPaymentPage
+        component: QrPaymentPage,
       },
-    
     ],
   },
 
@@ -186,19 +185,19 @@ const routes: Routes = [
         path: 'transaction-history',
         component: TransactionHistoryPage,
       },
-      
-  {
-    path: 'internal-transaction',
-    component: InternalTransactionPage
-  },
-  {
-    path: 'transaction-overview',
-    component : TransactionOverviewPage
-  },
-  {
-    path: 'request-payment',
-    component: RequestPaymentPage
-  },
+
+      {
+        path: 'internal-transaction',
+        component: InternalTransactionPage,
+      },
+      {
+        path: 'transaction-overview',
+        component: TransactionOverviewPage,
+      },
+      {
+        path: 'request-payment',
+        component: RequestPaymentPage,
+      },
     ],
   },
   //_dashboard
@@ -211,13 +210,6 @@ const routes: Routes = [
     path: 'verification',
     component: VerificationPage,
   },
-  
-  
-
-  
- 
-
-
 ];
 
 @NgModule({
