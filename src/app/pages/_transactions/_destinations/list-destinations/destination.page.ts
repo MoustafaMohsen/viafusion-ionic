@@ -18,7 +18,7 @@ export class DestinationPage implements OnInit {
 
   continue_to_overview(){
     //TODO make transaction overview page
-    this.router.navigateByUrl("transaction-overview")
+    this.router.navigateByUrl("transaction/transaction-overview")
   }
 
 }

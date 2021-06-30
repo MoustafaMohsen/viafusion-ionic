@@ -35,6 +35,11 @@ import { VccSettingsPage } from './pages/_cc/_vcc/_vcc-details/vcc-settings/vcc-
 import { VccDetailsPage } from './pages/_cc/_vcc/_vcc-details/vcc-details.page';
 import { AddSourcePage } from './pages/_transactions/_sources/add-source/add-source.page';
 import { CreateVccPage } from './pages/_cc/_vcc/create-vcc/create-vcc.page';
+import { PccDetailsPage } from './pages/_cc/_pcc/_pcc-details/pcc-details.page';
+import { PccHistoryPage } from './pages/_cc/_pcc/_pcc-details/pcc-history/pcc-history.page';
+import { PccSettingsPage } from './pages/_cc/_pcc/_pcc-details/pcc-settings/pcc-settings.page';
+import { TransactionOverviewPage } from './pages/_transactions/transaction-overview/transaction-overview.page';
+import { InternalTransactionPage } from './pages/_transactions/internal-transaction/internal-transaction.page';
 
 @NgModule({
   imports: [
@@ -82,7 +87,11 @@ import { CreateVccPage } from './pages/_cc/_vcc/create-vcc/create-vcc.page';
     VerificationPage,
     VerificationFormComponent,
     AddSourcePage,
-
+    PccDetailsPage,
+    PccHistoryPage,
+    PccSettingsPage,
+    TransactionOverviewPage,
+    InternalTransactionPage
   ],
   entryComponents: [],
   providers: [
