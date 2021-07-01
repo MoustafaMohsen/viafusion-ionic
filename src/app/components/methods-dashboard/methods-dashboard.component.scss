@@ -1,8 +1,8 @@
 .methods-dashboard{
 
   // define starting points for points
-  --d-width: 90px; // for a single point
-  --d-height: 60px; // for a single point
+  --d-width: 100px; // for a single point
+  --d-height: 85.66px; // for a single point
   --d-top:10px; // starting position
   --d-left:0px; // starting position
   --d-right:var(--d-left); // starting position
@@ -10,60 +10,65 @@
   --d-main-top:120px;
   // --d-main-top:calc( ((var(--d-top) + ( var(--d-top-disatance) * 2 )) + var(--d-height)) / 2);
 
+  // shadow
+  --shadow: 0 10px 15px -3px rgb(6, 6, 6 , 78%), 0 4px 6px -2px rgb(0, 0, 0 , 78%);
+--ring-offset-shadow: 0 0 #000;
+--ring-shadow: 0 0 #333;    
+
   .method-point {
     // == positions
     width: var(--d-width);
     height: var(--d-height);
     position: absolute;
-    left: var(--d-left);
-    top: var(--d-top);
+    // left: var(--d-left);
+    // top: var(--d-top);
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
     // positions ==
 
-    @apply shadow-lg;
+    
+box-shadow: var(--ring-offset-shadow, 0 0 #0000), var(--ring-shadow, 0 0 #0000), var(--shadow);
+
     border-radius: 16px;
-    background-color: white;
+    background-color: black;
 
    
 
     .brand-icon-contaienr {
-      background-color: var(--secondary-shade);
       width: 110%;
-      position: absolute;
-      @apply shadow-sm;
-      top: -8px;
+      // position: absolute;
       display: flex;
-      justify-content: center;
-      flex-wrap: nowrap;
-      align-items: center;
-      border-radius: 16px;
+      // justify-content: center;
+      // flex-wrap: nowrap;
+      // align-items: center;
 
       ion-icon {
         padding: 5px;
         background: transparent;
-        color: #333;
+        color: var(--tertiary);
         font-size: 1rem;
       }
       p{
         font-size: 1rem;
         text-align: center;
+        color: #fff;
       }
     }
 
     .amount-text-container {
-      font-weight: 700;
+      font-weight: 400;
       font-size: 0.9rem;
       color: #333;
       display: flex;
       padding-left: 0.25rem;
-      padding-top: 1rem;
+      // padding-top: 1rem;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       .amount {
+        color: #fff;
       }
     }
 
@@ -105,7 +110,7 @@
       transform: translateX(-50%);
       border-radius: 16px;
       .amount{
-        color: #333;
+        color: #fff;
       }
     }
   }
