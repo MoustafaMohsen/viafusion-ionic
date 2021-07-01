@@ -27,6 +27,13 @@
 }
 *{
   font-family: 'Poppins', sans-serif;
+  outline: none;
+  &:focus{
+    outline: none;
+  }
+}
+[type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus , textarea:focus{
+  box-shadow: none;
 }
 ion-content{
   padding: 2rem;
@@ -34,6 +41,7 @@ ion-content{
   --padding-end: 2rem;
   --padding-start: 2rem;
   --padding-top: 2rem;
+  --background: #e4e4e4;
   @apply container;
 }
 ion-header{

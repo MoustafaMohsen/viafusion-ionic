@@ -27,6 +27,8 @@ import { LoginWithPinPage } from './pages/_auth/login-with-pin/login-with-pin.pa
 import { ConfirmPinPage } from './pages/_auth/confirm-pin/confirm-pin.page';
 import { QrPaymentPage } from './pages/_payment/qr-payment/qr-payment.page';
 import { RequestPaymentPage } from './pages/_transactions/request-payment/request-payment.page';
+import { CcPaymentPage } from './pages/_payment/cc-payment/cc-payment.page';
+import { InstaSendPage } from './pages/insta-send/insta-send.page';
 
 const routes: Routes = [
   //
@@ -140,6 +142,10 @@ const routes: Routes = [
         path: 'qr-payment',
         component: QrPaymentPage,
       },
+      {
+        path: 'cc-payment',
+        component: CcPaymentPage
+      },
     ],
   },
 
@@ -210,6 +216,15 @@ const routes: Routes = [
     path: 'verification',
     component: VerificationPage,
   },
+
+  // insta sending 
+  {
+    path: 'insta-send',
+    component: InstaSendPage
+  },
+
+ 
+
 ];
 
 @NgModule({
