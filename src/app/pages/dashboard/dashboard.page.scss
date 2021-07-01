@@ -15,7 +15,7 @@ ion-header {
   .header-container{
     position: fixed;
     h3 {
-      color: var(--secondary);
+      color: var(--tertiary);
       font-weight: 600;
     }
     .notification {
@@ -33,7 +33,7 @@ ion-header {
       }
       svg-icon {
             stroke-width: 0.4px;
-      stroke: #b86505;
+      stroke: var(--tertiary);
       }
     }
   }
