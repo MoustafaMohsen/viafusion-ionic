@@ -9,6 +9,7 @@ import { sendIcon } from './consts/send';
 import { transferIcon } from './consts/transfer';
 import { notificationIcon } from './consts/notification';
 import { dialIcon } from './consts/dial';
+import { notificationColoredIcon } from './consts/notification-colored';
 
 export const  icons = [
     nfcIcon,
@@ -21,6 +22,7 @@ export const  icons = [
     sendmoneyIcon,
     destinationIcon,
     scheduleIcon,
-    dialIcon
+    dialIcon,
+    notificationColoredIcon
 
 ];
