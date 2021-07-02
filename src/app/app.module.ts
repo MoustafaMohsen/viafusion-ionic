@@ -59,6 +59,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { DataService } from './services/data/data.service';
 import { RX } from './services/rx/events.service';
 import { RegisterPinPage } from './pages/_auth/register-pin/register-pin.page';
+import { CheckoutTestPage } from './pages/checkout-test/checkout-test.page';
 
 @NgModule({
   imports: [
@@ -139,6 +140,7 @@ import { RegisterPinPage } from './pages/_auth/register-pin/register-pin.page';
     EnterPhonePage,
     ModalComponent,
     RegisterPinPage,
+    CheckoutTestPage,
 
   ],
   entryComponents: [],
