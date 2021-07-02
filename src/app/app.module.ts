@@ -1,3 +1,4 @@
+import { StorageService } from './services/storage/storage.service';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -65,7 +66,7 @@ import { RX } from './services/rx/events.service';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    IonicStorageModule,
+    IonicStorageModule.forRoot(),
     SvgIconsModule.forRoot({
       sizes: {
         xs: '10px',
@@ -137,7 +138,7 @@ import { RX } from './services/rx/events.service';
   entryComponents: [],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    Api, LoginService, DataService, RX
+    Api, LoginService, DataService, RX, StorageService
   ],
   bootstrap: [AppComponent],
 })
