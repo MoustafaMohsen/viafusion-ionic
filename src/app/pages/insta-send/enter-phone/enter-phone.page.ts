@@ -15,7 +15,9 @@ export class EnterPhonePage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: ModalComponent,
       componentProps: {
-        'name': 'modal name'
+        'number': '0123565498',
+        'amount' : '251',
+        'message' : 'this is message this is message this is message this is message this is message '
       },
       cssClass:"bottom-drawer"
     });

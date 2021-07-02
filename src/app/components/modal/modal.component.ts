@@ -8,7 +8,9 @@ import { ModalController } from '@ionic/angular';
 })
 export class ModalComponent implements OnInit {
 
-  @Input() name: string;
+  @Input() number: string;
+  @Input() amount: number;
+  @Input() message: string;
 
   constructor(
     private modalCtr: ModalController,
@@ -18,7 +20,11 @@ export class ModalComponent implements OnInit {
     const closeModal: string = "Modal Closed";
     await this.modalCtr.dismiss(closeModal);
   }
+  transfer(){
+
+  }
   ngOnInit() { }
+
 }
 
 

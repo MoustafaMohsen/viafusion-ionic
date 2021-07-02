@@ -57,6 +57,7 @@ import { Api } from './services/api/api';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { DataService } from './services/data/data.service';
 import { RX } from './services/rx/events.service';
+import { RegisterPinPage } from './pages/_auth/register-pin/register-pin.page';
 
 @NgModule({
   imports: [
@@ -133,6 +134,7 @@ import { RX } from './services/rx/events.service';
     HeaderComponent,
     EnterPhonePage,
     ModalComponent,
+    RegisterPinPage,
 
   ],
   entryComponents: [],
