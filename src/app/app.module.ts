@@ -9,12 +9,11 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './components/entry/app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ApiService } from './services/api.service';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { MethodsDashboardComponent } from './components/methods-dashboard/methods-dashboard.component';
 import { TransactionItemComponent } from './components/transaction-item/transaction-item.component';
 import { SvgIconsModule } from '@ngneat/svg-icon';
-import  {icons} from './components/svg/index';
+import { icons } from './components/svg/index';
 import { SourcesPage } from './pages/_transactions/_sources/list-sources/sources.page';
 import { SourceItemComponent } from './components/items/source-item/source-item.component';
 import { CreditCardComponent } from './components/views/credit-card/credit-card.component';
@@ -49,6 +48,11 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { PinDialpadComponent } from './components/pin-dialpad/pin-dialpad.component';
 import { CcPaymentPage } from './pages/_payment/cc-payment/cc-payment.page';
 import { InstaSendPage } from './pages/insta-send/insta-send.page';
+import { LoginService } from './services/auth/login.service';
+import { Api } from './services/api/api';
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { DataService } from './services/data/data.service';
+import { Events } from './services/events/events.service';
 
 @NgModule({
   imports: [
@@ -58,6 +62,7 @@ import { InstaSendPage } from './pages/insta-send/insta-send.page';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
+    IonicStorageModule,
     SvgIconsModule.forRoot({
       sizes: {
         xs: '10px',
@@ -125,8 +130,8 @@ import { InstaSendPage } from './pages/insta-send/insta-send.page';
   entryComponents: [],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    ApiService,
+    Api, LoginService, DataService, Events
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
