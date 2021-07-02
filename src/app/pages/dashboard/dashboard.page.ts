@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
-import { TPoint, TransactionPoint } from './../../services/static/interfaces';
-import { TDirection as _TDirection, Transaction, TStatus  as _TStatus } from 'src/app/services/static/interfaces';
+import { TPoint, TransactionPoint } from '../../interfaces/interfaces';
+import { TDirection as _TDirection, Transaction, TStatus  as _TStatus } from 'src/app/interfaces/interfaces';
 import { Component, OnInit } from '@angular/core';
 import { LoadingService } from 'src/app/services/loading.service';
 
@@ -80,7 +80,7 @@ export class DashboardPage implements OnInit {
   }
 
   move_btn(){
-    // TODO create internal transaction page 
+    // TODO create internal transaction page
     this.router.navigateByUrl("transaction/internal-transaction");
   }
 
