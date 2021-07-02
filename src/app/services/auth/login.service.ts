@@ -24,12 +24,14 @@ export class LoginService {
       this.loading.stop();
       console.log("send_login() res.data");
       console.log(res.data);
-
-
       if (res.success && res.data) {
-        let user = this.rx.user$.value;
-        user.security.login = res.data.login;
-        user.contact_reference_id = res.data.contact_refrence_id;
+        let user:IDBContact = {
+          contact_reference_id:res.data.contact_reference_id,
+          security:{
+            login:res.data.login
+          }
+        }
+        console.log("Sending logged in user to user$", user);
         this.rx.user$.next(user);
         // continue to otp
         this.router.navigateByUrl("/auth/otp")
@@ -45,7 +47,7 @@ export class LoginService {
   confirm_otp(otp: number | string) {
     let user = this.rx.user$.value
     return this.api.post<IDBContact>("confirm-otp", {
-      user:{contact_refrence_id:user.contact_reference_id},
+      user:{contact_reference_id:user.contact_reference_id},
       otp
     })
   }

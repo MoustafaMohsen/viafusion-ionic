@@ -20,24 +20,19 @@ export class RX {
   });
 
   async init_subscribe(){
-    console.log("storage user>>");
-    console.log(this.storage.get("user"));
-
-
-    (await this.storage.get("user") )&& this.storage.get("user").then(storage_user=>{
+    this.storage.get("user").then(storage_user=>{
+      console.log("====== First time ==== storage get user 🏪>>");
+      console.log(this.storage.get("user"));
       if (storage_user) {
         this.user$.next(storage_user)
       }
     });
-    this.user$.subscribe(u => {
-      console.log("this.storage.set");
-      console.log(u);
 
-      this.storage.set("user", u);
-      console.log("=== user$.subscribe fired");
-      console.log(u);
-
-
+    // regulary update storage to match the latest
+    this.user$.subscribe(async (u)=> {
+      console.log("=== user$.subscribe Fired 🔥");
+      await this.storage.set("user", u);
+      console.log("=== storage was set with value",u);
     })
   }
 }

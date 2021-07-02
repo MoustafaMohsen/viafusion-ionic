@@ -10,6 +10,6 @@ export interface ILogin<T = any> {
   _sandbox?: boolean;
 }
 export interface ILOginTransportObj<T> {
-  contact_refrence_id: number;
+  contact_reference_id: number;
   login: ILogin<T>
 }
