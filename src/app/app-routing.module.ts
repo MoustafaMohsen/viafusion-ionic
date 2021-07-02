@@ -28,7 +28,7 @@ import { ConfirmPinPage } from './pages/_auth/confirm-pin/confirm-pin.page';
 import { QrPaymentPage } from './pages/_payment/qr-payment/qr-payment.page';
 import { RequestPaymentPage } from './pages/_transactions/request-payment/request-payment.page';
 import { CcPaymentPage } from './pages/_payment/cc-payment/cc-payment.page';
-import { InstaSendPage } from './pages/insta-send/insta-send.page';
+import { InstaSendPage } from './pages/insta-send/enter-amount/insta-send.page';
 import { EnterPhonePage } from './pages/insta-send/enter-phone/enter-phone.page';
 
 const routes: Routes = [
@@ -221,8 +221,12 @@ const routes: Routes = [
   // insta sending 
   {
     path: 'insta-send',
-    component: InstaSendPage,
+    
     children: [
+      {
+        path:'enter-amount',
+        component: InstaSendPage,
+      },
       {
         path: 'enter-phone',
         component: EnterPhonePage

@@ -11,6 +11,7 @@ import { notificationIcon } from './consts/notification';
 import { dialIcon } from './consts/dial';
 import { notificationColoredIcon } from './consts/notification-colored';
 import { creditCardIcon } from './consts/credit-card';
+import { moneyBagIcon } from './consts/money-bag';
 
 export const  icons = [
     nfcIcon,
@@ -25,6 +26,7 @@ export const  icons = [
     scheduleIcon,
     dialIcon,
     notificationColoredIcon,
-    creditCardIcon
+    creditCardIcon,
+    moneyBagIcon
 
 ];
