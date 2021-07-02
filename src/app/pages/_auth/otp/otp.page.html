@@ -23,8 +23,8 @@
       <p class="letspac-1 ml-2 sms-subtext">please enter sms code here</p>
     </div>
 
-    <div *ngIf="!sandbox_message" class="validating flex justify-between">
-      <p class="letspac-1 ml-2 sms-subtext"><code>{{sandbox_message}}</code></p>
+    <div *ngIf="sandbox_message" class="validating flex justify-between">
+      <code class="letspac-1 ml-2 sms-subtext text-yellow-300">{{sandbox_message}}</code>
     </div>
 
     <div *ngIf="!loading.loading && this.success=='incorrect'" class="validating flex justify-between">
