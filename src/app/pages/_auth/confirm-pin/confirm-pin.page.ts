@@ -15,7 +15,7 @@ export class ConfirmPinPage implements OnInit {
   success: "correct" | "incorrect" | "init" = "init";
   sandbox_message = ""
 
-  constructor(public loading: LoadingService, private router: Router, private login_serv:LoginService, private rx:RX) { }
+  constructor(public loading: LoadingService, private router: Router, private login_serv: LoginService, private rx: RX) { }
 
   ngOnInit() {
   }
@@ -35,23 +35,26 @@ export class ConfirmPinPage implements OnInit {
     console.log(this.pin);
     console.log("code");
     console.log(code);
-    this.login_serv.confirm_pin(code).subscribe((res) => {
-      this.loading.stop();
+    this.login_serv.set_pin(code).subscribe((res) => {
       if (res.success && res.data) {
         var user: IDBContact = res.data
         this.rx.user$.next(user);
-
-        // if user passed pin continue to sequence
-        if (user.security.login.pin_passed) {
-          this.success = "correct";
-          this.router.navigateByUrl("/dashboard")
-        }else{
-          this.success = "incorrect";
-          this.sandbox_message = `You are in sandbox, just enter :${this.rx.user$.value.security.login._pin_value}`;
-          console.log(this.sandbox_message);
-
-        }
-
+        this.login_serv.confirm_pin(code).subscribe(r => {
+          this.loading.stop();
+          if (r.success && r.data) {
+            var user: IDBContact = r.data
+            this.rx.user$.next(user);
+            // if user passed pin continue to sequence
+            if (user.security.login.pin_passed) {
+              this.success = "correct";
+              this.router.navigateByUrl("/dashboard")
+            } else {
+              this.success = "incorrect";
+              this.sandbox_message = `You are in sandbox, just enter :${this.rx.user$.value.security.login._pin_value}`;
+              console.log(this.sandbox_message);
+            }
+          }
+        })
       }
     })
   }

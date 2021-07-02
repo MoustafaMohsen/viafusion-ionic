@@ -20,7 +20,7 @@ export class RX {
     }
   });
 
-  temp:any;
+  temp:any = {};
 
   async init_subscribe(){
     this.storage.get("user").then(storage_user=>{
