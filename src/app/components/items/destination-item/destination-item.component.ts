@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ISource, TStatus as _TStatus, TSourcePoint as _TSourcePoint } from 'src/app/services/static/interfaces';
+import { ISource, TStatus as _TStatus, TSourcePoint as _TSourcePoint } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-destination-item',
