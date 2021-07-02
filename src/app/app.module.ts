@@ -48,9 +48,10 @@ import { RequestPaymentPage } from './pages/_transactions/request-payment/reques
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { PinDialpadComponent } from './components/pin-dialpad/pin-dialpad.component';
 import { CcPaymentPage } from './pages/_payment/cc-payment/cc-payment.page';
-import { InstaSendPage } from './pages/insta-send/insta-send.page';
+import { InstaSendPage } from './pages/insta-send/enter-amount/insta-send.page';
 import { HeaderComponent } from './components/header/header.component';
 import { EnterPhonePage } from './pages/insta-send/enter-phone/enter-phone.page';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   imports: [
@@ -125,6 +126,8 @@ import { EnterPhonePage } from './pages/insta-send/enter-phone/enter-phone.page'
     InstaSendPage,
     HeaderComponent,
     EnterPhonePage,
+    ModalComponent,
+
   ],
   entryComponents: [],
   providers: [

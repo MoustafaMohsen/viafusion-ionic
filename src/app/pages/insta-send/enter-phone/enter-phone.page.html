@@ -1,34 +1,40 @@
 <app-header title="Send Money"></app-header>
 
- <ion-content>
+<ion-content>
 
-   <main>
-     <section>
+  <main>
+    <section>
+        <div class="flex rounded-full border-grey-light border bg-white">
+            <button>
+              <span class="w-auto flex justify-end items-center text-grey p-2">
+                <ion-icon name="search-outline"></ion-icon>
+              </span>
+            </button>
+            <input class="w-full rounded mr-4" type="text" placeholder="Search...">
+        </div>
 
-       <div
-         class="amount-card duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 items-center p-4">
-         <div class="pb-3">
-           <h2 class="c-title"></h2>
-           <div class="price-field w-100 flex justify-center">
-             <span class="text-3xl font-bold w-auto currency">USD</span>
-             <input class="text-3xl font-bold" type="number">
-           </div>
-         </div>
-         <div class="message pt-3">
-           <textarea name="" id="" cols="30" rows="1" placeholder="sent message...."></textarea>
-         </div>
-       </div>
-     </section>
+      <div
+        class="phone-card duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 items-center px-4 py-5">
+        <div class="">
+          <svg-icon key="money-bag" fontSize="4rem"></svg-icon>
+          <p class=" text-gray-700 font-bold">Transfer money to anyone using just a mobile number</p>
+          <small>Recipients will instantly recieve thier funds in thier wallet</small>
+
+          <div class="mt-4">
+          <ion-tab-button (click)="search_contacts()">
+              Transfer To a Contact
+          </ion-tab-button>
+        </div>
+          <div class="mt-4">
+          <ion-tab-button (click)="search_contacts()">
+              Enter A phone Number
+          </ion-tab-button>
+        </div>
+        </div>
+      </div>
 
 
-     <footer>
-       <div class="row button-row">
-         <button type="button"
-           class="py-4 px-6   focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
-           NEXT <ion-icon name="arrow-forward-outline" class="ml-3 text-2xl"></ion-icon>
-         </button>
-       </div>
-     </footer>
-   </main>
+    </section>
+  </main>
 
- </ion-content>
+</ion-content>

@@ -11,5 +11,7 @@ export class EnterPhonePage implements OnInit {
 
   ngOnInit() {
   }
-
+  search_contacts(){
+    
+  }
 }
