@@ -1,7 +1,8 @@
 import { IContact } from "../rapyd/icontact";
 import { ewallet_id } from "../rapyd/types";
+import { IDBSecurity } from "./isecurity";
 /**
- * 
+ *
 contact_reference_id VARCHAR ( 255 ) PRIMARY KEY,
 id VARCHAR ( 255 ),
 phone_number VARCHAR ( 255 ),
@@ -19,7 +20,7 @@ export interface IDBContact {
     ewallet?: ewallet_id;
     wallet_refrence_id?: string;
     phone_number?: string;
-    securiy?:object;
+    security?:IDBSecurity;
     meta?:object;
     data?:IContact;
 }
