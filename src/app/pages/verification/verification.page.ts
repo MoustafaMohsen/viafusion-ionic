@@ -7,9 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VerificationPage implements OnInit {
 
-  progress_percent = 20;
-  radius = 100;
-  subtitle = "Progress"
+  
   constructor() { }
 
   ngOnInit() {

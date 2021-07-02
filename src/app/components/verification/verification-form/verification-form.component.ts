@@ -11,4 +11,6 @@ export class VerificationFormComponent implements OnInit {
 
   ngOnInit() {}
 
+  submit(){}
+
 }
