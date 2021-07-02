@@ -1,3 +1,19 @@
 
 
-
+ion-content{
+   --background: #ededed; 
+   .modal-content {
+       .f-p {
+           font-size: 1.3rem;
+           font-weight: 600;
+       }
+       .amount {
+           font-size: 1.6rem;
+       }
+   }
+}
+.button-row{
+    top: 140%;
+    width: 100%;
+}
+    

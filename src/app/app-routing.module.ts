@@ -30,6 +30,7 @@ import { RequestPaymentPage } from './pages/_transactions/request-payment/reques
 import { CcPaymentPage } from './pages/_payment/cc-payment/cc-payment.page';
 import { InstaSendPage } from './pages/insta-send/enter-amount/insta-send.page';
 import { EnterPhonePage } from './pages/insta-send/enter-phone/enter-phone.page';
+import { RegisterPinPage } from './pages/_auth/register-pin/register-pin.page';
 
 const routes: Routes = [
   //
@@ -64,6 +65,10 @@ const routes: Routes = [
       {
         path: 'confirm-pin',
         component: ConfirmPinPage,
+      },
+      {
+        path: 'register-pin',
+        component: RegisterPinPage
       },
     ],
   },
@@ -233,6 +238,8 @@ const routes: Routes = [
       },
     ]
   },
+ 
+
 
 
 
