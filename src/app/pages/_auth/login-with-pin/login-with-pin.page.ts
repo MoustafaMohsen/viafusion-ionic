@@ -40,7 +40,7 @@ export class LoginWithPinPage implements OnInit  {
       if (res.success && res.data) {
         var user: IDBContact = res.data
         this.rx.user$.next(user);
-        this.router.navigateByUrl("/auth/dashboard");
+        this.router.navigateByUrl("/dashboard");
       }
     })
 

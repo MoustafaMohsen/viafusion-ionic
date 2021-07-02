@@ -44,7 +44,7 @@ export class ConfirmPinPage implements OnInit {
         // if user passed pin continue to sequence
         if (user.security.login.pin_passed) {
           this.success = "correct";
-          this.login_serv.login_register_sequence();
+          this.router.navigateByUrl("/dashboard")
         }else{
           this.success = "incorrect";
           this.sandbox_message = `You are in sandbox, just enter :${this.rx.user$.value.security.login._pin_value}`;
