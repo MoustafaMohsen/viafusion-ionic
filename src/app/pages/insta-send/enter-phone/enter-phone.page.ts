@@ -16,7 +16,8 @@ export class EnterPhonePage implements OnInit {
       component: ModalComponent,
       componentProps: {
         'name': 'modal name'
-      }
+      },
+      cssClass:"bottom-drawer"
     });
       return await modal.present();
   }
