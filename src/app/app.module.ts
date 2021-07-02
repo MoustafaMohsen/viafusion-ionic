@@ -54,6 +54,7 @@ import { EnterPhonePage } from './pages/insta-send/enter-phone/enter-phone.page'
 import { ModalComponent } from './components/modal/modal.component';
 import { LoginService } from './services/auth/login.service';
 import { Api } from './services/api/api';
+import { Drivers, Storage } from '@ionic/storage';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { DataService } from './services/data/data.service';
 import { RX } from './services/rx/events.service';
@@ -67,7 +68,10 @@ import { RegisterPinPage } from './pages/_auth/register-pin/register-pin.page';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot({
+      name: '__mydb',
+      driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage]
+    }),
     SvgIconsModule.forRoot({
       sizes: {
         xs: '10px',

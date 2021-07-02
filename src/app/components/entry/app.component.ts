@@ -9,15 +9,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   constructor(private storage: StorageService, private rx: RX) {
-    storage.get("user") && storage.get("user").then(storage_user=>{
-      if (storage_user) {
-        this.rx.user$.subscribe(u => {
-         this.rx.user$.next(storage_user)
-        })
-      }
-    });
-    this.rx.user$.subscribe(u => {
-      this.storage.set("user", u);
-    })
+    this.rx.init_subscribe();
   }
 }
