@@ -36,4 +36,9 @@ export interface DataRow{
     data_33?: string;
     data_34?: string;
   }
-  
+
+  export interface IAPIServerResponse<T=any>{
+    performance: number,
+    success: boolean,
+    data:T
+  }

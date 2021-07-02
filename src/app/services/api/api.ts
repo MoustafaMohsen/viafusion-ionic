@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { IAPIServerResponse } from 'src/app/interfaces/types';
 
 @Injectable({
   providedIn: 'root'
@@ -36,12 +37,12 @@ export class Api {
     return this.http.get(url, reqOpts);
   }
 
-  post(endpoint: string, body: any, reqOpts?: any) {
+  post<T>(endpoint: string, body: any) {
     let url = this.url + '/' + endpoint;
     if (endpoint.indexOf('http') == 0) {
       url = endpoint;
     }
-    return this.http.post(url, body, reqOpts);
+    return this.http.post<IAPIServerResponse<T>>(url, body);
   }
 
   put(endpoint: string, body: any, reqOpts?: any) {
