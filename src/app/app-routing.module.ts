@@ -29,6 +29,7 @@ import { QrPaymentPage } from './pages/_payment/qr-payment/qr-payment.page';
 import { RequestPaymentPage } from './pages/_transactions/request-payment/request-payment.page';
 import { CcPaymentPage } from './pages/_payment/cc-payment/cc-payment.page';
 import { InstaSendPage } from './pages/insta-send/insta-send.page';
+import { EnterPhonePage } from './pages/insta-send/enter-phone/enter-phone.page';
 
 const routes: Routes = [
   //
@@ -220,10 +221,18 @@ const routes: Routes = [
   // insta sending 
   {
     path: 'insta-send',
-    component: InstaSendPage
+    component: InstaSendPage,
+    children: [
+      {
+        path: 'enter-phone',
+        component: EnterPhonePage
+      },
+    ]
   },
 
- 
+
+
+
 
 ];
 
@@ -233,4 +242,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
