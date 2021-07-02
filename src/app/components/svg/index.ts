@@ -12,6 +12,9 @@ import { dialIcon } from './consts/dial';
 import { notificationColoredIcon } from './consts/notification-colored';
 import { creditCardIcon } from './consts/credit-card';
 import { moneyBagIcon } from './consts/money-bag';
+import { authenticationIcon } from './consts/authentication';
+import { verificationIcon } from './consts/verification';
+import { cameraIcon } from './consts/camera';
 
 export const  icons = [
     nfcIcon,
@@ -27,6 +30,9 @@ export const  icons = [
     dialIcon,
     notificationColoredIcon,
     creditCardIcon,
-    moneyBagIcon
+    moneyBagIcon,
+    authenticationIcon,
+    verificationIcon,
+    cameraIcon
 
 ];
