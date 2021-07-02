@@ -53,11 +53,11 @@ export class OtpPage implements OnInit, AfterViewInit {
       if (res.success && res.data) {
         var user: IDBContact = res.data
         this.rx.user$.next(user);
+
         // if user passed otp continue to sequence
         if (user.security.login.otp_passed) {
           this.success = "correct";
           this.login_serv.login_register_sequence();
-          this.router.navigateByUrl("/auth/login-with-pin")
         }else{
           this.success = "incorrect";
           this.sandbox_message = `You are in sandbox, just enter :${this.rx.user$.value.security.login._otp_value}`;

@@ -52,12 +52,31 @@ export class LoginService {
     })
   }
 
+  confirm_pin(pin: number | string) {
+    let user = this.rx.user$.value
+    return this.api.post<IDBContact>("confirm-pin", {
+      user:{contact_reference_id:user.contact_reference_id},
+      pin
+    })
+  }
+
+  set_pin(pin: number | string) {
+    let user = this.rx.user$.value
+    return this.api.post<IDBContact>("set-pin", {
+      user:{contact_reference_id:user.contact_reference_id},
+      pin
+    })
+  }
+
+
+
   login_register_sequence(){
     var user = this.rx.user$.value;
-
     // TODO: login sequence
-    if (user.security.login.user_exsits) {
-
+    if (user.security.login.has_pin) {
+      this.router.navigateByUrl("/auth/login-with-pin");
+    }else{
+      this.router.navigateByUrl("/auth/register-pin");
     }
   }
 

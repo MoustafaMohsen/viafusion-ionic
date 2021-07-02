@@ -11,6 +11,7 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class RX {
   constructor(private storage:Storage) { }
+
   public user$= new BehaviorSubject<IDBContact>({
     security:{
       login:{
@@ -18,6 +19,8 @@ export class RX {
       }
     }
   });
+
+  temp:any;
 
   async init_subscribe(){
     this.storage.get("user").then(storage_user=>{
