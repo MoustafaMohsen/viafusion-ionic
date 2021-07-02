@@ -1,6 +1,9 @@
 import { Router } from '@angular/router';
 import { LoadingService } from '../../../services/loading.service';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/services/auth/login.service';
+import { IDBContact } from 'src/app/interfaces/db/idbcontact';
+import { RX } from 'src/app/services/rx/events.service';
 
 @Component({
   selector: 'app-otp',
@@ -10,8 +13,9 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 export class OtpPage implements OnInit, AfterViewInit {
 
   otp: number[] = [];
-  success:"correct" | "incorrect" | "init" = "init" ;
-  constructor(public loading: LoadingService, private router: Router) { }
+  sandbox_message="";
+  success: "correct" | "incorrect" | "init" = "init";
+  constructor(private login_serv: LoginService, public loading: LoadingService, private router: Router, private rx: RX) { }
 
   ngOnInit() {
     this.otp;
@@ -22,7 +26,11 @@ export class OtpPage implements OnInit, AfterViewInit {
     //Add 'implements AfterViewInit' to the class.
     let input = document.getElementById('code_input_1') as HTMLInputElement;
     input.focus();
+    if (this.rx.auth$.value.login) {
+      this.sandbox_message = this.rx.auth$.value.login._sandbox? `You are in sandbox, just enter :${this.rx.auth$.value.login._otp_value}`:"";
+    }
   }
+
   update_code(e: Event, i: number) {
     if (i < 6) {
       let input = document.getElementById('code_input_' + (i + 1)) as HTMLInputElement;
@@ -39,11 +47,21 @@ export class OtpPage implements OnInit, AfterViewInit {
     console.log(this.otp);
     console.log("code");
     console.log(code);
-    setTimeout(() => {
-      this.loading.stop();
-      this.success = "correct";
-      this.router.navigateByUrl('dashboard');
-    }, 1000);
+    this.login_serv.send_otp(code).subscribe((res) => {
+      if (res.success && res.data) {
+        var user: IDBContact = res.data
+        this.rx.user$.next(user);
+        this.rx.auth$.next({ contact_refrence_id: user.contact_reference_id, login: user.security.login });
+
+        // if user passed otp continue to sequence
+        if (user.security.login.otp_passed) {
+          this.success = "correct";
+          this.login_serv.login_register_sequence();
+          this.router.navigateByUrl("/auth/login-with-pin")
+        }
+
+      }
+    })
   }
 
 }

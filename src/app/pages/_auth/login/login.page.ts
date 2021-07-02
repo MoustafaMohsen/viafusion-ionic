@@ -1,3 +1,4 @@
+import { LoginService } from './../../../services/auth/login.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/services/loading.service';
@@ -10,13 +11,9 @@ import { LoadingService } from 'src/app/services/loading.service';
 export class LoginPage {
 
   phone="";
-  constructor(private router:Router, public loading:LoadingService) {}
+  constructor(private login_srv:LoginService, public loading:LoadingService) {}
 
   async submit(){
-    this.loading.loading$.next(true);
-    setTimeout(async () => {
-      await this.router.navigateByUrl("auth/otp");
-      this.loading.loading$.next(false);
-    }, 0);
+    this.login_srv.send_login(this.phone);
   }
 }
