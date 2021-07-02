@@ -22,8 +22,17 @@ export class LoginService {
     }
     await this.api.post<ILOginTransportObj<IDBContact>>("login", login).subscribe((res) => {
       this.loading.stop();
+      console.log("send_login() res.data");
+      console.log(res.data);
       if (res.success && res.data) {
-        this.rx.auth$.next(res.data);
+        let user:IDBContact = {
+          contact_reference_id:res.data.contact_reference_id,
+          security:{
+            login:res.data.login
+          }
+        }
+        console.log("Sending logged in user to user$", user);
+        this.rx.user$.next(user);
         // continue to otp
         this.router.navigateByUrl("/auth/otp")
       }
@@ -35,20 +44,39 @@ export class LoginService {
     )
   }
 
-  send_otp(otp: number | string) {
-    let contact_refrence_id = this.rx.auth$.value.contact_refrence_id
+  confirm_otp(otp: number | string) {
+    let user = this.rx.user$.value
     return this.api.post<IDBContact>("confirm-otp", {
-      user:{contact_refrence_id},
+      user:{contact_reference_id:user.contact_reference_id},
       otp
     })
   }
 
+  confirm_pin(pin: number | string) {
+    let user = this.rx.user$.value
+    return this.api.post<IDBContact>("confirm-pin", {
+      user:{contact_reference_id:user.contact_reference_id},
+      pin
+    })
+  }
+
+  set_pin(pin: number | string) {
+    let user = this.rx.user$.value
+    return this.api.post<IDBContact>("set-pin", {
+      user:{contact_reference_id:user.contact_reference_id},
+      pin
+    })
+  }
+
+
+
   login_register_sequence(){
     var user = this.rx.user$.value;
-
     // TODO: login sequence
-    if (user.security.login.user_exsits) {
-
+    if (user.security.login.has_pin) {
+      this.router.navigateByUrl("/auth/login-with-pin");
+    }else{
+      this.router.navigateByUrl("/auth/register-pin");
     }
   }
 

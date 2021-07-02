@@ -26,9 +26,10 @@ export class OtpPage implements OnInit, AfterViewInit {
     //Add 'implements AfterViewInit' to the class.
     let input = document.getElementById('code_input_1') as HTMLInputElement;
     input.focus();
-    if (this.rx.auth$.value.login) {
-      this.sandbox_message = this.rx.auth$.value.login._sandbox? `You are in sandbox, just enter :${this.rx.auth$.value.login._otp_value}`:"";
-    }
+    setTimeout(() => {
+      this.sandbox_message = `You are in sandbox, just enter :${this.rx.user$.value.security.login._otp_value}`;
+      console.log(this.sandbox_message);
+    }, 2000);
   }
 
   update_code(e: Event, i: number) {
@@ -47,17 +48,21 @@ export class OtpPage implements OnInit, AfterViewInit {
     console.log(this.otp);
     console.log("code");
     console.log(code);
-    this.login_serv.send_otp(code).subscribe((res) => {
+    this.login_serv.confirm_otp(code).subscribe((res) => {
+      this.loading.stop();
       if (res.success && res.data) {
         var user: IDBContact = res.data
         this.rx.user$.next(user);
-        this.rx.auth$.next({ contact_refrence_id: user.contact_reference_id, login: user.security.login });
 
         // if user passed otp continue to sequence
         if (user.security.login.otp_passed) {
           this.success = "correct";
           this.login_serv.login_register_sequence();
-          this.router.navigateByUrl("/auth/login-with-pin")
+        }else{
+          this.success = "incorrect";
+          this.sandbox_message = `You are in sandbox, just enter :${this.rx.user$.value.security.login._otp_value}`;
+          console.log(this.sandbox_message);
+
         }
 
       }
