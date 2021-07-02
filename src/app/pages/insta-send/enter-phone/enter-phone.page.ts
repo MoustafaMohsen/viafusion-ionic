@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { ModalComponent } from 'src/app/components/modal/modal.component';
 
 @Component({
   selector: 'app-enter-phone',
@@ -6,11 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./enter-phone.page.scss'],
 })
 export class EnterPhonePage implements OnInit {
+  
+  constructor(public modalCtrl: ModalController) {}
 
-  constructor() { }
-
+  async initModal() {
+    const modal = await this.modalCtrl.create({
+      component: ModalComponent,
+      componentProps: {
+        'name': 'modal name'
+      }
+    });
+      return await modal.present();
+  }
   ngOnInit() {
   }
+  
   search_contacts(){
     
   }

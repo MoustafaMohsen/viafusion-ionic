@@ -1,3 +1,15 @@
-<p>
-  modal works!
-</p>
+
+  <ion-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col text-center>
+          Model : {{ name }}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col text-center>
+          <ion-button (click)="close()">Close</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
