@@ -8,3 +8,8 @@ export interface ILogin<T=any>{
     resend_otp_after:number;
     _otp_value?:number;
 }
+
+export interface ILOginTransportObj<T>{
+  contact_refrence_id:number;
+  login:ILogin<T>
+}
