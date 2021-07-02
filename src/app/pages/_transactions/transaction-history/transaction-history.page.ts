@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TPoint, TransactionPoint } from '../../../services/static/interfaces';
-import { TDirection as _TDirection, Transaction, TStatus  as _TStatus } from 'src/app/services/static/interfaces';
+import { TPoint, TransactionPoint } from '../../../interfaces/interfaces';
+import { TDirection as _TDirection, Transaction, TStatus  as _TStatus } from 'src/app/interfaces/interfaces';
 import { LoadingService } from 'src/app/services/loading.service';
 import { Router } from '@angular/router';
 
