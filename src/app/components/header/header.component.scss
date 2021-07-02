@@ -1,0 +1,12 @@
+ion-header {
+    .page-name{
+      margin-left: 20%;
+    }
+    &::after{
+      content: none;
+    }
+    ion-icon{
+      font-size: 2rem;
+    }
+  }
+  

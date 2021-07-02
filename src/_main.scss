@@ -45,8 +45,10 @@ ion-content{
   @apply container;
 }
 ion-header{
-  padding: 2rem;
-  padding-top: 3rem; 
+  padding:1rem;
+  --background: #e4e4e4;
+  background-color: var(--background)
+ 
 }
 
 .gold-gradient {

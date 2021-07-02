@@ -49,6 +49,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { PinDialpadComponent } from './components/pin-dialpad/pin-dialpad.component';
 import { CcPaymentPage } from './pages/_payment/cc-payment/cc-payment.page';
 import { InstaSendPage } from './pages/insta-send/insta-send.page';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   imports: [
@@ -121,6 +122,7 @@ import { InstaSendPage } from './pages/insta-send/insta-send.page';
     PinDialpadComponent,
     CcPaymentPage,
     InstaSendPage,
+    HeaderComponent
   ],
   entryComponents: [],
   providers: [
