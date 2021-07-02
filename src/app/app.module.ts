@@ -50,6 +50,7 @@ import { PinDialpadComponent } from './components/pin-dialpad/pin-dialpad.compon
 import { CcPaymentPage } from './pages/_payment/cc-payment/cc-payment.page';
 import { InstaSendPage } from './pages/insta-send/insta-send.page';
 import { HeaderComponent } from './components/header/header.component';
+import { EnterPhonePage } from './pages/insta-send/enter-phone/enter-phone.page';
 
 @NgModule({
   imports: [
@@ -122,7 +123,8 @@ import { HeaderComponent } from './components/header/header.component';
     PinDialpadComponent,
     CcPaymentPage,
     InstaSendPage,
-    HeaderComponent
+    HeaderComponent,
+    EnterPhonePage,
   ],
   entryComponents: [],
   providers: [

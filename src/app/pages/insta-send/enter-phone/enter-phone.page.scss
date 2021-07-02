@@ -1,0 +1,62 @@
+
+ion-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    main {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: stretch;
+    }
+    section {
+      position: relative;
+    }
+    .amount-card {
+      box-shadow: 0 9px 60px 6px rgba(0, 0, 0, 0.1),
+        0 12px 12px 2px rgba(0, 0, 0, 0.05);
+      border-radius: 20px;
+      top: 85%;
+      position: relative;
+      text-align: center;
+    
+      .c-title {
+        font-size: 1rem;
+        font-weight: 100;
+      }
+      .price-field {
+        padding-left: 3rem;
+        padding-top: 0.5rem;
+    
+        input {
+          border: none;
+          width: 8rem;
+          padding: 0.5rem;
+          caret-color: var(--secondary);
+          color: var(--secondary);
+        }
+        .currency {
+          padding: 0.5rem;
+          padding-right: 0;
+        }
+      }
+      .message {
+        border-top: 1px solid #b6b6b6;
+        textarea {
+          border: none;
+          text-align: center;
+        }
+        textarea:focus {
+          border: none;
+        }
+      }
+    }
+    
+    footer {
+     
+    }
+  
+  }  
+  
