@@ -52,7 +52,7 @@ import { LoginService } from './services/auth/login.service';
 import { Api } from './services/api/api';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { DataService } from './services/data/data.service';
-import { Events } from './services/events/events.service';
+import { RX } from './services/rx/events.service';
 
 @NgModule({
   imports: [
@@ -130,7 +130,7 @@ import { Events } from './services/events/events.service';
   entryComponents: [],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    Api, LoginService, DataService, Events
+    Api, LoginService, DataService, RX
   ],
   bootstrap: [AppComponent],
 })

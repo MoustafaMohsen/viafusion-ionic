@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TDirection as _TDirection, Transaction, TStatus  as _TStatus, TPoint  as _TPoint, TransactionPoint } from 'src/app/services/static/interfaces';
+import { TDirection as _TDirection, Transaction, TStatus  as _TStatus, TPoint  as _TPoint, TransactionPoint } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-transaction-item',
