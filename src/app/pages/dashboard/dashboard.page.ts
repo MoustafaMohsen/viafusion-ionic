@@ -81,14 +81,14 @@ export class DashboardPage implements OnInit {
 
   move_btn(){
     // TODO create internal transaction page
-    this.router.navigateByUrl("transaction/internal-transaction");
+    this.router.navigateByUrl("/transaction/internal-transaction");
   }
 
   send_btn(){
-    this.router.navigateByUrl("transaction/sources/list-sources");
+    this.router.navigateByUrl("/transaction/sources-sequence/selected-sources");
   }
 
   view_all_btn(){
-    this.router.navigateByUrl("transaction/transaction-history");
+    this.router.navigateByUrl("/transaction/transaction-history");
   }
 }

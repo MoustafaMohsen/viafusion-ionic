@@ -63,6 +63,7 @@ import { CheckoutTestPage } from './pages/checkout-test/checkout-test.page';
 import { SelectedSourcesPage } from './pages/_transactions/_sources-sequence/selected-sources/availabe-sources.page';
 import { AvailabeSourcesPage } from './pages/_transactions/_sources-sequence/availabe-sources/availabe-sources.page';
 import { SourcePage } from './pages/_transactions/_sources-sequence/source/source.page';
+import { PaymentService } from './services/auth/payment';
 
 @NgModule({
   imports: [
@@ -152,7 +153,7 @@ import { SourcePage } from './pages/_transactions/_sources-sequence/source/sourc
   entryComponents: [],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    Api, LoginService, DataService, RX, StorageService
+    Api, LoginService, DataService, RX, StorageService,PaymentService
   ],
   bootstrap: [AppComponent],
 })

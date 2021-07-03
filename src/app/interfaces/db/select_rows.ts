@@ -1,4 +1,4 @@
-export interface IDBSelect<T=any>{
-    "*"?: T,
-    [key:string]:T
+export interface IDBSelect<T = any> {
+  "*"?: T,
+  [key: string]: T
 }
