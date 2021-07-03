@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ISource } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-availabe-sources',
@@ -6,6 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./availabe-sources.page.scss'],
 })
 export class AvailabeSourcesPage implements OnInit {
+
+  source_item:ISource = {
+    name:"wallet",
+    description:"",
+    start_date:new Date(),
+    amount:0 ,
+  };
+
 
   constructor() { }
 
