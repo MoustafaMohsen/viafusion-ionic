@@ -24,7 +24,7 @@ import { ListOfCcPage } from './pages/_cc/list-of-cc/list-of-cc.page';
 import { AddPccPage } from './pages/_cc/_pcc/add-pcc/add-pcc.page';
 import { SchedulePaymentPage } from './pages/_transactions/schedule-payment/schedule-payment.page';
 import { TransactionHistoryPage } from './pages/_transactions/transaction-history/transaction-history.page';
-import { VerificationPage } from './pages/verification/verification.page';
+import { VerificationPage } from './pages/_verification/verification.page';
 import { VerificationFormComponent } from './components/verification/verification-form/verification-form.component';
 import { LoginPage } from './pages/_auth/login/login.page';
 import { OtpPage } from './pages/_auth/otp/otp.page';
@@ -59,6 +59,8 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { DataService } from './services/data/data.service';
 import { RX } from './services/rx/events.service';
 import { RegisterPinPage } from './pages/_auth/register-pin/register-pin.page';
+import { VerifyCardPage } from './pages/_verification/verify-card/verify-card.page';
+import { VerifyWalletPage } from './pages/_verification/verify-wallet/verify-wallet.page';
 
 @NgModule({
   imports: [
@@ -139,6 +141,9 @@ import { RegisterPinPage } from './pages/_auth/register-pin/register-pin.page';
     EnterPhonePage,
     ModalComponent,
     RegisterPinPage,
+    VerifyCardPage,
+    VerifyWalletPage
+
 
   ],
   entryComponents: [],

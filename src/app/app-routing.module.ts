@@ -8,7 +8,7 @@ import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { AddPccPage } from './pages/_cc/_pcc/add-pcc/add-pcc.page';
 import { SchedulePaymentPage } from './pages/_transactions/schedule-payment/schedule-payment.page';
 import { TransactionHistoryPage } from './pages/_transactions/transaction-history/transaction-history.page';
-import { VerificationPage } from './pages/verification/verification.page';
+import { VerificationPage } from './pages/_verification/verification.page';
 import { AddDestinationPage } from './pages/_transactions/_destinations/add-destination/add-destination.page';
 import { LoginPage } from './pages/_auth/login/login.page';
 import { OtpPage } from './pages/_auth/otp/otp.page';
@@ -31,6 +31,8 @@ import { CcPaymentPage } from './pages/_payment/cc-payment/cc-payment.page';
 import { InstaSendPage } from './pages/insta-send/enter-amount/insta-send.page';
 import { EnterPhonePage } from './pages/insta-send/enter-phone/enter-phone.page';
 import { RegisterPinPage } from './pages/_auth/register-pin/register-pin.page';
+import { VerifyWalletPage } from './pages/_verification/verify-wallet/verify-wallet.page';
+import { VerifyCardPage } from './pages/_verification/verify-card/verify-card.page';
 
 const routes: Routes = [
   //
@@ -220,7 +222,17 @@ const routes: Routes = [
   //_verification
   {
     path: 'verification',
-    component: VerificationPage,
+    // component: VerificationPage,
+    children:[
+      {
+        path: 'verify-wallet',
+        component: VerifyWalletPage
+      },
+      {
+        path: 'verify-card',
+        component: VerifyCardPage
+     },
+    ]  
   },
 
   // insta sending 
@@ -238,6 +250,8 @@ const routes: Routes = [
       },
     ]
   },
+ 
+
  
 
 
