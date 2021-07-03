@@ -8,7 +8,7 @@ export interface IPayment {
     id?: string;
     /**
     * The billing address associated with the card.
-    
+
     For more information, see Address Object.
     */
     address?: object;
@@ -218,26 +218,27 @@ export namespace PostCreatePayment {
 export namespace ListPayments {
 
     export interface Response {
-        type: string
-        name: string
-        category: "bank_redirect" | "bank_transfer" | "card" | "cash" | "ewallet" | "rapyd_ewallet"
-        image: string
-        country: string
-        payment_flow_type: "redirect_url" | "bank_redirect" | "bank_transfer" | "card" | "cash" | "ewallet" | "rapyd_ewallet" | "rapyd_ewallet"
-        currencies: string[]
-        status: number
-        is_cancelable: boolean
-        payment_options: ListPayments.PaymentOption[]
-        is_expirable: boolean
-        is_online: boolean
-        is_refundable: boolean
-        minimum_expiration_seconds: number
-        maximum_expiration_seconds: number
-        virtual_payment_method_type: string
-        is_virtual: boolean
-        multiple_overage_allowed: boolean
-        amount_range_per_currency: ListPayments.AmountRangePerCurrency[]
-        is_tokenizable: boolean
+        type?: string
+        name?: string
+        category?: "bank_redirect" | "bank_transfer" | "card" | "cash" | "ewallet" | "rapyd_ewallet"
+        image?: string
+        country?: string
+        payment_flow_type?: "redirect_url" | "bank_redirect" | "bank_transfer" | "card" | "cash" | "ewallet" | "rapyd_ewallet" | "rapyd_ewallet"
+        currencies?: string[]
+        status?: number
+        is_cancelable?: boolean
+        payment_options?: ListPayments.PaymentOption[]
+        is_expirable?: boolean
+        is_online?: boolean
+        is_refundable?: boolean
+        minimum_expiration_seconds?: number
+        maximum_expiration_seconds?: number
+        virtual_payment_method_type?: string
+        is_virtual?: boolean
+        multiple_overage_allowed?: boolean
+        amount_range_per_currency?: ListPayments.AmountRangePerCurrency[]
+        is_tokenizable?: boolean
+        amount?:number;
     }
 
     export interface PaymentOption {

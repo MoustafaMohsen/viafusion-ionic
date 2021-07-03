@@ -65,7 +65,9 @@ import { AvailabeSourcesPage } from './pages/_transactions/_sources-sequence/ava
 import { SourcePage } from './pages/_transactions/_sources-sequence/source/source.page';
 import { PaymentService } from './services/auth/payment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   imports: [
@@ -104,6 +106,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     }),
     BrowserAnimationsModule,
     MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   declarations: [
     AppComponent,
@@ -156,7 +160,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
   entryComponents: [],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    Api, LoginService, DataService, RX, StorageService,PaymentService
+    Api, LoginService, DataService, RX, StorageService, PaymentService
   ],
   bootstrap: [AppComponent],
 })

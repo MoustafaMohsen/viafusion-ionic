@@ -1,9 +1,12 @@
+import { LoadingService } from 'src/app/services/loading.service';
 import { PaymentService } from './../../../../services/auth/payment';
 import { Component, OnInit } from '@angular/core';
 import { ISource } from 'src/app/interfaces/interfaces';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { contries } from 'src/app/services/static/datasets';
+import { ListPayments } from 'src/app/interfaces/rapyd/ipayment';
 
 @Component({
   selector: 'app-availabe-sources',
@@ -13,55 +16,43 @@ import { Observable } from 'rxjs';
 export class AvailabeSourcesPage implements OnInit {
 
   //#region AutoComplete
-  stateCtrl = new FormControl();
-  filteredStates: Observable<State[]>;
+  countryCtrl = new FormControl();
+  filteredCountries: Observable<ICountry[]>;
 
-  states: State[] = [
-    {
-      name: 'Arkansas',
-      population: '2.978M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Arkansas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg'
-    },
-    {
-      name: 'California',
-      population: '39.14M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_California.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg'
-    },
-    {
-      name: 'Florida',
-      population: '20.27M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg'
-    },
-    {
-      name: 'Texas',
-      population: '27.47M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg'
-    }
-  ];
+  countries: ICountry[] = contries
   //#endregion
-  source_item: ISource = {
-    name: "wallet",
-    description: "",
-    start_date: new Date(),
+  source_item: ListPayments.Response = {
     amount: 0,
   };
 
 
-  constructor(private paymentSrv: PaymentService) {
-    this.filteredStates = this.stateCtrl.valueChanges
+  payment_list: ListPayments.Response[]= []
+
+  constructor(private paymentSrv: PaymentService, private loading:LoadingService) {
+    this.filteredCountries = this.countryCtrl.valueChanges
     .pipe(
       startWith(''),
-      map((state:any) => state ? this._filterStates(state) : this.states.slice())
+      map((country:any) => country ? this._filterCountries(country) : this.countries.slice())
     );
   }
-  private _filterStates(value: string): State[] {
-    const filterValue = value.toLowerCase();
 
-    return this.states.filter(state => state.name.toLowerCase().includes(filterValue));
+  list_sources(){
+    this.loading.start();
+    let country = this.countries.find(x => x.alpha2Code === this.countryCtrl.value);
+    if (country) {
+      this.paymentSrv.list_payment_methods(country.alpha2Code).subscribe(res=>{
+        this.loading.stop();
+        if (res.success) {
+          console.log(res);
+          this.payment_list = res.data.body.data
+
+        }
+      })
+    }
+  }
+  private _filterCountries(value: string): ICountry[] {
+    const filterValue = value.toLowerCase();
+    return this.countries.filter(country => country.name.toLowerCase().includes(filterValue));
   }
 
 
@@ -76,8 +67,12 @@ export class AvailabeSourcesPage implements OnInit {
 }
 
 
-export interface State {
-  flag: string;
+export interface ICountry {
   name: string;
-  population: string;
+  alpha2Code: string;
+  demonym: string;
+  flag: string;
+  callingCodes: string[];
+  latlng: number[];
+  nativeName: string;
 }

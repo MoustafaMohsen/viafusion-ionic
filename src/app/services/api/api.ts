@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { IAPIServerResponse } from 'src/app/interfaces/types';
@@ -9,6 +10,9 @@ export class Api {
   url: string = 'http://localhost:3005';
 
   constructor(public http: HttpClient) {
+    if (environment.dev2) {
+      this.url='http://192.168.1.3:3005';
+    }
   }
 
   get<T>(endpoint: string, params?: any, reqOpts?: any) {
