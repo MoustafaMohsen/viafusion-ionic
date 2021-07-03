@@ -18,18 +18,19 @@ export class SelectedSourcesPage implements OnInit {
     name: "wallet",
     description: "",
     start_date: new Date(),
-    amount: 0,
   };
-
   selected_sources: PostCreatePayment.ICreate[] = [];
-
+  source_amount = "0"
 
   constructor(private loading: LoadingService, private router: Router, private rx: RX) { }
 
   ngOnInit() {
     this.selected_sources = this.rx.temp["transaction"]["sources"].value;
     this.rx.temp.transaction.sources.subscribe(d=>{
-      this.selected_sources = d
+      this.selected_sources = d;
+      // calculate source total
+      this.source_amount = this.rx.temp["transaction"].source_amount = this.selected_sources.map(s=>s.amount).reduce((a, b) => a + b, 0)
+      +"" || 0+"";
     })
   }
   continue_to_destination() {

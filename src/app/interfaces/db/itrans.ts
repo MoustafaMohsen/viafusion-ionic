@@ -1,3 +1,4 @@
+import { PostCreatePayment } from './../rapyd/ipayment';
 import { customert_id } from '../rapyd/types';
 import { ewallet_id } from "../rapyd/types";
 import { IPayment } from '../rapyd/ipayment';
@@ -23,10 +24,11 @@ export interface IDBMetaContact {
   transactions?: ITransaction[];
 }
 
-export interface ITransaction{
-  id:string
-  amout:string
-  sources:IPayment[]
-  destinations:any[]
-  executed:boolean
+export interface ITransaction {
+  id: string
+  source_amount?: string
+  destination_amount?: string
+  sources: PostCreatePayment.ICreate[]
+  destinations: any[]
+  executed: boolean
 }
