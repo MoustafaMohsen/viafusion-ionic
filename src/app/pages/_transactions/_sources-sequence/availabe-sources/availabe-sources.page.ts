@@ -1,3 +1,4 @@
+import { PaymentService } from './../../../../services/auth/payment';
 import { Component, OnInit } from '@angular/core';
 import { ISource } from 'src/app/interfaces/interfaces';
 
@@ -16,9 +17,14 @@ export class AvailabeSourcesPage implements OnInit {
   };
 
 
-  constructor() { }
+  constructor(private paymentSrv:PaymentService) { }
 
   ngOnInit() {
+
+  }
+
+  renderPaymenMethods(country:string){
+    this.paymentSrv.list_payment_methods("")
   }
 
 }

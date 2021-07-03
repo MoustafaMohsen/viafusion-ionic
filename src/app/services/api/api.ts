@@ -11,7 +11,7 @@ export class Api {
   constructor(public http: HttpClient) {
   }
 
-  get(endpoint: string, params?: any, reqOpts?: any) {
+  get<T>(endpoint: string, params?: any, reqOpts?: any) {
     let url = this.url + '/' + endpoint;
     if (endpoint.indexOf('http') == 0) {
       url = endpoint;
@@ -34,7 +34,7 @@ export class Api {
     reqOpts.withCredentials = true
 
 
-    return this.http.get(url, reqOpts);
+    return this.http.get<IAPIServerResponse<T>>(url);
   }
 
   post<T>(endpoint: string, body: any) {

@@ -8,8 +8,8 @@
       <h4 class="">{{source_item.name}}</h4>
     </div>
 </div>
-<div class="">
-    <span class="w-36 mr-0 relative pr-3 py-1 flex flex-wrap justify-end ">
+<div  class="">
+    <span *ngIf="source_item.amount != -1" class="w-36 mr-0 relative pr-3 py-1 flex flex-wrap justify-end ">
       <span class="relative font-bold text-green-900 leading-tight">
         {{source_item.amount | currency}}
       </span>
