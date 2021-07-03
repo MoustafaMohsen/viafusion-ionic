@@ -1,5 +1,7 @@
+import { LoadingService } from 'src/app/services/loading.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ISource, TStatus as _TStatus, TSourcePoint as _TSourcePoint } from 'src/app/interfaces/interfaces';
+import { ListPayments } from 'src/app/interfaces/rapyd/ipayment';
 
 @Component({
   selector: 'app-source-item',
@@ -13,13 +15,10 @@ export class SourceItemComponent implements OnInit {
   TStatus = _TStatus;
   TSourcePoint = _TSourcePoint;
 
-  @Input() source_item:ISource = {
+  @Input() source_item:ListPayments.Response = {
     name:"First Transaction",
-    description:"Details about Transaction status",
-    start_date:new Date(),
-    type:this.TSourcePoint.bank,
     amount:1000,
-    status:this.TStatus.pending
+    status:this.TStatus.pending,
   };
 
   ngOnInit() {}
