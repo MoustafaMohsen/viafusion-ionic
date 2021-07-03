@@ -2,7 +2,7 @@
 export interface IUtitliesResponse<T=any>{
     statusCode: number;
     headers: IncomingHttpHeaders;
-    body?: IRapydResponse;
+    body?: IRapydResponse<T>;
 }
 export interface IRapydResponse<T=any>{
     status: IRapydStatusResponse,

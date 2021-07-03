@@ -1,4 +1,4 @@
-import { customert_id } from './../rapyd/types.d';
+import { customert_id } from '../rapyd/types';
 import { IContact } from "../rapyd/icontact";
 import { ewallet_id } from "../rapyd/types";
 import { IDBSecurity } from "./isecurity";

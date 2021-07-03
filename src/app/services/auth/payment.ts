@@ -20,6 +20,6 @@ export class PaymentService {
     return this.api.post<IUtitliesResponse<ListPayments.Response[]>>("list-payment-methods",{country})
   }
   get_required_fields(payment_method_type:string){
-    return this.api.post<IUtitliesResponse<RequiredFields.Response[]>>("list-payment-required-fields",{payment_method_type})
+    return this.api.post<IUtitliesResponse<RequiredFields.Response>>("list-payment-required-fields",{payment_method_type})
   }
 }

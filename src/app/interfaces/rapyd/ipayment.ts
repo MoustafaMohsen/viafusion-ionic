@@ -176,22 +176,22 @@ export namespace PostCreatePayment {
 
     export interface ICreate {
         /**The amount of the payment, in units of the currency defined in currency. Decimal. */
-        amount: number
-        currency: string
+        amount?: number
+        currency?: string
         /**ID of the customer. String starting with cus_. Required if payment_method is blank. */
         customer?: string
-        payment_method: PostCreatePayment.IPaymentMethod
+        payment_method?: PostCreatePayment.IPaymentMethod
         /**Determines when the payment is processed for capture. When true, the payment is captured immediately. When false, the payment is captured at a later time. Relevant to cards. Default is true. */
         capture?: boolean
         /**URL where the customer is redirected after a successful payment. Required for bank redirect payment methods. */
-        complete_payment_url:string;
+        complete_payment_url?:string;
         /**URL where the customer is redirected in case of an error in the payment. Required for bank redirect payment methods. */
-        error_payment_url:string;
-        ewallets:PostCreatePayment.ISplitWallet[]
+        error_payment_url?:string;
+        ewallets?:PostCreatePayment.ISplitWallet[]
         "3DS_requirede"?: boolean
         description?: string
         statement_descriptor?: string
-        address:IAddress
+        address?:IAddress
         metadata?: any
     }
 
@@ -212,6 +212,7 @@ export namespace PostCreatePayment {
         expiration_year?: string
         name?: string
         cvv?: string
+        [key:string]:string
     }
 }
 
