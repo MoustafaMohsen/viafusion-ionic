@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { ILogin, ILOginTransportObj } from 'src/app/interfaces/db/ilogin';
 import { Api } from '../api/api';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
-import { ListPayments } from 'src/app/interfaces/rapyd/ipayment';
+import { ListPayments, RequiredFields } from 'src/app/interfaces/rapyd/ipayment';
 import { IUtitliesResponse } from 'src/app/interfaces/rapyd/rest-response';
 
 @Injectable({
@@ -18,5 +18,8 @@ export class PaymentService {
 
   list_payment_methods(country:string){
     return this.api.post<IUtitliesResponse<ListPayments.Response[]>>("list-payment-methods",{country})
+  }
+  get_required_fields(payment_method_type:string){
+    return this.api.post<IUtitliesResponse<RequiredFields.Response[]>>("list-payment-required-fields",{payment_method_type})
   }
 }
