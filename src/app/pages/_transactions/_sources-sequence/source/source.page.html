@@ -60,10 +60,15 @@
 
 
         {{fields_form.valid}}
+
         <div class="w-full md:w-1/2 mt-6">
           <button [disabled]="fields_form.invalid" (click)="submit()" type="button" class="py-4 px-6   focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
             submit
           </button>
+
+          <ion-button (click)="cancel()" expand="full" fill="clear" shape="round">
+            Cancel
+          </ion-button>
         </div>
 
       </div>

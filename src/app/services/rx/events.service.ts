@@ -6,16 +6,17 @@ import { IDBContact } from 'src/app/interfaces/db/idbcontact';
 import { ILogin, ILOginTransportObj } from 'src/app/interfaces/db/ilogin';
 import { Storage } from '@ionic/storage-angular';
 import { IDBMetaContact } from 'src/app/interfaces/db/itrans';
+import { PostCreatePayment } from 'src/app/interfaces/rapyd/ipayment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RX {
-  constructor(private storage:Storage) { }
+  constructor(private storage: Storage) { }
 
-  public user$= new BehaviorSubject<IDBContact>({
-    security:{
-      login:{
+  public user$ = new BehaviorSubject<IDBContact>({
+    security: {
+      login: {
         authenticated: false,
         // checkes
         otp_passed: false,
@@ -40,17 +41,26 @@ export class RX {
         data: null,
         _sandbox: true,
 
-    }
+      }
     }
   });
 
-  public meta$= new BehaviorSubject<IDBMetaContact>(null);
+  public meta$ = new BehaviorSubject<IDBMetaContact>(null);
 
 
-  temp:any = {};
+  temp: {
+    transaction: {
+      sources?: BehaviorSubject<PostCreatePayment.ICreate[]>
+    }
+    [key: string]: any;
+  } = {
+      transaction: {
+        sources: new BehaviorSubject<PostCreatePayment.ICreate[]>([])
+      }
+    };
 
-  async init_subscribe(){
-    this.storage.get("user").then(storage_user=>{
+  async init_subscribe() {
+    this.storage.get("user").then(storage_user => {
       console.log("====== First time ==== storage get user 🏪>>");
       console.log(this.storage.get("user"));
       if (storage_user) {
@@ -59,10 +69,10 @@ export class RX {
     });
 
     // regulary update storage to match the latest
-    this.user$.subscribe(async (u)=> {
+    this.user$.subscribe(async (u) => {
       console.log("=== user$.subscribe Fired 🔥");
       await this.storage.set("user", u);
-      console.log("=== storage was set with value",u);
+      console.log("=== storage was set with value", u);
     })
   }
 }
