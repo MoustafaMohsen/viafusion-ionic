@@ -1,12 +1,37 @@
 <app-header title="Verify your wallet"></app-header>
 
 <ion-content>
-  <div class="row flex justify-center">
-  <svg-icon key="verification" fontSize="6rem">
-    </svg-icon>
+  
+  <div class="progress-section">
+
+    <div class="relative circle">
+
+       <svg-icon key="wallet" fontSize="5rem"></svg-icon>
+
+      <circle-progress
+        [percent]="progress_percent"
+        [maxPercent]="100"
+        [radius]="radius"
+        [showTitle]="false"
+        [showSubtitle]="true"
+        [subtitle]="subtitle"
+        [subtitleFontSize]="'30'"
+        [showUnits]="false"
+        [outerStrokeWidth]="16"
+        [outerStrokeColor]="'#b45309'"
+        [showZeroOuterStroke]="false"
+        [backgroundStroke]="'#33003F'"
+        [backgroundStrokeWidth]="3"
+        [outerStrokeGradient]="true"
+        [outerStrokeGradientStopColor]="'      #f59e0b'"
+        [showInnerStroke]="false"></circle-progress>
+
+       
+    </div>
+
   </div>
 
-  <div class="form-page mt-8">
+  <div class="form-page">
     <form class="w-full max-w-lg">
       <div class="flex flex-wrap -mx-3 mb-6">
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
