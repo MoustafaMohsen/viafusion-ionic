@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-sources-page',
-  templateUrl: './sources.page.html',
-  styleUrls: ['./sources.page.scss'],
+  templateUrl: './availabe-sources.page.html',
+  styleUrls: ['./availabe-sources.page.scss'],
 })
-export class SourcesPage implements OnInit {
+export class SelectedSourcesPage implements OnInit {
 
   constructor(private router:Router) { }
 
