@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { RX } from 'src/app/services/rx/events.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -27,17 +28,9 @@ export class SourcePage implements OnInit {
   ngOnInit() {
     this.payment_method = decodeURIComponent(this.route.snapshot.queryParamMap.get("payment_method"));
     this.render_required_fields();
-
-    // init temp value
-    if (!this.rx.temp["transaction"]) {
-      this.rx.temp["transaction"] = {}
-    }
-    if (!this.rx.temp["transaction"]["sources"]) {
-      this.rx.temp["transaction"]["sources"] = []
-    }
     // validate payment is uniqe
-    for (let i = 0; i < this.rx.temp["transaction"]["sources"].length; i++) {
-      const source = this.rx.temp["transaction"]["sources"][i] as PostCreatePayment.ICreate;
+    for (let i = 0; i < this.rx.temp["transaction"]["sources"].value.length; i++) {
+      const source = this.rx.temp["transaction"]["sources"].value[i] as PostCreatePayment.ICreate;
       if (source.payment_method.type == this.payment_method) {
         console.log("payment edited");
         this.is_edit = true;
@@ -74,20 +67,32 @@ export class SourcePage implements OnInit {
         payment_method: {
           type: this.payment_method,
           fields: fields
+        },
+        metadata:{
+          name:decodeURIComponent(this.route.snapshot.queryParamMap.get("name")),
+          image:decodeURIComponent(this.route.snapshot.queryParamMap.get("image")),
+          category:decodeURIComponent(this.route.snapshot.queryParamMap.get("category")),
         }
       }
 
+      let sources = [...this.rx.temp["transaction"]["sources"].value]
       // validate payment is uniqe
       if (this.is_edit) {
-        this.rx.temp["transaction"]["sources"][this.edit_index] = payment;
-        console.log(this.rx.temp["transaction"]["sources"][this.edit_index]);
+
+        sources[this.edit_index] = payment;
+        console.log(this.rx.temp["transaction"]["sources"].next(sources));
       } else {
-        this.rx.temp["transaction"]["sources"].push(payment)
-        this.router.navigateByUrl("/transaction/sources-sequence/available-sources");
+        sources.push(payment)
+        this.rx.temp["transaction"]["sources"].next(sources)
+        this.router.navigateByUrl("/transaction/sources-sequence/selected-sources");
         console.log(this.rx.temp["transaction"]["sources"]);
         console.log(payment);
       }
     }
+  }
+
+  cancel(){
+    this.router.navigateByUrl("/transaction/sources-sequence/selected-sources");
   }
 
 }
