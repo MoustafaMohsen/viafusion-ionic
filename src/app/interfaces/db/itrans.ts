@@ -1,7 +1,6 @@
 import { customert_id } from '../rapyd/types';
-import { IContact } from "../rapyd/icontact";
 import { ewallet_id } from "../rapyd/types";
-import { IDBSecurity } from "./isecurity";
+import { IPayment } from '../rapyd/ipayment';
 /**
  *
 contact_reference_id VARCHAR ( 255 ) PRIMARY KEY,
@@ -14,15 +13,20 @@ data TEXT
 
  */
 
-export interface IDBContact {
-    contact_reference_id?: number;
-    id?: string;
-    email?: string;
-    ewallet?: ewallet_id;
-    customer?: customert_id;
-    wallet_refrence_id?: string;
-    phone_number?: string;
-    security?:IDBSecurity;
-    meta?:object;
-    data?:IContact;
+export interface IDBMetaContact {
+  /** Internal id for calling actions */
+  id?: string;
+  contact_reference_id?: ewallet_id;
+  wallet_refrence_id?: string;
+  customer?: customert_id;
+  meta?: object;
+  transactions?: ITransaction[];
+}
+
+export interface ITransaction{
+  id:string
+  amout:string
+  sources:IPayment[]
+  destinations:any[]
+  executed:boolean
 }
