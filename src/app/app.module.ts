@@ -61,6 +61,7 @@ import { RX } from './services/rx/events.service';
 import { RegisterPinPage } from './pages/_auth/register-pin/register-pin.page';
 import { VerifyCardPage } from './pages/_verification/verify-card/verify-card.page';
 import { VerifyWalletPage } from './pages/_verification/verify-wallet/verify-wallet.page';
+import { CheckoutTestPage } from './pages/checkout-test/checkout-test.page';
 
 @NgModule({
   imports: [
@@ -143,7 +144,7 @@ import { VerifyWalletPage } from './pages/_verification/verify-wallet/verify-wal
     RegisterPinPage,
     VerifyCardPage,
     VerifyWalletPage
-
+    CheckoutTestPage,
 
   ],
   entryComponents: [],
