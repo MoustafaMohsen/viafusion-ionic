@@ -17,6 +17,7 @@ import { verificationIcon } from './consts/verification';
 import { cameraIcon } from './consts/camera';
 import { walletIcon } from './consts/wallet';
 import { coloredCcIcon } from './consts/colored-cc';
+import { ewalletIcon } from './consts/ewallet';
 
 export const  icons = [
     nfcIcon,
@@ -37,6 +38,8 @@ export const  icons = [
     verificationIcon,
     cameraIcon,
     walletIcon,
-    coloredCcIcon
+    coloredCcIcon,
+    ewalletIcon,
+    
 
 ];
