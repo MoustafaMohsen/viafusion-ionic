@@ -38,7 +38,7 @@
     </ion-text>
 
 
-    <app-source-item *ngFor="let item of payment_list" [source_item]="item" class="block relative mt-8"></app-source-item>
+    <app-source-item (click)="select_source(item)" *ngFor="let item of payment_list" [source_item]="item" class="block relative mt-8"></app-source-item>
 
 
   </div>

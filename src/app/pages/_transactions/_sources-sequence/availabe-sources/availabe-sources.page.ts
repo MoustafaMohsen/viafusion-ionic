@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/services/loading.service';
 import { PaymentService } from './../../../../services/auth/payment';
 import { Component, OnInit } from '@angular/core';
@@ -28,7 +29,7 @@ export class AvailabeSourcesPage implements OnInit {
 
   payment_list: ListPayments.Response[]= []
 
-  constructor(private paymentSrv: PaymentService, private loading:LoadingService) {
+  constructor(private paymentSrv: PaymentService, private loading:LoadingService, private router:Router) {
     this.filteredCountries = this.countryCtrl.valueChanges
     .pipe(
       startWith(''),
@@ -60,8 +61,8 @@ export class AvailabeSourcesPage implements OnInit {
 
   }
 
-  renderPaymenMethods(country: string) {
-    this.paymentSrv.list_payment_methods("")
+  select_source(payment_method: ListPayments.Response){
+    this.router.navigateByUrl("/transaction/sources-sequence/source?payment_method="+payment_method)
   }
 
 }
