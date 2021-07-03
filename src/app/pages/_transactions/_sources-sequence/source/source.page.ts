@@ -81,6 +81,8 @@ export class SourcePage implements OnInit {
 
         sources[this.edit_index] = payment;
         console.log(this.rx.temp["transaction"]["sources"].next(sources));
+        this.router.navigateByUrl("/transaction/sources-sequence/selected-sources");
+
       } else {
         sources.push(payment)
         this.rx.temp["transaction"]["sources"].next(sources)

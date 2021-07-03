@@ -9,13 +9,13 @@ export interface IContact {
     id?: contact_id;
     /**
     * Address of this contact person. Required when the client issues a card to the contact.
-    
+
     This can be an Address object or the ID of an address object created with Create Address. For more information, see Address Object.
     */
     address?: IAddress | address_id;
     /**
     * Describes additional information for business entities. See Business Details Object, below.
-    
+
     Required when type is company.
     */
     business_details?: object;
@@ -24,7 +24,7 @@ export interface IContact {
     * 1 - All transactions are allowed.
     * 0 - The wallet is limited, and the contact must complete the identity verification process.
     * -1 - The wallet is restricted and cannot be used for any transactions.
-    
+
     Response only.
     */
     compliance_profile?: number;
@@ -36,7 +36,7 @@ export interface IContact {
     contact_type?: contact_type;
     /**
     * The two-letter ISO 3166-1 ALPHA-2 code for the country. Uppercase.
-    
+
     To determine the code for a country, see List Countries.
     */
     country?: string;
@@ -84,10 +84,10 @@ export interface IContact {
     identification_number?: string;
     /**
     * Type of the identification document associated with the contact. Must be uppercase.
-    
+
     For types that are valid in the country, use List Official Identification Documents.
     */
-    identification_type?: string;
+    identification_type?: "company_registered_number" | "drivers_license" | "identification_id" | "international_passport" | "residence_permit" | "social_security" | "work_permit";
     /**
     * Family name of the personal contact or primary person associated with the business contact. This field is required to issue a card to a personal contact.
     */
@@ -116,7 +116,7 @@ export interface IContact {
     mothers_name?: string;
     /**
     * The citizenship of the contact. Two-letter ISO 3166-1 ALPHA-2 code for the country. Uppercase.
-    
+
     To determine the code for a country, see List Countries.
     */
     nationality?: string;
