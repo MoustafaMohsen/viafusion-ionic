@@ -1,3 +1,4 @@
+import { CheckoutTestPage } from './pages/checkout-test/checkout-test.page';
 import { VccDetailsPage } from './pages/_cc/_vcc/_vcc-details/vcc-details.page';
 import { ListOfCcPage } from './pages/_cc/list-of-cc/list-of-cc.page';
 import { NfcPaymentPage } from './pages/_payment/nfc-payment/nfc-payment.page';
@@ -235,10 +236,10 @@ const routes: Routes = [
     ]  
   },
 
-  // insta sending 
+  // insta sending
   {
     path: 'insta-send',
-    
+
     children: [
       {
         path:'enter-amount',
@@ -250,7 +251,12 @@ const routes: Routes = [
       },
     ]
   },
- 
+  {
+    path: 'checkout-test',
+    component:CheckoutTestPage
+  },
+
+
 
  
 
