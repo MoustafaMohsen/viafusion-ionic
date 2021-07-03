@@ -1,9 +1,99 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>verify-card</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header title="Verify your Card"></app-header>
 
 <ion-content>
+  
+  <div class="progress-section">
+
+    <div class="relative circle">
+
+       <svg-icon key="colored-cc" fontSize="6rem"></svg-icon>
+
+      <circle-progress
+        [percent]="progress_percent"
+        [maxPercent]="100"
+        [radius]="radius"
+        [showTitle]="false"
+        [showSubtitle]="true"
+        [subtitle]="subtitle"
+        [subtitleFontSize]="'30'"
+        [showUnits]="false"
+        [outerStrokeWidth]="16"
+        [outerStrokeColor]="'#b45309'"
+        [showZeroOuterStroke]="false"
+        [backgroundStroke]="'#33003F'"
+        [backgroundStrokeWidth]="3"
+        [outerStrokeGradient]="true"
+        [outerStrokeGradientStopColor]="'#f59e0b'"
+        [showInnerStroke]="false"></circle-progress>
+
+       
+    </div>
+
+  </div>
+
+  <div class="form-page">
+    <form class="w-full max-w-lg">
+      <div class="flex flex-wrap -mx-3 mb-6">
+   
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+            Date Of Birth
+          </label>
+          <input
+            class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            id="grid-first-name" type="text" placeholder="MM/YY">
+        </div>
+
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+            Country
+          </label>
+          <input
+            class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            id="grid-first-name" type="text" placeholder="country name">
+        </div>
+
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+            City
+          </label>
+          <input
+            class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            id="grid-first-name" type="text" placeholder="city name">
+        </div>
+        
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+            State
+          </label>
+          <input
+            class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            id="grid-first-name" type="text" placeholder="state name">
+        </div>
+        
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+            Zip Code
+          </label>
+          <input
+            class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            id="grid-first-name" type="text" placeholder="15207">
+        </div>
+        
+     
+      
+       
+    
+        <div class="w-full md:w-1/2 mt-6">
+          <button (click)="submit()" type="button" class="py-4 px-6   focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+          Get your Wallet
+          </button>
+        </div>
+    
+      </div>
+    
+    </form>
+  </div>
+
 
 </ion-content>

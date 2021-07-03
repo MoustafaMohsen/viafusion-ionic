@@ -1,0 +1,12 @@
+.progress-section{
+    display: flex;
+    justify-content: center;
+    .circle{
+        width: 55%;
+    }
+    svg-icon {
+        position: absolute;
+        top: 22%;
+        left: 27%;
+    }
+}
