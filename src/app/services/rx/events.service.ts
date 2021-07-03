@@ -50,12 +50,18 @@ export class RX {
 
   temp: {
     transaction: {
-      sources?: BehaviorSubject<PostCreatePayment.ICreate[]>
+      sources?: BehaviorSubject<PostCreatePayment.ICreate[]>,
+      id?: string
+      source_amount?: string
+      destination_amount?: string
+      destinations?: any[]
+      executed?: boolean
     }
     [key: string]: any;
   } = {
       transaction: {
-        sources: new BehaviorSubject<PostCreatePayment.ICreate[]>([])
+        sources: new BehaviorSubject<PostCreatePayment.ICreate[]>([]),
+        source_amount:"0"
       }
     };
 
