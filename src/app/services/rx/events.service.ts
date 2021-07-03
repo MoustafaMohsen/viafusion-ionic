@@ -43,6 +43,9 @@ export class RX {
     }
   });
 
+  public tran$= new BehaviorSubject<IDBTran>(null);
+
+
   temp:any = {};
 
   async init_subscribe(){

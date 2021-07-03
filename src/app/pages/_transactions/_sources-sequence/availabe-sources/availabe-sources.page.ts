@@ -62,7 +62,7 @@ export class AvailabeSourcesPage implements OnInit {
   }
 
   select_source(payment_method: ListPayments.Response){
-    this.router.navigateByUrl("/transaction/sources-sequence/source?payment_method="+payment_method)
+    this.router.navigateByUrl("/transaction/sources-sequence/source?payment_method="+payment_method.type)
   }
 
 }
