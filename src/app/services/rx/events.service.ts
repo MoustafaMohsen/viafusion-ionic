@@ -5,6 +5,7 @@ import { filter } from 'rxjs/operators';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
 import { ILogin, ILOginTransportObj } from 'src/app/interfaces/db/ilogin';
 import { Storage } from '@ionic/storage-angular';
+import { IDBMetaContact } from 'src/app/interfaces/db/itrans';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,7 @@ export class RX {
     }
   });
 
-  public tran$= new BehaviorSubject<IDBTran>(null);
+  public meta$= new BehaviorSubject<IDBMetaContact>(null);
 
 
   temp:any = {};
