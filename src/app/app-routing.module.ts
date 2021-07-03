@@ -2,7 +2,6 @@ import { CheckoutTestPage } from './pages/checkout-test/checkout-test.page';
 import { VccDetailsPage } from './pages/_cc/_vcc/_vcc-details/vcc-details.page';
 import { ListOfCcPage } from './pages/_cc/list-of-cc/list-of-cc.page';
 import { NfcPaymentPage } from './pages/_payment/nfc-payment/nfc-payment.page';
-import { SourcesPage } from './pages/_transactions/_sources/list-sources/sources.page';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
@@ -16,7 +15,6 @@ import { OtpPage } from './pages/_auth/otp/otp.page';
 import { DestinationPage } from './pages/_transactions/_destinations/list-destinations/destination.page';
 import { VccSettingsPage } from './pages/_cc/_vcc/_vcc-details/vcc-settings/vcc-settings.page';
 import { VccHistoryPage } from './pages/_cc/_vcc/_vcc-details/vcc-history/vcc-history.page';
-import { AddSourcePage } from './pages/_transactions/_sources/add-source/add-source.page';
 import { CreateVccPage } from './pages/_cc/_vcc/create-vcc/create-vcc.page';
 import { PccDetailsPage } from './pages/_cc/_pcc/_pcc-details/pcc-details.page';
 import { PccHistoryPage } from './pages/_cc/_pcc/_pcc-details/pcc-history/pcc-history.page';
@@ -34,6 +32,8 @@ import { EnterPhonePage } from './pages/insta-send/enter-phone/enter-phone.page'
 import { RegisterPinPage } from './pages/_auth/register-pin/register-pin.page';
 import { VerifyWalletPage } from './pages/_verification/verify-wallet/verify-wallet.page';
 import { VerifyCardPage } from './pages/_verification/verify-card/verify-card.page';
+import { SelectedSourcesPage } from './pages/_transactions/_sources-sequence/selected-sources/availabe-sources.page';
+import { AvailabeSourcesPage } from './pages/_transactions/_sources-sequence/availabe-sources/availabe-sources.page';
 
 const routes: Routes = [
   //
@@ -179,16 +179,16 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'sources',
+        path: 'sources-sequence',
         // redirectTo: 'list-sources',
         children: [
           {
-            path: 'add-source',
-            component: AddSourcePage,
+            path: 'selected-sources',
+            component: SelectedSourcesPage,
           },
           {
-            path: 'list-sources',
-            component: SourcesPage,
+            path: 'available-sources',
+            component: AvailabeSourcesPage,
           },
         ],
       },

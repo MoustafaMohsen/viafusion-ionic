@@ -15,7 +15,6 @@ import { MethodsDashboardComponent } from './components/methods-dashboard/method
 import { TransactionItemComponent } from './components/transaction-item/transaction-item.component';
 import { SvgIconsModule } from '@ngneat/svg-icon';
 import { icons } from './components/svg/index';
-import { SourcesPage } from './pages/_transactions/_sources/list-sources/sources.page';
 import { SourceItemComponent } from './components/items/source-item/source-item.component';
 import { CreditCardComponent } from './components/views/credit-card/credit-card.component';
 import { DestinationItemComponent } from './components/items/destination-item/destination-item.component';
@@ -33,7 +32,6 @@ import { DestinationPage } from './pages/_transactions/_destinations/list-destin
 import { VccHistoryPage } from './pages/_cc/_vcc/_vcc-details/vcc-history/vcc-history.page';
 import { VccSettingsPage } from './pages/_cc/_vcc/_vcc-details/vcc-settings/vcc-settings.page';
 import { VccDetailsPage } from './pages/_cc/_vcc/_vcc-details/vcc-details.page';
-import { AddSourcePage } from './pages/_transactions/_sources/add-source/add-source.page';
 import { CreateVccPage } from './pages/_cc/_vcc/create-vcc/create-vcc.page';
 import { PccDetailsPage } from './pages/_cc/_pcc/_pcc-details/pcc-details.page';
 import { PccHistoryPage } from './pages/_cc/_pcc/_pcc-details/pcc-history/pcc-history.page';
@@ -62,6 +60,8 @@ import { RegisterPinPage } from './pages/_auth/register-pin/register-pin.page';
 import { VerifyCardPage } from './pages/_verification/verify-card/verify-card.page';
 import { VerifyWalletPage } from './pages/_verification/verify-wallet/verify-wallet.page';
 import { CheckoutTestPage } from './pages/checkout-test/checkout-test.page';
+import { SelectedSourcesPage } from './pages/_transactions/_sources-sequence/selected-sources/availabe-sources.page';
+import { AvailabeSourcesPage } from './pages/_transactions/_sources-sequence/availabe-sources/availabe-sources.page';
 
 @NgModule({
   imports: [
@@ -107,7 +107,7 @@ import { CheckoutTestPage } from './pages/checkout-test/checkout-test.page';
     DashboardPage,
     MethodsDashboardComponent,
     TransactionItemComponent,
-    SourcesPage,
+    SelectedSourcesPage,
     SourceItemComponent,
     CreateVccPage,
     CreditCardComponent,
@@ -124,7 +124,7 @@ import { CheckoutTestPage } from './pages/checkout-test/checkout-test.page';
     TransactionHistoryPage,
     VerificationPage,
     VerificationFormComponent,
-    AddSourcePage,
+    AvailabeSourcesPage,
     PccDetailsPage,
     PccHistoryPage,
     PccSettingsPage,
