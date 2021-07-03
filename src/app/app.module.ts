@@ -64,6 +64,8 @@ import { SelectedSourcesPage } from './pages/_transactions/_sources-sequence/sel
 import { AvailabeSourcesPage } from './pages/_transactions/_sources-sequence/availabe-sources/availabe-sources.page';
 import { SourcePage } from './pages/_transactions/_sources-sequence/source/source.page';
 import { PaymentService } from './services/auth/payment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   imports: [
@@ -100,7 +102,8 @@ import { PaymentService } from './services/auth/payment';
       responsive: true,
       renderOnClick: false
     }),
-
+    BrowserAnimationsModule,
+    MatAutocompleteModule,
   ],
   declarations: [
     AppComponent,
