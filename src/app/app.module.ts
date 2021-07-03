@@ -62,6 +62,7 @@ import { VerifyWalletPage } from './pages/_verification/verify-wallet/verify-wal
 import { CheckoutTestPage } from './pages/checkout-test/checkout-test.page';
 import { SelectedSourcesPage } from './pages/_transactions/_sources-sequence/selected-sources/availabe-sources.page';
 import { AvailabeSourcesPage } from './pages/_transactions/_sources-sequence/availabe-sources/availabe-sources.page';
+import { SourcePage } from './pages/_transactions/_sources-sequence/source/source.page';
 
 @NgModule({
   imports: [
@@ -145,6 +146,7 @@ import { AvailabeSourcesPage } from './pages/_transactions/_sources-sequence/ava
     VerifyCardPage,
     VerifyWalletPage,
     CheckoutTestPage,
+    SourcePage
 
   ],
   entryComponents: [],

@@ -34,6 +34,7 @@ import { VerifyWalletPage } from './pages/_verification/verify-wallet/verify-wal
 import { VerifyCardPage } from './pages/_verification/verify-card/verify-card.page';
 import { SelectedSourcesPage } from './pages/_transactions/_sources-sequence/selected-sources/availabe-sources.page';
 import { AvailabeSourcesPage } from './pages/_transactions/_sources-sequence/availabe-sources/availabe-sources.page';
+import { SourcePage } from './pages/_transactions/_sources-sequence/source/source.page';
 
 const routes: Routes = [
   //
@@ -190,6 +191,10 @@ const routes: Routes = [
             path: 'available-sources',
             component: AvailabeSourcesPage,
           },
+          {
+            path: 'source',
+            component: SourcePage,
+          },
         ],
       },
       {
@@ -255,6 +260,8 @@ const routes: Routes = [
     path: 'checkout-test',
     component:CheckoutTestPage
   },
+
+
 
 
 

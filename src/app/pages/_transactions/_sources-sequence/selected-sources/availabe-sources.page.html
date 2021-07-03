@@ -1,3 +1,5 @@
+<app-header title="Add sources"></app-header>
+
 <ion-content>
 
 
@@ -8,14 +10,13 @@
     <div class="transaction-ballance">
       <h3 class="letspac-1">Transfer Amount</h3>
       <h1>$5,000</h1>
-      <p>of <small>$20,000 available</small></p>
     </div>
   </div>
 
   <div class="sourecs-container pt-8">
 
-    <app-source-item></app-source-item>
-    <app-source-item class="block relative mt-8"></app-source-item>
+    <app-source-item [source_item]="source_item" class="block relative mt-8"></app-source-item>
+
     <div class="flex w-full relative add-source justify-start mt-8">
       <ion-button (click)="add_source()" expand="block" fill="outline" shape="round">
         Add Source
@@ -51,9 +52,9 @@
     </div>
 
     <div class="continue-button">
-      <ion-button (click)="continue_to_destination()" expand="full" fill="solid" shape="round">
+      <button (click)="continue_to_destination()" class="py-4 px-6   focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1" type="submit">
         Continue to Destination
-      </ion-button>
+      </button>
     </div>
   </div>
 </ion-content>
