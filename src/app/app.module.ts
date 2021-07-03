@@ -143,7 +143,7 @@ import { CheckoutTestPage } from './pages/checkout-test/checkout-test.page';
     ModalComponent,
     RegisterPinPage,
     VerifyCardPage,
-    VerifyWalletPage
+    VerifyWalletPage,
     CheckoutTestPage,
 
   ],
