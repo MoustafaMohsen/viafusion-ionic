@@ -68,6 +68,11 @@ export class RX {
     }
   };
 
+  get meta(){
+
+    return this.meta$.asObservable().pipe(filter(user => !!user))
+  }
+
   async init_subscribe() {
     this.storage.get("user").then(storage_user => {
       console.log("====== First time ==== storage get user 🏪>>");
@@ -113,8 +118,8 @@ export class RX {
   // =============== Meta Contact
   async get_db_metacontact(): Promise<IDBMetaContact> {
     return new Promise((resolve, reject) => {
-      let metacontact = this.meta$.value
-      this.api.post<IDBMetaContact>("get-db-metacontact", metacontact).subscribe(res => {
+      let user = this.user$.value
+      this.api.post<IDBMetaContact>("get-db-metacontact", {contact_reference_id:user.contact_reference_id}).subscribe(res => {
         this.meta$.next(res.data);
         resolve(res.data)
       })

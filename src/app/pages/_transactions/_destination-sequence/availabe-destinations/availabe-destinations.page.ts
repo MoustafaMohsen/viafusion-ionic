@@ -1,12 +1,13 @@
+import { PayoutService } from 'src/app/services/auth/payout';
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/services/loading.service';
-import { PaymentService } from '../../../../services/auth/payment';
 import { Component, OnInit } from '@angular/core';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { contries } from 'src/app/services/static/datasets';
 import { ListPayments } from 'src/app/interfaces/rapyd/ipayment';
+import { IListPayout } from 'src/app/interfaces/rapyd/ipayout';
 
 @Component({
   selector: 'app-availabe-destinations',
@@ -16,14 +17,14 @@ import { ListPayments } from 'src/app/interfaces/rapyd/ipayment';
 export class AvailabeDestinationsPage implements OnInit {
 
   //#endregion
-  destination_item: ListPayments.Response = {
+  destination_item: IListPayout.Response = {
     amount: 0,
   } as any;
 
 
-  payment_list: ListPayments.Response[] = []
+  payment_list: IListPayout.Response[] = []
 
-  constructor(private paymentSrv: PaymentService, private loading: LoadingService, private router: Router) {
+  constructor(private payouySrv: PayoutService, private loading: LoadingService, private router: Router) {
     this.watch_change();
   }
 
@@ -34,8 +35,12 @@ export class AvailabeDestinationsPage implements OnInit {
 
   }
 
-  select_destination(payment_method: ListPayments.Response) {
-    this.router.navigateByUrl("/transaction/destinations-sequence/destination?payment_method=" + encodeURIComponent(payment_method.type) + "&category=" + encodeURIComponent(payment_method.category) + "&image=" + encodeURIComponent(payment_method.image) + "&name=" + encodeURIComponent(payment_method.name))
+  select_destination(payout_response: IListPayout.Response) {
+
+    // prompt amount field
+    // prompt currency select
+
+    // this.router.navigateByUrl("/transaction/destinations-sequence/destination?payment_method=" + encodeURIComponent(payment_method.type) + "&category=" + encodeURIComponent(payment_method.category) + "&image=" + encodeURIComponent(payment_method.image) + "&name=" + encodeURIComponent(payment_method.name))
   }
 
   // == country code
@@ -56,11 +61,17 @@ export class AvailabeDestinationsPage implements OnInit {
     this.loading.start();
     let country = this.countries.find(x => x.alpha2Code === this.countryCtrl.value);
     if (country) {
-      this.paymentSrv.list_payment_methods(country.alpha2Code).subscribe(res => {
+      this.payouySrv.list_payout_methods(country.alpha2Code).subscribe(res => {
         this.loading.stop();
         if (res.success) {
           console.log(res);
-          this.payment_list = res.data.body.data
+          // filter destinations that are same curruncy
+          let payment_list = res.data.body.data;
+          console.log(payment_list.length,payment_list);
+
+          this.payment_list =  payment_list.filter(p=>p.sender_currencies[0]=="*" || p.sender_currencies.indexOf("USD") != -1)
+          console.log(this.payment_list);
+
 
         }
       })
