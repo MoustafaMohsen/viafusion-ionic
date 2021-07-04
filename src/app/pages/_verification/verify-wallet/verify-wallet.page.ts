@@ -29,6 +29,11 @@ export class VerifyWalletPage implements OnInit {
 
   })
   ngOnInit() {
+    setTimeout(() => {
+      if (this.rx.user$.value.ewallet && this.rx.user$.value.rapyd_wallet_data) {
+        this.router.navigateByUrl("verification/verify-card?country="+this.wallet_form.value.country)
+      }
+    }, 3000);
   }
 
   submit() {
@@ -41,7 +46,7 @@ export class VerifyWalletPage implements OnInit {
         console.log(res);
         this.rx.user$.next(res.data);
         if(res.success){
-          this.router.navigateByUrl("http://localhost:8100/verification/verify-card")
+          this.router.navigateByUrl("verification/verify-card?country="+this.wallet_form.value.country)
         }
       },err=>console.log(err)
       )
