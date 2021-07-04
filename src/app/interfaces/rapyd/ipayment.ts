@@ -176,23 +176,24 @@ export namespace PostCreatePayment {
 
     export interface ICreate {
         /**The amount of the payment, in units of the currency defined in currency. Decimal. */
-        amount?: number //must
-        currency?: string //must
+        amount: number //must
+        currency: string //must
         /**ID of the customer. String starting with cus_. Required if payment_method is blank. */
         customer?: string //must
-        payment_method?: PostCreatePayment.IPaymentMethod
+        payment_method: PostCreatePayment.IPaymentMethod
         /**Determines when the payment is processed for capture. When true, the payment is captured immediately. When false, the payment is captured at a later time. Relevant to cards. Default is true. */
         capture?: boolean //must
         /**URL where the customer is redirected after a successful payment. Required for bank redirect payment methods. */
-        complete_payment_url?:string; //must
+        complete_payment_url: string; //must
         /**URL where the customer is redirected in case of an error in the payment. Required for bank redirect payment methods. */
-        error_payment_url?:string; //must
+        error_payment_url: string; //must
 
-        ewallets?:PostCreatePayment.ISplitWallet[] //must
-        "3DS_requirede"?: boolean //must
-        description?: string //must
+        ewallets: PostCreatePayment.ISplitWallet[] //must
+        "3DS_requirede": boolean //must
+        description: string //must
         statement_descriptor?: string
-        address?:IAddress //must
+        address: IAddress //must
+        category?: string
         metadata?: any
     }
 
@@ -213,34 +214,33 @@ export namespace PostCreatePayment {
         expiration_year?: string
         name?: string
         cvv?: string
-        [key:string]:string
+        [key: string]: string
     }
 }
 
 export namespace ListPayments {
 
     export interface Response {
-        type?: string
-        name?: string
-        category?: "bank_redirect" | "bank_transfer" | "card" | "cash" | "ewallet" | "rapyd_ewallet"
-        image?: string
-        country?: string
-        payment_flow_type?: "redirect_url" | "bank_redirect" | "bank_transfer" | "card" | "cash" | "ewallet" | "rapyd_ewallet" | "rapyd_ewallet"
-        currencies?: string[]
-        status?: number
-        is_cancelable?: boolean
-        payment_options?: ListPayments.PaymentOption[]
-        is_expirable?: boolean
-        is_online?: boolean
-        is_refundable?: boolean
-        minimum_expiration_seconds?: number
-        maximum_expiration_seconds?: number
-        virtual_payment_method_type?: string
-        is_virtual?: boolean
-        multiple_overage_allowed?: boolean
-        amount_range_per_currency?: ListPayments.AmountRangePerCurrency[]
-        is_tokenizable?: boolean
-        amount?:number;
+        type: string
+        name: string
+        category: "bank_redirect" | "bank_transfer" | "card" | "cash" | "ewallet" | "rapyd_ewallet"
+        image: string
+        country: string
+        payment_flow_type: "redirect_url" | "bank_redirect" | "bank_transfer" | "card" | "cash" | "ewallet" | "rapyd_ewallet" | "rapyd_ewallet"
+        currencies: string[]
+        status: number
+        is_cancelable: boolean
+        payment_options: ListPayments.PaymentOption[]
+        is_expirable: boolean
+        is_online: boolean
+        is_refundable: boolean
+        minimum_expiration_seconds: number
+        maximum_expiration_seconds: number
+        virtual_payment_method_type: string
+        is_virtual: boolean
+        multiple_overage_allowed: boolean
+        amount_range_per_currency: ListPayments.AmountRangePerCurrency[]
+        is_tokenizable: boolean
     }
 
     export interface PaymentOption {
