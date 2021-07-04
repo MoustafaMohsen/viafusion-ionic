@@ -2,3 +2,31 @@
   width: 100%;
 }
 
+.badge {
+  h4 {
+    padding: 0.5rem;
+    background: var(--secondary-tint);
+    width: auto;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+  }
+}
+
+.transition {
+  border-top-left-radius: 0 !important;
+  border-radius: 24px;
+
+  .img-container {
+    height: 2rem;
+
+    img {
+      object-fit: contain;
+      width: auto;
+      height: auto;
+      max-height: 100%;
+      max-width: 100%;
+    }
+
+  }
+
+}
