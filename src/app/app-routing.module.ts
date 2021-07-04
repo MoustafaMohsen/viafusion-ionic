@@ -9,10 +9,8 @@ import { AddPccPage } from './pages/_cc/_pcc/add-pcc/add-pcc.page';
 import { SchedulePaymentPage } from './pages/_transactions/schedule-payment/schedule-payment.page';
 import { TransactionHistoryPage } from './pages/_transactions/transaction-history/transaction-history.page';
 import { VerificationPage } from './pages/_verification/verification.page';
-import { AddDestinationPage } from './pages/_transactions/_destinations/add-destination/add-destination.page';
 import { LoginPage } from './pages/_auth/login/login.page';
 import { OtpPage } from './pages/_auth/otp/otp.page';
-import { DestinationPage } from './pages/_transactions/_destinations/list-destinations/destination.page';
 import { VccSettingsPage } from './pages/_cc/_vcc/_vcc-details/vcc-settings/vcc-settings.page';
 import { VccHistoryPage } from './pages/_cc/_vcc/_vcc-details/vcc-history/vcc-history.page';
 import { CreateVccPage } from './pages/_cc/_vcc/create-vcc/create-vcc.page';
@@ -35,6 +33,9 @@ import { VerifyCardPage } from './pages/_verification/verify-card/verify-card.pa
 import { SelectedSourcesPage } from './pages/_transactions/_sources-sequence/selected-sources/availabe-sources.page';
 import { AvailabeSourcesPage } from './pages/_transactions/_sources-sequence/availabe-sources/availabe-sources.page';
 import { SourcePage } from './pages/_transactions/_sources-sequence/source/source.page';
+import { AvailabeDestinationsPage } from './pages/_transactions/_destination-sequence/availabe-destinations/availabe-destinations.page';
+import { SelectedDestinationsPage } from './pages/_transactions/_destination-sequence/selected-destinations/availabe-destinations.page';
+import { DestinationPage } from './pages/_transactions/_destination-sequence/destination/destination.page';
 
 const routes: Routes = [
   //
@@ -166,15 +167,19 @@ const routes: Routes = [
     // pathMatch: 'full',
     children: [
       {
-        path: 'destinations',
+        path: 'destinations-sequence',
         // redirectTo: 'list-destinations',
         children: [
           {
-            path: 'add-destination',
-            component: AddDestinationPage,
+            path: 'selected-destinations',
+            component: SelectedDestinationsPage,
           },
           {
-            path: 'list-destinations',
+            path: 'available-destinations',
+            component: AvailabeDestinationsPage,
+          },
+          {
+            path: 'destination',
             component: DestinationPage,
           },
         ],
@@ -238,7 +243,7 @@ const routes: Routes = [
         path: 'verify-card',
         component: VerifyCardPage
      },
-    ]  
+    ]
   },
 
   // insta sending
@@ -265,7 +270,7 @@ const routes: Routes = [
 
 
 
- 
+
 
 
 

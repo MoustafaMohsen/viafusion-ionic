@@ -8,11 +8,11 @@ import { PaymentService } from 'src/app/services/auth/payment';
 import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
-  selector: 'app-source',
-  templateUrl: './source.page.html',
-  styleUrls: ['./source.page.scss'],
+  selector: 'app-destination',
+  templateUrl: './destination.page.html',
+  styleUrls: ['./destination.page.scss'],
 })
-export class SourcePage implements OnInit {
+export class DestinationPage implements OnInit {
 
   constructor(private paymentSrv: PaymentService, private loading: LoadingService, private router: Router, private route: ActivatedRoute, private rx: RX) { }
 
@@ -29,9 +29,9 @@ export class SourcePage implements OnInit {
     this.payment_method = decodeURIComponent(this.route.snapshot.queryParamMap.get("payment_method"));
     this.render_required_fields();
     // validate payment is uniqe
-    for (let i = 0; i < this.rx.temp["transaction"]["sources"].value.length; i++) {
-      const source = this.rx.temp["transaction"]["sources"].value[i] as PostCreatePayment.Request;
-      if (source.payment_method.type == this.payment_method) {
+    for (let i = 0; i < this.rx.temp["transaction"]["destinations"].value.length; i++) {
+      const destination = this.rx.temp["transaction"]["destinations"].value[i] as PostCreatePayment.Request;
+      if (destination.payment_method.type == this.payment_method) {
         console.log("payment edited");
         this.is_edit = true;
         this.edit_index = i;
@@ -91,26 +91,26 @@ export class SourcePage implements OnInit {
       ]
     }
 
-    let sources = [...this.rx.temp["transaction"]["sources"].value]
+    let destinations = [...this.rx.temp["transaction"]["destinations"].value]
     // validate payment is uniqe
     if (this.is_edit) {
 
-      sources[this.edit_index] = payment;
-      console.log(this.rx.temp["transaction"]["sources"].next(sources));
-      this.router.navigateByUrl("/transaction/sources-sequence/selected-sources");
+      destinations[this.edit_index] = payment;
+      console.log(this.rx.temp["transaction"]["destinations"].next(destinations));
+      this.router.navigateByUrl("/transaction/destinations-sequence/selected-destinations");
 
     } else {
-      sources.push(payment)
-      this.rx.temp["transaction"]["sources"].next(sources)
-      this.router.navigateByUrl("/transaction/sources-sequence/selected-sources");
-      console.log(this.rx.temp["transaction"]["sources"]);
+      destinations.push(payment)
+      this.rx.temp["transaction"]["destinations"].next(destinations)
+      this.router.navigateByUrl("/transaction/destinations-sequence/selected-destinations");
+      console.log(this.rx.temp["transaction"]["destinations"]);
       console.log(payment);
     }
 
   }
 
   cancel() {
-    this.router.navigateByUrl("/transaction/sources-sequence/selected-sources");
+    this.router.navigateByUrl("/transaction/destinations-sequence/selected-destinations");
   }
 
 }
