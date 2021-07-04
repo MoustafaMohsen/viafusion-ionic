@@ -8,11 +8,14 @@ import { Component, OnInit } from '@angular/core';
 export class VerifyWalletPage implements OnInit {
   progress_percent = 80;
   radius = 100;
-  subtitle = "Wallet" 
+  subtitle = "Wallet"
   constructor() { }
 
   ngOnInit() {
   }
 
-  submit(){}
+  submit(){
+    // create wallet
+
+  }
 }
