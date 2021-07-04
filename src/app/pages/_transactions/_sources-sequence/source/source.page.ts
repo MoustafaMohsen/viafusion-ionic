@@ -81,6 +81,8 @@ export class SourcePage implements OnInit {
       error_payment_url:"https://google.com/",
       description:"",
       capture:true,
+      customer:user.customer,
+      statement_descriptor:"Test Transfer",
       ewallets:[
         {
           ewallet:user.ewallet,
