@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/services/loading.service';
-import { PaymentService } from './../../../../services/auth/payment';
+import { PaymentService } from '../../../../services/auth/payment';
 import { Component, OnInit } from '@angular/core';
-import { ISource } from 'src/app/interfaces/interfaces';
+import { IDestination } from 'src/app/interfaces/interfaces';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -10,14 +10,14 @@ import { contries } from 'src/app/services/static/datasets';
 import { ListPayments } from 'src/app/interfaces/rapyd/ipayment';
 
 @Component({
-  selector: 'app-availabe-sources',
-  templateUrl: './availabe-sources.page.html',
-  styleUrls: ['./availabe-sources.page.scss'],
+  selector: 'app-availabe-destinations',
+  templateUrl: './availabe-destinations.page.html',
+  styleUrls: ['./availabe-destinations.page.scss'],
 })
-export class AvailabeSourcesPage implements OnInit {
+export class AvailabeDestinationsPage implements OnInit {
 
   //#endregion
-  source_item: ListPayments.Response = {
+  destination_item: ListPayments.Response = {
     amount: 0,
   } as any;
 
@@ -35,8 +35,8 @@ export class AvailabeSourcesPage implements OnInit {
 
   }
 
-  select_source(payment_method: ListPayments.Response) {
-    this.router.navigateByUrl("/transaction/sources-sequence/source?payment_method=" + encodeURIComponent(payment_method.type) + "&category=" + encodeURIComponent(payment_method.category) + "&image=" + encodeURIComponent(payment_method.image) + "&name=" + encodeURIComponent(payment_method.name))
+  select_destination(payment_method: ListPayments.Response) {
+    this.router.navigateByUrl("/transaction/destinations-sequence/destination?payment_method=" + encodeURIComponent(payment_method.type) + "&category=" + encodeURIComponent(payment_method.category) + "&image=" + encodeURIComponent(payment_method.image) + "&name=" + encodeURIComponent(payment_method.name))
   }
 
   // == country code
@@ -53,7 +53,7 @@ export class AvailabeSourcesPage implements OnInit {
         map((country: any) => country ? this._filterCountries(country) : this.countries.slice())
       );
   }
-  list_sources() {
+  list_destinations() {
     this.loading.start();
     let country = this.countries.find(x => x.alpha2Code === this.countryCtrl.value);
     if (country) {
