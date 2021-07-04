@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { LoadingService } from 'src/app/services/loading.service';
+import { RX } from 'src/app/services/rx/events.service';
 import { contries } from 'src/app/services/static/datasets';
 import { WalletService } from 'src/app/services/wallet/wallet.service';
 
@@ -16,7 +17,7 @@ export class VerifyWalletPage implements OnInit {
   progress_percent = 80;
   radius = 100;
   subtitle = "Wallet"
-  constructor(private walletSrv: WalletService, private loading: LoadingService, private router: Router) {
+  constructor(private walletSrv: WalletService, private loading: LoadingService, private router: Router, private rx:RX) {
     this.watch_change();
   }
 
@@ -33,8 +34,17 @@ export class VerifyWalletPage implements OnInit {
   submit() {
     // create wallet
     console.log(this.wallet_form.value);
+    this.loading.start();
     if (this.wallet_form.valid) {
-      // this.walletSrv.create_wallet(this.wallet_form.value)
+      this.walletSrv.create_wallet(this.wallet_form.value).subscribe(res=>{
+        this.loading.stop();
+        console.log(res);
+        this.rx.user$.next(res.data);
+        if(res.success){
+          this.router.navigateByUrl("http://localhost:8100/verification/verify-card")
+        }
+      },err=>console.log(err)
+      )
     }
   }
 
