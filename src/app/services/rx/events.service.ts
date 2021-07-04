@@ -59,8 +59,8 @@ export class RX {
     transaction: {
       payments: new BehaviorSubject<PostCreatePayment.Request[]>([]),
       payouts: new BehaviorSubject<ICreatePayout.Request[]>([]),
-      source_amount: new BehaviorSubject<number>(0),
-      destination_amount: new BehaviorSubject<number>(0),
+      source_amount: "0",
+      destination_amount: "0",
       execute: false,
       executed: false,
       type: null,
@@ -146,8 +146,8 @@ export class RX {
 
 export interface IRXTransaction {
   id: string;
-  source_amount?: BehaviorSubject<number>;
-  destination_amount?: BehaviorSubject<number>;
+  source_amount?: string;
+  destination_amount?: string;
   payments: BehaviorSubject<PostCreatePayment.Request[]>;
   payouts: BehaviorSubject<ICreatePayout.Request[]>;
 

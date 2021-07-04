@@ -70,6 +70,7 @@ import { WalletService } from './services/wallet/wallet.service';
 import { VccService } from './services/vcc/vcc.service';
 import { SelectedDestinationsPage } from './pages/_transactions/_destination-sequence/selected-destinations/availabe-destinations.page';
 import { AvailabeDestinationsPage } from './pages/_transactions/_destination-sequence/availabe-destinations/availabe-destinations.page';
+import { PayoutService } from './services/auth/payout';
 import { DestinationPage } from './pages/_transactions/_destination-sequence/destination/destination.page';
 
 @NgModule({
@@ -159,12 +160,11 @@ import { DestinationPage } from './pages/_transactions/_destination-sequence/des
     SelectedDestinationsPage,
     AvailabeDestinationsPage,
     DestinationPage
-
   ],
   entryComponents: [],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    Api, LoginService, DataService, RX, StorageService, PaymentService,WalletService,VccService
+    Api, LoginService, DataService, RX, StorageService, PaymentService,WalletService,VccService,PayoutService
   ],
   bootstrap: [AppComponent],
 })

@@ -23,16 +23,12 @@
           <div class="w-1/2 badge">
 
             <h4 class="">
-               <svg-icon key="ewallet" fontSize="16px" class="ml-2"></svg-icon>
+              <svg-icon key="ewallet" fontSize="16px" class="ml-2"></svg-icon>
               {{destination.metadata.category}}
             </h4>
           </div>
 
           <div class="amount-badge bg-green-700 text-center">
-            <span *ngIf="destination_item.amount != -1" class="text-gray-200 letspac-2">
-              1200.00
-              <!-- {{destination_item.amount | currency}} -->
-            </span>
           </div>
         </div>
         <div
@@ -46,9 +42,6 @@
             <img [src]="destination.metadata.image" alt="">
           </div>
         </div>
-
-
-
 
 
       </div>
