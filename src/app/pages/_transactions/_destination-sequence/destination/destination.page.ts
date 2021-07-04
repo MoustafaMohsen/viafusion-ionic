@@ -29,8 +29,8 @@ export class DestinationPage implements OnInit {
     this.payment_method = decodeURIComponent(this.route.snapshot.queryParamMap.get("payment_method"));
     this.render_required_fields();
     // validate payment is uniqe
-    for (let i = 0; i < this.rx.temp["transaction"]["destinations"].value.length; i++) {
-      const destination = this.rx.temp["transaction"]["destinations"].value[i] as PostCreatePayment.Request;
+    for (let i = 0; i < this.rx.temp["transaction"]["payouts"].value.length; i++) {
+      const destination = this.rx.temp["transaction"]["payouts"].value[i] as PostCreatePayment.Request;
       if (destination.payment_method.type == this.payment_method) {
         console.log("payment edited");
         this.is_edit = true;
@@ -91,19 +91,19 @@ export class DestinationPage implements OnInit {
       ]
     }
 
-    let destinations = [...this.rx.temp["transaction"]["destinations"].value]
+    let destinations = [...this.rx.temp["transaction"]["payouts"].value]
     // validate payment is uniqe
     if (this.is_edit) {
 
       destinations[this.edit_index] = payment;
-      console.log(this.rx.temp["transaction"]["destinations"].next(destinations));
+      console.log(this.rx.temp["transaction"]["payouts"].next(destinations));
       this.router.navigateByUrl("/transaction/destinations-sequence/selected-destinations");
 
     } else {
       destinations.push(payment)
-      this.rx.temp["transaction"]["destinations"].next(destinations)
+      this.rx.temp["transaction"]["payouts"].next(destinations)
       this.router.navigateByUrl("/transaction/destinations-sequence/selected-destinations");
-      console.log(this.rx.temp["transaction"]["destinations"]);
+      console.log(this.rx.temp["transaction"]["payouts"]);
       console.log(payment);
     }
 

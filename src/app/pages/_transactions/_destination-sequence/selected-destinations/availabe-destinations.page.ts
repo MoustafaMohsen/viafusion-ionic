@@ -25,7 +25,7 @@ export class SelectedDestinationsPage implements OnInit {
   constructor(private loading: LoadingService, private router: Router, private rx: RX) { }
 
   ngOnInit() {
-    this.selected_destinations = this.rx.temp["transaction"]["destinations"].value;
+    this.selected_destinations = this.rx.temp["transaction"]["payouts"].value;
     this.rx.temp.transaction.destinations.subscribe(d=>{
       this.selected_destinations = d;
       // calculate destination total

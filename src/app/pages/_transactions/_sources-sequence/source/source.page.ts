@@ -29,8 +29,8 @@ export class SourcePage implements OnInit {
     this.payment_method = decodeURIComponent(this.route.snapshot.queryParamMap.get("payment_method"));
     this.render_required_fields();
     // validate payment is uniqe
-    for (let i = 0; i < this.rx.temp["transaction"]["sources"].value.length; i++) {
-      const source = this.rx.temp["transaction"]["sources"].value[i] as PostCreatePayment.Request;
+    for (let i = 0; i < this.rx.temp["transaction"]["payments"].value.length; i++) {
+      const source = this.rx.temp["transaction"]["payments"].value[i] as PostCreatePayment.Request;
       if (source.payment_method.type == this.payment_method) {
         console.log("payment edited");
         this.is_edit = true;
@@ -91,19 +91,19 @@ export class SourcePage implements OnInit {
       ]
     }
 
-    let sources = [...this.rx.temp["transaction"]["sources"].value]
+    let sources = [...this.rx.temp["transaction"]["payments"].value]
     // validate payment is uniqe
     if (this.is_edit) {
 
       sources[this.edit_index] = payment;
-      console.log(this.rx.temp["transaction"]["sources"].next(sources));
+      console.log(this.rx.temp["transaction"]["payments"].next(sources));
       this.router.navigateByUrl("/transaction/sources-sequence/selected-sources");
 
     } else {
       sources.push(payment)
-      this.rx.temp["transaction"]["sources"].next(sources)
+      this.rx.temp["transaction"]["payments"].next(sources)
       this.router.navigateByUrl("/transaction/sources-sequence/selected-sources");
-      console.log(this.rx.temp["transaction"]["sources"]);
+      console.log(this.rx.temp["transaction"]["payments"]);
       console.log(payment);
     }
 

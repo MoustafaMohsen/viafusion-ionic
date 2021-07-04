@@ -25,7 +25,7 @@ export class SelectedSourcesPage implements OnInit {
   constructor(private loading: LoadingService, private router: Router, private rx: RX) { }
 
   ngOnInit() {
-    this.selected_sources = this.rx.temp["transaction"]["sources"].value;
+    this.selected_sources = this.rx.temp["transaction"]["payments"].value;
     this.rx.temp.transaction.sources.subscribe(d=>{
       this.selected_sources = d;
       // calculate source total
