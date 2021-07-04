@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 
 import { Component, OnInit, Input } from '@angular/core';
@@ -19,7 +20,7 @@ export class ModalDestinationComponent implements OnInit {
     currency: new FormControl("", [Validators.required])
   })
   constructor(
-    private modalCtr: ModalController,
+    private modalCtr: ModalController, private router:Router
   ) { }
 
   async close() {
@@ -29,8 +30,10 @@ export class ModalDestinationComponent implements OnInit {
   continue() {
     console.log("this.form", this.form);
     console.log("this.request_query", this.request_query);
+    this.request_query.payout_currency = this.form.value.currency
+    this.request_query.payout_amount = this.form.value.AmountRangePerCurrency
 
-    // this.router.navigateByUrl("/transaction/destinations-sequence/destination?payment_method=" + encodeURIComponent(payment_method.type) + "&category=" + encodeURIComponent(payment_method.category) + "&image=" + encodeURIComponent(payment_method.image) + "&name=" + encodeURIComponent(payment_method.name))
+    this.router.navigateByUrl("/transaction/destinations-sequence/destination?request_query=" + encodeURIComponent(this.request_query.payout_amount)+"&payment_method=" + encodeURIComponent(this.request_query.payout_method_type) + "&category=" + encodeURIComponent(payment_method.category) + "&image=" + encodeURIComponent(payment_method.image) + "&name=" + encodeURIComponent(payment_method.name))
 
   }
   ngOnInit() {
