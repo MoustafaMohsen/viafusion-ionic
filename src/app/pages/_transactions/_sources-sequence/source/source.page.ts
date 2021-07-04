@@ -30,7 +30,7 @@ export class SourcePage implements OnInit {
     this.render_required_fields();
     // validate payment is uniqe
     for (let i = 0; i < this.rx.temp["transaction"]["sources"].value.length; i++) {
-      const source = this.rx.temp["transaction"]["sources"].value[i] as PostCreatePayment.ICreate;
+      const source = this.rx.temp["transaction"]["sources"].value[i] as PostCreatePayment.Request;
       if (source.payment_method.type == this.payment_method) {
         console.log("payment edited");
         this.is_edit = true;
@@ -63,7 +63,7 @@ export class SourcePage implements OnInit {
     let user = this.rx.user$.value;
     let fields = { ...this.fields_form.value };
     delete fields.amount;
-    let payment: PostCreatePayment.ICreate = {
+    let payment: PostCreatePayment.Request = {
       amount: parseInt(this.fields_form.get("amount").value),
       payment_method: {
         type: this.payment_method as any,

@@ -19,7 +19,7 @@ export class SelectedSourcesPage implements OnInit {
     description: "",
     start_date: new Date(),
   };
-  selected_sources: PostCreatePayment.ICreate[] = [];
+  selected_sources: PostCreatePayment.Request[] = [];
   source_amount = "0"
 
   constructor(private loading: LoadingService, private router: Router, private rx: RX) { }
@@ -41,7 +41,7 @@ export class SelectedSourcesPage implements OnInit {
     this.router.navigateByUrl("transaction/sources-sequence/available-sources");
   }
 
-  edit_source(source:PostCreatePayment.ICreate){
+  edit_source(source:PostCreatePayment.Request){
     this.router.navigateByUrl("/transaction/sources-sequence/source?payment_method="+encodeURIComponent(source.payment_method.type)+"&category="+encodeURIComponent(source.metadata.category)+"&image="+encodeURIComponent(source.metadata.image)+"&name="+encodeURIComponent(source.metadata.name))
   }
 
