@@ -34,9 +34,26 @@
             </option>
           </select>
         </div>
-        <input [(ngModel)]="phone" type="tel" name="phone_number" id="phone_number" class="border-l border-b border-t border-gray-300 pl-32 outline-unset focus:border-0 block w-full sm:text-sm shadow-lg rounded-full p-4 bg-white py-5 px-20" placeholder="xxx-xxx-xxxx" />
+        <input [(ngModel)]="phone" type="tel" name="phone_number" id="phone_number" class="border-l border-b border-t border-gray-300 pl-32 outline-unset focus:border-0 block w-full sm:text-sm shadow-lg rounded-full p-4 bg-white py-5 px-20" placeholder="xxx-xxx-xxxx" [formControl]="phoneControler" />
 
+        <!-- <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput [formControl]="phoneControler" placeholder="Ex. pat@example.com">
+          <mat-error *ngIf="phoneControler.invalid && !phoneControler.hasError('required')">
+            Please enter a valid phone number address
+          </mat-error>
+          <mat-error *ngIf="phoneControler.hasError('required')">
+            phone number is <strong>required</strong>
+          </mat-error>
+        </mat-form-field> -->
       </div>
+      <mat-error *ngIf="phoneControler.invalid && !phoneControler.hasError('required')">
+        Please enter a valid phone number address
+      </mat-error>
+      <mat-error *ngIf="phoneControler.hasError('required')">
+        phone number is <strong>required</strong>
+      </mat-error>
+
     </div>
 
     <div class="row button-row">
