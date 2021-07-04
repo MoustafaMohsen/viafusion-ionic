@@ -15,12 +15,16 @@ import { moneyBagIcon } from './consts/money-bag';
 import { authenticationIcon } from './consts/authentication';
 import { verificationIcon } from './consts/verification';
 import { cameraIcon } from './consts/camera';
-import { walletIcon } from './consts/wallet';
 import { coloredCcIcon } from './consts/colored-cc';
-import { ewalletIcon } from './consts/ewallet';
 import { sensorIcon } from './consts/sensor';
 import { qrCodeIcon } from './consts/qr-code';
 import { transferMoneyIcon } from './consts/transfer-money';
+import { ewalletIcon } from './consts/ewallet';
+import { bankRedirectIcon } from './consts/bank_redirect';
+import { bankTransferIcon } from './consts/bank_transfer';
+import { cardIcon } from './consts/card';
+import { cashIcon } from './consts/cash';
+import { rapydEwalletIcon } from './consts/rapyd_ewallet';
 
 export const  icons = [
     nfcIcon,
@@ -40,12 +44,17 @@ export const  icons = [
     authenticationIcon,
     verificationIcon,
     cameraIcon,
-    walletIcon,
     coloredCcIcon,
-    ewalletIcon,
     sensorIcon,
     qrCodeIcon,
-    transferMoneyIcon
+    transferMoneyIcon,
+    ewalletIcon,
+    bankRedirectIcon,
+    bankTransferIcon,
+    cardIcon,
+    cashIcon,
+    rapydEwalletIcon
+    
     
 
 ];
