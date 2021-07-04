@@ -1,4 +1,4 @@
-import { ILogin } from "./ilogin";
+import { ILogin } from 'src/app/interfaces/db/ilogin';
 
 export interface IDBSecurity {
     login: ILogin;

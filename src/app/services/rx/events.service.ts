@@ -5,8 +5,8 @@ import { filter } from 'rxjs/operators';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
 import { ILogin, ILoginTransportObj } from 'src/app/interfaces/db/ilogin';
 import { Storage } from '@ionic/storage-angular';
-import { IDBMetaContact } from 'src/app/interfaces/db/itrans';
 import { PostCreatePayment } from 'src/app/interfaces/rapyd/ipayment';
+import { IDBMetaContact } from 'src/app/interfaces/db/idbmetacontact';
 
 @Injectable({
   providedIn: 'root'
@@ -21,17 +21,20 @@ export class RX {
         // checkes
         otp_passed: false,
         pin_passed: false,
-        pf_passed: false,
+        fp_passed: false,
+        device_passed:false,
 
         // has
         has_otp: false,
         has_pin: false,
-        has_pf: false,
+        has_fp: false,
+        has_device:false,
 
         // values
         _otp_value: null,
         _pin_value: null,
         _fp_value: null,
+        _device_value:null,
 
         user_registred: false,
         user_verified: false,

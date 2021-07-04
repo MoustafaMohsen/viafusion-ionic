@@ -60,19 +60,33 @@ export class SourcePage implements OnInit {
 
   submit() {
 
+    let user = this.rx.user$.value;
     let fields = { ...this.fields_form.value };
     delete fields.amount;
     let payment: PostCreatePayment.ICreate = {
       amount: parseInt(this.fields_form.get("amount").value),
       payment_method: {
-        type: this.payment_method,
+        type: this.payment_method as any,
         fields: fields
       },
       metadata: {
         name: decodeURIComponent(this.route.snapshot.queryParamMap.get("name")),
         image: decodeURIComponent(this.route.snapshot.queryParamMap.get("image")),
         category: decodeURIComponent(this.route.snapshot.queryParamMap.get("category")),
-      }
+      },
+      "3DS_requirede":false,
+      address:user.rapyd_contact_data.address as any,
+      currency:"USD",
+      complete_payment_url:"https://google.com/",
+      error_payment_url:"https://google.com/",
+      description:"",
+      capture:true,
+      ewallets:[
+        {
+          ewallet:user.ewallet,
+          percentage:100
+        }
+      ]
     }
 
     let sources = [...this.rx.temp["transaction"]["sources"].value]

@@ -240,7 +240,8 @@ export namespace ListPayments {
         is_virtual: boolean
         multiple_overage_allowed: boolean
         amount_range_per_currency: ListPayments.AmountRangePerCurrency[]
-        is_tokenizable: boolean
+        is_tokenizable: boolean,
+        amount:number
     }
 
     export interface PaymentOption {

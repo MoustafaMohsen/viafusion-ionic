@@ -38,13 +38,13 @@
 
     <div (click)="select_source(source_item)" *ngFor="let source_item of payment_list" class="block relative mt-8">
 <div class="w-2/5 badge">
-  
+
 <h4 class="">
   <svg-icon key="ewallet" fontSize="16px" class="ml-2"></svg-icon>
   {{source_item.category}}
 </h4>
 </div>
-        
+
 
       <div class="source-card transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 flex justify-between items-center source-item">
         <div class="flex items-center w-2/3 text-base font-medium dark:text-white text-gray-800">
