@@ -59,41 +59,41 @@ export class SourcePage implements OnInit {
 
 
   submit() {
-    if (this.fields_form.valid) {
-      let fields = { ...this.fields_form.value };
-      delete fields.amount;
-      let payment: PostCreatePayment.ICreate = {
-        amount: parseInt(this.fields_form.get("amount").value),
-        payment_method: {
-          type: this.payment_method,
-          fields: fields
-        },
-        metadata:{
-          name:decodeURIComponent(this.route.snapshot.queryParamMap.get("name")),
-          image:decodeURIComponent(this.route.snapshot.queryParamMap.get("image")),
-          category:decodeURIComponent(this.route.snapshot.queryParamMap.get("category")),
-        }
-      }
 
-      let sources = [...this.rx.temp["transaction"]["sources"].value]
-      // validate payment is uniqe
-      if (this.is_edit) {
-
-        sources[this.edit_index] = payment;
-        console.log(this.rx.temp["transaction"]["sources"].next(sources));
-        this.router.navigateByUrl("/transaction/sources-sequence/selected-sources");
-
-      } else {
-        sources.push(payment)
-        this.rx.temp["transaction"]["sources"].next(sources)
-        this.router.navigateByUrl("/transaction/sources-sequence/selected-sources");
-        console.log(this.rx.temp["transaction"]["sources"]);
-        console.log(payment);
+    let fields = { ...this.fields_form.value };
+    delete fields.amount;
+    let payment: PostCreatePayment.ICreate = {
+      amount: parseInt(this.fields_form.get("amount").value),
+      payment_method: {
+        type: this.payment_method,
+        fields: fields
+      },
+      metadata: {
+        name: decodeURIComponent(this.route.snapshot.queryParamMap.get("name")),
+        image: decodeURIComponent(this.route.snapshot.queryParamMap.get("image")),
+        category: decodeURIComponent(this.route.snapshot.queryParamMap.get("category")),
       }
     }
+
+    let sources = [...this.rx.temp["transaction"]["sources"].value]
+    // validate payment is uniqe
+    if (this.is_edit) {
+
+      sources[this.edit_index] = payment;
+      console.log(this.rx.temp["transaction"]["sources"].next(sources));
+      this.router.navigateByUrl("/transaction/sources-sequence/selected-sources");
+
+    } else {
+      sources.push(payment)
+      this.rx.temp["transaction"]["sources"].next(sources)
+      this.router.navigateByUrl("/transaction/sources-sequence/selected-sources");
+      console.log(this.rx.temp["transaction"]["sources"]);
+      console.log(payment);
+    }
+
   }
 
-  cancel(){
+  cancel() {
     this.router.navigateByUrl("/transaction/sources-sequence/selected-sources");
   }
 

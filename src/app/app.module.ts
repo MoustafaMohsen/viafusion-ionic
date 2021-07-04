@@ -15,7 +15,6 @@ import { MethodsDashboardComponent } from './components/methods-dashboard/method
 import { TransactionItemComponent } from './components/transaction-item/transaction-item.component';
 import { SvgIconsModule } from '@ngneat/svg-icon';
 import { icons } from './components/svg/index';
-import { SourceItemComponent } from './components/items/source-item/source-item.component';
 import { CreditCardComponent } from './components/views/credit-card/credit-card.component';
 import { DestinationItemComponent } from './components/items/destination-item/destination-item.component';
 import { CcComponent } from './components/views/cc/cc.component';
@@ -117,7 +116,6 @@ import {MatInputModule} from '@angular/material/input';
     MethodsDashboardComponent,
     TransactionItemComponent,
     SelectedSourcesPage,
-    SourceItemComponent,
     CreateVccPage,
     CreditCardComponent,
     NfcPaymentPage,
