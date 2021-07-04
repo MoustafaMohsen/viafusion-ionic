@@ -39,6 +39,21 @@ ion-header {
   }
 }
 
-.pending-transactions-section{
+.send-container{
   margin-top: 355px;
+  .buttons-div button {
+    justify-content: center;
+    background: var(--secondary-tint);
+    padding: 0.5rem;
+    border-radius: 20px;
+    color: var(--secondary);
+  }
+}
+
+
+
+
+.source-item{
+  box-shadow:   0 9px 60px 6px rgba(0, 0, 0, 0.1), 0 12px 12px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
 }

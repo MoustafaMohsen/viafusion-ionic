@@ -91,4 +91,7 @@ export class DashboardPage implements OnInit {
   view_all_btn(){
     this.router.navigateByUrl("/transaction/transaction-history");
   }
+  onClick(){
+    
+  }
 }
