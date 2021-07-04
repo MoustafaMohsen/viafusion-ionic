@@ -5,15 +5,15 @@ import { ewallet_id } from "../rapyd/types";
 import { IPayment } from '../rapyd/ipayment';
 /**
  *
-            meta_id SERIAL PRIMARY KEY,
-            contact_reference_id UNIQUE,
-            transactions TEXT NOT NULL,
-            senders TEXT,
-            benes TEXT,
-            actions TEXT,
-            vcc TEXT,
-            pcc TEXT,
-            meta TEXT
+      meta_id SERIAL PRIMARY KEY,
+      contact_reference_id UNIQUE,
+      transactions TEXT NOT NULL,
+      senders TEXT,
+      benes TEXT,
+      actions TEXT,
+      vcc TEXT,
+      pcc TEXT,
+      meta TEXT
 
  */
 

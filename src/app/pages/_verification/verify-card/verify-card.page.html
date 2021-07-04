@@ -1,12 +1,12 @@
 <app-header title="Verify your Card"></app-header>
 
 <ion-content>
-  
+
   <div class="progress-section">
 
     <div class="relative circle">
 
-       <svg-icon key="colored-cc" fontSize="6rem"></svg-icon>
+      <svg-icon key="colored-cc" fontSize="6rem"></svg-icon>
 
       <circle-progress
         [percent]="progress_percent"
@@ -26,72 +26,85 @@
         [outerStrokeGradientStopColor]="'#f59e0b'"
         [showInnerStroke]="false"></circle-progress>
 
-       
+
     </div>
 
   </div>
 
   <div class="form-page">
-    <form class="w-full max-w-lg">
+    <form [formGroup]="vcc_form" class="w-full max-w-lg">
       <div class="flex flex-wrap -mx-3 mb-6">
-   
+
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
           <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
             Date Of Birth
           </label>
-          <input
+          <input formControlName="date_of_birth"
             class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            id="grid-first-name" type="text" placeholder="MM/YY">
+            id="grid-first-name" type="text" placeholder="12/12/2000">
+        </div>
+        <mat-error *ngIf="vcc_form.get('date_of_birth').invalid && !vcc_form.get('date_of_birth').hasError('required')">
+          Please enter Date Of Birth in formate MM/DD/YYYY like: 12/28/2000
+        </mat-error>
+
+
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+            Your Name
+          </label>
+          <input formControlName="name"
+            class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            id="grid-first-name" type="text" placeholder="Your Name">
         </div>
 
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
           <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
-            Country
+            Address
           </label>
-          <input
+          <input formControlName="line_1"
             class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            id="grid-first-name" type="text" placeholder="country name">
+            id="grid-first-name" type="text" placeholder="city name">
         </div>
 
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
           <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
             City
           </label>
-          <input
+          <input formControlName="city"
             class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="grid-first-name" type="text" placeholder="city name">
         </div>
-        
+
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
           <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
             State
           </label>
-          <input
+          <input formControlName="state"
             class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="grid-first-name" type="text" placeholder="state name">
         </div>
-        
+
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
           <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
             Zip Code
           </label>
-          <input
+          <input formControlName="zip"
             class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="grid-first-name" type="text" placeholder="15207">
         </div>
-        
-     
-      
-       
-    
+
+
+
+
+
         <div class="w-full md:w-1/2 mt-6">
-          <button (click)="submit()" type="button" class="py-4 px-6   focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
-          Get your Card
+          <button [disabled]="this.vcc_form.invalid" (click)="submit()" type="button" class="py-4 px-6   focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+            Get your Card
           </button>
         </div>
-    
+
       </div>
-    
+
     </form>
   </div>
 
