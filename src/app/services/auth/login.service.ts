@@ -2,7 +2,7 @@ import { LoadingService } from './../loading.service';
 import { Router } from '@angular/router';
 import { RX } from './../rx/events.service';
 import { Injectable } from '@angular/core';
-import { ILogin, ILOginTransportObj } from 'src/app/interfaces/db/ilogin';
+import { ILoginTransportObj } from 'src/app/interfaces/db/ilogin';
 import { Api } from '../api/api';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
 
@@ -18,9 +18,9 @@ export class LoginService {
     this.loading.start();
     let login = {
       phone_number,
-      security: "{}"
+      login:{}
     }
-    await this.api.post<ILOginTransportObj<IDBContact>>("login", login).subscribe((res) => {
+    await this.api.post<ILoginTransportObj<IDBContact>>("login", login).subscribe((res) => {
       this.loading.stop();
       console.log("send_login() res.data");
       console.log(res.data);

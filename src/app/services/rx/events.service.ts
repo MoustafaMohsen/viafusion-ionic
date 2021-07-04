@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
-import { ILogin, ILOginTransportObj } from 'src/app/interfaces/db/ilogin';
+import { ILogin, ILoginTransportObj } from 'src/app/interfaces/db/ilogin';
 import { Storage } from '@ionic/storage-angular';
 import { IDBMetaContact } from 'src/app/interfaces/db/itrans';
 import { PostCreatePayment } from 'src/app/interfaces/rapyd/ipayment';

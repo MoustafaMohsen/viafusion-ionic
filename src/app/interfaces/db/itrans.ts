@@ -30,5 +30,6 @@ export interface ITransaction {
   destination_amount?: string
   sources: PostCreatePayment.ICreate[]
   destinations: any[]
+  execute: boolean
   executed: boolean
 }
