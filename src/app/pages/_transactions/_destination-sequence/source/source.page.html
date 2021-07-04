@@ -1,0 +1,80 @@
+<app-header title="Source Details" back_url="/transaction/sources-sequence/available-sources"></app-header>
+
+<ion-content>
+
+  <div class="form-page">
+    <div class="w-full max-w-lg">
+      <div class="flex flex-wrap -mx-3 mb-6">
+
+        <form [formGroup]="fields_form">
+
+          <!-- Amount -->
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+              Amount
+            </label>
+            <input formControlName="amount"
+              class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              type="number" placeholder="1500">
+          </div>
+
+          <div class="fields-container" *ngFor="let f of required_fields?.fields">
+            name:{{f.name}}
+            type:{{f.type}}
+            instructions:{{f.instructions}}
+            regex:{{f.regex}}
+            is_required:{{f.is_required}}
+
+            <!-- Number -->
+            <div *ngIf="f.type == 'number' || f.type == 'integer'" class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+                {{f.instructions}}
+              </label>
+              <input [formControlName]="f.name"
+                class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                type="number" placeholder="number">
+            </div>
+            <!-- Text -->
+            <div *ngIf="f.type == 'string' || f.type == 'text'" class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+                {{f.instructions}}
+              </label>
+              <input [formControlName]="f.name"
+                class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                type="text" placeholder="text">
+            </div>
+            <!-- Checkbox -->
+            <div *ngIf="f.type == 'boolean' || f.type == 'checkbox'" class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+                {{f.instructions}}
+              </label>
+              <label class="inline-flex items-center">
+                <input [formControlName]="f.name" type="checkbox" class="form-checkbox h-6 w-6 text-orange-600" checked>
+                <span class="ml-3 text-gray-700 text-lg">label</span>
+              </label>
+            </div>
+          </div>
+
+        </form>
+
+
+
+        {{fields_form.valid}}
+
+        <div class="w-full md:w-1/2 mt-6">
+          <button [disabled]="fields_form.invalid" (click)="submit()" type="button" class="py-4 px-6   focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+            submit
+          </button>
+
+          <ion-button (click)="cancel()" expand="full" fill="outline" shape="round">
+            Cancel
+          </ion-button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+</ion-content>
