@@ -2,22 +2,15 @@
   <div class="row modal-content relative">
     <div class="">
 
-      <p class="text-gray-600 mt-2 f-p">Transfer to : {{ number }}  </p>  
-      <p class="amount mt-1">EGP {{ amount}}</p>  
+      <p class="text-gray-600 mt-2 f-p">Transfer to : {{ number }} </p>
+      <p class="amount mt-1">EGP {{ amount}}</p>
       <p class="message mt-1 text-sm"> {{ message }}</p>
-</div>
-      <div class="button-row absolute">
+    </div>
+    <div class="button-row absolute">
       <button (click)="transfer()" type="button"
-      class="py-4 px-6 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
-      Transfer <ion-icon name="arrow-forward-outline" class="ml-3 text-2xl"></ion-icon>
-    </button>
-          </div>
+        class="py-4 px-6 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+        Transfer <ion-icon name="arrow-forward-outline" class="ml-3 text-2xl"></ion-icon>
+      </button>
+    </div>
   </div>
-    
-       
-   
-  
-
-      
-    
 </ion-content>

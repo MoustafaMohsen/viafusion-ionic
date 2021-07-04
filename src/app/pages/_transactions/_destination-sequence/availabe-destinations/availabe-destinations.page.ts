@@ -1,5 +1,6 @@
+import { RX } from 'src/app/services/rx/events.service';
 import { PayoutService } from 'src/app/services/auth/payout';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LoadingService } from 'src/app/services/loading.service';
 import { Component, OnInit } from '@angular/core';
 import { map, startWith } from 'rxjs/operators';
@@ -7,7 +8,9 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { contries } from 'src/app/services/static/datasets';
 import { ListPayments } from 'src/app/interfaces/rapyd/ipayment';
-import { IListPayout } from 'src/app/interfaces/rapyd/ipayout';
+import { IGetPayoutRequiredFields, IListPayout } from 'src/app/interfaces/rapyd/ipayout';
+import { ModalController } from '@ionic/angular';
+import { ModalDestinationComponent } from 'src/app/components/modal-destination/modal.component';
 
 @Component({
   selector: 'app-availabe-destinations',
@@ -24,7 +27,7 @@ export class AvailabeDestinationsPage implements OnInit {
 
   payment_list: IListPayout.Response[] = []
 
-  constructor(private payouySrv: PayoutService, private loading: LoadingService, private router: Router) {
+  constructor(private payouySrv: PayoutService, private loading: LoadingService, private router: Router, public modalCtrl: ModalController, private rx: RX, private route: ActivatedRoute) {
     this.watch_change();
   }
 
@@ -35,12 +38,30 @@ export class AvailabeDestinationsPage implements OnInit {
 
   }
 
-  select_destination(payout_response: IListPayout.Response) {
+  async select_destination(payout_response: IListPayout.Response) {
 
-    // prompt amount field
-    // prompt currency select
+    let request_query: IGetPayoutRequiredFields.QueryRequest = {
+      beneficiary_country: this.countryCtrl.value,
+      payout_amount: 50,
+      payout_currency: "USD",
+      payout_method_type: payout_response.payout_method_type,
+      sender_country: this.rx.user$.value.rapyd_contact_data?.country || this.route.snapshot.queryParamMap.get("sender_country") || "US",
+    }
+    // prompt amount field & currency select
+    let modal = await this.modalCtrl.create({
+      component: ModalDestinationComponent,
+      componentProps: {
+        currencies: ["USD", "SGD"],
+        amount: '251',
+        request_query
+      },
+      cssClass: "bottom-drawer"
+    })
 
-    // this.router.navigateByUrl("/transaction/destinations-sequence/destination?payment_method=" + encodeURIComponent(payment_method.type) + "&category=" + encodeURIComponent(payment_method.category) + "&image=" + encodeURIComponent(payment_method.image) + "&name=" + encodeURIComponent(payment_method.name))
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+    console.log(data);
   }
 
   // == country code
@@ -50,7 +71,7 @@ export class AvailabeDestinationsPage implements OnInit {
 
   countries: ICountry[] = contries
 
-  watch_change(){
+  watch_change() {
     this.filteredCountries = this.countryCtrl.valueChanges
       .pipe(
         startWith(''),
@@ -67,9 +88,9 @@ export class AvailabeDestinationsPage implements OnInit {
           console.log(res);
           // filter destinations that are same curruncy
           let payment_list = res.data.body.data;
-          console.log(payment_list.length,payment_list);
+          console.log(payment_list.length, payment_list);
 
-          this.payment_list =  payment_list.filter(p=>p.sender_currencies[0]=="*" || p.sender_currencies.indexOf("USD") != -1)
+          this.payment_list = payment_list.filter(p => p.sender_currencies[0] == "*" || p.sender_currencies.indexOf("USD") != -1)
           console.log(this.payment_list);
 
 

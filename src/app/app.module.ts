@@ -72,6 +72,8 @@ import { SelectedDestinationsPage } from './pages/_transactions/_destination-seq
 import { AvailabeDestinationsPage } from './pages/_transactions/_destination-sequence/availabe-destinations/availabe-destinations.page';
 import { PayoutService } from './services/auth/payout';
 import { DestinationPage } from './pages/_transactions/_destination-sequence/destination/destination.page';
+import { ModalDestinationComponent } from './components/modal-destination/modal.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   imports: [
@@ -111,7 +113,8 @@ import { DestinationPage } from './pages/_transactions/_destination-sequence/des
     BrowserAnimationsModule,
     MatAutocompleteModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule,
   ],
   declarations: [
     AppComponent,
@@ -159,7 +162,8 @@ import { DestinationPage } from './pages/_transactions/_destination-sequence/des
     SourcePage,
     SelectedDestinationsPage,
     AvailabeDestinationsPage,
-    DestinationPage
+    DestinationPage,
+    ModalDestinationComponent
   ],
   entryComponents: [],
   providers: [
