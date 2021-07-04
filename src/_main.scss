@@ -157,3 +157,8 @@ mat-option.country-option {
 .countries-autocomplete {
   width: 100%;
 }
+
+a[disabled], button[disabled], html input[disabled] {
+  cursor: default;
+  background-image: linear-gradient(to right, #b3b2b2, #ccc6bd);
+}
