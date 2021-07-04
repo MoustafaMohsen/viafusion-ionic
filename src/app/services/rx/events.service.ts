@@ -1,3 +1,4 @@
+import { Api } from './../api/api';
 import { StorageService } from './../storage/storage.service';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -12,7 +13,7 @@ import { IDBMetaContact } from 'src/app/interfaces/db/idbmetacontact';
   providedIn: 'root'
 })
 export class RX {
-  constructor(private storage: Storage) { }
+  constructor(private storage: Storage, private api:Api) { }
 
   public user$ = new BehaviorSubject<IDBContact>({
     security: {
@@ -84,4 +85,51 @@ export class RX {
       console.log("=== storage was set with value", u);
     })
   }
+
+
+  // ========== contact handling and updateing
+
+  // =============== Contact
+  async get_db_contact():Promise<IDBContact>{
+    return new Promise((resolve,reject)=>{
+      let contact = this.user$.value
+      this.api.post<IDBContact>("get-db-user",contact).subscribe(res=>{
+        this.user$.next(res.data);
+        resolve(res.data)
+      })
+    })
+  }
+
+  async post_db_contact():Promise<IDBContact>{
+    return new Promise((resolve,reject)=>{
+      let contact = this.user$.value
+      this.api.post<IDBContact>("update-db-user",contact).subscribe(res=>{
+        this.user$.next(res.data);
+        resolve(res.data)
+      })
+    })
+  }
+
+
+  // =============== Meta Contact
+  async get_db_metacontact():Promise<IDBMetaContact>{
+    return new Promise((resolve,reject)=>{
+      let metacontact = this.meta$.value
+      this.api.post<IDBMetaContact>("get-db-metacontact",metacontact).subscribe(res=>{
+        this.meta$.next(res.data);
+        resolve(res.data)
+      })
+    })
+  }
+
+  async post_db_metacontact():Promise<IDBMetaContact>{
+    return new Promise((resolve,reject)=>{
+      let metacontact = this.meta$.value
+      this.api.post<IDBMetaContact>("update-db-metacontact",metacontact).subscribe(res=>{
+        this.meta$.next(res.data);
+        resolve(res.data)
+      })
+    })
+  }
+
 }

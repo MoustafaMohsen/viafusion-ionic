@@ -68,6 +68,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { WalletService } from './services/wallet/wallet.service';
+import { VccService } from './services/vcc/vcc.service';
 
 @NgModule({
   imports: [
@@ -159,7 +160,7 @@ import { WalletService } from './services/wallet/wallet.service';
   entryComponents: [],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    Api, LoginService, DataService, RX, StorageService, PaymentService,WalletService
+    Api, LoginService, DataService, RX, StorageService, PaymentService,WalletService,VccService
   ],
   bootstrap: [AppComponent],
 })
