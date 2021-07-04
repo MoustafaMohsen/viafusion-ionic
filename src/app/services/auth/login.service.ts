@@ -74,8 +74,12 @@ export class LoginService {
     var user = this.rx.user$.value;
     // TODO: login sequence
     if (user.security.login.has_pin) {
+      console.log("user HAVE pin");
+
       this.router.navigateByUrl("/auth/login-with-pin");
     }else{
+      console.log("user DOESN'T HAVE pin");
+
       this.router.navigateByUrl("/auth/register-pin");
     }
   }
