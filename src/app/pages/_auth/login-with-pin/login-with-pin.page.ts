@@ -20,9 +20,16 @@ export class LoginWithPinPage implements OnInit  {
   ngOnInit() {
   }
   update_code(e: Event, i: number) {
-    if (i < 6) {
-      let input = document.getElementById('code_input_' + (i + 1)) as HTMLInputElement;
-      input.focus();
+    let next_input = document.getElementById('code_input_' + (i + 1)) as HTMLInputElement;
+    let current_input = document.getElementById('code_input_' + (i)) as HTMLInputElement;
+    this.pin[i] = current_input.value as any;
+    let code = this.pin.join("");
+    console.log(code);
+
+    if (code.length < 6) {
+      if (current_input.value) {
+        next_input && next_input.focus();
+      }
     } else {
       this.submit()
     }
@@ -39,8 +46,13 @@ export class LoginWithPinPage implements OnInit  {
       this.loading.stop();
       if (res.success && res.data) {
         var user: IDBContact = res.data
-        this.rx.user$.next(user);
-        this.router.navigateByUrl("/dashboard");
+        if (user.security.login.authenticated) {
+          this.rx.user$.next(user);
+          this.success = "correct"
+          this.router.navigateByUrl("/verification/verify-wallet");
+        }else{
+          this.success = "incorrect";
+        }
       }
     })
 
