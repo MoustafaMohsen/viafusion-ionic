@@ -23,7 +23,10 @@ export interface ILogin<T = any> {
   data?: T
   _sandbox?: boolean;
 }
-export interface ILOginTransportObj<T> {
-  contact_reference_id: number;
-  login: ILogin<T>
+export interface ILoginTransportObj<T=any> {
+  contact_reference_id?: number;
+  phone_number?: string;
+  device_value?: string;
+  fp_value?: string;
+  login?: ILogin<T>
 }
