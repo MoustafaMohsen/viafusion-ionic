@@ -2,7 +2,7 @@ import { LoadingService } from '../loading.service';
 import { Router } from '@angular/router';
 import { RX } from '../rx/events.service';
 import { Injectable } from '@angular/core';
-import { ILogin, ILOginTransportObj } from 'src/app/interfaces/db/ilogin';
+import { ILogin, ILoginTransportObj } from 'src/app/interfaces/db/ilogin';
 import { Api } from '../api/api';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
 import { ListPayments, RequiredFields } from 'src/app/interfaces/rapyd/ipayment';

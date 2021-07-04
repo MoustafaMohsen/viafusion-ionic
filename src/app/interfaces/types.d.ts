@@ -40,5 +40,6 @@ export interface DataRow{
   export interface IAPIServerResponse<T=any>{
     performance: number,
     success: boolean,
+    message?:string,
     data:T
   }
