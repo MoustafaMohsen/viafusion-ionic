@@ -75,6 +75,10 @@ import { ModalDestinationComponent } from './components/modal-destination/modal.
 import {MatSelectModule} from '@angular/material/select';
 import { LacMatTelInputModule } from 'lac-mat-tel-input';
 import { NgxCcModule } from "ngx-cc";
+import { MarketplacePage } from './pages/marketplace/marketplace.page';
+import { CategoryComponent } from './components/category/category.component';
+import { ProductComponent } from './components/category/product/product.component';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -165,6 +169,9 @@ import { NgxCcModule } from "ngx-cc";
     AvailabeDestinationsPage,
     DestinationPage,
     ModalDestinationComponent,
+    MarketplacePage,
+    CategoryComponent,
+    ProductComponent
   ],
   entryComponents: [],
   providers: [

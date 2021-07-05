@@ -1,0 +1,10 @@
+<div class="">
+  <ion-text color="primary">
+    <h1 class="letspac-1 font-bold text-xl text-gray-800 mt-4"> Cars : </h1>
+  </ion-text>
+  <div class="products flex flex-row mt-4 flex-wrap justify-between">
+
+    <app-product *ngFor="let product of products_details" [product_name]="product.product_name" class="block relative w-40"></app-product>
+
+  </div>
+</div>
