@@ -143,6 +143,10 @@ export class SourcePage implements OnInit {
       ]
     }
 
+    // TODO: filter currencies of response object, make capture null if category was not card
+    // fix capture error
+    payment.capture = payment.metadata.category == "card"?true:null;
+
     let sources = [...this.rx.temp["transaction"]["payments"].value]
     // validate payment is uniqe
     if (this.is_edit) {
