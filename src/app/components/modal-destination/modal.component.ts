@@ -6,6 +6,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { IGetPayoutRequiredFields, IListPayout } from 'src/app/interfaces/rapyd/ipayout';
+import { PayoutService } from 'src/app/services/auth/payout';
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -21,7 +22,7 @@ export class ModalDestinationComponent implements OnInit {
     currency: new FormControl("", [Validators.required])
   })
   constructor(
-    private modalCtr: ModalController, private router: Router, private rx:RX
+    private modalCtr: ModalController, private router: Router, private rx:RX, private payoutSrv: PayoutService, private loading: LoadingService
   ) { }
 
   async close() {
@@ -35,11 +36,24 @@ export class ModalDestinationComponent implements OnInit {
     this.request_query.payout_amount = this.form.value.amount
     console.log("done this.request_query", this.request_query);
 
-    let query_id = this.rx.makeid(5);
-    this.rx.temp.destination_queries[query_id]=this.request_query
+    var query_id = this.rx.makeid(5);
 
 
-    this.router.navigateByUrl("/transaction/destinations-sequence/destination?query_id="+query_id)
+    this.payoutSrv.get_required_fields(this.request_query).subscribe(res => {
+      console.log("get_required_fields");
+      console.log(res);
+      var response_query = res.data.body.data
+      this.rx.temp.destination_queries[query_id] || (this.rx.temp.destination_queries[query_id] = {} as any)
+
+      this.rx.temp.destination_queries[query_id].response_query = response_query
+
+      this.rx.temp.destination_queries[query_id].request_query = this.request_query
+
+
+      this.router.navigateByUrl("/transaction/destinations-sequence/destination?query_id="+query_id)
+      this.close();
+
+    })
 
   }
   ngOnInit() {

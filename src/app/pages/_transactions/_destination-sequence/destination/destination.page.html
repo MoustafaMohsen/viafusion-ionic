@@ -6,25 +6,14 @@
     <div class="w-full max-w-lg">
       <div class="flex flex-wrap -mx-3 mb-6">
 
-        <form [formGroup]="sender_required_fields_form">
 
-          <!-- Amount -->
-          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
-              Amount : 3000
-            </label>
-          </div>
-
-          <div class="fields-container" *ngFor="let f of required_fields.sender_required_fields">
-            name:{{f.name}}
-            type:{{f.type}}
-            instructions:{{f.instructions}}
-            regex:{{f.regex}}
-            is_required:{{f.is_required}}
-
+        <!-- Beneficiary Fields -->
+        <h2>Beneficiary Required Fields</h2>
+        <form [formGroup]="beneficiary_required_fields_form">
+          <div class="fields-container" *ngFor="let f of required_fields?.beneficiary_required_fields">
             <!-- Number -->
             <div *ngIf="f.type == 'number' || f.type == 'integer'" class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+              <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
                 {{f.instructions}}
               </label>
               <input [formControlName]="f.name"
@@ -33,7 +22,7 @@
             </div>
             <!-- Text -->
             <div *ngIf="f.type == 'string' || f.type == 'text'" class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+              <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
                 {{f.instructions}}
               </label>
               <input [formControlName]="f.name"
@@ -42,38 +31,48 @@
             </div>
             <!-- Checkbox -->
             <div *ngIf="f.type == 'boolean' || f.type == 'checkbox'" class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+              <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
                 {{f.instructions}}
               </label>
-              <label class="inline-flex items-center">
+              <label class="capitalize inline-flex items-center">
                 <input [formControlName]="f.name" type="checkbox" class="form-checkbox h-6 w-6 text-orange-600" checked>
                 <span class="ml-3 text-gray-700 text-lg">label</span>
               </label>
             </div>
           </div>
+
+
 
         </form>
 
-
-        <form [formGroup]="beneficiary_required_fields_form">
-
-          <!-- Amount -->
-          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
-              Amount : 3000
-            </label>
+        <!-- #region Credit Card Form -->
+        <form *ngIf="bene_is_cc" class="rounded-card cc-form" [formGroup]="beneficiary_cc_form">
+          <mat-form-field class="w-100 ngx-cc-form-field">
+            <ngx-cc name="cardNumber" styleClass="card" formControlName="creditCard"></ngx-cc>
+            <mat-placeholder>0000 0000 0000 0000</mat-placeholder>
+            <mat-error *ngIf="beneficiary_cc_form.controls.creditCard.invalid">Card number is not valid</mat-error>
+          </mat-form-field>
+          <div class="w-100 cc-date-cvv-container">
+            <mat-form-field class="w-5/12 ngx-cc-form-field">
+              <ngx-cc-date formControlName="creditCardDate"></ngx-cc-date>
+              <mat-placeholder>MM / YY</mat-placeholder>
+              <mat-error *ngIf="beneficiary_cc_form.controls.creditCardDate.invalid">Expiration date is not valid</mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-5/12 ngx-cc-form-field">
+              <ngx-cc-cvv formControlName="creditCardCvv"></ngx-cc-cvv>
+              <mat-placeholder>CVV</mat-placeholder>
+              <mat-error *ngIf="beneficiary_cc_form.controls.creditCardCvv.invalid">Security code is not valid</mat-error>
+            </mat-form-field>
           </div>
+        </form>
 
-          <div class="fields-container" *ngFor="let f of required_fields.beneficiary_required_fields">
-            name:{{f.name}}
-            type:{{f.type}}
-            instructions:{{f.instructions}}
-            regex:{{f.regex}}
-            is_required:{{f.is_required}}
-
+        <!-- Sender Fields -->
+        <h2>Sender Required Fields</h2>
+        <form [formGroup]="sender_required_fields_form">
+          <div class="fields-container" *ngFor="let f of required_fields?.sender_required_fields">
             <!-- Number -->
             <div *ngIf="f.type == 'number' || f.type == 'integer'" class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+              <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
                 {{f.instructions}}
               </label>
               <input [formControlName]="f.name"
@@ -82,7 +81,7 @@
             </div>
             <!-- Text -->
             <div *ngIf="f.type == 'string' || f.type == 'text'" class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+              <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
                 {{f.instructions}}
               </label>
               <input [formControlName]="f.name"
@@ -91,16 +90,39 @@
             </div>
             <!-- Checkbox -->
             <div *ngIf="f.type == 'boolean' || f.type == 'checkbox'" class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+              <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
                 {{f.instructions}}
               </label>
-              <label class="inline-flex items-center">
+              <label class="capitalize inline-flex items-center">
                 <input [formControlName]="f.name" type="checkbox" class="form-checkbox h-6 w-6 text-orange-600" checked>
                 <span class="ml-3 text-gray-700 text-lg">label</span>
               </label>
             </div>
           </div>
 
+
+
+        </form>
+
+        <!-- #region Credit Card Form -->
+        <form *ngIf="sender_is_cc" class="rounded-card cc-form" [formGroup]="sender_cc_form">
+          <mat-form-field class="w-100 ngx-cc-form-field">
+            <ngx-cc name="cardNumber" styleClass="card" formControlName="creditCard"></ngx-cc>
+            <mat-placeholder>0000 0000 0000 0000</mat-placeholder>
+            <mat-error *ngIf="sender_cc_form.controls.creditCard.invalid">Card number is not valid</mat-error>
+          </mat-form-field>
+          <div class="w-100 cc-date-cvv-container">
+            <mat-form-field class="w-5/12 ngx-cc-form-field">
+              <ngx-cc-date formControlName="creditCardDate"></ngx-cc-date>
+              <mat-placeholder>MM / YY</mat-placeholder>
+              <mat-error *ngIf="sender_cc_form.controls.creditCardDate.invalid">Expiration date is not valid</mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-5/12 ngx-cc-form-field">
+              <ngx-cc-cvv formControlName="creditCardCvv"></ngx-cc-cvv>
+              <mat-placeholder>CVV</mat-placeholder>
+              <mat-error *ngIf="sender_cc_form.controls.creditCardCvv.invalid">Security code is not valid</mat-error>
+            </mat-form-field>
+          </div>
         </form>
 
 
