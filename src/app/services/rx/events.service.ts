@@ -10,13 +10,15 @@ import { PostCreatePayment } from 'src/app/interfaces/rapyd/ipayment';
 import { IDBMetaContact, ITransaction } from 'src/app/interfaces/db/idbmetacontact';
 import { ICreatePayout } from 'src/app/interfaces/rapyd/ipayout';
 import { TransferToWallet } from 'src/app/interfaces/rapyd/iwallet';
-import { categories } from 'src/app/interfaces/rapyd/types';
+import { categories, IAPIServerResponse } from 'src/app/interfaces/rapyd/types';
+import { AlertController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RX {
-  constructor(private storage: Storage, private api: Api) { }
+  constructor(private storage: Storage, private api: Api,private alertController: AlertController,private toastController: ToastController) { }
 
   public user$ = new BehaviorSubject<IDBContact>({
     security: {
@@ -90,16 +92,60 @@ export class RX {
     })
   }
 
+  async alert(message="Okay") {
+    const alert = await this.alertController.create({
+      cssClass: 'alert-class',
+      message: message,
+      buttons: ['OK']
+    });
 
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+
+
+  async toast(message="okay",title="") {
+    const toast = await this.toastController.create({
+      header:title,
+      message,
+      position: 'top',
+      buttons: [
+        {
+          text: 'Done',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    await toast.present();
+
+    const { role } = await toast.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+
+  toastError(error:IAPIServerResponse){
+    if (error.success) {
+      this.toast(error.message)
+    }
+  }
   // ========== contact handling and updateing
 
   // =============== Contact
   async get_db_contact(): Promise<IDBContact> {
     return new Promise((resolve, reject) => {
       let contact = this.user$.value
-      this.api.post<IDBContact>("get-db-user", contact).subscribe(res => {
-        this.user$.next(res.data);
-        resolve(res.data)
+      this.api.post<IDBContact>("update-accounts", contact).subscribe(res => {
+        if (res.success) {
+          this.user$.next(res.data);
+          resolve(res.data)
+        }
+        else{
+          reject(res as IAPIServerResponse)
+        }
       })
     })
   }
