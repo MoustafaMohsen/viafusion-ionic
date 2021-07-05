@@ -81,6 +81,7 @@ import { ProductComponent } from './components/category/product/product.componen
 import { SellPage } from './pages/_marketplace/sell/sell.page';
 import { ProductDetailsPage } from './pages/_marketplace/product-details/product-details.page';
 import { CategoriesModalComponent } from './components/categories-modal/categories-modal.component';
+import { CompleteTransactionPage } from './pages/actions/complete-transaction/complete-transaction.page';
 
 @NgModule({
   imports: [
@@ -177,7 +178,8 @@ import { CategoriesModalComponent } from './components/categories-modal/categori
     ProductComponent,
     SellPage,
     ProductDetailsPage,
-    CategoriesModalComponent
+    CategoriesModalComponent,
+    CompleteTransactionPage
     
   ],
   entryComponents: [],

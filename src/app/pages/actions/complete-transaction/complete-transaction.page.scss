@@ -1,0 +1,61 @@
+ion-header{
+    .page-name {
+    margin-left: 3%;
+}
+}
+ion-content {
+    --padding-top: 0px;
+.badge {
+    .badge-div {
+      padding: 0.5rem;
+      background: var(--secondary-tint);
+      width: auto;
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+      .icon-div{
+        margin-top: 6px;
+        margin-right: 6px;
+      }
+    }
+  }
+  .amount-badge {
+    padding: 0.5rem;
+    width: auto;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    width: 33%;
+  }
+  .source-card {
+    .img-container {
+      height: 2rem;
+  
+      img {
+        object-fit: contain;
+        width: auto;
+        height: auto;
+        max-height: 100%;
+        max-width: 100%;
+      }
+  
+    }
+  
+  }
+ .primary-badge , .green-badge , .warning-badge{
+    padding: 0.5rem;
+    background: var(--secondary);
+    width: auto;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+    color: white;
+    box-shadow: 1px 0px 20px 1px black;
+  }
+  .green-badge {
+    background: rgb(167, 243, 208);;
+    color:green;
+  }
+  .warning-badge {
+    background:rgb(254, 202, 202);
+    color:red;
+  }
+
+}
