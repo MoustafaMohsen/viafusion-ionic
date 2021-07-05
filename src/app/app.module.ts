@@ -74,9 +74,12 @@ import { DestinationPage } from './pages/_transactions/_destination-sequence/des
 import { ModalDestinationComponent } from './components/modal-destination/modal.component';
 import {MatSelectModule} from '@angular/material/select';
 import { LacMatTelInputModule } from 'lac-mat-tel-input';
-import { MarketplacePage } from './pages/marketplace/marketplace.page';
+import { MarketplacePage } from './pages/_marketplace/shop/marketplace.page';
 import { CategoryComponent } from './components/category/category.component';
 import { ProductComponent } from './components/category/product/product.component';
+import { SellPage } from './pages/_marketplace/sell/sell.page';
+import { ProductDetailsPage } from './pages/_marketplace/product-details/product-details.page';
+import { CategoriesModalComponent } from './components/categories-modal/categories-modal.component';
 
 @NgModule({
   imports: [
@@ -169,7 +172,11 @@ import { ProductComponent } from './components/category/product/product.componen
     ModalDestinationComponent,
     MarketplacePage,
     CategoryComponent,
-    ProductComponent
+    ProductComponent,
+    SellPage,
+    ProductDetailsPage,
+    CategoriesModalComponent
+    
   ],
   entryComponents: [],
   providers: [

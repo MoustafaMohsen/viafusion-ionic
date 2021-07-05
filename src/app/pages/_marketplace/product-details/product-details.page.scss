@@ -1,0 +1,25 @@
+ion-content {
+  --padding-top: 0px;
+  --padding-start:1rem;
+  --padding-end:1rem;
+  .category-badge , .name , .phone-row p {
+    justify-content: center;
+    background: var(--secondary-tint);
+    padding: 0.5rem;
+    border-radius: 20px;
+    color: var(--secondary);
+    width: 40%;
+    text-align: center;
+  }
+  .name {
+    background: none;
+    color: rgb(63, 63, 63);
+    font-size: 1.2rem;
+    width: 60%;
+    text-align: left; 
+  }
+  .phone-row p {
+      width: 80%;
+      text-align: left;
+  }
+}

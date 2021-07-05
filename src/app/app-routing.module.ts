@@ -36,7 +36,9 @@ import { SourcePage } from './pages/_transactions/_sources-sequence/source/sourc
 import { AvailabeDestinationsPage } from './pages/_transactions/_destination-sequence/availabe-destinations/availabe-destinations.page';
 import { SelectedDestinationsPage } from './pages/_transactions/_destination-sequence/selected-destinations/availabe-destinations.page';
 import { DestinationPage } from './pages/_transactions/_destination-sequence/destination/destination.page';
-import { MarketplacePage } from './pages/marketplace/marketplace.page';
+import { MarketplacePage } from './pages/_marketplace/shop/marketplace.page';
+import { SellPage } from './pages/_marketplace/sell/sell.page';
+import { ProductDetailsPage } from './pages/_marketplace/product-details/product-details.page';
 
 const routes: Routes = [
   //
@@ -235,7 +237,7 @@ const routes: Routes = [
   {
     path: 'verification',
     // component: VerificationPage,
-    children:[
+    children: [
       {
         path: 'verify-wallet',
         component: VerifyWalletPage
@@ -243,7 +245,7 @@ const routes: Routes = [
       {
         path: 'verify-card',
         component: VerifyCardPage
-     },
+      },
     ]
   },
 
@@ -253,7 +255,7 @@ const routes: Routes = [
 
     children: [
       {
-        path:'enter-amount',
+        path: 'enter-amount',
         component: InstaSendPage,
       },
       {
@@ -264,12 +266,29 @@ const routes: Routes = [
   },
   {
     path: 'checkout-test',
-    component:CheckoutTestPage
+    component: CheckoutTestPage
   },
   {
     path: 'marketplace',
-    component: MarketplacePage
+    children: [
+      {
+        path: 'shop',
+        component: MarketplacePage
+      },
+      {
+        path: 'sell',
+        component: SellPage
+      },
+      {
+        path: 'product-details',
+        component: ProductDetailsPage
+      },
+
+    ]
   },
+
+
+
 
 
 
