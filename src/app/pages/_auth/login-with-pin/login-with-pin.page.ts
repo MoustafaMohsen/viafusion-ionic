@@ -19,6 +19,11 @@ export class LoginWithPinPage implements OnInit  {
 
   ngOnInit() {
   }
+  ngAfterViewInit(): void {
+    let input = document.getElementById('register_code_input_1') as HTMLInputElement;
+    input.focus();
+  }
+
   update_code(e: Event, i: number) {
     let next_input = document.getElementById('login_code_input_' + (i + 1)) as HTMLInputElement;
     let current_input = document.getElementById('login_code_input_' + (i)) as HTMLInputElement;
