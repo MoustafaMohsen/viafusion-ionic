@@ -29,7 +29,7 @@ export class SelectedSourcesPage implements OnInit {
     })
   }
   continue_to_destination() {
-    this.router.navigateByUrl("transaction/destinations/list-destinations");
+    this.router.navigateByUrl("transaction/destinations-sequence/selected-destinations");
   }
 
   add_source() {
