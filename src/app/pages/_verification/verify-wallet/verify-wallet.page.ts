@@ -17,7 +17,7 @@ export class VerifyWalletPage implements OnInit {
   progress_percent = 80;
   radius = 100;
   subtitle = "Wallet"
-  constructor(private walletSrv: WalletService, private loading: LoadingService, private router: Router, private rx:RX) {
+  constructor(private walletSrv: WalletService, public loading: LoadingService, private router: Router, private rx:RX) {
     this.watch_change();
   }
 

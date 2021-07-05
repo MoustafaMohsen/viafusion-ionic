@@ -29,7 +29,7 @@ export class VerifyCardPage implements OnInit,AfterViewInit {
     name: new FormControl("", [Validators.required]),
 
   })
-  constructor(private vcc: VccService, private rx: RX, private router: Router, private loading: LoadingService, private route: ActivatedRoute, public toastController: ToastController) { }
+  constructor(private vcc: VccService, private rx: RX, private router: Router, public loading: LoadingService, private route: ActivatedRoute, public toastController: ToastController) { }
 
 
   ngAfterViewInit(): void {
@@ -68,6 +68,7 @@ export class VerifyCardPage implements OnInit,AfterViewInit {
       } as any
     }
     console.log(form);
+    this.loading.start()
     this.vcc.create_vcc(form).subscribe(res => {
       this.loading.stop();
       let user = res.data

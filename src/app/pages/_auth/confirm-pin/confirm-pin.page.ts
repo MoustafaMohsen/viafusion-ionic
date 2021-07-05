@@ -18,10 +18,16 @@ export class ConfirmPinPage implements OnInit {
   constructor(public loading: LoadingService, private router: Router, private login_serv: LoginService, private rx: RX) { }
 
   ngOnInit() {
+    setTimeout(() => {
+      if (!this.rx.temp["confirm-pin"] && this.rx.temp["confirm-pin"] != "000000") {
+        console.log("user DOESN'T HAVE pin");
+        this.router.navigateByUrl("/auth/register-pin");
+      }
+    }, 1500);
   }
   update_code(e: Event, i: number) {
-    let next_input = document.getElementById('code_input_' + (i + 1)) as HTMLInputElement;
-    let current_input = document.getElementById('code_input_' + (i)) as HTMLInputElement;
+    let next_input = document.getElementById('confirm_code_input_' + (i + 1)) as HTMLInputElement;
+    let current_input = document.getElementById('confirm_code_input_' + (i)) as HTMLInputElement;
     this.pin[i] = current_input.value as any;
     let code = this.pin.join("");
     console.log(code);
@@ -36,12 +42,16 @@ export class ConfirmPinPage implements OnInit {
   }
 
   submit() {
-    this.loading.start();
     let code = this.pin.join("");
     console.log("this.pin");
     console.log(this.pin);
     console.log("code");
     console.log(code);
+    if (this.rx.temp["confirm-pin"] != code) {
+      this.success = "incorrect";
+      return ;
+    }
+    this.loading.start();
     this.login_serv.set_pin(code).subscribe((res) => {
       if (res.success && res.data) {
         var user: IDBContact = res.data

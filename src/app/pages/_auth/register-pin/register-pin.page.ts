@@ -23,8 +23,8 @@ export class RegisterPinPage implements OnInit {
   ngOnInit() {
   }
   update_code(e: Event, i: number) {
-    let next_input = document.getElementById('code_input_' + (i + 1)) as HTMLInputElement;
-    let current_input = document.getElementById('code_input_' + (i)) as HTMLInputElement;
+    let next_input = document.getElementById('register_code_input_' + (i + 1)) as HTMLInputElement;
+    let current_input = document.getElementById('register_code_input_' + (i)) as HTMLInputElement;
     this.pin[i] = current_input.value as any;
     let code = this.pin.join("");
     console.log(code);
@@ -45,7 +45,9 @@ export class RegisterPinPage implements OnInit {
     console.log("code");
     console.log(code);
     this.rx.temp["confirm-pin"] = code;
-    this.router.navigateByUrl("/auth/confirm-pin")
+    this.router.navigateByUrl("/auth/confirm-pin").then(d=>{
+      this.loading.stop();
+    })
   }
 
 }

@@ -1,42 +1,57 @@
 <ion-content [fullscreen]="true">
 
-    <div class="row">
-      <img src="../../../assets/images/logo/logo.svg" alt="" srcset="">
-    </div>
+  <div class="row">
+    <img src="../../../assets/images/logo/logo.svg" alt="" srcset="">
+  </div>
 
-    <div class="row mt-8">
-      <img src="../../../assets/images/login.svg" alt="" srcset="">
-    </div>
-    <div class="row header-row">
-      <h1 class="text-6xl font-bold letspac-1 sm:text-4xl">Welcome ! </h1>
-      <p class="text-gray-600 pl-2 text-2xl letspac-1" >Login in only 30 seconds</p>
-    </div>
-    <div class="row phone-row pt-8">
-      <label for="price" class="block font-medium text-gray-700 text-2xl mb-2">
-        Phone Number :
-      </label>
-      <div class="mt-1 relative rounded-md shadow-sm">
-        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <span class="text-gray-500 sm:text-sm text-2xl p-2 pt-3">
-            <ion-icon name="call"></ion-icon>
-          </span>
-        </div>
-        <div class="absolute inset-y-0 left-10 flex items-center">
-          <select id="country_select" name="country" class=" py-2 px-4 border-t border-r border-gray-300 border-b bo  h-full pl-6 pr-8 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-r-md outline-unset focus:border-0 ">
-            <option>
-              EGP
-            </option>
-            <option>
-              CAD
-            </option>
-            <option>
-              USA
-            </option>
-          </select>
-        </div>
-        <input [(ngModel)]="phone" type="tel" name="phone_number" id="phone_number" class="border-l border-b border-t border-gray-300 pl-32 outline-unset focus:border-0 block w-full sm:text-sm shadow-lg rounded-full p-4 bg-white py-5 px-20" placeholder="xxx-xxx-xxxx" [formControl]="phoneControler" />
+  <div class="row mt-8">
+    <img src="../../../assets/images/login.svg" alt="" srcset="">
+  </div>
+  <div class="row header-row">
+    <h1 class="text-6xl font-bold letspac-1 sm:text-4xl">Welcome ! </h1>
+    <p class="text-gray-600 pl-2 text-2xl letspac-1">Login in only 30 seconds</p>
+  </div>
+  <div class="row phone-row pt-8">
+    <label for="price" class="block font-medium text-gray-700 text-2xl mb-2">
+      Phone Number :
+    </label>
+    <div class="mt-1 relative rounded-md shadow-sm">
+      <form [formGroup]="form">
+        <mat-form-field class="w-full">
+          <!-- <mat-label>Phone</mat-label> -->
+          <lac-mat-country-selector matPrefix [selectorFor]="input"
+            [showDialCode]="true"
+            [disableSearch]="false"
+            searchPlaceholder="Search..."
 
-        <!-- <mat-form-field class="example-full-width" appearance="fill">
+            >
+          </lac-mat-country-selector>
+          <lac-mat-tel-input #input formControlName="phone">
+          </lac-mat-tel-input>
+        </mat-form-field>
+      </form>
+
+      <!-- <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <span class="text-gray-500 sm:text-sm text-2xl p-2 pt-3">
+          <ion-icon name="call"></ion-icon>
+        </span>
+      </div> -->
+      <!-- <div class="absolute inset-y-0 left-10 flex items-center">
+        <select id="country_select" name="country" class=" py-2 px-4 border-t border-r border-gray-300 border-b bo  h-full pl-6 pr-8 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-r-md outline-unset focus:border-0 ">
+          <option>
+            EGP
+          </option>
+          <option>
+            CAD
+          </option>
+          <option>
+            USA
+          </option>
+        </select>
+      </div> -->
+      <!-- <input [(ngModel)]="phone" type="tel" name="phone_number" id="phone_number" class="border-l border-b border-t border-gray-300 pl-32 outline-unset focus:border-0 block w-full sm:text-sm shadow-lg rounded-full p-4 bg-white py-5 px-20" placeholder="xxx-xxx-xxxx" [formControl]="phoneControler" /> -->
+
+      <!-- <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Email</mat-label>
           <input type="email" matInput [formControl]="phoneControler" placeholder="Ex. pat@example.com">
           <mat-error *ngIf="phoneControler.invalid && !phoneControler.hasError('required')">
@@ -46,21 +61,21 @@
             phone number is <strong>required</strong>
           </mat-error>
         </mat-form-field> -->
-      </div>
-      <mat-error *ngIf="phoneControler.invalid && !phoneControler.hasError('required')">
+    </div>
+    <!-- <mat-error *ngIf="phoneControler.invalid && !phoneControler.hasError('required')">
         Please enter a valid phone number address
       </mat-error>
       <mat-error *ngIf="phoneControler.hasError('required')">
         phone number is <strong>required</strong>
-      </mat-error>
+      </mat-error> -->
 
-    </div>
+  </div>
 
-    <div class="row button-row">
-      <button [disabled]="loading.loading" (click)="submit()" type="button" class="py-4 px-6   focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
-        Continue <ion-icon name="arrow-forward-outline" class="ml-3 text-2xl"></ion-icon>
-      </button>
+  <div class="row button-row">
+    <button [disabled]="loading.loading" (click)="submit()" type="button" class="py-4 px-6   focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+      Continue <ion-icon name="arrow-forward-outline" class="ml-3 text-2xl"></ion-icon>
+    </button>
 
-    </div>
+  </div>
 
 </ion-content>

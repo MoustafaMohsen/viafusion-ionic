@@ -12,12 +12,10 @@
     <div class="code-inputs">
       <input
         (ngModelChange)="update_code($event,i)"
-        [id]="'code_input_'+i"
+        [id]="'confirm_code_input_'+i"
         [(ngModel)]="pin[i]"
         *ngFor="let i of [1,2,3,4,5,6]"
-        type="text"
-        inputmode="numeric"
-        maxlength="1" />
+        type="number" inputMode="numeric" maxlength="1" />
     </div>
 
     <div class="row button-row mt-4">

@@ -14,7 +14,7 @@ export class LoginService {
   constructor(private api: Api, private rx: RX, private router: Router, private loading: LoadingService) {
   }
 
-  async send_login(phone_number: number | string) {
+  async send_login(phone_number: string) {
     this.loading.start();
     let login = {
       phone_number,

@@ -12,7 +12,7 @@
     <div class="code-input">
       <label for="price" class="code-label block font-medium text-gray-700 text-2xl mb-2">Enter Code : </label>
       <div class="code-inputs">
-        <input (ngModelChange)="update_code($event,i)" [id]="'code_input_'+i" [(ngModel)]="otp[i]" *ngFor="let i of [1,2,3,4,5,6]" type="text" inputMode="numeric" maxLength="1" />
+        <input (ngModelChange)="update_code($event,i)" [id]="'otp_code_input_'+i" [(ngModel)]="otp[i]" *ngFor="let i of [1,2,3,4,5,6]" type="number" inputMode="numeric" maxlength="1" />
       </div>
     </div>
   </div>

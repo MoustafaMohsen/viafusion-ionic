@@ -33,12 +33,11 @@ export class OtpPage implements OnInit, AfterViewInit {
   }
 
   update_code(e: Event, i: number) {
-    let next_input = document.getElementById('code_input_' + (i + 1)) as HTMLInputElement;
-    let current_input = document.getElementById('code_input_' + (i)) as HTMLInputElement;
+    let next_input = document.getElementById('otp_code_input_' + (i + 1)) as HTMLInputElement;
+    let current_input = document.getElementById('otp_code_input_' + (i)) as HTMLInputElement;
     this.otp[i] = current_input.value as any;
     let code = this.otp.join("");
     console.log(code);
-
     if (code.length < 6) {
       if (current_input.value) {
         next_input && next_input.focus();
