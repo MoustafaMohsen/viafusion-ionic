@@ -39,15 +39,20 @@
     <div (click)="select_source(source_item)" *ngFor="let source_item of payment_list" class="block relative mt-8">
       <div class="w-2/5 badge">
 
-        <h4 class="">
-          <svg-icon [key]="source_item.category" fontSize="16px" class="ml-2"></svg-icon>
-          <span *ngIf="source_item.category == 'cash'">Cash</span>
+        <div class="badge-div flex justify-start items-center">
+          <div class="icon-div">
+            <svg-icon [key]="source_item.category" fontSize="16px" class="ml-2"></svg-icon>
+          </div>
+          <div>
+              <span *ngIf="source_item.category == 'cash'">Cash</span>
           <span *ngIf="source_item.category == 'ewallet'">Wallet</span>
           <span *ngIf="source_item.category == 'bank_transfer'">Bank Transfer</span>
           <span *ngIf="source_item.category == 'bank_redirect'">Bank Redirect</span>
           <span *ngIf="source_item.category == 'card'">Card</span>
           <span *ngIf="source_item.category == 'rapyd_ewallet'">Rapyd</span>
-        </h4>
+          </div>
+        
+        </div>
       </div>
 
 

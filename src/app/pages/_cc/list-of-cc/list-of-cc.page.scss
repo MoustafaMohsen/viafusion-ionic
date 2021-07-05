@@ -1,9 +1,28 @@
+
+ion-content {
+  --padding-top: 0px;
+}
+.create-btn button{
+  
+}
+
+.show-btn {
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 20px;
+  font-weight: 600;
+   border: none;
+  background-color: var(--secondary);
+  color: #fff;
+}
+
+
 .pc-button {
   background: var(--secondary-shade);
     border-radius: 40px;
     padding: 0.5rem 1rem;
     font-weight: 600;
-    color: #545454;
+    color: var(--secondary);
     width: 45%;
     display: flex;
     justify-content: center;
