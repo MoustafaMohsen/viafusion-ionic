@@ -73,7 +73,7 @@ export class DashboardPage implements OnInit {
       },
     ]
 
-    // if no ballance then update accounts
+    // if no balance then update accounts
     this.rx.user$.subscribe(
       u => {
         this.user = u;
@@ -89,28 +89,18 @@ export class DashboardPage implements OnInit {
   user: IDBContact = {} as any;
 
 
-  update_balance(){
-    this.balance = this.walletSrv.reduce_accounts_to_amount(this.user.rapyd_wallet_data.accounts,"USD")
-  }
-
-  update_accountts() {
-    return this.rx.get_db_contact()
+  async update_balance(){
+    this.balance = await this.walletSrv.get_wallet_balance()
   }
 
   ion_refresh(e){
     console.log(e);
-
-    this.update_accountts().then(d=>{
+    this.update_balance().then(d=>{
       e.target.complete();
-      this.rx.toast("Refreshed")
-    }).catch((error:IAPIServerResponse)=>{
-      this.rx.toast(error.message)
+    }).catch((error)=>{
+      console.error(error);
+      this.rx.toastError(error)
     });
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      e.target.complete();
-    }, 10000);
-
   }
 
 

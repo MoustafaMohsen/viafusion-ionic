@@ -1,3 +1,4 @@
+import { IUtilitiesResponse } from './../../interfaces/rapyd/rest-response';
 import { Api } from './../api/api';
 import { StorageService } from './../storage/storage.service';
 import { Injectable } from '@angular/core';
@@ -110,7 +111,7 @@ export class RX {
     const toast = await this.toastController.create({
       header:title,
       message,
-      position: 'top',
+      position: 'bottom',
       buttons: [
         {
           text: 'Done',
@@ -127,9 +128,13 @@ export class RX {
     console.log('onDidDismiss resolved with role', role);
   }
 
-  toastError(error:IAPIServerResponse){
-    if (error.success) {
-      this.toast(error.message)
+  toastError(error:IAPIServerResponse<IUtilitiesResponse>){
+    console.log("toastError");
+
+    console.error(error);
+
+    if (!error.success) {
+      this.toast(error.message.body.status.message + "" + error.message.body.status.error_code)
     }
   }
   // ========== contact handling and updateing

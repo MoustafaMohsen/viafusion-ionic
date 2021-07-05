@@ -26,7 +26,7 @@ export interface IWallet {
   }
 }
 
-export interface WalletBallanceResponse {
+export interface WalletBalanceResponse {
   id: string
   currency: string
   alias: string
