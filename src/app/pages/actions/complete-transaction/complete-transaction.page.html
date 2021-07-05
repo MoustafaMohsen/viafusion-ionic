@@ -1,7 +1,10 @@
 <app-header title="Complete Transaction"></app-header>
 
 <ion-content>
-  <div class="sources">
+
+
+  <!-- Sources Loop -->
+  <div *ngFor="let payment of transaction?.payments" class="sources">
     <div class="">
       <h2 class="text-lg text-gray-800 letspac-1">
         Sources :
@@ -56,12 +59,14 @@
     <img src="../../../../assets/images/logo/logo.svg" width="40%" alt="" srcset="">
   </div>
 
+
+
   <div class="destination mt-4">
     <div class="">
       <h2 class="text-lg text-gray-800 letspac-1">
         Destinations :
       </h2>
     </div>
-   
+
   </div>
 </ion-content>

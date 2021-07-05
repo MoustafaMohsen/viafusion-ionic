@@ -8,7 +8,7 @@ import { IDBContact } from 'src/app/interfaces/db/idbcontact';
 import { ILogin, ILoginTransportObj } from 'src/app/interfaces/db/ilogin';
 import { Storage } from '@ionic/storage-angular';
 import { PostCreatePayment } from 'src/app/interfaces/rapyd/ipayment';
-import { IDBMetaContact, ITransaction } from 'src/app/interfaces/db/idbmetacontact';
+import { IDBMetaContact, ITransaction, ITransactionFull, ITransactionFull_payment } from 'src/app/interfaces/db/idbmetacontact';
 import { ICreatePayout, IGetPayoutRequiredFields } from 'src/app/interfaces/rapyd/ipayout';
 import { TransferToWallet } from 'src/app/interfaces/rapyd/iwallet';
 import { categories, IAPIServerResponse } from 'src/app/interfaces/rapyd/types';
@@ -80,7 +80,6 @@ export class RX {
     };
 
   get meta() {
-
     return this.meta$.asObservable().pipe(filter(user => !!user))
   }
 
@@ -98,6 +97,24 @@ export class RX {
       console.log("=== user$.subscribe Fired 🔥");
       await this.storage.set("user", u);
       console.log("=== storage was set with value", u);
+    })
+
+    this.storage.get("meta").then(storage_meta => {
+      console.log("====== First time ==== storage get meta 🏪>>");
+      console.log(this.storage.get("meta"));
+      if (storage_meta) {
+        this.meta$.next(storage_meta)
+      }
+    });
+
+    // regulary update storage to match the latest
+    this.meta$.subscribe(async (u) => {
+      console.log("=== meta$.subscribe Fired 🔥");
+      if (!u || !u.contact_reference_id) {
+        this.get_db_metacontact();
+      }
+      await this.storage.set("meta", u);
+      console.log("=== Meta storage was set with value", u);
     })
   }
 

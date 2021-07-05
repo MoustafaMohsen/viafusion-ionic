@@ -288,8 +288,13 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'action/complete-transaction',
-    component: CompleteTransactionPage
+    path: 'action',
+    children:[
+      {
+        path: 'complete-transaction',
+        component: CompleteTransactionPage
+      }
+    ]
   },
 
 
