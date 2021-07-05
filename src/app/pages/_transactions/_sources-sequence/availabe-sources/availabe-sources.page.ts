@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/services/loading.service';
 import { PaymentService } from '../../../../services/auth/payment';
 import { Component, OnInit } from '@angular/core';
-import { ISource } from 'src/app/interfaces/interfaces';
+import { ICountry, ISource } from 'src/app/interfaces/interfaces';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -72,15 +72,4 @@ export class AvailabeSourcesPage implements OnInit {
     return this.countries.filter(country => country.name.toLowerCase().includes(filterValue));
   }
 
-}
-
-
-export interface ICountry {
-  name: string;
-  alpha2Code: string;
-  demonym: string;
-  flag: string;
-  callingCodes: string[];
-  latlng: number[];
-  nativeName: string;
 }

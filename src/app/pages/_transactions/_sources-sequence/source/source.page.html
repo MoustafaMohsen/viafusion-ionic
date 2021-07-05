@@ -50,28 +50,28 @@
           </div>
 
 
-          <!-- #region Credit Card Form -->
-          <form *ngIf="is_cc" class="rounded-card cc-form" [formGroup]="cc_form">
-            <mat-form-field class="w-100 ngx-cc-form-field">
-              <ngx-cc name="cardNumber" styleClass="card" formControlName="creditCard"></ngx-cc>
-              <mat-placeholder>0000 0000 0000 0000</mat-placeholder>
-              <mat-error *ngIf="cc_form.controls.creditCard.invalid">Card number is not valid</mat-error>
+
+        </form>
+
+        <!-- #region Credit Card Form -->
+        <form *ngIf="is_cc" class="rounded-card cc-form" [formGroup]="cc_form">
+          <mat-form-field class="w-100 ngx-cc-form-field">
+            <ngx-cc name="cardNumber" styleClass="card" formControlName="creditCard"></ngx-cc>
+            <mat-placeholder>0000 0000 0000 0000</mat-placeholder>
+            <mat-error *ngIf="cc_form.controls.creditCard.invalid">Card number is not valid</mat-error>
+          </mat-form-field>
+          <div class="w-100 cc-date-cvv-container">
+            <mat-form-field class="w-5/12 ngx-cc-form-field">
+              <ngx-cc-date formControlName="creditCardDate"></ngx-cc-date>
+              <mat-placeholder>MM / YY</mat-placeholder>
+              <mat-error *ngIf="cc_form.controls.creditCardDate.invalid">Expiration date is not valid</mat-error>
             </mat-form-field>
-            <div class="w-100 cc-date-cvv-container">
-              <mat-form-field class="w-5/12 ngx-cc-form-field">
-                <ngx-cc-date formControlName="creditCardDate"></ngx-cc-date>
-                <mat-placeholder>MM / YY</mat-placeholder>
-                <mat-error *ngIf="cc_form.controls.creditCardDate.invalid">Expiration date is not valid</mat-error>
-              </mat-form-field>
-              <mat-form-field class="w-5/12 ngx-cc-form-field">
-                <ngx-cc-cvv formControlName="creditCardCvv"></ngx-cc-cvv>
-                <mat-placeholder>CVV</mat-placeholder>
-                <mat-error *ngIf="cc_form.controls.creditCardCvv.invalid">Security code is not valid</mat-error>
-              </mat-form-field>
-            </div>
-          </form>
-
-
+            <mat-form-field class="w-5/12 ngx-cc-form-field">
+              <ngx-cc-cvv formControlName="creditCardCvv"></ngx-cc-cvv>
+              <mat-placeholder>CVV</mat-placeholder>
+              <mat-error *ngIf="cc_form.controls.creditCardCvv.invalid">Security code is not valid</mat-error>
+            </mat-form-field>
+          </div>
         </form>
 
 

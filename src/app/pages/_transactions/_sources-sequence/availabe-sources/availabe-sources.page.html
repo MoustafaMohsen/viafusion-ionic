@@ -16,7 +16,6 @@
               [value]="country.alpha2Code">
               <img class="example-option-img" aria-hidden [src]="country.flag">
               <span>{{country.name}}</span> |
-              <small>{{country.callingCodes[0]}}</small>
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
@@ -51,7 +50,7 @@
           <span *ngIf="source_item.category == 'card'">Card</span>
           <span *ngIf="source_item.category == 'rapyd_ewallet'">Rapyd</span>
           </div>
-        
+
         </div>
       </div>
 

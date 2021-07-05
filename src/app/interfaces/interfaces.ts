@@ -75,3 +75,10 @@ export interface IAddSourceItem{
   type?: TSourcePoint,
   available_funds:number,
 }
+
+
+export interface ICountry {
+  name: string;
+  alpha2Code: string;
+  flag: string;
+}
