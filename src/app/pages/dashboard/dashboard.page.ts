@@ -5,7 +5,7 @@ import { WalletService } from './../../services/wallet/wallet.service';
 import { Router } from '@angular/router';
 import { TPoint, TransactionPoint } from '../../interfaces/interfaces';
 import { TDirection as _TDirection, Transaction, TStatus as _TStatus } from 'src/app/interfaces/interfaces';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { LoadingService } from 'src/app/services/loading.service';
 import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
 
@@ -14,12 +14,15 @@ import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
 })
-export class DashboardPage implements OnInit {
+export class DashboardPage implements OnInit, AfterViewInit {
 
   past_transactions: Transaction[] = [];
   TDirection = _TDirection;
   TStatus = _TStatus;
   constructor(public loading: LoadingService, public router: Router, private rx: RX,private walletSrv:WalletService) { }
+  ngAfterViewInit(): void {
+    this.update_balance();
+  }
 
   ngOnInit() {
     let points: TransactionPoint[] = [{
@@ -77,7 +80,7 @@ export class DashboardPage implements OnInit {
     this.rx.user$.subscribe(
       u => {
         this.user = u;
-
+        this.balance = this.walletSrv.balance$.value
       }
     )
   }
@@ -118,8 +121,12 @@ export class DashboardPage implements OnInit {
     this.router.navigateByUrl("/transaction/internal-transaction");
   }
 
-  send_btn() {
+  make_transaction() {
     this.router.navigateByUrl("/transaction/sources-sequence/selected-sources");
+  }
+
+  insta_send(){
+    this.router.navigateByUrl("/insta-send/enter-amount");
   }
 
   view_all_btn() {
