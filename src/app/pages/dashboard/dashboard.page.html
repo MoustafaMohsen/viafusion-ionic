@@ -7,7 +7,7 @@
     <div class="header-container">
       <div class="flex justify-between">
         <div class="">
-          <h3 class="text-5xl">{{balance}}</h3>
+          <h3 class="text-5xl">{{balance | currency}}</h3>
         </div>
         <ion-button routerLink="/verification" class="notification" expand="block" fill="clear" shape="round">
           <svg-icon class="svg-white flex mt-3" key="notification-colored" fontSize="35px"></svg-icon>
