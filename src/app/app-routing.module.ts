@@ -34,7 +34,7 @@ import { SelectedSourcesPage } from './pages/_transactions/_sources-sequence/sel
 import { AvailabeSourcesPage } from './pages/_transactions/_sources-sequence/availabe-sources/availabe-sources.page';
 import { SourcePage } from './pages/_transactions/_sources-sequence/source/source.page';
 import { AvailabeDestinationsPage } from './pages/_transactions/_destination-sequence/availabe-destinations/availabe-destinations.page';
-import { SelectedDestinationsPage } from './pages/_transactions/_destination-sequence/selected-destinations/availabe-destinations.page';
+import { SelectedDestinationsPage } from './pages/_transactions/_destination-sequence/selected-destinations/selected-destinations.page';
 import { DestinationPage } from './pages/_transactions/_destination-sequence/destination/destination.page';
 import { MarketplacePage } from './pages/marketplace/marketplace.page';
 
