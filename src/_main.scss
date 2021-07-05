@@ -169,3 +169,15 @@ ion-toast{
   --color: black;
   --background: #ffcc91;
 }
+.mat-form-field{
+  width: 100%;
+}
+.rounded-card{
+  box-shadow: 0 9px 60px 6px rgb(0 0 0 / 10%), 0 12px 12px 2px rgb(0 0 0 / 5%);
+  border-radius: 20px;
+  background-color: white;
+  padding: 1rem;
+}
+.capitalize{
+  text-transform: capitalize;
+}

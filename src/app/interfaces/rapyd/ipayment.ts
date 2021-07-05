@@ -391,7 +391,7 @@ export namespace RequiredFields {
     }
 
     export interface Field {
-        name: string
+        name: string | "number"|"expiration_month"|"expiration_year"|"name"|"cvv"
         type: string
         regex: string
         is_required: boolean
