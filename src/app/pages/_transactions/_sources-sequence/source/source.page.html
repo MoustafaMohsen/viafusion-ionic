@@ -19,15 +19,9 @@
           </div>
 
           <div class="fields-container" *ngFor="let f of required_fields?.fields">
-            name:{{f.name}}
-            type:{{f.type}}
-            instructions:{{f.instructions}}
-            regex:{{f.regex}}
-            is_required:{{f.is_required}}
-
             <!-- Number -->
             <div *ngIf="f.type == 'number' || f.type == 'integer'" class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+              <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
                 {{f.instructions}}
               </label>
               <input [formControlName]="f.name"
@@ -36,7 +30,7 @@
             </div>
             <!-- Text -->
             <div *ngIf="f.type == 'string' || f.type == 'text'" class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+              <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
                 {{f.instructions}}
               </label>
               <input [formControlName]="f.name"
@@ -45,24 +39,45 @@
             </div>
             <!-- Checkbox -->
             <div *ngIf="f.type == 'boolean' || f.type == 'checkbox'" class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+              <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
                 {{f.instructions}}
               </label>
-              <label class="inline-flex items-center">
+              <label class="capitalize inline-flex items-center">
                 <input [formControlName]="f.name" type="checkbox" class="form-checkbox h-6 w-6 text-orange-600" checked>
                 <span class="ml-3 text-gray-700 text-lg">label</span>
               </label>
             </div>
           </div>
 
+
+          <!-- #region Credit Card Form -->
+          <form *ngIf="is_cc" class="rounded-card cc-form" [formGroup]="cc_form">
+            <mat-form-field class="w-100 ngx-cc-form-field">
+              <ngx-cc name="cardNumber" styleClass="card" formControlName="creditCard"></ngx-cc>
+              <mat-placeholder>0000 0000 0000 0000</mat-placeholder>
+              <mat-error *ngIf="cc_form.controls.creditCard.invalid">Card number is not valid</mat-error>
+            </mat-form-field>
+            <div class="w-100 cc-date-cvv-container">
+              <mat-form-field class="w-5/12 ngx-cc-form-field">
+                <ngx-cc-date formControlName="creditCardDate"></ngx-cc-date>
+                <mat-placeholder>MM / YY</mat-placeholder>
+                <mat-error *ngIf="cc_form.controls.creditCardDate.invalid">Expiration date is not valid</mat-error>
+              </mat-form-field>
+              <mat-form-field class="w-5/12 ngx-cc-form-field">
+                <ngx-cc-cvv formControlName="creditCardCvv"></ngx-cc-cvv>
+                <mat-placeholder>CVV</mat-placeholder>
+                <mat-error *ngIf="cc_form.controls.creditCardCvv.invalid">Security code is not valid</mat-error>
+              </mat-form-field>
+            </div>
+          </form>
+
+
         </form>
 
 
 
-        {{fields_form.valid}}
-
         <div class="w-full md:w-1/2 mt-6">
-          <button [disabled]="fields_form.invalid" (click)="submit()" type="button" class="py-4 px-6   focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+          <button [disabled]="fields_form.invalid || (is_cc&&cc_form.invalid)" (click)="submit()" type="button" class="py-4 px-6   focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
             submit
           </button>
 

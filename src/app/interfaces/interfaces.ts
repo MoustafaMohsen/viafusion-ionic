@@ -53,6 +53,7 @@ export interface ISource{
   amount?:number;
   status?:TStatus;
   start_date?:Date;
+  metadata?:any;
 }
 
 export enum TSourcePoint{
