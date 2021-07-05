@@ -30,7 +30,7 @@ import { EnterPhonePage } from './pages/insta-send/enter-phone/enter-phone.page'
 import { RegisterPinPage } from './pages/_auth/register-pin/register-pin.page';
 import { VerifyWalletPage } from './pages/_verification/verify-wallet/verify-wallet.page';
 import { VerifyCardPage } from './pages/_verification/verify-card/verify-card.page';
-import { SelectedSourcesPage } from './pages/_transactions/_sources-sequence/selected-sources/availabe-sources.page';
+import { SelectedSourcesPage } from './pages/_transactions/_sources-sequence/selected-sources/selected-sources.page';
 import { AvailabeSourcesPage } from './pages/_transactions/_sources-sequence/availabe-sources/availabe-sources.page';
 import { SourcePage } from './pages/_transactions/_sources-sequence/source/source.page';
 import { AvailabeDestinationsPage } from './pages/_transactions/_destination-sequence/availabe-destinations/availabe-destinations.page';

@@ -9,8 +9,8 @@ import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-sources-page',
-  templateUrl: './availabe-sources.page.html',
-  styleUrls: ['./availabe-sources.page.scss'],
+  templateUrl: './selected-sources.page.html',
+  styleUrls: ['./selected-sources.page.scss'],
 })
 export class SelectedSourcesPage implements OnInit {
 

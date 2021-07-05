@@ -65,7 +65,7 @@
 
 
     <div class="flex w-full relative add-source justify-start mt-8">
-      <ion-button (click)="add_source()" expand="block" fill="outline" shape="round">
+      <ion-button (click)="add_source()" expand="full" fill="solid" shape="round">
         Add Source
       </ion-button>
     </div>
@@ -99,7 +99,7 @@
     </div>
 
     <div class="continue-button">
-      <button (click)="continue_to_destination()"
+      <button [disabled]="this.selected_sources.length < 1" (click)="continue_to_destination()"
         class="py-4 px-6   focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1"
         type="submit">
         Continue to Destination

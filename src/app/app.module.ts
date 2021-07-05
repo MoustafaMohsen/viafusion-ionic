@@ -57,7 +57,7 @@ import { RegisterPinPage } from './pages/_auth/register-pin/register-pin.page';
 import { VerifyCardPage } from './pages/_verification/verify-card/verify-card.page';
 import { VerifyWalletPage } from './pages/_verification/verify-wallet/verify-wallet.page';
 import { CheckoutTestPage } from './pages/checkout-test/checkout-test.page';
-import { SelectedSourcesPage } from './pages/_transactions/_sources-sequence/selected-sources/availabe-sources.page';
+import { SelectedSourcesPage } from './pages/_transactions/_sources-sequence/selected-sources/selected-sources.page';
 import { AvailabeSourcesPage } from './pages/_transactions/_sources-sequence/availabe-sources/availabe-sources.page';
 import { SourcePage } from './pages/_transactions/_sources-sequence/source/source.page';
 import { PaymentService } from './services/auth/payment';
