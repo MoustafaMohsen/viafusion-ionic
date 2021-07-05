@@ -39,19 +39,6 @@ export class SelectedDestinationsPage implements OnInit {
     })
   }
   continue_to_destination() {
-    let tran = this.walletSrv.convert_rxtran_to_transaction(this.rx.temp["transaction"])
-    this.walletSrv.update_user_transactions(tran).then(res => {
-      this.walletSrv.execute_payment_transactions(tran.id).subscribe((res) => {
-        if (res.success) {
-          this.rx.toast("Payments Done")
-          console.log(res.data);
-        }else{
-        this.rx.toastError(res as any)
-        }
-      }, err => {
-        this.rx.toastError(err)
-      })
-    }).catch(this.rx.toastError)
   }
 
   add_destination() {

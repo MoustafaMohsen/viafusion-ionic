@@ -6,6 +6,7 @@ import { IPayment } from '../rapyd/ipayment';
 import { TransferToWallet } from '../rapyd/iwallet';
 import { ICreatePayout } from '../rapyd/ipayout';
 import { IssueVccResponse } from '../rapyd/ivcc';
+import { IUtilitiesResponse } from '../rapyd/rest-response';
 /**
  *
             meta_id SERIAL PRIMARY KEY,
@@ -34,23 +35,21 @@ export interface IDBMetaContact {
   meta: object;
 }
 
+
 export interface ITransaction {
   id: string;
   source_amount?: string;
   destination_amount?: string;
-  payments: PostCreatePayment.Request[];
-  payouts: ICreatePayout.Request[];
-
-  payments_response: PostCreatePayment.Response[];
-  payouts_response: ICreatePayout.Response[];
-
+  payments: ITransactionFull_payment[];
+  payouts: ITransactionFull_payout[];
   transfer_resoponse:TransferToWallet.Response;
 
   execute: boolean;
   executed: boolean;
-  type: "w2w"| "many2many"| `${categories}2${categories}`
+  payments_executed?: boolean;
+  payouts_executed?: boolean;
+  type: "many2many" | "w2w"| `${categories}2${categories}`
 }
-
 
 export interface IExcuteTransaction{
   contact_reference_id:number,
@@ -58,12 +57,15 @@ export interface IExcuteTransaction{
 }
 
 export interface ITransactionFull_payment {
-  request:PostCreatePayment.Request
-  response:PostCreatePayment.Response
+  request:PostCreatePayment.Request;
+  response:IUtilitiesResponse<PostCreatePayment.Response>;
+  status:"CLO" | "ACT"
 }
 
 export interface ITransactionFull_payout {
   request:ICreatePayout.Request
-  response:ICreatePayout.Response
+  response:IUtilitiesResponse<ICreatePayout.Response>
+  status:"CLO" | "ACT"
 }
+
 
