@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { ILogin, ILoginTransportObj } from 'src/app/interfaces/db/ilogin';
 import { Api } from '../api/api';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
-import { IUtitliesResponse } from 'src/app/interfaces/rapyd/rest-response';
+import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
 import { IGetPayoutRequiredFields, IListPayout } from 'src/app/interfaces/rapyd/ipayout';
 
 @Injectable({
@@ -17,9 +17,9 @@ export class PayoutService {
   }
 
   list_payout_methods(country:string){
-    return this.api.post<IUtitliesResponse<IListPayout.Response[]>>("list-payout-methods",{country})
+    return this.api.post<IUtilitiesResponse<IListPayout.Response[]>>("list-payout-methods",{country})
   }
   get_required_fields(obj:IGetPayoutRequiredFields.QueryRequest){
-    return this.api.post<IUtitliesResponse<IGetPayoutRequiredFields.Response>>("list-payout-required-fields",obj)
+    return this.api.post<IUtilitiesResponse<IGetPayoutRequiredFields.Response>>("list-payout-required-fields",obj)
   }
 }

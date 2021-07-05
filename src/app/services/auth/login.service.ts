@@ -39,6 +39,7 @@ export class LoginService {
     },
       err => {
         this.loading.stop();
+        this.rx.toastError(err)
       }
 
     )

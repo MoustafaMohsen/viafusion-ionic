@@ -1,4 +1,4 @@
-import { IUtitliesResponse } from 'src/app/interfaces/rapyd/rest-response';
+import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
 import { IssueVccRequest, IssueVccRequestForm } from './../../../interfaces/rapyd/ivcc';
 import { VccService } from './../../../services/vcc/vcc.service';
 import { LoadingService } from 'src/app/services/loading.service';
@@ -74,7 +74,7 @@ export class VerifyCardPage implements OnInit,AfterViewInit {
       let user = res.data
       this.rx.user$.next(user);
       this.router.navigateByUrl("dashboard");
-    }, (err: IAPIServerResponse<IUtitliesResponse>) => {
+    }, (err: IAPIServerResponse<IUtilitiesResponse>) => {
       // console.error(err.data.body.status.message)
       console.error(err)
       this.toastController.create({
