@@ -8,7 +8,7 @@ import { IDBContact } from 'src/app/interfaces/db/idbcontact';
 import { ILogin, ILoginTransportObj } from 'src/app/interfaces/db/ilogin';
 import { Storage } from '@ionic/storage-angular';
 import { PostCreatePayment } from 'src/app/interfaces/rapyd/ipayment';
-import { IDBMetaContact, ITransaction, ITransactionFull, ITransactionFull_payment } from 'src/app/interfaces/db/idbmetacontact';
+import { IDBMetaContact } from 'src/app/interfaces/db/idbmetacontact';
 import { ICreatePayout, IGetPayoutRequiredFields } from 'src/app/interfaces/rapyd/ipayout';
 import { TransferToWallet } from 'src/app/interfaces/rapyd/iwallet';
 import { categories, IAPIServerResponse } from 'src/app/interfaces/rapyd/types';
@@ -235,9 +235,6 @@ export interface IRXTransaction {
   destination_amount?: string;
   payments: BehaviorSubject<PostCreatePayment.Request[]>;
   payouts: BehaviorSubject<ICreatePayout.Request[]>;
-
-  payments_response?: BehaviorSubject<PostCreatePayment.Response[]>;
-  payouts_response?: BehaviorSubject<ICreatePayout.Response[]>;
 
   transfer_resoponse?: TransferToWallet.Response;
 
