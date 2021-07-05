@@ -10,7 +10,10 @@
           <h3 class="text-5xl">{{balance | currency}}</h3>
         </div>
         <ion-button routerLink="/verification" class="notification" expand="block" fill="clear" shape="round">
-          <svg-icon class="svg-white flex mt-3" key="notification-colored" fontSize="35px"></svg-icon>
+          <!-- <svg-icon class="svg-white" key="notification-colored" fontSize="35px"></svg-icon> -->
+          <div class="flex justify-end">
+            <img src="../../../assets/images/logo/logo.svg" width="40%" alt="" srcset="">
+          </div>
         </ion-button>
       </div>
       <p class="text-gray-300 letspac-1 text-xl">Available balance</p>
@@ -47,11 +50,11 @@
   <div class="raised-content pb-32">
     <div class="dashboard-section">
       <div class="relative">
-        <app-methods-dashboard></app-methods-dashboard>
+        <app-dashboard-methods></app-dashboard-methods>
       </div>
     </div>
 
-    <div class="send-container mt-3">
+    <div class="send-container mt-10">
       <div class="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 source-item">
         <p class="text-base text-gray-500">SEND OR REQUEST CREDIT</p>
         <div class="flex mt-5">

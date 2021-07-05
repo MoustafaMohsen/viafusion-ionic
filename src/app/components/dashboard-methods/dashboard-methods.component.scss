@@ -1,0 +1,61 @@
+.method-point,
+.wallet-point {
+  box-shadow: rgb(60, 64, 67, 30%) -1px 1px 10px 4px;
+  background-color: #fff;
+  border-radius: 16px;
+  padding-top: 2.2rem;
+  position: relative;
+  width: 30%;
+
+  .bank-point,
+  .card-point,
+  .cash-point,
+  .crypto-point,
+  .stock-point {
+    background: #066d06;
+    border-radius: 12px;
+    position: absolute;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: -1.4rem;
+    left: 1.4rem;
+  }
+
+  .card-point {
+    background-color: #fdab05;
+  }
+
+  .cash-point{
+    background-color: #da3b3b;
+  }
+
+  .crypto-point{
+    background-color: #f009e4;
+  }
+
+  .stock-point{
+    background-color: #098f88;
+  }
+
+
+
+  svg-icon {
+    color: #fff;
+  }
+}
+
+.wallet-point {
+  width: 100%;
+  background-image: url('../../../assets/images/Curve\ Line.svg');
+  background-size: cover;
+  padding: 1.3rem;
+
+  svg-icon {
+    stroke-width: 10px;
+    stroke: #fff;
+    color: #fff;
+  }
+}

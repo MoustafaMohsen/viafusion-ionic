@@ -83,6 +83,7 @@ import { ProductDetailsPage } from './pages/_marketplace/product-details/product
 import { CategoriesModalComponent } from './components/categories-modal/categories-modal.component';
 import { CompleteTransactionPage } from './pages/actions/complete-transaction/complete-transaction.page';
 import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component';
+import { DashboardMethodsComponent } from './components/dashboard-methods/dashboard-methods.component';
 
 @NgModule({
   imports: [
@@ -181,7 +182,8 @@ import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component
     ProductDetailsPage,
     CategoriesModalComponent,
     CompleteTransactionPage,
-    BottomNavComponent
+    BottomNavComponent,
+    DashboardMethodsComponent
     
   ],
   entryComponents: [],
