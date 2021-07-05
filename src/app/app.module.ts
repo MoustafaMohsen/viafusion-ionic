@@ -74,7 +74,7 @@ import { DestinationPage } from './pages/_transactions/_destination-sequence/des
 import { ModalDestinationComponent } from './components/modal-destination/modal.component';
 import {MatSelectModule} from '@angular/material/select';
 import { LacMatTelInputModule } from 'lac-mat-tel-input';
-
+import { NgxCcModule } from "ngx-cc";
 @NgModule({
   imports: [
     BrowserModule,
@@ -115,7 +115,8 @@ import { LacMatTelInputModule } from 'lac-mat-tel-input';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    LacMatTelInputModule
+    LacMatTelInputModule,
+    NgxCcModule
   ],
   declarations: [
     AppComponent,
@@ -163,7 +164,7 @@ import { LacMatTelInputModule } from 'lac-mat-tel-input';
     SelectedDestinationsPage,
     AvailabeDestinationsPage,
     DestinationPage,
-    ModalDestinationComponent
+    ModalDestinationComponent,
   ],
   entryComponents: [],
   providers: [
