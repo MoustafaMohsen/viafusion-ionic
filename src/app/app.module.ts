@@ -67,7 +67,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { WalletService } from './services/wallet/wallet.service';
 import { VccService } from './services/vcc/vcc.service';
-import { SelectedDestinationsPage } from './pages/_transactions/_destination-sequence/selected-destinations/availabe-destinations.page';
+import { SelectedDestinationsPage } from './pages/_transactions/_destination-sequence/selected-destinations/selected-destinations.page';
 import { AvailabeDestinationsPage } from './pages/_transactions/_destination-sequence/availabe-destinations/availabe-destinations.page';
 import { PayoutService } from './services/auth/payout';
 import { DestinationPage } from './pages/_transactions/_destination-sequence/destination/destination.page';
