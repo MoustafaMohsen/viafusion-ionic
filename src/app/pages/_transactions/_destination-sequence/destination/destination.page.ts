@@ -16,7 +16,7 @@ import { IAPIServerResponse } from 'src/app/interfaces/rapyd/types';
 })
 export class DestinationPage implements OnInit {
 
-  constructor( private router: Router, private route: ActivatedRoute, private rx: RX, private fb:FormBuilder) { }
+  constructor(private router: Router, private route: ActivatedRoute, private rx: RX, private fb: FormBuilder) { }
 
   request_query: IGetPayoutRequiredFields.QueryRequest = {} as any;
   response_query: IGetPayoutRequiredFields.Response = {} as any;
@@ -30,15 +30,34 @@ export class DestinationPage implements OnInit {
   is_edit = false;
   edit_index = -1;
   query_id = ""
+
+  ionViewWillEnter() {
+    this.route.queryParamMap.subscribe(m => {
+      this.update_query(m.get("query_id"));
+
+    })
+  }
   ngOnInit() {
 
-    this.query_id = decodeURIComponent(this.route.snapshot.queryParamMap.get("query_id"));
+    this.beneficiary_cc_form = this.fb.group({
+      creditCard: [],
+      creditCardDate: [],
+      creditCardCvv: [],
+    });
+    this.sender_cc_form = this.fb.group({
+      creditCard: [],
+      creditCardDate: [],
+      creditCardCvv: [],
+    });
+  }
 
-    if (!this.rx.temp.destination_queries[this.query_id]) {
+  update_query(query_id) {
+    this.query_id = query_id;
+    if (!this.rx.temp.destination_queries[query_id]) {
       this.router.navigateByUrl("/transaction/destinations-sequence/available-destinations");
     }
-    this.request_query = this.rx.temp.destination_queries[this.query_id].request_query
-    this.response_query = this.rx.temp.destination_queries[this.query_id].response_query
+    this.request_query = this.rx.temp.destination_queries[query_id].request_query
+    this.response_query = this.rx.temp.destination_queries[query_id].response_query
 
     if (!this.request_query) {
       this.router.navigateByUrl("/transaction/destinations-sequence/available-destinations");
@@ -54,29 +73,18 @@ export class DestinationPage implements OnInit {
         return;
       }
     }
-
-    this.beneficiary_cc_form = this.fb.group({
-      creditCard: [],
-      creditCardDate: [],
-      creditCardCvv: [],
-    });
-    this.sender_cc_form = this.fb.group({
-      creditCard: [],
-      creditCardDate: [],
-      creditCardCvv: [],
-    });
   }
-
   beneficiary_cc_form: FormGroup;
   sender_cc_form: FormGroup;
 
-  bene_is_cc=false
-  sender_is_cc=false
+  bene_is_cc = false
+  sender_is_cc = false
 
-  render_required_fields(data:IGetPayoutRequiredFields.Response) {
+  render_required_fields(data: IGetPayoutRequiredFields.Response) {
+    this.required_fields = data;
+
     //#region Beneficiary
     let fields = [...data.beneficiary_required_fields];
-    this.required_fields = data;
     this.required_fields.beneficiary_required_fields = [];
     console.log(fields);
 
@@ -87,8 +95,8 @@ export class DestinationPage implements OnInit {
       const condition = name == "card_number" || name == "card_expiration_month" || name == "card_expiration_year" || name == "card_cvv"
       if (condition) {
         this.bene_is_cc = true;
-      }else{
-        var form:FormControl;
+      } else {
+        var form: FormControl;
         if (field.regex) {
           form = new FormControl("", [Validators.required, Validators.pattern(field.regex)])
         } else {
@@ -106,7 +114,6 @@ export class DestinationPage implements OnInit {
 
     //#region Sender
     let sender_fields = [...data.sender_required_fields];
-    this.required_fields = data;
     this.required_fields.sender_required_fields = [];
     console.log(sender_fields);
 
@@ -117,8 +124,8 @@ export class DestinationPage implements OnInit {
       const condition = name == "card_number" || name == "card_expiration_month" || name == "card_expiration_year" || name == "card_cvv"
       if (condition) {
         this.sender_is_cc = true;
-      }else{
-        var form:FormControl;
+      } else {
+        var form: FormControl;
         if (field.regex) {
           form = new FormControl("", [Validators.required, Validators.pattern(field.regex)])
         } else {
@@ -135,7 +142,10 @@ export class DestinationPage implements OnInit {
     //#endregion
   }
 
-  cc_to_fields(fields,cc_form: FormGroup) {
+  formate_name(s: string) {
+    return s?s.replace("_", " "):s;
+  }
+  cc_to_fields(fields, cc_form: FormGroup) {
     // cc values
     console.log(cc_form.value);
 
@@ -154,11 +164,11 @@ export class DestinationPage implements OnInit {
 
   submit() {
     if (this.bene_is_cc) {
-      this.required_fields.beneficiary_required_fields = this.cc_to_fields(this.required_fields.beneficiary_required_fields,this.beneficiary_cc_form);
+      this.required_fields.beneficiary_required_fields = this.cc_to_fields(this.required_fields.beneficiary_required_fields, this.beneficiary_cc_form);
     }
 
     if (this.sender_is_cc) {
-      this.required_fields.sender_required_fields = this.cc_to_fields(this.required_fields.sender_required_fields,this.sender_cc_form);
+      this.required_fields.sender_required_fields = this.cc_to_fields(this.required_fields.sender_required_fields, this.sender_cc_form);
     }
 
     return;/*
