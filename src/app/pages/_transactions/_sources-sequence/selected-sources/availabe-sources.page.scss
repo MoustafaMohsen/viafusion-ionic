@@ -27,13 +27,16 @@ ion-content {
 }
 
 .badge {
-  h4 {
+  .badge-div {
     padding: 0.5rem;
     background: var(--secondary-tint);
     width: auto;
     border-top-left-radius: 24px;
     border-top-right-radius: 24px;
-    line-height: unset;
+    .icon-div{
+      margin-top: 6px;
+      margin-right: 6px;
+    }
   }
 }
 .amount-badge {
