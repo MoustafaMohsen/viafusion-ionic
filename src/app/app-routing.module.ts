@@ -36,6 +36,7 @@ import { SourcePage } from './pages/_transactions/_sources-sequence/source/sourc
 import { AvailabeDestinationsPage } from './pages/_transactions/_destination-sequence/availabe-destinations/availabe-destinations.page';
 import { SelectedDestinationsPage } from './pages/_transactions/_destination-sequence/selected-destinations/availabe-destinations.page';
 import { DestinationPage } from './pages/_transactions/_destination-sequence/destination/destination.page';
+import { MarketplacePage } from './pages/marketplace/marketplace.page';
 
 const routes: Routes = [
   //
@@ -265,6 +266,11 @@ const routes: Routes = [
     path: 'checkout-test',
     component:CheckoutTestPage
   },
+  {
+    path: 'marketplace',
+    component: MarketplacePage
+  },
+
 
 
 

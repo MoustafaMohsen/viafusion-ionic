@@ -1,0 +1,27 @@
+<app-header title="Marketplace"></app-header>
+<ion-content>
+  <ion-toolbar>
+    <ion-searchbar color="secondary-tint"></ion-searchbar>
+    </ion-toolbar>
+
+    <div class="flex justify-between text-lg leading-6 font-medium dark:text-white text-gray-800 mt-4 buttons-row">
+      <div class="w-1/2">
+            <button (click)="onClick()" class="w-full">
+        Sell
+      </button>
+      </div>
+      <div class="w-1/2">
+            <button (click)="onClick()" class="w-full">
+              <svg-icon key="list" fontSize="1rem" color="var(--secondary)"></svg-icon>
+        Categories
+      </button>
+      </div>
+
+    </div>
+
+    <div class="">
+      <app-category></app-category>
+    </div>
+ 
+
+</ion-content>
