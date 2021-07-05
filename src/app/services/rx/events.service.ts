@@ -8,7 +8,7 @@ import { IDBContact } from 'src/app/interfaces/db/idbcontact';
 import { ILogin, ILoginTransportObj } from 'src/app/interfaces/db/ilogin';
 import { Storage } from '@ionic/storage-angular';
 import { PostCreatePayment } from 'src/app/interfaces/rapyd/ipayment';
-import { IDBMetaContact } from 'src/app/interfaces/db/idbmetacontact';
+import { IDBMetaContact, ITransaction } from 'src/app/interfaces/db/idbmetacontact';
 import { ICreatePayout, IGetPayoutRequiredFields } from 'src/app/interfaces/rapyd/ipayout';
 import { TransferToWallet } from 'src/app/interfaces/rapyd/iwallet';
 import { categories, IAPIServerResponse } from 'src/app/interfaces/rapyd/types';
@@ -64,7 +64,8 @@ export class RX {
         request_query: IGetPayoutRequiredFields.QueryRequest
         response_query: IGetPayoutRequiredFields.Response
       }
-    }
+    },
+    view_transaction?:ITransaction
   } = {
       transaction: {
         payments: new BehaviorSubject<PostCreatePayment.Request[]>([]),
