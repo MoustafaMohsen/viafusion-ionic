@@ -82,3 +82,12 @@ export interface ICountry {
   alpha2Code: string;
   flag: string;
 }
+
+
+export interface ICardDetails{
+  card_number: string
+  cvv: string
+  expiration_month: string
+  expiration_year: string
+  metadata:any
+}

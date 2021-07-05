@@ -24,23 +24,8 @@
 </div>
 
 <div class="cards-row mt-8">
-  <div class="card mt-4 pb-4 border-b border-black">
-    <app-cc class=""></app-cc>
-    <p class="font-medium dark:text-white text-gray-500 pt-1 pl-4">Click to copy</p>
-    <div class="flex text-lg leading-6 font-medium dark:text-white text-gray-800 mt-2 show-btn">
-      <button (click)="create_cc_btn()" class="w-full letspac-1">
-       Show Details
-      </button>
-    </div>
-  </div>
-  <div class="card mt-4 pb-4 border-b border-black">
-    <app-cc class=""></app-cc>
-    <p class="font-medium dark:text-white text-gray-500 pt-1 pl-4">Click to copy</p>
-    <div class="flex text-lg leading-6 font-medium dark:text-white text-gray-800 mt-2 show-btn">
-      <button (click)="create_cc_btn()" class="w-full letspac-1">
-       Show Details
-      </button>
-    </div>
+  <div *ngFor="let card of cards" class="card mt-4 pb-4">
+    <app-cc [card_details]="card" class=""></app-cc>
   </div>
 </div>
 
