@@ -82,6 +82,7 @@ import { SellPage } from './pages/_marketplace/sell/sell.page';
 import { ProductDetailsPage } from './pages/_marketplace/product-details/product-details.page';
 import { CategoriesModalComponent } from './components/categories-modal/categories-modal.component';
 import { CompleteTransactionPage } from './pages/actions/complete-transaction/complete-transaction.page';
+import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component';
 
 @NgModule({
   imports: [
@@ -179,7 +180,8 @@ import { CompleteTransactionPage } from './pages/actions/complete-transaction/co
     SellPage,
     ProductDetailsPage,
     CategoriesModalComponent,
-    CompleteTransactionPage
+    CompleteTransactionPage,
+    BottomNavComponent
     
   ],
   entryComponents: [],

@@ -26,7 +26,10 @@ import { cardIcon } from './consts/card';
 import { cashIcon } from './consts/cash';
 import { rapydEwalletIcon } from './consts/rapyd_ewallet';
 import { listIcon } from './consts/list';
-import { viaLogoIcon } from './consts/via-logo';
+import { dashboardIcon } from './consts/dashboard';
+import { sendMessageIcon } from './consts/send-message';
+import { settingIcon } from './consts/setting';
+import { storeIcon } from './consts/store';
 
 export const  icons = [
     nfcIcon,
@@ -57,7 +60,10 @@ export const  icons = [
     cashIcon,
     rapydEwalletIcon,
     listIcon,
-    viaLogoIcon
+    dashboardIcon,
+    sendMessageIcon,
+    settingIcon,
+    storeIcon,
     
     
 
