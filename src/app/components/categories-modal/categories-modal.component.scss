@@ -1,0 +1,16 @@
+ion-content {
+    --background: #ededed;
+    .modal-content {
+      .badge {
+        justify-content: center;
+    background: var(--secondary-tint);
+    padding: 0.5rem;
+    border-radius: 20px;
+    color: var(--secondary);
+    margin-right: 3px;
+      }
+     
+    }
+  }
+  
+  
