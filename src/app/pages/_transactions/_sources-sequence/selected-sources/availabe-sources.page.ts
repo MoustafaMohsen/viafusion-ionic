@@ -14,11 +14,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SelectedSourcesPage implements OnInit {
 
-  source_item: ISource = {
-    name: "wallet",
-    description: "",
-    start_date: new Date(),
-  };
   selected_sources: PostCreatePayment.Request[] = [];
   source_amount = "0"
 

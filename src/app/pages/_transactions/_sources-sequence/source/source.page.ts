@@ -102,8 +102,6 @@ export class SourcePage implements OnInit {
       }
     }
     console.log(fields);
-
-    return ;
     delete fields.amount;
     let payment: PostCreatePayment.Request = {
       amount: parseInt(this.fields_form.get("amount").value),
@@ -136,7 +134,6 @@ export class SourcePage implements OnInit {
     let sources = [...this.rx.temp["transaction"]["payments"].value]
     // validate payment is uniqe
     if (this.is_edit) {
-
       sources[this.edit_index] = payment;
       console.log(this.rx.temp["transaction"]["payments"].next(sources));
       this.router.navigateByUrl("/transaction/sources-sequence/selected-sources");

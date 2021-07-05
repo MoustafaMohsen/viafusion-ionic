@@ -23,24 +23,23 @@
           <div class="w-1/2 badge">
             <div class="badge-div flex justify-start items-center">
               <div class="icon-div">
-                <svg-icon [key]="source_item.category" fontSize="16px" class="ml-2"></svg-icon>
+                <svg-icon [key]="source.metadata.category" fontSize="16px" class="ml-2"></svg-icon>
               </div>
               <div>
-                  <span *ngIf="source_item.category == 'cash'">Cash</span>
-              <span *ngIf="source_item.category == 'ewallet'">Wallet</span>
-              <span *ngIf="source_item.category == 'bank_transfer'">Bank Transfer</span>
-              <span *ngIf="source_item.category == 'bank_redirect'">Bank Redirect</span>
-              <span *ngIf="source_item.category == 'card'">Card</span>
-              <span *ngIf="source_item.category == 'rapyd_ewallet'">Rapyd</span>
+                  <span *ngIf="source.metadata.category == 'cash'">Cash</span>
+              <span *ngIf="source.metadata.category == 'ewallet'">Wallet</span>
+              <span *ngIf="source.metadata.category == 'bank_transfer'">Bank Transfer</span>
+              <span *ngIf="source.metadata.category == 'bank_redirect'">Bank Redirect</span>
+              <span *ngIf="source.metadata.category == 'card'">Card</span>
+              <span *ngIf="source.metadata.category == 'rapyd_ewallet'">Rapyd</span>
               </div>
 
             </div>
           </div>
 
           <div class="amount-badge bg-green-700 text-center">
-            <span *ngIf="source_item.amount != -1" class="text-gray-200 letspac-2">
-              1200.00
-              <!-- {{source_item.amount | currency}} -->
+            <span *ngIf="source.amount != -1" class="text-gray-200 letspac-2">
+              {{source.amount | currency}}
             </span>
           </div>
         </div>
