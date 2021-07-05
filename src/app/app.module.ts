@@ -74,6 +74,7 @@ import { PayoutService } from './services/auth/payout';
 import { DestinationPage } from './pages/_transactions/_destination-sequence/destination/destination.page';
 import { ModalDestinationComponent } from './components/modal-destination/modal.component';
 import {MatSelectModule} from '@angular/material/select';
+import { LacMatTelInputModule } from 'lac-mat-tel-input';
 
 @NgModule({
   imports: [
@@ -115,6 +116,7 @@ import {MatSelectModule} from '@angular/material/select';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    LacMatTelInputModule
   ],
   declarations: [
     AppComponent,
