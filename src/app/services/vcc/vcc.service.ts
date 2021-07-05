@@ -35,9 +35,7 @@ export class VccService {
   }
 
   set_card_status(status_obj:ISetCardStatus) {
-    return this.api.post<IUtilitiesResponse<ListIssuedVccTransactions.Response[]>>("set-card-status", {
-      status_obj
-    })
+    return this.api.post<IUtilitiesResponse<ListIssuedVccTransactions.Response[]>>("set-card-status",status_obj)
   }
 
 
