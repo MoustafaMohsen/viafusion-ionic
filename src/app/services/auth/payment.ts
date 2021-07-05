@@ -6,7 +6,7 @@ import { ILogin, ILoginTransportObj } from 'src/app/interfaces/db/ilogin';
 import { Api } from '../api/api';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
 import { ListPayments, RequiredFields } from 'src/app/interfaces/rapyd/ipayment';
-import { IUtitliesResponse } from 'src/app/interfaces/rapyd/rest-response';
+import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +17,9 @@ export class PaymentService {
   }
 
   list_payment_methods(country:string){
-    return this.api.post<IUtitliesResponse<ListPayments.Response[]>>("list-payment-methods",{country})
+    return this.api.post<IUtilitiesResponse<ListPayments.Response[]>>("list-payment-methods",{country})
   }
   get_required_fields(payment_method_type:string){
-    return this.api.post<IUtitliesResponse<RequiredFields.Response>>("list-payment-required-fields",{payment_method_type})
+    return this.api.post<IUtilitiesResponse<RequiredFields.Response>>("list-payment-required-fields",{payment_method_type})
   }
 }
