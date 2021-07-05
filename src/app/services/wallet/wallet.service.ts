@@ -54,9 +54,38 @@ export class WalletService {
     return this.api.post<IDBMetaContact>("complete-payments", { payment_id })
   }
   //#endregion
+  //#region Payments
+  async do_payouts() {
+    let tran = this.convert_rxtran_to_transaction(this.rx.temp["transaction"])
+    this.update_user_transactions(tran).then(res => {
+      this.execute_payout_transactions(tran.id).subscribe((res) => {
+        if (res.success) {
+          this.rx.toast("Payouts Done")
+          console.log(res.data);
+        } else {
+          this.rx.toastError(res as any)
+        }
+      }, err => {
+        this.rx.toastError(err)
+      })
+    }).catch(this.rx.toastError)
+  }
+
+  execute_payout_transactions(tran_id: string) {
+    let contact_reference_id = this.rx.user$.value.contact_reference_id;
+    return this.api.post<IDBMetaContact>("execute-payouts", { contact_reference_id, tran_id })
+  }
+  get_payout(payout_id: string) {
+    return this.api.post<IDBMetaContact>("get-payouts", { payout_id })
+  }
+  complete_payout(payout_id: string) {
+    return this.api.post<IDBMetaContact>("complete-payouts", { payout_id })
+  }
+  //#endregion
 
   async get_wallet_balance(make_request = false, currency = "USD"): Promise<number> {
     this.rx.get_db_contact();
+    this.rx.get_db_metacontact();
     return new Promise((resolve, reject) => {
       this.rx.user$.subscribe(u => {
         if (u && u.rapyd_wallet_data && u.rapyd_wallet_data.accounts && u.rapyd_wallet_data.accounts.length > 0) {
