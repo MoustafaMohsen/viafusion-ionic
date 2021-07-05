@@ -26,9 +26,12 @@ export class DestinationPage implements OnInit {
 
   is_edit = false;
   edit_index = -1;
-
+  query_id = ""
   ngOnInit() {
-    this.request_query = JSON.parse(decodeURIComponent(this.route.snapshot.queryParamMap.get("request_query")));
+
+    this.query_id = decodeURIComponent(this.route.snapshot.queryParamMap.get("query_id"));
+    this.request_query = this.rx.temp.destination_queries[this.query_id]
+
     this.render_required_fields();
     // validate payout is uniqe
     for (let i = 0; i < this.rx.temp["transaction"]["payouts"].value.length; i++) {

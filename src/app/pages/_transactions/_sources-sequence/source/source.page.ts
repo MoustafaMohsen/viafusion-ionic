@@ -67,7 +67,12 @@ export class SourcePage implements OnInit {
           if (condition) {
             this.is_cc = true;
           }else{
-            let form = new FormControl("", [Validators.required]) // TODO: set default values here
+            var form:FormControl;
+            if (field.regex) {
+              form = new FormControl("", [Validators.required, Validators.pattern(field.regex)])
+            } else {
+              form = new FormControl("", [Validators.required])
+            }
             this.fields_form.addControl(name, form);
             this.required_fields.fields.push(field);
             console.log("added field", field);
