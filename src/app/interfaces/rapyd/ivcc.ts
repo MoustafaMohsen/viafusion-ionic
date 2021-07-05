@@ -140,3 +140,14 @@ export interface ISetCardStatus{
   card:string,
   status:"active"|"unblock"|"block"
 }
+
+
+// Frontend-server interface
+export interface ICreateVccToUser {
+  contact_reference_id: number
+  metadata: ICreateVccToUser_Metadata
+}
+export interface ICreateVccToUser_Metadata{
+  name: string;
+  [key:string]:any
+}

@@ -1,20 +1,88 @@
 <app-header title="Create VCC"></app-header>
 
 <ion-content>
-  <app-credit-card></app-credit-card>
+  <!-- ===== Start Credit Card -->
+  <div class="aspect-container aspect-w-12 aspect-h-7">
+
+    <div class="m-auto bg-red-100 rounded-xl text-white shadow-2xl transition-transform transform hover:scale-110 v-credit">
+
+      <img class="relative object-cover w-full h-full rounded-xl" src="../../../../assets/images/Polygon Luminary.svg">
+
+      <div class="w-full px-8 absolute top-4">
+        <div class="flex justify-between">
+          <div class="">
+            <label for="credit-card-name">Card name</label>
+            <input [(ngModel)]="vcc_name" name="credit-card-name" class="font-light" placeholder="For netflix">
+          </div>
+          <img class="cc-logo" src="../../../../assets/images/mc-logo.svg">
+        </div>
+
+        <div class="pt-3 flex justify-between item-center">
+          <div class="">
+            <p class="font-light">
+              Card Number
+            </p>
+            <p class="font-medium tracking-more-wider">
+              4642 3489 9867 7632
+            </p>
+          </div>
+          <div class="">
+            <!-- <input disable name="credit-card-amount" class="font-light w-24" placeholder="coming soon..."> -->
+          </div>
+        </div>
+
+
+        <div class="pt-3 pr-6">
+          <div class="flex justify-between">
+            <!-- <div class="">
+              <p class="font-light text-xs">
+                Valid
+
+              </p>
+              <p class="font-medium tracking-wider text-sm">
+                **/**
+              </p>
+            </div> -->
+            <div class="">
+              <p class="font-light text-xs">
+                Expiry
+
+              </p>
+              <p class="font-medium tracking-wider text-sm">
+                03/25
+              </p>
+            </div>
+
+            <div class="">
+              <p class="font-light text-xs">
+                CVV
+
+              </p>
+              <p class="font-bold tracking-more-wider text-sm">
+                ···
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- End Credit Card ======= -->
 
   <footer>
-     <div class="row button-row mt-4">
-    <ion-button (click)="create_vcard_btn()" expand="full" fill="outline" shape="round">
-      create
-    </ion-button>
     <div class="row button-row mt-4">
-      <ion-button (click)="view_all_btn()" expand="full" fill="outline" shape="round">
-        cancel
+      <ion-button (click)="create_vcard_btn()" expand="full" fill="outline" shape="round">
+        create
       </ion-button>
-    </div>
+      <div class="row button-row mt-4">
+        <ion-button [disabled]="loading.loading$ | async" (click)="view_all_btn()" expand="full" fill="outline" shape="round">
+          cancel
+        </ion-button>
+      </div>
 
-  </div>
+    </div>
 
   </footer>
 

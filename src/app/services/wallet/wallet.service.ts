@@ -3,11 +3,12 @@ import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { LoadingService } from '../loading.service';
 import { Router } from '@angular/router';
-import { IRXTransaction, RX } from '../rx/events.service';
 import { Api } from '../api/api';
 import { ICreateWallet } from 'src/app/interfaces/db/idbwallet';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
 import { WalletBalanceResponse } from 'src/app/interfaces/rapyd/iwallet';
+import { IRXTransaction } from 'src/app/interfaces/interfaces';
+import { RX } from '../rx/events.service';
 
 @Injectable({
   providedIn: 'root'

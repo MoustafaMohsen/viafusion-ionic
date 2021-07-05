@@ -15,6 +15,7 @@ import { categories, IAPIServerResponse } from 'src/app/interfaces/rapyd/types';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { ListIssuedVcc } from 'src/app/interfaces/rapyd/ivcc';
+import { ITemp } from 'src/app/interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -59,16 +60,7 @@ export class RX {
   public meta$ = new BehaviorSubject<IDBMetaContact>(null);
 
 
-  temp: {
-    transaction: IRXTransaction; destination_queries: {
-      [key: string]: {
-        request_query: IGetPayoutRequiredFields.QueryRequest
-        response_query: IGetPayoutRequiredFields.Response
-      }
-    },
-    view_transaction?:ITransaction,
-    vcc_details?:ListIssuedVcc.Response
-  } = {
+  temp:ITemp= {
       transaction: {
         payments: new BehaviorSubject<PostCreatePayment.Request[]>([]),
         payouts: new BehaviorSubject<ICreatePayout.Request[]>([]),
@@ -121,6 +113,19 @@ export class RX {
     })
   }
 
+  // save_temp() {
+  //   console.log("Storage set temp 🏪>>");
+  //   this.storage.set("temp", this.temp);
+  // }
+
+  // load_temp() {
+  //   this.storage.get("temp").then(temp => {
+  //     console.log("Storage load temp 🏪>>");
+  //     this.temp = temp ? JSON.parse(temp) : this.temp
+  //   });
+  // }
+
+
   async alert(message = "Okay") {
     const alert = await this.alertController.create({
       cssClass: 'alert-class',
@@ -164,7 +169,7 @@ export class RX {
     if (!error.success) {
       if (typeof error.message === "string") {
         this.toast(error.message)
-      }else{
+      } else {
         this.toast(error.message.body.status.message + "" + error.message.body.status.error_code)
       }
     }
@@ -211,7 +216,7 @@ export class RX {
 
   async post_db_metacontact(metacontact?): Promise<IDBMetaContact> {
     return new Promise((resolve, reject) => {
-      metacontact = metacontact?metacontact:this.meta$.value
+      metacontact = metacontact ? metacontact : this.meta$.value
       this.api.post<IDBMetaContact>("update-db-metacontact", metacontact).subscribe(res => {
         this.meta$.next(res.data);
         resolve(res.data)
@@ -232,17 +237,3 @@ export class RX {
 
 }
 
-export interface IRXTransaction {
-  id: string;
-  source_amount?: string;
-  destination_amount?: string;
-  payments: BehaviorSubject<PostCreatePayment.Request[]>;
-  payouts: BehaviorSubject<ICreatePayout.Request[]>;
-
-  transfer_resoponse?: TransferToWallet.Response;
-
-  execute: boolean;
-  executed: boolean;
-  type: "w2w" | "many2many" | `${categories}2${categories}`
-
-}

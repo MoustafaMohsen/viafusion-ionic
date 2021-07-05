@@ -29,6 +29,7 @@ export class SelectedSourcesPage implements OnInit {
     })
   }
   continue_to_destination() {
+    // this.rx.save_temp();
     this.router.navigateByUrl("transaction/destinations-sequence/selected-destinations");
   }
 

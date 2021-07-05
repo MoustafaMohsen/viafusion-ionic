@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { VccService } from './../../../services/vcc/vcc.service';
 import { Component, OnInit } from '@angular/core';
 import { ListIssuedVcc } from 'src/app/interfaces/rapyd/ivcc';
@@ -9,7 +10,7 @@ import { ListIssuedVcc } from 'src/app/interfaces/rapyd/ivcc';
 })
 export class ListOfCcPage implements OnInit {
 
-  constructor(private vccSrv:VccService) { }
+  constructor(private vccSrv:VccService,private router:Router) { }
 
   ngOnInit() {
   }
@@ -29,7 +30,7 @@ export class ListOfCcPage implements OnInit {
   }
 
   create_cc_btn(){
-
+    this.router.navigateByUrl("cc/vcc/create-vcc")
   }
   back(){
 
