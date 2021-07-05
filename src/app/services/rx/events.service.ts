@@ -19,7 +19,7 @@ import { ToastController } from '@ionic/angular';
   providedIn: 'root'
 })
 export class RX {
-  constructor(private storage: Storage, private api: Api,private alertController: AlertController,private toastController: ToastController) { }
+  constructor(private storage: Storage, private api: Api, private alertController: AlertController, private toastController: ToastController) { }
 
   public user$ = new BehaviorSubject<IDBContact>({
     security: {
@@ -58,23 +58,28 @@ export class RX {
   public meta$ = new BehaviorSubject<IDBMetaContact>(null);
 
 
-  temp: { transaction: IRXTransaction; destination_queries:{
-    [key:string]:IGetPayoutRequiredFields.QueryRequest
-  } } = {
-    transaction: {
-      payments: new BehaviorSubject<PostCreatePayment.Request[]>([]),
-      payouts: new BehaviorSubject<ICreatePayout.Request[]>([]),
-      source_amount: "0",
-      destination_amount: "0",
-      execute: false,
-      executed: false,
-      type: null,
-      id:"tranid_"+this.makeid(5)
-    },
-    destination_queries:{} as any
-  };
+  temp: {
+    transaction: IRXTransaction; destination_queries: {
+      [key: string]: {
+        request_query: IGetPayoutRequiredFields.QueryRequest
+        response_query: IGetPayoutRequiredFields.Response
+      }
+    }
+  } = {
+      transaction: {
+        payments: new BehaviorSubject<PostCreatePayment.Request[]>([]),
+        payouts: new BehaviorSubject<ICreatePayout.Request[]>([]),
+        source_amount: "0",
+        destination_amount: "0",
+        execute: false,
+        executed: false,
+        type: null,
+        id: "tranid_" + this.makeid(5)
+      },
+      destination_queries: {} as any
+    };
 
-  get meta(){
+  get meta() {
 
     return this.meta$.asObservable().pipe(filter(user => !!user))
   }
@@ -96,7 +101,7 @@ export class RX {
     })
   }
 
-  async alert(message="Okay") {
+  async alert(message = "Okay") {
     const alert = await this.alertController.create({
       cssClass: 'alert-class',
       message: message,
@@ -110,9 +115,9 @@ export class RX {
   }
 
 
-  async toast(message="okay",title="") {
+  async toast(message = "okay", title = "") {
     const toast = await this.toastController.create({
-      header:title,
+      header: title,
       message,
       position: 'bottom',
       buttons: [
@@ -131,7 +136,7 @@ export class RX {
     console.log('onDidDismiss resolved with role', role);
   }
 
-  toastError(error:IAPIServerResponse<IUtilitiesResponse>){
+  toastError(error: IAPIServerResponse<IUtilitiesResponse>) {
     console.log("toastError");
 
     console.error(error);
@@ -151,7 +156,7 @@ export class RX {
           this.user$.next(res.data);
           resolve(res.data)
         }
-        else{
+        else {
           reject(res as IAPIServerResponse)
         }
       })
@@ -173,7 +178,7 @@ export class RX {
   async get_db_metacontact(): Promise<IDBMetaContact> {
     return new Promise((resolve, reject) => {
       let user = this.user$.value
-      this.api.post<IDBMetaContact>("get-db-metacontact", {contact_reference_id:user.contact_reference_id}).subscribe(res => {
+      this.api.post<IDBMetaContact>("get-db-metacontact", { contact_reference_id: user.contact_reference_id }).subscribe(res => {
         this.meta$.next(res.data);
         resolve(res.data)
       })
@@ -195,11 +200,11 @@ export class RX {
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
     for (var i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() *
-            charactersLength));
+      result += characters.charAt(Math.floor(Math.random() *
+        charactersLength));
     }
     return result;
-}
+  }
 
 }
 

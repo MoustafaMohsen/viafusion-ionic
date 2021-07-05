@@ -14,7 +14,7 @@ import { LoadingService } from 'src/app/services/loading.service';
 })
 export class SourcePage implements OnInit {
 
-  constructor(private paymentSrv: PaymentService, private loading: LoadingService, private router: Router, private route: ActivatedRoute, private rx: RX, private fb:FormBuilder) { }
+  constructor(private paymentSrv: PaymentService, private loading: LoadingService, private router: Router, private route: ActivatedRoute, private rx: RX, private fb: FormBuilder) { }
 
   payment_method: string = "";
   required_fields: RequiredFields.Response = {} as any;
@@ -46,7 +46,7 @@ export class SourcePage implements OnInit {
     });
   }
 
-  cc_form:FormGroup ;
+  cc_form: FormGroup;
   is_cc = false;
 
   render_required_fields() {
@@ -66,8 +66,8 @@ export class SourcePage implements OnInit {
           const condition = name == "number" || name == "expiration_month" || name == "expiration_year" || name == "cvv"
           if (condition) {
             this.is_cc = true;
-          }else{
-            var form:FormControl;
+          } else {
+            var form: FormControl;
             if (field.regex) {
               form = new FormControl("", [Validators.required, Validators.pattern(field.regex)])
             } else {
@@ -87,25 +87,32 @@ export class SourcePage implements OnInit {
 
 
 
+  cc_to_fields(fields,cc_form: FormGroup) {
+    // cc values
+    console.log(cc_form.value);
+
+    let datevalue = cc_form.controls.creditCardDate.value;
+    let number = cc_form.controls.creditCard.value
+    let expiration_month = datevalue[0] + datevalue[1]
+    let expiration_year = datevalue[5] + datevalue[6]
+    let cvv = cc_form.controls.creditCardCvv.value
+    fields = {
+      ...fields,
+      number, expiration_month, expiration_year, cvv
+    }
+
+    return fields
+  }
+
   submit() {
 
     let user = this.rx.user$.value;
-    let fields = { ...this.fields_form.value };
+    var fields: PostCreatePayment.IFields = { ...this.fields_form.value };
 
-    // if cc add cc values
     if (this.is_cc) {
-      console.log(this.cc_form.value);
-
-      let datevalue = this.cc_form.controls.creditCardDate.value;
-      let number= this.cc_form.controls.creditCard.value
-      let expiration_month= datevalue[0] + datevalue[1]
-      let expiration_year= datevalue[5] + datevalue[6]
-      let cvv= this.cc_form.controls.creditCardCvv.value
-      fields = {
-        ...fields,
-        number,expiration_month,expiration_year,cvv
-      }
+      fields = this.cc_to_fields(fields,this.cc_form);
     }
+
     console.log(fields);
     delete fields.amount;
     let payment: PostCreatePayment.Request = {
@@ -119,19 +126,19 @@ export class SourcePage implements OnInit {
         image: decodeURIComponent(this.route.snapshot.queryParamMap.get("image")),
         category: decodeURIComponent(this.route.snapshot.queryParamMap.get("category")),
       },
-      "3DS_requirede":false,
-      address:user.rapyd_contact_data.address as any,
-      currency:"USD",
-      complete_payment_url:"https://google.com/",
-      error_payment_url:"https://google.com/",
-      description:"",
-      capture:true,
-      customer:user.customer,
-      statement_descriptor:"Test Transfer",
-      ewallets:[
+      "3DS_requirede": false,
+      address: user.rapyd_contact_data.address as any,
+      currency: "USD",
+      complete_payment_url: "https://google.com/",
+      error_payment_url: "https://google.com/",
+      description: "",
+      capture: true,
+      customer: user.customer,
+      statement_descriptor: "Test Transfer",
+      ewallets: [
         {
-          ewallet:user.ewallet,
-          percentage:100
+          ewallet: user.ewallet,
+          percentage: 100
         }
       ]
     }

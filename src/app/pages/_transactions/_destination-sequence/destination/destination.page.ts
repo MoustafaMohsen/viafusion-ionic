@@ -1,11 +1,13 @@
 import { BehaviorSubject } from 'rxjs';
 import { RX } from 'src/app/services/rx/events.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoadingService } from 'src/app/services/loading.service';
 import { PayoutService } from 'src/app/services/auth/payout';
 import { IGetPayoutRequiredFields } from 'src/app/interfaces/rapyd/ipayout';
+import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
+import { IAPIServerResponse } from 'src/app/interfaces/rapyd/types';
 
 @Component({
   selector: 'app-destination',
@@ -14,9 +16,10 @@ import { IGetPayoutRequiredFields } from 'src/app/interfaces/rapyd/ipayout';
 })
 export class DestinationPage implements OnInit {
 
-  constructor(private payoutSrv: PayoutService, private loading: LoadingService, private router: Router, private route: ActivatedRoute, private rx: RX) { }
+  constructor( private router: Router, private route: ActivatedRoute, private rx: RX, private fb:FormBuilder) { }
 
   request_query: IGetPayoutRequiredFields.QueryRequest = {} as any;
+  response_query: IGetPayoutRequiredFields.Response = {} as any;
 
   required_fields: IGetPayoutRequiredFields.Response = {} as any;
   sender_required_fields_form = new FormGroup({});
@@ -30,9 +33,17 @@ export class DestinationPage implements OnInit {
   ngOnInit() {
 
     this.query_id = decodeURIComponent(this.route.snapshot.queryParamMap.get("query_id"));
-    this.request_query = this.rx.temp.destination_queries[this.query_id]
 
-    this.render_required_fields();
+    if (!this.rx.temp.destination_queries[this.query_id]) {
+      this.router.navigateByUrl("/transaction/destinations-sequence/available-destinations");
+    }
+    this.request_query = this.rx.temp.destination_queries[this.query_id].request_query
+    this.response_query = this.rx.temp.destination_queries[this.query_id].response_query
+
+    if (!this.request_query) {
+      this.router.navigateByUrl("/transaction/destinations-sequence/available-destinations");
+    }
+    this.render_required_fields(this.response_query);
     // validate payout is uniqe
     for (let i = 0; i < this.rx.temp["transaction"]["payouts"].value.length; i++) {
       const destination = this.rx.temp["transaction"]["payouts"].value[i];
@@ -43,46 +54,112 @@ export class DestinationPage implements OnInit {
         return;
       }
     }
+
+    this.beneficiary_cc_form = this.fb.group({
+      creditCard: [],
+      creditCardDate: [],
+      creditCardCvv: [],
+    });
+    this.sender_cc_form = this.fb.group({
+      creditCard: [],
+      creditCardDate: [],
+      creditCardCvv: [],
+    });
   }
 
-  render_required_fields() {
-    this.payoutSrv.get_required_fields(this.request_query).subscribe(res => {
-      console.log("get_required_fields");
-      console.log(res);
-      if (res.success) {
-        this.required_fields = res.data.body.data;
+  beneficiary_cc_form: FormGroup;
+  sender_cc_form: FormGroup;
 
-        // sender_fields
-        for (let i = 0; i < this.required_fields.sender_required_fields.length; i++) {
-          let field = this.required_fields.sender_required_fields[i];
-          var form
-          if (field.regex) {
-            form = new FormControl("", [Validators.required, Validators.pattern(field.regex)])
-          } else {
-            form = new FormControl("", [Validators.required])
-          }
-          this.sender_required_fields_form.addControl(field.name, form);
-        }
+  bene_is_cc=false
+  sender_is_cc=false
 
-        // bene fields
-        for (let i = 0; i < this.required_fields.beneficiary_required_fields.length; i++) {
-          let field = this.required_fields.beneficiary_required_fields[i];
-          var form
-          if (field.regex) {
-            form = new FormControl("", [Validators.required, Validators.pattern(field.regex)])
-          } else {
-            form = new FormControl("", [Validators.required])
-          }
-          this.beneficiary_required_fields_form.addControl(field.name, form);
+  render_required_fields(data:IGetPayoutRequiredFields.Response) {
+    //#region Beneficiary
+    let fields = [...data.beneficiary_required_fields];
+    this.required_fields = data;
+    this.required_fields.beneficiary_required_fields = [];
+    console.log(fields);
+
+    for (let i = 0; i < fields.length; i++) {
+      let field = fields[i];
+      // check if field of cc else add form
+      let name = field.name;
+      const condition = name == "card_number" || name == "card_expiration_month" || name == "card_expiration_year" || name == "card_cvv"
+      if (condition) {
+        this.bene_is_cc = true;
+      }else{
+        var form:FormControl;
+        if (field.regex) {
+          form = new FormControl("", [Validators.required, Validators.pattern(field.regex)])
+        } else {
+          form = new FormControl("", [Validators.required])
         }
+        this.beneficiary_required_fields_form.addControl(name, form);
+        this.required_fields.beneficiary_required_fields.push(field);
+        console.log("added field", field);
 
       }
-    })
+    }
+    console.log("==>this.required_fields");
+    console.log(this.required_fields);
+    //#endregion
+
+    //#region Sender
+    let sender_fields = [...data.sender_required_fields];
+    this.required_fields = data;
+    this.required_fields.sender_required_fields = [];
+    console.log(sender_fields);
+
+    for (let i = 0; i < sender_fields.length; i++) {
+      let field = sender_fields[i];
+      // check if field of cc else add form
+      let name = field.name;
+      const condition = name == "card_number" || name == "card_expiration_month" || name == "card_expiration_year" || name == "card_cvv"
+      if (condition) {
+        this.sender_is_cc = true;
+      }else{
+        var form:FormControl;
+        if (field.regex) {
+          form = new FormControl("", [Validators.required, Validators.pattern(field.regex)])
+        } else {
+          form = new FormControl("", [Validators.required])
+        }
+        this.sender_required_fields_form.addControl(name, form);
+        this.required_fields.sender_required_fields.push(field);
+        console.log("added field", field);
+
+      }
+    }
+    console.log("==>this.required_fields");
+    console.log(this.required_fields);
+    //#endregion
   }
 
+  cc_to_fields(fields,cc_form: FormGroup) {
+    // cc values
+    console.log(cc_form.value);
 
+    let datevalue = cc_form.controls.creditCardDate.value;
+    let number = cc_form.controls.creditCard.value
+    let expiration_month = datevalue[0] + datevalue[1]
+    let expiration_year = datevalue[5] + datevalue[6]
+    let cvv = cc_form.controls.creditCardCvv.value
+    fields = {
+      ...fields,
+      number, expiration_month, expiration_year, cvv
+    }
+
+    return fields
+  }
 
   submit() {
+    if (this.bene_is_cc) {
+      this.required_fields.beneficiary_required_fields = this.cc_to_fields(this.required_fields.beneficiary_required_fields,this.beneficiary_cc_form);
+    }
+
+    if (this.sender_is_cc) {
+      this.required_fields.sender_required_fields = this.cc_to_fields(this.required_fields.sender_required_fields,this.sender_cc_form);
+    }
 
     return;/*
     let user = this.rx.user$.value;
