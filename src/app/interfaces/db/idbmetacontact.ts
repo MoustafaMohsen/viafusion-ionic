@@ -56,3 +56,14 @@ export interface IExcuteTransaction{
   contact_reference_id:number,
   tran_id:string
 }
+
+export interface ITransactionFull_payment {
+  request:PostCreatePayment.Request
+  response:PostCreatePayment.Response
+}
+
+export interface ITransactionFull_payout {
+  request:ICreatePayout.Request
+  response:ICreatePayout.Response
+}
+
