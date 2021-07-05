@@ -4,10 +4,7 @@
   </ion-text>
   <div class="products flex flex-row mt-4 flex-wrap justify-between">
 
-    <app-product class="block relative w-40"></app-product>
-    <app-product class="block relative w-40"></app-product>
-    <app-product class="block relative w-40"></app-product>
-    <app-product class="block relative w-40"></app-product>
+    <app-product *ngFor="let product of products_details" [product_name]="product.product_name" class="block relative w-40"></app-product>
 
   </div>
 </div>

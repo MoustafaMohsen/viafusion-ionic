@@ -9,6 +9,12 @@ export class CategoryComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  products_details: {product_name: string; img_src?: string}[] = [
+      {product_name:"First prod"},
+      {product_name:"second prod"},
+      {product_name:"Third prod"},
+      {product_name:"Fourth prod"},
+    ]
+  ngOnInit() { }
 
 }
