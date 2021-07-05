@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import { RX } from 'src/app/services/rx/events.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PostCreatePayment, RequiredFields } from 'src/app/interfaces/rapyd/ipayment';
 import { PaymentService } from 'src/app/services/auth/payment';
@@ -14,7 +14,7 @@ import { LoadingService } from 'src/app/services/loading.service';
 })
 export class SourcePage implements OnInit {
 
-  constructor(private paymentSrv: PaymentService, private loading: LoadingService, private router: Router, private route: ActivatedRoute, private rx: RX) { }
+  constructor(private paymentSrv: PaymentService, private loading: LoadingService, private router: Router, private route: ActivatedRoute, private rx: RX, private fb:FormBuilder) { }
 
   payment_method: string = "";
   required_fields: RequiredFields.Response = {} as any;
@@ -38,20 +38,44 @@ export class SourcePage implements OnInit {
         return;
       }
     }
+
+    this.cc_form = this.fb.group({
+      creditCard: [],
+      creditCardDate: [],
+      creditCardCvv: [],
+    });
   }
+
+  cc_form:FormGroup ;
+  is_cc = false;
 
   render_required_fields() {
     this.paymentSrv.get_required_fields(this.payment_method).subscribe(res => {
       console.log("get_required_fields");
       console.log(res);
       if (res.success) {
+        let fields = [...res.data.body.data.fields];
         this.required_fields = res.data.body.data;
-        for (let i = 0; i < this.required_fields.fields.length; i++) {
-          let field = this.required_fields.fields[i];
-          let form = new FormControl("", [Validators.required]) // TODO: set default values here
-          this.fields_form.addControl(field.name, form);
-        }
+        this.required_fields.fields = [];
+        console.log(fields);
 
+        for (let i = 0; i < fields.length; i++) {
+          let field = fields[i];
+          // check if field of cc else add form
+          let name = field.name;
+          const condition = name == "number" || name == "expiration_month" || name == "expiration_year" || name == "cvv"
+          if (condition) {
+            this.is_cc = true;
+          }else{
+            let form = new FormControl("", [Validators.required]) // TODO: set default values here
+            this.fields_form.addControl(name, form);
+            this.required_fields.fields.push(field);
+            console.log("added field", field);
+
+          }
+        }
+        console.log("==>this.required_fields");
+        console.log(this.required_fields);
       }
     })
   }
@@ -62,6 +86,22 @@ export class SourcePage implements OnInit {
 
     let user = this.rx.user$.value;
     let fields = { ...this.fields_form.value };
+
+    // if cc add cc values
+    if (this.is_cc) {
+      console.log(this.cc_form.value);
+
+      let datevalue = this.cc_form.controls.creditCardDate.value;
+      let number= this.cc_form.controls.creditCard.value
+      let expiration_month= datevalue[0] + datevalue[1]
+      let expiration_year= datevalue[5] + datevalue[6]
+      let cvv= this.cc_form.controls.creditCardCvv.value
+      fields = {
+        ...fields,
+        number,expiration_month,expiration_year,cvv
+      }
+    }
+    console.log(fields);
     delete fields.amount;
     let payment: PostCreatePayment.Request = {
       amount: parseInt(this.fields_form.get("amount").value),
@@ -94,7 +134,6 @@ export class SourcePage implements OnInit {
     let sources = [...this.rx.temp["transaction"]["payments"].value]
     // validate payment is uniqe
     if (this.is_edit) {
-
       sources[this.edit_index] = payment;
       console.log(this.rx.temp["transaction"]["payments"].next(sources));
       this.router.navigateByUrl("/transaction/sources-sequence/selected-sources");

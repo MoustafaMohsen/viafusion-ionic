@@ -9,16 +9,11 @@ import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-sources-page',
-  templateUrl: './availabe-sources.page.html',
-  styleUrls: ['./availabe-sources.page.scss'],
+  templateUrl: './selected-sources.page.html',
+  styleUrls: ['./selected-sources.page.scss'],
 })
 export class SelectedSourcesPage implements OnInit {
 
-  source_item: ISource = {
-    name: "wallet",
-    description: "",
-    start_date: new Date(),
-  };
   selected_sources: PostCreatePayment.Request[] = [];
   source_amount = "0"
 
@@ -34,7 +29,7 @@ export class SelectedSourcesPage implements OnInit {
     })
   }
   continue_to_destination() {
-    this.router.navigateByUrl("transaction/destinations/list-destinations");
+    this.router.navigateByUrl("transaction/destinations-sequence/selected-destinations");
   }
 
   add_source() {

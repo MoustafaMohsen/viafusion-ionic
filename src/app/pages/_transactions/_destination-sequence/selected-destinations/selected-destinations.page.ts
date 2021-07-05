@@ -7,8 +7,8 @@ import { ICreatePayout } from 'src/app/interfaces/rapyd/ipayout';
 
 @Component({
   selector: 'app-destinations-page',
-  templateUrl: './availabe-destinations.page.html',
-  styleUrls: ['./availabe-destinations.page.scss'],
+  templateUrl: './selected-destinations.page.html',
+  styleUrls: ['./selected-destinations.page.scss'],
 })
 export class SelectedDestinationsPage implements OnInit {
 

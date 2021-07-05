@@ -57,7 +57,7 @@ import { RegisterPinPage } from './pages/_auth/register-pin/register-pin.page';
 import { VerifyCardPage } from './pages/_verification/verify-card/verify-card.page';
 import { VerifyWalletPage } from './pages/_verification/verify-wallet/verify-wallet.page';
 import { CheckoutTestPage } from './pages/checkout-test/checkout-test.page';
-import { SelectedSourcesPage } from './pages/_transactions/_sources-sequence/selected-sources/availabe-sources.page';
+import { SelectedSourcesPage } from './pages/_transactions/_sources-sequence/selected-sources/selected-sources.page';
 import { AvailabeSourcesPage } from './pages/_transactions/_sources-sequence/availabe-sources/availabe-sources.page';
 import { SourcePage } from './pages/_transactions/_sources-sequence/source/source.page';
 import { PaymentService } from './services/auth/payment';
@@ -67,7 +67,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { WalletService } from './services/wallet/wallet.service';
 import { VccService } from './services/vcc/vcc.service';
-import { SelectedDestinationsPage } from './pages/_transactions/_destination-sequence/selected-destinations/availabe-destinations.page';
+import { SelectedDestinationsPage } from './pages/_transactions/_destination-sequence/selected-destinations/selected-destinations.page';
 import { AvailabeDestinationsPage } from './pages/_transactions/_destination-sequence/availabe-destinations/availabe-destinations.page';
 import { PayoutService } from './services/auth/payout';
 import { DestinationPage } from './pages/_transactions/_destination-sequence/destination/destination.page';
@@ -75,6 +75,7 @@ import { ModalDestinationComponent } from './components/modal-destination/modal.
 import {MatSelectModule} from '@angular/material/select';
 import { LacMatTelInputModule } from 'lac-mat-tel-input';
 import { MarketplacePage } from './pages/_marketplace/shop/marketplace.page';
+import { NgxCcModule } from "ngx-cc";
 import { CategoryComponent } from './components/category/category.component';
 import { ProductComponent } from './components/category/product/product.component';
 import { SellPage } from './pages/_marketplace/sell/sell.page';
@@ -121,7 +122,8 @@ import { CategoriesModalComponent } from './components/categories-modal/categori
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    LacMatTelInputModule
+    LacMatTelInputModule,
+    NgxCcModule
   ],
   declarations: [
     AppComponent,
