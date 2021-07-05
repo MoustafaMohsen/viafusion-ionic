@@ -30,7 +30,7 @@ export class VccSettingsPage implements OnInit {
   toggle_activate_card() {
     this.loading.start()
     if (this.card_details.status == "ACT") {
-      this.vccSrv.set_card_status({card:this.card_details.id,status:"block"}).subscribe(r=>{
+      this.vccSrv.set_card_status({card:this.card_details.card_number,status:"block"}).subscribe(r=>{
         this.loading.stop()
         if (r.success) {
           this.rx.toast("Updated")
@@ -43,7 +43,7 @@ export class VccSettingsPage implements OnInit {
       })
     }
     if (this.card_details.status == "BLO") {
-      this.vccSrv.set_card_status({card:this.card_details.id,status:"unblock"}).subscribe(r=>{
+      this.vccSrv.set_card_status({card:this.card_details.card_number,status:"unblock"}).subscribe(r=>{
         this.loading.stop()
         if (r.success) {
           this.rx.toast("Updated")
