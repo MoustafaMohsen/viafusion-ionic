@@ -98,7 +98,7 @@
     </div>
 
     <div class="continue-button">
-      <button [disabled]="this.selected_sources.length < 1" (click)="continue_to_destination()"
+      <button [disabled]="this.selected_sources.length < 1 || !source_amount" (click)="continue_to_destination()"
         class="py-4 px-6   focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1"
         type="submit">
         Continue to Destination

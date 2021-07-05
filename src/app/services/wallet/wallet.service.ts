@@ -1,4 +1,4 @@
-import { IDBMetaContact, ITransaction } from './../../interfaces/db/idbmetacontact';
+import { IDBMetaContact, ITransaction, ITransactionFull_payment } from './../../interfaces/db/idbmetacontact';
 import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { LoadingService } from '../loading.service';
@@ -129,10 +129,10 @@ export class WalletService {
   }
 
   convert_rxtran_to_transaction(rxtran: IRXTransaction) {
-    let payments = [];
-    rxtran.payments.value && rxtran.payments.value.forEach(p => payments.push(p))
+    let payments:ITransactionFull_payment[]    = [];
+    rxtran.payments.value && rxtran.payments.value.forEach(p => payments.push({request:p} as any))
     let payouts = [];
-    rxtran.payouts.value && rxtran.payouts.value.forEach(p => payouts.push(p))
+    rxtran.payouts.value && rxtran.payouts.value.forEach(p => payouts.push({request:p} as any))
     let tran: ITransaction = {
       payments,
       id: rxtran.id || this.rx.makeid(5),

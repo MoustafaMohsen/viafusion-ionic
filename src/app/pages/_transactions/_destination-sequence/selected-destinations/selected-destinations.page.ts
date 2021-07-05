@@ -25,8 +25,14 @@ export class SelectedDestinationsPage implements OnInit {
   constructor(private loading: LoadingService, private router: Router, private rx: RX, private walletSrv: WalletService) { }
 
   ionViewWillEnter() {
-
     this.sources_amount = this.rx.temp["transaction"].source_amount
+  }
+  ionViewDidEnter() {
+    setTimeout(() => {
+      if (this.sources_amount < (1 as any)) {
+        this.router.navigateByUrl("transaction/sources-sequence/selected-sources");
+      }
+    }, 2000);
   }
   ngOnInit() {
     this.selected_destinations = this.rx.temp["transaction"]["payouts"].value;
@@ -39,6 +45,12 @@ export class SelectedDestinationsPage implements OnInit {
     })
   }
   continue_to_destination() {
+    this.rx.temp.view_transaction = this.walletSrv.convert_rxtran_to_transaction(this.rx.temp["transaction"])
+    console.log("this.rx.temp.view_transaction");
+    console.log(this.rx.temp.view_transaction);
+    console.log(JSON.stringify(this.rx.temp.view_transaction));
+
+    this.router.navigateByUrl("/action/complete-transaction")
   }
 
   add_destination() {
@@ -49,7 +61,7 @@ export class SelectedDestinationsPage implements OnInit {
     this.router.navigateByUrl("/transaction/destinations-sequence/destination?payment_method=" + encodeURIComponent(destination.payment_method.type) + "&category=" + encodeURIComponent(destination.metadata.category) + "&image=" + encodeURIComponent(destination.metadata.image) + "&name=" + encodeURIComponent(destination.metadata.name))
   }
 
-  get remaing_ballance(){
+  get remaing_ballance() {
     return (this.sources_amount as any) - (this.destination_amount as any)
   }
 }
