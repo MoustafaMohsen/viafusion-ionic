@@ -21,11 +21,20 @@
       <div class="selected-item mt-4" (click)="edit_source(source)">
         <div class="flex justify-between">
           <div class="w-1/2 badge">
-           
-            <h4 class="">
-               <svg-icon key="ewallet" fontSize="16px" class="ml-2"></svg-icon>
-              {{source.metadata.category}}
-            </h4>
+            <div class="badge-div flex justify-start items-center">
+              <div class="icon-div">
+                <svg-icon [key]="source_item.category" fontSize="16px" class="ml-2"></svg-icon>
+              </div>
+              <div>
+                  <span *ngIf="source_item.category == 'cash'">Cash</span>
+              <span *ngIf="source_item.category == 'ewallet'">Wallet</span>
+              <span *ngIf="source_item.category == 'bank_transfer'">Bank Transfer</span>
+              <span *ngIf="source_item.category == 'bank_redirect'">Bank Redirect</span>
+              <span *ngIf="source_item.category == 'card'">Card</span>
+              <span *ngIf="source_item.category == 'rapyd_ewallet'">Rapyd</span>
+              </div>
+            
+            </div>
           </div>
 
           <div class="amount-badge bg-green-700 text-center">
