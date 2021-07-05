@@ -1,5 +1,7 @@
+import { Router } from '@angular/router';
+import { RX } from 'src/app/services/rx/events.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { ICardDetails } from 'src/app/interfaces/interfaces';
+import { ListIssuedVcc } from 'src/app/interfaces/rapyd/ivcc';
 
 @Component({
   selector: 'app-cc',
@@ -8,14 +10,15 @@ import { ICardDetails } from 'src/app/interfaces/interfaces';
 })
 export class CcComponent implements OnInit {
 
-  @Input() card_details:ICardDetails;
-  constructor() { }
+  @Input() card_details:ListIssuedVcc.Response;
+  constructor(private rx:RX,private router:Router) { }
 
   ngOnInit() {}
 
   show=true;
 
   go_to_card(){
-
+    this.rx.temp.vcc_details = this.card_details;
+    this.router.navigateByUrl("/cc/vcc/vcc-details/vcc-history")
   }
 }

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
-import { IssueVccRequestForm, ListIssuedVcc } from 'src/app/interfaces/rapyd/ivcc';
+import { ISetCardStatus, IssueVccRequestForm, ListIssuedVcc, ListIssuedVccTransactions } from 'src/app/interfaces/rapyd/ivcc';
+import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
 import { Api } from '../api/api';
 import { LoadingService } from '../loading.service';
 import { RX } from '../rx/events.service';
@@ -20,10 +21,36 @@ export class VccService {
     })
   }
 
-  get_vccs(){
+  get_vccs() {
     return this.api.post<ListIssuedVcc.Response[]>("list-vccs", {
-      contact_reference_id:this.rx.user$.value.contact_reference_id
+      contact_reference_id: this.rx.user$.value.contact_reference_id
     })
 
+  }
+
+  get_vcc_transactions(card_id) {
+    return this.api.post<IUtilitiesResponse<ListIssuedVccTransactions.Response[]>>("list-vcc-transactions", {
+      card_id
+    })
+  }
+
+  set_card_status(status_obj:ISetCardStatus) {
+    return this.api.post<IUtilitiesResponse<ListIssuedVccTransactions.Response[]>>("set-card-status", {
+      status_obj
+    })
+  }
+
+
+  card_status(card_details) {
+    let str =
+      card_details.status == "ACT" ? "Active." :
+        card_details.status == "BLO" ? "Blocked." :
+          card_details.status == "CAN" ? "Cancelled." :
+            card_details.status == "IMP" ? "Imported in bulk, but not yet personalized." :
+              card_details.status == "INA" ? "Inactive." : ""
+
+
+    str + card_details.blocked_reason
+    return str
   }
 }

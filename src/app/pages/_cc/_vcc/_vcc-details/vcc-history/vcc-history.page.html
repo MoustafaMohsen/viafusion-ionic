@@ -1,14 +1,89 @@
 <ion-content>
 
 <div class="history mt-4">
-  <div class="mt-4">
-    <app-transaction-item></app-transaction-item>
+  <div class="mt-4" *ngFor="let transaction of transactions">
+    <!-- =========== Transaction item============ -->
+    <div routerLink="/action/complete-transaction"
+  class="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 items-center p-4">
+
+  <div class="title-row pl-1 md:mr-16 w-full flex justify-between items-center">
+    <div
+      class="flex text-lg leading-6 font-medium dark:text-white text-gray-800">
+      <h4 class="">Sent</h4>
+      <ion-icon name="arrow-up-outline"></ion-icon>
+    </div>
   </div>
-  <div class="mt-4">
-    <app-transaction-item></app-transaction-item>
+
+  <div class="status-row md:mr-16 w-full flex justify-between items-center">
+
+    <!-- Transaction Status -->
+    <!-- if success -->
+    <!-- <div class="" *ngIf="transaction.status == TStatus.success">
+      <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+        <span aria-hidden="true" class="absolute inset-0 bg-green-200 opacity-50 rounded-full">
+        </span>
+        <span class="relative">
+          Success
+        </span>
+      </span>
+    </div> -->
+
+    <!-- if pending -->
+    <!-- <div class="" *ngIf="transaction.status == TStatus.pending">
+      <span class="relative inline-block px-3 py-1 font-semibold text-yellow-900 leading-tight">
+        <span aria-hidden="true" class="absolute inset-0 bg-yellow-200 opacity-50 rounded-full">
+        </span>
+        <span class="relative">
+          Pending
+        </span>
+      </span>
+    </div> -->
+
+    <!-- if failed -->
+    <!-- <div class="" *ngIf="transaction.status == TStatus.failed">
+      <span class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
+        <span aria-hidden="true" class="absolute inset-0 bg-red-200 opacity-50 rounded-full">
+        </span>
+        <span class="relative">
+          Failed
+        </span>
+      </span>
+    </div>
+ -->
+    <div class="date flex">
+      <div class="text-gray-600 dark:text-gray-200 text-sm">
+        {{transaction.created_at | date}}
+      </div>
+
+    </div>
   </div>
-  <div class="mt-4">
-    <app-transaction-item></app-transaction-item>
+
+
+  <div class="details-row flex justify-between items-center my-2">
+
+    <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-200">
+      Merchant: {{transaction.merchant_name_location}}
+    </p>
+
+  </div>
+
+
+  <div class="relative  w-full h-10 flex justify-between items-center footer-progress-indicators">
+
+    <ion-icon name="card"></ion-icon>
+
+    <!-- will have class point_count_2 if there are two point, 3 if three etc. -->
+    <!-- usefull if you wan to set dash width as a percentage % -->
+    <div class="dash">
+      <ion-progress-bar reversed="true" value="0" buffer="0"></ion-progress-bar>
+    </div>
+
+    <ion-icon name="business-outline"></ion-icon>
+
+  </div>
+
+</div>
+
   </div>
 
 </div>
