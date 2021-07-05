@@ -40,6 +40,7 @@
     "lac-mat-tel-input": "^2.0.0-alpha.2",
     "libphonenumber-js": "^1.9.21",
     "ng-circle-progress": "^1.6.0",
+    "ngx-cc": "0.0.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
