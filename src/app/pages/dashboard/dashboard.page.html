@@ -1,9 +1,13 @@
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="ion_refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-header>
     <div class="header-container">
       <div class="flex justify-between">
         <div class="">
-          <h3 class="text-5xl">$ 50,000</h3>
+          <h3 class="text-5xl">{{balance}}</h3>
         </div>
         <ion-button routerLink="/verification" class="notification" expand="block" fill="clear" shape="round">
           <svg-icon class="svg-white flex mt-3" key="notification-colored" fontSize="35px"></svg-icon>
@@ -89,7 +93,7 @@
               Recive
             </button>
             </div>
-        
+
           </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { RX } from '../rx/events.service';
 import { Api } from '../api/api';
 import { ICreateWallet } from 'src/app/interfaces/db/idbwallet';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
+import { WalletBallanceResponse } from 'src/app/interfaces/rapyd/iwallet';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,19 @@ export class WalletService {
     })
 
   }
+
+
+  // === helpers
+  reduce_accounts_to_amount(accounts: WalletBallanceResponse[], currency: string) {
+    let filterd = accounts.filter(a => a.currency == currency);
+    if (filterd) {
+        let balance: number = filterd.reduce((a, b) => {
+            return (a.balance + b.balance) as any
+        }) as any
+        return balance;
+    } else {
+        return 0
+    }
+}
 
 }
