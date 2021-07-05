@@ -15,7 +15,7 @@
             <mat-option class="country-option" *ngFor="let country of filteredCountries | async"
               [value]="country.alpha2Code">
               <img class="example-option-img" aria-hidden [src]="country.flag">
-              <span>{{country.name}}</span> |
+              <span>{{country.name}}</span>
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>

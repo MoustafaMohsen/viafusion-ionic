@@ -48,5 +48,11 @@ export interface ITransaction {
 
   execute: boolean;
   executed: boolean;
-  type: "w2w"| `${categories}2${categories}`
+  type: "w2w"| "many2many"| `${categories}2${categories}`
+}
+
+
+export interface IExcuteTransaction{
+  contact_reference_id:number,
+  tran_id:string
 }

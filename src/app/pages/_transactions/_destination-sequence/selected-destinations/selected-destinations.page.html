@@ -1,4 +1,4 @@
-<app-header title="Selected Destinations" back_url="/dashboard"></app-header>
+<app-header title="Selected Destinations" back_url="/transaction/sources-sequence/selected-sources"></app-header>
 
 <ion-content>
 
@@ -8,8 +8,9 @@
   <!-- https://dribbble.com/shots/7188812-Nomad-App-Light-Theme -->
   <div class="balance-header">
     <div class="transaction-balance">
-      <h3 class="letspac-1">Transfer Amount</h3>
-      <h1>{{destination_amount | currency}}</h1>
+      <h3 class="letspac-1">Remaining</h3>
+      <h1>{{remaing_ballance | currency}}</h1>
+      <p>out of {{sources_amount | currency}}</p>
     </div>
   </div>
 
@@ -84,7 +85,7 @@
     </div>
 
     <div class="continue-button">
-      <button [disabled]="selected_destinations.length < 1" (click)="continue_to_destination()"
+      <button [disabled]="selected_destinations.length < 1 || remaing_ballance != 0" (click)="continue_to_destination()"
         class="py-4 px-6   focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1"
         type="submit">
         Continue to Confirmation

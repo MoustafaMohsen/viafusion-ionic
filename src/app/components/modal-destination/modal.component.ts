@@ -15,8 +15,12 @@ import { PayoutService } from 'src/app/services/auth/payout';
 export class ModalDestinationComponent implements OnInit {
 
   @Input() currencies: string[];
+  @Input() remaing_ballance ;
   @Input() request_query: IGetPayoutRequiredFields.QueryRequest;
 
+  ionViewWillEnter() {
+    this.remaing_ballance = (this.rx.temp["transaction"].source_amount as any) - (this.rx.temp["transaction"].destination_amount as any)
+  }
   form = new FormGroup({
     amount: new FormControl("", [Validators.required, Validators.min(1)]),
     currency: new FormControl("", [Validators.required])
