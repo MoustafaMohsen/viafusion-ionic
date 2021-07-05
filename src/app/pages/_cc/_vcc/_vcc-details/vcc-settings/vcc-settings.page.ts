@@ -20,8 +20,9 @@ export class VccSettingsPage implements OnInit {
 
   }
   ngOnInit() {
-
+    this.card_details = this.rx.temp.vcc_details
   }
+
   ionViewWillLeave() {
     console.log("ionViewWillLeave()");
   }
@@ -56,7 +57,10 @@ export class VccSettingsPage implements OnInit {
     }
   }
   get status() {
-    return this.vccSrv.card_status(this.card_details)
+    if(this.card_details){
+      return this.vccSrv.card_status(this.card_details)
+    }
+    return "Couldn't load status";
   }
 
 }
