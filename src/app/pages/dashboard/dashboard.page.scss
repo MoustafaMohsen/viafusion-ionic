@@ -8,18 +8,22 @@ ion-content {
   --padding-top: 0px;
 }
 ion-header {
-  padding:1.5rem 2rem 16rem;
+  padding:1.5rem 2rem 9rem;
   background-image:url(../../../assets/images/bg.svg) ;
   background-attachment: fixed;
   background-size:contain;
   .header-container{
     position: fixed;
     h3 {
-      color: var(--tertiary);
       font-weight: 600;
+      color: white;
+      font-size: 3rem;
     }
     .notification {
       height: 4rem;
+      margin-right: 0px;
+    position: absolute;
+    right: -171px;
       ion-icon {
        color: #fff;
       }
