@@ -1,5 +1,5 @@
 
-<div class="aspect-container aspect-w-12 aspect-h-7">
+<div (click)="go_to_card()" class="aspect-container aspect-w-12 aspect-h-7">
 
   <div class="m-auto bg-red-100 rounded-xl text-white shadow-2xl transition-transform transform  v-credit">
 
@@ -8,8 +8,8 @@
     <div class="w-full px-8 absolute top-4">
       <div class="flex justify-between">
         <div class="pt-2">
-          
-          <p>lorem ipsum</p>
+
+          <p>{{card_details?.metadata?.name}} </p>
         </div>
         <img class="cc-logo" src="../../../../assets/images/mc-logo.svg">
       </div>
@@ -17,33 +17,33 @@
       <div class="pt-4 flex justify-between item-center">
         <div class="">
         <p class="font-medium text-lg tracking-more-wider">
-          4642 3489 9867 7632
+          {{card_details?.card_number}}
         </p>
       </div>
-      
+
       </div>
 
 
       <div class="pt-3 pr-6">
         <div class="flex justify-between">
-         
+
           <div class="">
             <p class="font-light text-xs">
               Expiry
 
             </p>
             <p class="font-medium tracking-wider text-sm">
-              03/25
+              {{card_details?.expiration_month}} / {{card_details?.expiration_year}}
             </p>
           </div>
 
           <div class="">
             <p class="font-light text-xs">
-              CVV
+              {{card_details?.cvv}}
 
             </p>
             <p class="font-bold tracking-more-wider text-sm">
-              577
+
             </p>
           </div>
         </div>
@@ -51,4 +51,11 @@
 
     </div>
   </div>
+</div>
+
+<p class="font-medium dark:text-white text-gray-500 pt-1 pl-4">Click to copy</p>
+<div class="flex text-lg leading-6 font-medium dark:text-white text-gray-800 mt-2 show-btn">
+  <button class="w-full letspac-1">
+   Show Details
+  </button>
 </div>

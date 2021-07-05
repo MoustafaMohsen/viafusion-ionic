@@ -112,7 +112,7 @@ export class RX {
     this.meta$.subscribe(async (u) => {
       console.log("=== meta$.subscribe Fired 🔥");
       if (!u || !u.contact_reference_id) {
-        this.get_db_metacontact();
+        // this.get_db_metacontact();
       }
       await this.storage.set("meta", u);
       console.log("=== Meta storage was set with value", u);
