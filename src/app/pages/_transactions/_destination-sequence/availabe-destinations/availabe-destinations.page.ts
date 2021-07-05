@@ -6,11 +6,12 @@ import { Component, OnInit } from '@angular/core';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { contries } from 'src/app/services/static/datasets';
+import { contries, curruncies } from 'src/app/services/static/datasets';
 import { ListPayments } from 'src/app/interfaces/rapyd/ipayment';
 import { IGetPayoutRequiredFields, IListPayout } from 'src/app/interfaces/rapyd/ipayout';
 import { ModalController } from '@ionic/angular';
 import { ModalDestinationComponent } from 'src/app/components/modal-destination/modal.component';
+import { ICountry } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-availabe-destinations',
@@ -42,17 +43,17 @@ export class AvailabeDestinationsPage implements OnInit {
 
     let request_query: IGetPayoutRequiredFields.QueryRequest = {
       beneficiary_country: this.countryCtrl.value,
-      payout_amount: 50,
+      payout_amount: 0,
       payout_currency: "USD",
       payout_method_type: payout_response.payout_method_type,
       sender_country: this.rx.user$.value.rapyd_contact_data?.country || this.route.snapshot.queryParamMap.get("sender_country") || "US",
     }
+    let payout_currencies = payout_response.payout_currencies[0] == "*"? curruncies : payout_response.payout_currencies
     // prompt amount field & currency select
     let modal = await this.modalCtrl.create({
       component: ModalDestinationComponent,
       componentProps: {
-        currencies: ["USD", "SGD"],
-        amount: '251',
+        currencies: payout_currencies,
         request_query
       },
       cssClass: "bottom-drawer"
@@ -102,16 +103,6 @@ export class AvailabeDestinationsPage implements OnInit {
     const filterValue = value.toLowerCase();
     return this.countries.filter(country => country.name.toLowerCase().includes(filterValue));
   }
+  //#endregion
 
-}
-
-
-export interface ICountry {
-  name: string;
-  alpha2Code: string;
-  demonym: string;
-  flag: string;
-  callingCodes: string[];
-  latlng: number[];
-  nativeName: string;
 }

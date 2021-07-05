@@ -9,7 +9,7 @@ import { ILogin, ILoginTransportObj } from 'src/app/interfaces/db/ilogin';
 import { Storage } from '@ionic/storage-angular';
 import { PostCreatePayment } from 'src/app/interfaces/rapyd/ipayment';
 import { IDBMetaContact, ITransaction } from 'src/app/interfaces/db/idbmetacontact';
-import { ICreatePayout } from 'src/app/interfaces/rapyd/ipayout';
+import { ICreatePayout, IGetPayoutRequiredFields } from 'src/app/interfaces/rapyd/ipayout';
 import { TransferToWallet } from 'src/app/interfaces/rapyd/iwallet';
 import { categories, IAPIServerResponse } from 'src/app/interfaces/rapyd/types';
 import { AlertController } from '@ionic/angular';
@@ -58,7 +58,9 @@ export class RX {
   public meta$ = new BehaviorSubject<IDBMetaContact>(null);
 
 
-  temp: { transaction: IRXTransaction } = {
+  temp: { transaction: IRXTransaction; destination_queries:{
+    [key:string]:IGetPayoutRequiredFields.QueryRequest
+  } } = {
     transaction: {
       payments: new BehaviorSubject<PostCreatePayment.Request[]>([]),
       payouts: new BehaviorSubject<ICreatePayout.Request[]>([]),
@@ -68,7 +70,8 @@ export class RX {
       executed: false,
       type: null,
       id:"tranid_"+this.makeid(5)
-    }
+    },
+    destination_queries:{} as any
   };
 
   get meta(){

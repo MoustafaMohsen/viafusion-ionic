@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { ICountry } from 'src/app/interfaces/interfaces';
 import { LoadingService } from 'src/app/services/loading.service';
 import { RX } from 'src/app/services/rx/events.service';
 import { contries } from 'src/app/services/static/datasets';
@@ -76,13 +77,3 @@ export class VerifyWalletPage implements OnInit {
 
 }
 
-
-export interface ICountry {
-  name: string;
-  alpha2Code: string;
-  demonym: string;
-  flag: string;
-  callingCodes: string[];
-  latlng: number[];
-  nativeName: string;
-}
