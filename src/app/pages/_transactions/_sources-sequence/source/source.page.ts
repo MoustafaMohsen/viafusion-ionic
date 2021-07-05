@@ -25,19 +25,14 @@ export class SourcePage implements OnInit {
 
   is_edit = false;
   edit_index = -1;
-  ngOnInit() {
+  ionViewWillEnter(){
     this.payment_method = decodeURIComponent(this.route.snapshot.queryParamMap.get("payment_method"));
-    this.render_required_fields();
-    // validate payment is uniqe
-    for (let i = 0; i < this.rx.temp["transaction"]["payments"].value.length; i++) {
-      const source = this.rx.temp["transaction"]["payments"].value[i] as PostCreatePayment.Request;
-      if (source.payment_method.type == this.payment_method) {
-        console.log("payment edited");
-        this.is_edit = true;
-        this.edit_index = i;
-        return;
-      }
-    }
+    this.route.queryParamMap.subscribe(m => {
+      this.update_query(m.get("payment_method"));
+
+    })
+  }
+  ngOnInit() {
 
     this.cc_form = this.fb.group({
       creditCard: [],
@@ -46,6 +41,20 @@ export class SourcePage implements OnInit {
     });
   }
 
+
+  update_query(payment_method){
+    this.render_required_fields();
+    // validate payment is uniqe
+    for (let i = 0; i < this.rx.temp["transaction"]["payments"].value.length; i++) {
+      const source = this.rx.temp["transaction"]["payments"].value[i] as PostCreatePayment.Request;
+      if (source.payment_method.type == payment_method) {
+        console.log("payment edited");
+        this.is_edit = true;
+        this.edit_index = i;
+        return;
+      }
+    }
+  }
   cc_form: FormGroup;
   is_cc = false;
 

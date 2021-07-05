@@ -9,7 +9,7 @@
 
         <!-- Beneficiary Fields -->
         <h2 *ngIf="required_fields?.beneficiary_required_fields?.length > 0" class="capitalize block tracking-wide text-gray-900 text-4xl font-bold mb-2">Beneficiary Required Fields</h2>
-        <form [formGroup]="beneficiary_required_fields_form">
+        <form [formGroup]="beneficiary_required_fields_form" class="w-full">
           <div class="fields-container" *ngFor="let f of required_fields?.beneficiary_required_fields">
             <!-- Number -->
             <div *ngIf="f.type == 'number' || f.type == 'integer'" class="w-full px-3 mb-6 md:mb-0">
