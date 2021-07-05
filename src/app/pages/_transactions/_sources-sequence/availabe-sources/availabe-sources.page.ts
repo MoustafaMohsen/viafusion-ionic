@@ -61,7 +61,8 @@ export class AvailabeSourcesPage implements OnInit {
         this.loading.stop();
         if (res.success) {
           console.log(res);
-          this.payment_list = res.data.body.data
+          // TODO: Find a workaround
+          this.payment_list = res.data.body.data.filter(p => p.currencies[0] == "*" || p.currencies.indexOf("USD") != -1)
 
         }
       })
