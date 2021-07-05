@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ListIssuedVcc } from 'src/app/interfaces/rapyd/ivcc';
 
 @Component({
   selector: 'app-vcc-details',
@@ -12,6 +13,7 @@ export class VccDetailsPage implements OnInit {
 
   ngOnInit() {
   }
+  card_details:ListIssuedVcc.Response;
 
   segmentChanged(e){
     let tab = e.detail.value;

@@ -14,6 +14,7 @@ import { TransferToWallet } from 'src/app/interfaces/rapyd/iwallet';
 import { categories, IAPIServerResponse } from 'src/app/interfaces/rapyd/types';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
+import { ListIssuedVcc } from 'src/app/interfaces/rapyd/ivcc';
 
 @Injectable({
   providedIn: 'root'
@@ -65,7 +66,8 @@ export class RX {
         response_query: IGetPayoutRequiredFields.Response
       }
     },
-    view_transaction?:ITransaction
+    view_transaction?:ITransaction,
+    vcc_details?:ListIssuedVcc.Response
   } = {
       transaction: {
         payments: new BehaviorSubject<PostCreatePayment.Request[]>([]),

@@ -36,7 +36,7 @@ export namespace ListIssuedVcc{
   export interface Response {
       id: string
       ewallet_contact: EwalletContact
-      status: string
+      status: "ACT"|"BLO"|"CAN"|"IMP"|"INA"
       card_id: string
       assigned_at: number
       activated_at: number
@@ -104,4 +104,39 @@ export namespace ListIssuedVcc{
       district: string
       created_at: number
     }
+}
+
+
+export namespace ListIssuedVccTransactions {
+  export interface Response {
+      id: string
+      amount: number
+      currency: string
+      created_at: number
+      card_id: string
+      merchant_category_code: string
+      merchant_name_location: string
+      auth_code: string
+      bin: string
+      last4: string
+      issuing_txn_type: string
+      pos_entry_mode: string
+      systems_trace_audit_number: string
+      retrieval_reference_number: string
+      original_transaction_id: string
+      original_txn_amount: any
+      original_txn_currency: string
+      fx_rate: any
+      card_program: string
+      wallet_transaction_id: string
+      authorization_approved_by: string
+      card_authorization: string
+
+  }
+}
+
+export interface ISetCardStatus{
+  /**Card ID */
+  card:string,
+  status:"active"|"unblock"|"block"
 }
