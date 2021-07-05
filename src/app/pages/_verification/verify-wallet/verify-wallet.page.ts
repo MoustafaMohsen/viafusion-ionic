@@ -48,8 +48,16 @@ export class VerifyWalletPage implements OnInit {
         this.rx.user$.next(res.data);
         if(res.success){
           this.router.navigateByUrl("verification/verify-card?country="+this.wallet_form.value.country)
+        }else{
+          console.log(res);
+          this.rx.toastError(res as any)
+
         }
-      },err=>console.log(err)
+      },err=>{
+        console.log(err);
+        this.rx.toastError(err)
+
+      }
       )
     }
   }
