@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/services/loading.service';
-import { PaymentService } from './../../../../services/auth/payment';
+import { PaymentService } from '../../../../services/auth/payment';
 import { Component, OnInit } from '@angular/core';
 import { ISource } from 'src/app/interfaces/interfaces';
 import { map, startWith } from 'rxjs/operators';
