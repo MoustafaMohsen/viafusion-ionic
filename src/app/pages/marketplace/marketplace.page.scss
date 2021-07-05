@@ -1,0 +1,18 @@
+ion-content {
+    --padding-top: 0px;
+    --padding-end: 1rem;
+    --padding-start: 1rem;
+    ion-searchbar {
+        --color:#000;
+        --border-radius: 40px;
+        --ion-color-base: #fff
+    }
+    .buttons-row button {
+        justify-content: center;
+        background: var(--secondary-tint);
+        padding: 0.5rem;
+        border-radius: 20px;
+        color: var(--secondary);
+    }
+
+}

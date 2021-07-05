@@ -25,6 +25,7 @@ import { bankTransferIcon } from './consts/bank_transfer';
 import { cardIcon } from './consts/card';
 import { cashIcon } from './consts/cash';
 import { rapydEwalletIcon } from './consts/rapyd_ewallet';
+import { listIcon } from './consts/list';
 
 export const  icons = [
     nfcIcon,
@@ -53,7 +54,8 @@ export const  icons = [
     bankTransferIcon,
     cardIcon,
     cashIcon,
-    rapydEwalletIcon
+    rapydEwalletIcon,
+    listIcon
     
     
 

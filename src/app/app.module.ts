@@ -75,6 +75,9 @@ import { DestinationPage } from './pages/_transactions/_destination-sequence/des
 import { ModalDestinationComponent } from './components/modal-destination/modal.component';
 import {MatSelectModule} from '@angular/material/select';
 import { LacMatTelInputModule } from 'lac-mat-tel-input';
+import { MarketplacePage } from './pages/marketplace/marketplace.page';
+import { CategoryComponent } from './components/category/category.component';
+import { ProductComponent } from './components/category/product/product.component';
 
 @NgModule({
   imports: [
@@ -165,7 +168,10 @@ import { LacMatTelInputModule } from 'lac-mat-tel-input';
     SelectedDestinationsPage,
     AvailabeDestinationsPage,
     DestinationPage,
-    ModalDestinationComponent
+    ModalDestinationComponent,
+    MarketplacePage,
+    CategoryComponent,
+    ProductComponent
   ],
   entryComponents: [],
   providers: [
