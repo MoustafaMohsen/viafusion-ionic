@@ -21,7 +21,7 @@ export class VerifyCardPage implements OnInit,AfterViewInit {
 
   country = "US";
   vcc_form = new FormGroup({
-    date_of_birth: new FormControl("", [Validators.required, Validators.pattern(/\d{2}\/\d{2}\/\d{4}/)]),
+    date_of_birth: new FormControl("", [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/)]),
     line_1: new FormControl("", [Validators.required]),
     state: new FormControl("", [Validators.required]),
     city: new FormControl("", [Validators.required]),
@@ -33,7 +33,6 @@ export class VerifyCardPage implements OnInit,AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    this.loading.start()
     setTimeout(() => {
       this.rx.get_db_metacontact().then(m => {
         this.loading.stop()
@@ -47,8 +46,18 @@ export class VerifyCardPage implements OnInit,AfterViewInit {
   ngOnInit() {
     this.country = this.route.snapshot.queryParamMap.get("country");
     this.route.queryParamMap.subscribe(rs => {
-      this.country = rs.get("country")
+      this.country = rs.get("country");
     });
+    this.loading.stop();
+
+    // this.vcc_form.get("date_of_birth").valueChanges.subscribe((v:string)=>{
+    //   v = this.vcc_form.get("date_of_birth").value;
+    //   console.log(v);
+    //   console.log(v.length);
+    //   if ((v.length == 2 || v.length == ) && v[v.length-1] != "/") {
+    //     this.vcc_form.get("date_of_birth").setValue(v+"/",{emitEvent:false})
+    //   }
+    // })
 
   }
   submit() {

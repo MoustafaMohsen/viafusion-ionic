@@ -162,3 +162,10 @@ a[disabled], button[disabled], html input[disabled] {
   cursor: default;
   background-image: linear-gradient(to right, #b3b2b2, #ccc6bd);
 }
+.dialpad{
+  display: none !important;
+}
+ion-toast{
+  --color: black;
+  --background: #ffcc91;
+}

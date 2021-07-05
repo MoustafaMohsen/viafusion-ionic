@@ -24,7 +24,7 @@ export class OtpPage implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
-    let input = document.getElementById('code_input_1') as HTMLInputElement;
+    let input = document.getElementById('otp_code_input_1') as HTMLInputElement;
     input.focus();
     setTimeout(() => {
       this.sandbox_message = `You are in sandbox, just enter :${this.rx.user$.value.security.login._otp_value}`;
