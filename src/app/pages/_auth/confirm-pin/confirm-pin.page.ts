@@ -18,12 +18,17 @@ export class ConfirmPinPage implements OnInit {
   constructor(public loading: LoadingService, private router: Router, private login_serv: LoginService, private rx: RX) { }
 
   ngOnInit() {
+  }
+  ngAfterViewInit(): void {
+    let input = document.getElementById('register_code_input_1') as HTMLInputElement;
+    input.focus();
     setTimeout(() => {
       if (!this.rx.temp["confirm-pin"] && this.rx.temp["confirm-pin"] != "000000") {
         console.log("user DOESN'T HAVE pin");
         this.router.navigateByUrl("/auth/register-pin");
       }
     }, 1500);
+
   }
   update_code(e: Event, i: number) {
     let next_input = document.getElementById('confirm_code_input_' + (i + 1)) as HTMLInputElement;
