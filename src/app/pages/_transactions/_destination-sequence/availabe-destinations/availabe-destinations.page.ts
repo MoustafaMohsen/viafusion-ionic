@@ -46,7 +46,7 @@ export class AvailabeDestinationsPage implements OnInit {
       payout_amount: 0,
       payout_currency: "USD",
       payout_method_type: payout_response.payout_method_type,
-      sender_country: this.rx.user$.value.rapyd_contact_data?.country || this.route.snapshot.queryParamMap.get("sender_country") || "US",
+      sender_country: this.rx.user$.value.rapyd_contact_data?.country || this.route.snapshot.queryParamMap.get("sender_country"),
     }
     let payout_currencies = payout_response.payout_currencies[0] == "*"? curruncies : payout_response.payout_currencies
     // prompt amount field & currency select

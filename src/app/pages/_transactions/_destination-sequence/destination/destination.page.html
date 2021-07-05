@@ -8,7 +8,7 @@
 
 
         <!-- Beneficiary Fields -->
-        <h2  *ngIf="required_fields?.beneficiary_required_fields?.length > 0" class="capitalize block tracking-wide text-gray-900 text-4xl font-bold mb-2">Beneficiary Required Fields</h2>
+        <h2 *ngIf="required_fields?.beneficiary_required_fields?.length > 0" class="capitalize block tracking-wide text-gray-900 text-4xl font-bold mb-2">Beneficiary Required Fields</h2>
         <form [formGroup]="beneficiary_required_fields_form">
           <div class="fields-container" *ngFor="let f of required_fields?.beneficiary_required_fields">
             <!-- Number -->
@@ -129,7 +129,7 @@
 
 
         <div class="w-full mt-6">
-          <button [disabled]="sender_required_fields_form.invalid || beneficiary_required_fields_form.invalid" (click)="submit()" type="button" class="py-4 px-6   focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+          <button [disabled]="is_disable" (click)="submit()" type="button" class="py-4 px-6   focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
             submit
           </button>
 

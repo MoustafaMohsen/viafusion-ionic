@@ -5,7 +5,7 @@ import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoadingService } from 'src/app/services/loading.service';
 import { PayoutService } from 'src/app/services/auth/payout';
-import { IGetPayoutRequiredFields } from 'src/app/interfaces/rapyd/ipayout';
+import { ICreatePayout, IGetPayoutRequiredFields } from 'src/app/interfaces/rapyd/ipayout';
 import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
 import { IAPIServerResponse } from 'src/app/interfaces/rapyd/types';
 
@@ -163,44 +163,44 @@ export class DestinationPage implements OnInit {
   }
 
   submit() {
+    let beneficiary = this.beneficiary_required_fields_form.value;
     if (this.bene_is_cc) {
-      this.required_fields.beneficiary_required_fields = this.cc_to_fields(this.required_fields.beneficiary_required_fields, this.beneficiary_cc_form);
+      beneficiary = this.cc_to_fields(beneficiary, this.beneficiary_cc_form);
     }
 
+    let sender = this.beneficiary_required_fields_form.value;
     if (this.sender_is_cc) {
-      this.required_fields.sender_required_fields = this.cc_to_fields(this.required_fields.sender_required_fields, this.sender_cc_form);
+      sender = this.cc_to_fields(sender, this.sender_cc_form);
     }
 
-    return;/*
     let user = this.rx.user$.value;
-    let fields = { ...this.fields_form.value };
-    delete fields.amount;
-    let payout: PostCreatePayout.Request = {
-      amount: parseInt(this.fields_form.get("amount").value),
-      payout_method: {
-        type: this.request_query.payout_method_type as any,
-        fields: fields
-      },
+
+    let payout: ICreatePayout.Request = {
+      payout_amount:this.request_query.payout_amount,
+      payout_method_type: this.request_query.payout_method_type,
+      payout_currency: this.request_query.payout_currency,
+
+      beneficiary_country:this.request_query.beneficiary_country,
+      beneficiary_entity_type:"individual",
+      beneficiary,
+
+      // sender data
+      sender,
+      sender_country:this.request_query.sender_country,
+      sender_currency:"USD",
+      sender_entity_type:"individual",
+      ewallet:user.rapyd_wallet_data.id,
+      merchant_reference_id:this.rx.makeid(5),
+
+      // other data
       metadata: {
         name: decodeURIComponent(this.route.snapshot.queryParamMap.get("name")),
         image: decodeURIComponent(this.route.snapshot.queryParamMap.get("image")),
         category: decodeURIComponent(this.route.snapshot.queryParamMap.get("category")),
       },
-      "3DS_requirede": false,
-      address: user.rapyd_contact_data.address as any,
-      currency: "USD",
-      complete_payout_url: "https://google.com/",
-      error_payout_url: "https://google.com/",
       description: "",
-      capture: true,
-      customer: user.customer,
+      confirm_automatically: true,
       statement_descriptor: "Test Transfer",
-      ewallets: [
-        {
-          ewallet: user.ewallet,
-          percentage: 100
-        }
-      ]
     }
 
     let destinations = [...this.rx.temp["transaction"]["payouts"].value]
@@ -218,11 +218,38 @@ export class DestinationPage implements OnInit {
       console.log(this.rx.temp["transaction"]["payouts"]);
       console.log(payout);
     }
-*/
+
+    console.log("======= Transaction Object =======");
+    console.log(this.rx.temp["transaction"]);
+
+
   }
 
   cancel() {
     this.router.navigateByUrl("/transaction/destinations-sequence/selected-destinations");
   }
 
+  get is_disable(){
+    return false
+    let d = false;
+    if (this.sender_is_cc && this.sender_cc_form.invalid) {
+      d=true;
+      return d;
+    }
+    if (this.bene_is_cc && this.beneficiary_cc_form.invalid) {
+      d=true;
+      return d;
+    }
+
+    if (this.beneficiary_required_fields_form.invalid && this.response_query.beneficiary_required_fields.length > 0) {
+      d=true;
+      return d;
+    }
+
+    if (this.sender_required_fields_form.invalid && this.response_query.sender_required_fields.length > 0) {
+      d=true;
+      return d;
+    }
+    return d;
+  }
 }

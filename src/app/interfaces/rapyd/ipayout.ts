@@ -72,7 +72,7 @@ export namespace ICreatePayout {
         description: string
         payout_method_type: string
         ewallet: string
-        metadata?: any
+        metadata: any
         payout_amount: any
         payout_currency: string
         sender_country: string
@@ -80,8 +80,8 @@ export namespace ICreatePayout {
         sender_entity_type: string
         merchant_reference_id?: string
         sender?: Sender
-        statement_descriptor?: string
-        confirm_automatically?: boolean
+        statement_descriptor: string
+        confirm_automatically: boolean
     }
     export interface Beneficiary {
         first_name?: string
