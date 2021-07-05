@@ -142,7 +142,11 @@ export class RX {
     console.error(error);
 
     if (!error.success) {
-      this.toast(error.message.body.status.message + "" + error.message.body.status.error_code)
+      if (typeof error.message === "string") {
+        this.toast(error.message)
+      }else{
+        this.toast(error.message.body.status.message + "" + error.message.body.status.error_code)
+      }
     }
   }
   // ========== contact handling and updateing
@@ -185,9 +189,9 @@ export class RX {
     })
   }
 
-  async post_db_metacontact(): Promise<IDBMetaContact> {
+  async post_db_metacontact(metacontact?): Promise<IDBMetaContact> {
     return new Promise((resolve, reject) => {
-      let metacontact = this.meta$.value
+      metacontact = metacontact?metacontact:this.meta$.value
       this.api.post<IDBMetaContact>("update-db-metacontact", metacontact).subscribe(res => {
         this.meta$.next(res.data);
         resolve(res.data)
@@ -222,6 +226,6 @@ export interface IRXTransaction {
 
   execute: boolean;
   executed: boolean;
-  type: "w2w" | `${categories}2${categories}`
+  type: "w2w" | "many2many" | `${categories}2${categories}`
 
 }
