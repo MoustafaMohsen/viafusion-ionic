@@ -30,6 +30,9 @@ import { dashboardIcon } from './consts/dashboard';
 import { sendMessageIcon } from './consts/send-message';
 import { settingIcon } from './consts/setting';
 import { storeIcon } from './consts/store';
+import { bankIcon } from './consts/bank';
+import { cpuIcon } from './consts/cpu';
+import { stockIcon } from './consts/stock';
 
 export const  icons = [
     nfcIcon,
@@ -64,6 +67,9 @@ export const  icons = [
     sendMessageIcon,
     settingIcon,
     storeIcon,
+    bankIcon,
+    cpuIcon,
+    stockIcon
     
     
 
