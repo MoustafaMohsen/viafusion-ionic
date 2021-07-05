@@ -37,6 +37,10 @@ export class RegisterPinPage implements OnInit {
       this.submit()
     }
   }
+  ngAfterViewInit(): void {
+    let input = document.getElementById('register_code_input_1') as HTMLInputElement;
+    input.focus();
+  }
   submit() {
     this.loading.start();
     let code = this.pin.join("");

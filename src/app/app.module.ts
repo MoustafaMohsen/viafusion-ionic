@@ -42,7 +42,6 @@ import { LoginWithPinPage } from './pages/_auth/login-with-pin/login-with-pin.pa
 import { QrPaymentPage } from './pages/_payment/qr-payment/qr-payment.page';
 import { RequestPaymentPage } from './pages/_transactions/request-payment/request-payment.page';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-import { PinDialpadComponent } from './components/pin-dialpad/pin-dialpad.component';
 import { CcPaymentPage } from './pages/_payment/cc-payment/cc-payment.page';
 import { InstaSendPage } from './pages/insta-send/enter-amount/insta-send.page';
 import { HeaderComponent } from './components/header/header.component';
@@ -154,7 +153,6 @@ import { ProductComponent } from './components/category/product/product.componen
     LoginWithPinPage,
     QrPaymentPage,
     RequestPaymentPage,
-    PinDialpadComponent,
     CcPaymentPage,
     InstaSendPage,
     HeaderComponent,
