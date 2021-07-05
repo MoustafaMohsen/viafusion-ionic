@@ -35,7 +35,7 @@
     <form [formGroup]="wallet_form" class="w-full max-w-lg">
       <div class="flex flex-wrap -mx-3 mb-6">
 
-        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <div class="w-full my-MD px-3 mb-6 md:mb-0">
           <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
             First Name
           </label>
@@ -44,7 +44,7 @@
             id="grid-first-name" type="text" placeholder="first name">
         </div>
 
-        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <div class="w-full my-MD px-3 mb-6 md:mb-0">
           <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
             last Name
           </label>
@@ -53,7 +53,7 @@
             id="grid-first-name" type="text" placeholder="last name">
         </div>
 
-        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <div class="w-full my-MD px-3 mb-6 md:mb-0">
           <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
             Email
           </label>
@@ -88,7 +88,7 @@
 
 
 
-        <div class="w-full md:w-1/2 mt-6">
+        <div class="w-full my-MD mt-6">
           <button  [disabled]="this.wallet_form.invalid || loading.loading" (click)="submit()" type="button" class="py-4 px-6   focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
           Get your Wallet
           </button>

@@ -49,6 +49,8 @@ export class ModalDestinationComponent implements OnInit {
 
       this.rx.temp.destination_queries[query_id].request_query = this.request_query
 
+      console.log(this.rx.temp.destination_queries[query_id]);
+
 
       this.router.navigateByUrl("/transaction/destinations-sequence/destination?query_id="+query_id)
       this.close();
