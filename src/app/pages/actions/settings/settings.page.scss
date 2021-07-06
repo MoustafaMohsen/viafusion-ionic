@@ -1,0 +1,23 @@
+ion-content {
+  --padding-end: 0px;
+  --padding-start: 0px;
+  --padding-top: 1rem;
+  --background: #ffffff;
+
+  .name-row {
+    color: #4d4d4d;
+    border-bottom: 1px solid #cfcfcf;
+  }
+
+  p {
+
+    color: #4d4d4d;
+  }
+
+  img {
+    width: 10rem;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
