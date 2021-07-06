@@ -137,3 +137,17 @@ export interface ActionStatusesTypes {
   btn: string;
   message: string;
 }
+
+
+export interface PaymentDetails_internal{
+  btn_active: boolean;
+  btn_text: string;
+  Status: string;
+  message: string;
+  instructions?: ICreatePayout.Instructions[];
+  redirect_url: string;
+  amount: number;
+  error_message: string;
+  response_code: string;
+  cancel_reason?: string;
+}
