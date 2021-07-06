@@ -160,7 +160,10 @@ mat-option.country-option {
 
 a[disabled], button[disabled], html input[disabled] {
   cursor: default;
-  background-image: linear-gradient(to right, #b3b2b2, #ccc6bd);
+    background-image: linear-gradient(to right, #b3b2b2, #ccc6bd);
+    background-color: #c7c7c7 !important;
+    color: #505050 !important;
+    box-shadow: none !important;
 }
 .dialpad{
   display: none !important;
