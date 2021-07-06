@@ -58,7 +58,7 @@ export class WalletService {
   }
 
   get_rates(query: ICurrency.QueryRequest) {
-    return this.api.post<ICurrency.Response>("get-rates", { query })
+    return this.api.post<ICurrency.Response>("get-rates", query)
   }
 
   //#endregion
@@ -91,7 +91,6 @@ export class WalletService {
   }
 
   refresh_transaction_responses(tran_id) {
-
     let contact_reference_id = this.rx.user$.value.contact_reference_id;
     return this.api.post<IDBMetaContact>("update-payments-payouts", { contact_reference_id, tran_id })
   }
@@ -205,8 +204,8 @@ export class WalletService {
     let tran: ITransaction = {
       payments,
       id: rxtran.id || this.rx.makeid(5),
-      source_amount: rxtran.source_amount,
-      destination_amount: rxtran.destination_amount,
+      source_amount: parseInt(rxtran.source_amount as any) as any,
+      destination_amount: parseInt(rxtran.destination_amount as any) as any,
 
       payouts,
 
