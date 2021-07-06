@@ -1,15 +1,16 @@
 import { IDBMetaContact, ITransaction, ITransactionFull_payment } from './../../interfaces/db/idbmetacontact';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { LoadingService } from '../loading.service';
 import { Router } from '@angular/router';
 import { Api } from '../api/api';
-import { ICreateWallet } from 'src/app/interfaces/db/idbwallet';
+import { ICreateWallet, ILookup_user, IWallet2Wallet } from 'src/app/interfaces/db/idbwallet';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
 import { ICurrency, WalletBalanceResponse } from 'src/app/interfaces/rapyd/iwallet';
 import { IRXTransaction } from 'src/app/interfaces/interfaces';
 import { RX } from '../rx/events.service';
 import { PostCreatePayment } from 'src/app/interfaces/rapyd/ipayment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -165,6 +166,18 @@ export class WalletService {
     return trans;
   }
   //#endregion
+
+  lookup_user(phone_number){
+    console.log("looking up:", phone_number);
+
+    return this.api.post<ILookup_user>("get-like-db-user",{phone_number})
+  }
+
+  // todo:
+  do_wallet_2_wallet(w2w:IWallet2Wallet){
+    console.log("sending W2W:", w2w);
+    return this.api.post<ILookup_user>("w2w",{w2w})
+  }
 
   async get_wallet_balance(make_request = false, currency = "USD"): Promise<number> {
     this.rx.get_db_metacontact();
