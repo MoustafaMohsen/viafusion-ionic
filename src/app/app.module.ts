@@ -83,6 +83,7 @@ import { CategoriesModalComponent } from './components/categories-modal/categori
 import { CompleteTransactionPage } from './pages/actions/complete-transaction/complete-transaction.page';
 import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component';
 import { DashboardMethodsComponent } from './components/dashboard-methods/dashboard-methods.component';
+import { PaymentModalComponent } from './components/payment-modal/payment-modal.component';
 
 @NgModule({
   imports: [
@@ -181,8 +182,8 @@ import { DashboardMethodsComponent } from './components/dashboard-methods/dashbo
     CategoriesModalComponent,
     CompleteTransactionPage,
     BottomNavComponent,
-    DashboardMethodsComponent
-
+    DashboardMethodsComponent,
+    PaymentModalComponent,
   ],
   entryComponents: [],
   providers: [
