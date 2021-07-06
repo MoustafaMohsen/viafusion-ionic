@@ -16,84 +16,101 @@
 
   <div class="sourecs-container">
 
+
     <!-- Destination List -->
     <div class="selected-destinations" *ngFor="let destination of selected_destinations">
-
       <div class="selected-item mt-4">
-        <div class="flex justify-between">
-          <div class="w-1/2 badge">
-
-            <h4 class="">
-              <svg-icon key="ewallet" fontSize="16px" class="ml-2"></svg-icon>
-              {{destination.metadata.category}}
-            </h4>
-          </div>
-
-          <div class="amount-badge bg-green-700 text-center">
-            <h4 class="">{{destination.payout_amount | currency}}</h4>
-          </div>
-          <div class="amount-badge bg-red-700 text-center" (click)="delete_destination(destination)">
-            <h4 class="">Delete</h4>
-          </div>
-        </div>
         <div
           class="destination-card transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 flex justify-between items-center destination-item">
-          <div class="flex items-center w-2/3 text-base font-medium dark:text-white text-gray-800">
+          <div class="w-full">
+            <div class="flex justify-between items-center">
+              <div class="w-auto badge">
+                <div class="badge-div flex justify-start items-center">
+                  <div class="icon-div">
 
-            <h4 class="">{{destination.metadata.name}}</h4>
-
+                    <svg-icon key="ewallet" fontSize="16px" class="ml-2"></svg-icon>
+                  </div>
+                  <div>
+                    <span *ngIf="destination.metadata.category == 'cash'">Cash</span>
+                    <span *ngIf="destination.metadata.category == 'ewallet'">Wallet</span>
+                    <span *ngIf="destination.metadata.category == 'bank_transfer'">Bank Transfer</span>
+                    <span *ngIf="destination.metadata.category == 'bank_redirect'">Bank Redirect</span>
+                    <span *ngIf="destination.metadata.category == 'card'">Card</span>
+                    <span *ngIf="destination.metadata.category == 'rapyd_ewallet'">Rapyd</span>
+                  </div>
+                </div>
+              </div>
+              <div class="amount-badge text-center">
+                <span class="text-green-900 font-bold letspac-2">
+                  {{destination.payout_amount | currency}}
+                </span>
+              </div>
+            </div>
           </div>
-          <div class="img-container w-1/3 flex justify-end">
-            <img [src]="destination.metadata.image" alt="">
+          <div class="w-full flex my-4">
+            <div class="flex items-center w-2/3 text-base font-medium dark:text-white text-gray-800">
+              <h4 class="">{{destination.metadata.name}}</h4>
+            </div>
+            <div class="img-container w-1/3 flex justify-end">
+              <img [src]="destination.metadata.image" alt="">
+            </div>
+          </div>
+
+          <div class="w-full flex">
+            <div class="delete-badge bg-red-300 text-red-900 text-center w-full" (click)="delete_destination(destination)">
+              <h4 class="">Delete</h4>
+            </div>
+
+
           </div>
         </div>
-
-
       </div>
 
+
     </div>
-
-
     <div class="flex w-full relative add-destination justify-start mt-8">
       <ion-button (click)="add_destination()" expand="full" fill="solid" shape="round">
         Add Destination
       </ion-button>
     </div>
-  </div>
 
-  <div class="footer-section">
-    <div class="flex justify-between">
-      <div class="">
-        <span>From</span>
+    <div class="footer-section">
+      <div class="flex justify-between">
+        <div class="">
+          <span>From</span>
+        </div>
+        <div class="mr-4">
+          <span>To</span>
+        </div>
       </div>
-      <div class="mr-4">
-        <span>To</span>
+      <div class="progress-indication">
+        <!-- sourece icon -->
+        <div class="point destination-point">
+          <svg-icon key="sendmoney" fontSize="5rem"></svg-icon>
+        </div>
+
+        <!-- connection -->
+        <div class="connecting-dash">
+          <ion-progress-bar reversed="true" value="0" buffer="0"></ion-progress-bar>
+        </div>
+
+        <!-- destination icon -->
+        <div class="point destination-point">
+          <svg-icon key="destination" fontSize="5rem"></svg-icon>
+        </div>
+
+      </div>
+
+      <div class="continue-button">
+        <button [disabled]="selected_destinations.length < 1 || remaing_ballance != 0"
+          (click)="continue_to_destination()"
+          class="py-4 px-6   focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1"
+          type="submit">
+          Continue to Confirmation
+        </button>
       </div>
     </div>
-    <div class="progress-indication">
-      <!-- sourece icon -->
-      <div class="point destination-point">
-        <svg-icon key="sendmoney" fontSize="5rem"></svg-icon>
-      </div>
-
-      <!-- connection -->
-      <div class="connecting-dash">
-        <ion-progress-bar reversed="true" value="0" buffer="0"></ion-progress-bar>
-      </div>
-
-      <!-- destination icon -->
-      <div class="point destination-point">
-        <svg-icon key="destination" fontSize="5rem"></svg-icon>
-      </div>
 
     </div>
 
-    <div class="continue-button">
-      <button [disabled]="selected_destinations.length < 1 || remaing_ballance != 0" (click)="continue_to_destination()"
-        class="py-4 px-6   focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1"
-        type="submit">
-        Continue to Confirmation
-      </button>
-    </div>
-  </div>
 </ion-content>
