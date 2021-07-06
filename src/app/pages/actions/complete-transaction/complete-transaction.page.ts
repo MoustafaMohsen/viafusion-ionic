@@ -81,9 +81,7 @@ export class CompleteTransactionPage implements OnInit {
     setTimeout(() => {
       event && event.target.complete();
     }, 2000);
-    return;
     if (!this.transaction || !this.transaction.id) {
-
       return;
     }
     this.loading.start();
