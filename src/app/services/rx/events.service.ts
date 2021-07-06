@@ -74,7 +74,7 @@ export class RX {
         closed_payouts_amount:0,
         description:"",
         execution_date:0,
-        statues:"saved"
+        status:"saved"
       },
       destination_queries: {} as any
     };
