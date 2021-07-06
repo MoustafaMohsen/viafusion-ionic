@@ -37,7 +37,7 @@
   <p>{{status.Status}}</p>
   <h4>Message</h4>
   <p>{{status.message}}</p>
-  <p>{{status.redirect_url}}</p>
+  <a [href]="status.redirect_url" target="_blank" rel="noopener noreferrer">{{status.redirect_url}}</a>
 </div>
 
 <button [disabled]="!status.btn_active" (click)="continue_btn()" type="button"
