@@ -42,7 +42,7 @@
                   <span *ngIf="payment?.request?.metadata?.category == 'card'">Card</span>
                   <span *ngIf="payment?.request?.metadata?.category == 'rapyd_ewallet'">Rapyd</span>
                 </div>
-    
+
               </div>
             </div>
             <div class="amount-badge text-center">
@@ -61,10 +61,9 @@
           </div>
         </div>
         <div class="text-center primary-badge flex w-full">
-    
-          <button [disabled]="!btn_active" (click)="payment_action(payment)" > 
-            {{payment?.response?.body?.data?.status?action_status_type(payment?.response?.body?.data?.status)?.btn:"Payments Ready"}}
 
+          <button [disabled]="!btn_active(payment)" (click)="payment_action(payment)" >
+            {{payment?.response?.body?.data?.status?action_status_type(payment?.response?.body?.data?.status)?.btn:"Collection is Ready"}}
           </button>
         </div>
       </div>
@@ -104,10 +103,11 @@
                   <span *ngIf="payout?.request?.metadata?.category == 'ewallet'">Wallet</span>
                   <span *ngIf="payout?.request?.metadata?.category == 'bank_transfer'">Bank Transfer</span>
                   <span *ngIf="payout?.request?.metadata?.category == 'bank_redirect'">Bank Redirect</span>
+                  <span *ngIf="payout?.request?.metadata?.category == 'bank'">Bank</span>
                   <span *ngIf="payout?.request?.metadata?.category == 'card'">Card</span>
                   <span *ngIf="payout?.request?.metadata?.category == 'rapyd_ewallet'">Rapyd</span>
                 </div>
-    
+
               </div>
             </div>
             <div class="amount-badge text-center">
