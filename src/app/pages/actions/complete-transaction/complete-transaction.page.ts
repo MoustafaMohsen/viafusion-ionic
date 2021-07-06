@@ -1,3 +1,4 @@
+import { ModalController } from '@ionic/angular';
 import { WalletService } from 'src/app/services/wallet/wallet.service';
 import { LoadingService } from './../../../services/loading.service';
 import { Router } from '@angular/router';
@@ -6,6 +7,7 @@ import { RX } from './../../../services/rx/events.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActionStatusesTypes } from 'src/app/interfaces/interfaces';
+import { PaymentModalComponent } from 'src/app/components/payment-modal/payment-modal.component';
 
 @Component({
   selector: 'app-complete-transaction',
@@ -16,7 +18,7 @@ export class CompleteTransactionPage implements OnInit {
 
 
 
-  constructor(private rx: RX, private router: Router, private walletSrv: WalletService, public loading: LoadingService) { }
+  constructor(private rx: RX, private router: Router, private walletSrv: WalletService, public loading: LoadingService, private modalCtrl:ModalController) { }
 
   @Input() transaction: ITransaction ;
   _sub: Subscription
@@ -110,8 +112,15 @@ export class CompleteTransactionPage implements OnInit {
     return false && this.loading.loading
   }
 
-  card_clicked(payment: ITransactionFull_payment | ITransactionFull_payout) {
-    console.log(payment)
+  async card_clicked(payment: ITransactionFull_payment | ITransactionFull_payout) {
+    console.log(payment);
+    let modal = await this.modalCtrl.create({
+      component:PaymentModalComponent,
+      componentProps:{payment},
+      backdropDismiss:true,
+      showBackdrop:true
+    });
+    modal.present();
   }
 
   do_payments() {
