@@ -11,11 +11,11 @@
            <h2 class="c-title">Transfer amount</h2>
            <div class="price-field w-100 flex justify-center">
              <span class="text-3xl font-bold w-auto currency">USD</span>
-             <input type="number" inputmode="numeric" maxlength="15" class="text-3xl font-bold">
+             <input [formControl]="amount_form" type="number" inputmode="numeric" maxlength="15" class="text-3xl font-bold">
            </div>
          </div>
          <div class="message pt-3">
-           <textarea name="" id="" cols="30" rows="1" placeholder="sent message...."></textarea>
+           <textarea [formControl]="message_form" name="" id="" cols="30" rows="1" placeholder="sent message...."></textarea>
          </div>
        </div>
      </section>
