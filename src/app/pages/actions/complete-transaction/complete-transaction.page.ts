@@ -18,9 +18,9 @@ export class CompleteTransactionPage implements OnInit {
 
 
 
-  constructor(private rx: RX, private router: Router, private walletSrv: WalletService, public loading: LoadingService, private modalCtrl:ModalController) { }
+  constructor(private rx: RX, private router: Router, private walletSrv: WalletService, public loading: LoadingService, private modalCtrl: ModalController) { }
 
-  @Input() transaction: ITransaction ;
+  @Input() transaction: ITransaction;
   _sub: Subscription
   ionViewWillEnter() {
   }
@@ -31,7 +31,7 @@ export class CompleteTransactionPage implements OnInit {
     this._sub = this.rx.temp.view_transaction.subscribe(t => {
       console.log("transaction overview updated");
       console.log(this.transaction);
-      if(!t)return;
+      if (!t) return;
       this.transaction = t
     })
   }
@@ -100,7 +100,7 @@ export class CompleteTransactionPage implements OnInit {
     })
   }
 
-  save_transaction(){
+  save_transaction() {
     if (!this.transaction || !this.transaction.id) {
       this.rx.toast("Transaction not found!")
       return;
@@ -121,10 +121,10 @@ export class CompleteTransactionPage implements OnInit {
   async card_clicked(payment: ITransactionFull_payment | ITransactionFull_payout) {
     console.log(payment);
     let modal = await this.modalCtrl.create({
-      component:PaymentModalComponent,
-      componentProps:{payment},
-      backdropDismiss:true,
-      showBackdrop:true
+      component: PaymentModalComponent,
+      componentProps: { payment },
+      backdropDismiss: true,
+      showBackdrop: true
     });
     modal.present();
   }

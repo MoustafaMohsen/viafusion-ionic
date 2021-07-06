@@ -8,14 +8,14 @@ import { IDBContact } from 'src/app/interfaces/db/idbcontact';
 import { ILogin, ILoginTransportObj } from 'src/app/interfaces/db/ilogin';
 import { Storage } from '@ionic/storage-angular';
 import { PostCreatePayment } from 'src/app/interfaces/rapyd/ipayment';
-import { IDBMetaContact, ITransaction } from 'src/app/interfaces/db/idbmetacontact';
+import { IDBMetaContact, ITransaction, ITransactionFull_payment } from 'src/app/interfaces/db/idbmetacontact';
 import { ICreatePayout, IGetPayoutRequiredFields } from 'src/app/interfaces/rapyd/ipayout';
 import { TransferToWallet } from 'src/app/interfaces/rapyd/iwallet';
 import { categories, IAPIServerResponse } from 'src/app/interfaces/rapyd/types';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { ListIssuedVcc } from 'src/app/interfaces/rapyd/ivcc';
-import { ITemp } from 'src/app/interfaces/interfaces';
+import { ITemp, PaymentDetails_internal } from 'src/app/interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -242,5 +242,145 @@ export class RX {
     return result;
   }
 
+  // === get status
+  action_status_type(payment: ITransactionFull_payment):PaymentDetails_internal {
+    var response = payment.response
+    var status: any
+
+    console.log("action_status_type() ");
+    console.log("payment");
+    console.log(payment);
+
+    if (!response) {
+      status = {
+        btn_active: false,
+        btn_text: "Waiting",
+        Status: "Not executed",
+        message: "Payment was not executed, go back and click Do Payments to continue",
+        instructions: "" as any,
+        redirect_url: "",
+        amount: payment.request.amount,
+        error_message: "",
+        response_code: "",
+      }
+      return status;
+    }
+    status = response.body.data.status as any;
+
+    switch (status) {
+      case "Confirmation":
+        status = {
+          btn_active: false,
+          btn_text: "Confirmation",
+          Status: "The payout is waiting for a confirmation of the FX rate",
+          message: "you might need to click on the link below to complete transaction (you are in sandbox, use rapyd:success as credentials)",
+          instructions: response.body.data.instructions,
+          redirect_url: response.body.data.redirect_url,
+          amount: response.body.data.amount,
+          error_message: response.body.status.message,
+          response_code: response.body.status.response_code,
+        }
+        break;
+      case "ACT":
+        status = {
+          btn_active: true,
+          btn_text: "Click to Confirm manually",
+          Status: "Active and awaiting payment. Can be updated",
+          message: "Click on the link below to complete transaction (you are in sandbox, use rapyd:success as credentials)",
+          instructions: response.body.data.instructions,
+          redirect_url: response.body.data.redirect_url,
+          amount: response.body.data.amount,
+          error_message: response.body.status.message,
+          response_code: response.body.status.response_code,
+        }
+        break;
+      case "CAN":
+      case "Canceled":
+        status = {
+          btn_active: false,
+          btn_text: "Cancled",
+          Status: "Cancled",
+          message: "Canceled by the merchant or the customer's bank.",
+          instructions: response.body.data.instructions,
+          redirect_url: response.body.data.redirect_url,
+          amount: response.body.data.amount,
+          error_message: response.body.status.message,
+          response_code: response.body.status.response_code,
+        }
+        break;
+      case "CLO":
+      case "Completed":
+        status = {
+          btn_active: false,
+          btn_text: "Done",
+          Status: "Done",
+          message: "Closed and paid.",
+          instructions: response.body.data.instructions,
+          redirect_url: response.body.data.redirect_url,
+          amount: response.body.data.amount,
+          error_message: response.body.status.message,
+          response_code: response.body.status.response_code,
+        }
+        break;
+      case "ERR":
+      case "Error":
+        status = {
+          btn_active: false,
+          btn_text: "Errored",
+          Status: "Errored",
+          message: "Error. An attempt was made to create or complete a payment, but it failed.",
+          instructions: response.body.data.instructions,
+          redirect_url: response.body.data.redirect_url,
+          amount: response.body.data.amount,
+          error_message: response.body.status.message,
+          response_code: response.body.status.response_code,
+        }
+        break;
+      case "EXP":
+      case "Expired":
+        status = {
+          btn_active: false,
+          btn_text: "Expired",
+          Status: "Active and awaiting payment. Can be updated",
+          message: "The payment has expired.",
+          instructions: response.body.data.instructions,
+          redirect_url: response.body.data.redirect_url,
+          amount: response.body.data.amount,
+          error_message: response.body.status.message,
+          response_code: response.body.status.response_code,
+        }
+        break;
+      case "REV":
+        status = {
+          btn_active: true,
+          btn_text: "REV",
+          Status: "New, refresh after a while",
+          message: "Reversed by Rapyd. See cancel reason",
+          cancel_reason: response.body.data.cancel_reason,
+          instructions: response.body.data.instructions,
+          redirect_url: response.body.data.redirect_url,
+          amount: response.body.data.amount,
+          error_message: response.body.status.message,
+          response_code: response.body.status.response_code,
+        }
+        break;
+      default:
+        status = {
+          btn_active: false,
+          btn_text: "Errored",
+          Status: "Errored",
+          message: "Error. An attempt was made to create or complete a payment, but it failed.",
+          instructions: response.body.data.instructions,
+          redirect_url: response.body.data.redirect_url,
+          amount: response.body.data.amount,
+          error_message: response.body.status.message,
+          response_code: response.body.status.response_code,
+        }
+        break;
+    }
+    console.log(status);
+
+    return status;
+  }
 }
 
