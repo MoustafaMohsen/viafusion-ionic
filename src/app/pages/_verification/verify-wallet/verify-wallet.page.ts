@@ -30,10 +30,6 @@ export class VerifyWalletPage implements OnInit {
 
   })
   ngOnInit() {
-    setInterval(() => {
-      console.log(this.wallet_form);
-      console.log(this.wallet_form.errors);
-    }, 5000)
     setTimeout(() => {
       if (this.rx.user$.value.ewallet && this.rx.user$.value.rapyd_wallet_data) {
         this.router.navigateByUrl("verification/verify-card?country=" + this.wallet_form.value.country)

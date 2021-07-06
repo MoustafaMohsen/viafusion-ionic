@@ -100,7 +100,7 @@ export interface ITemp {
       response_query: IGetPayoutRequiredFields.Response
     }
   },
-  view_transaction?: BehaviorSubject<ITransaction>,
+  view_transaction: BehaviorSubject<ITransaction>,
   vcc_details?: ListIssuedVcc.Response
 }
 

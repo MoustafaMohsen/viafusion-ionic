@@ -76,7 +76,8 @@ export class RX {
         execution_date:0,
         status:"saved"
       },
-      destination_queries: {} as any
+      destination_queries: {} as any,
+      view_transaction: new BehaviorSubject<ITransaction>(null)
     };
 
   get meta() {

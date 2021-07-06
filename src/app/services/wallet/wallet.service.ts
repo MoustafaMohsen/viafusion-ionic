@@ -6,9 +6,10 @@ import { Router } from '@angular/router';
 import { Api } from '../api/api';
 import { ICreateWallet } from 'src/app/interfaces/db/idbwallet';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
-import { WalletBalanceResponse } from 'src/app/interfaces/rapyd/iwallet';
+import { ICurrency, WalletBalanceResponse } from 'src/app/interfaces/rapyd/iwallet';
 import { IRXTransaction } from 'src/app/interfaces/interfaces';
 import { RX } from '../rx/events.service';
+import { PostCreatePayment } from 'src/app/interfaces/rapyd/ipayment';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,8 @@ export class WalletService {
 
   //#region Payments
   async do_payments(tran?: ITransaction) {
-    tran = tran?tran:this.convert_rxtran_to_transaction(this.rx.temp["transaction"])
+    tran = tran ? tran : this.convert_rxtran_to_transaction(this.rx.temp["transaction"])
+    tran.id || (tran.id = "tran_" + this.rx.makeid(5))
     this.update_user_transactions(tran).then(res => {
       this.execute_payment_transactions(tran.id).subscribe((res) => {
         if (res.success) {
@@ -52,12 +54,17 @@ export class WalletService {
     return this.api.post<IDBMetaContact>("get-payments", { payment_id })
   }
   complete_payment(payment_id: string) {
-    return this.api.post<IDBMetaContact>("complete-payments", { payment_id })
+    return this.api.post<PostCreatePayment.Response>("complete-payment", { payment_id })
   }
+
+  get_rates(query: ICurrency.QueryRequest) {
+    return this.api.post<ICurrency.Response>("get-rates", { query })
+  }
+
   //#endregion
   //#region Payments
   async do_payouts(tran?: ITransaction) {
-    tran = tran?tran:this.convert_rxtran_to_transaction(this.rx.temp["transaction"])
+    tran = tran ? tran : this.convert_rxtran_to_transaction(this.rx.temp["transaction"])
     this.update_user_transactions(tran).then(res => {
       this.execute_payout_transactions(tran.id).subscribe((res) => {
         if (res.success) {
@@ -83,9 +90,62 @@ export class WalletService {
     return this.api.post<IDBMetaContact>("complete-payouts", { payout_id })
   }
 
-  refresh_transaction_responses(tran_id){
+  refresh_transaction_responses(tran_id) {
+
     let contact_reference_id = this.rx.user$.value.contact_reference_id;
-    return this.api.post<IDBMetaContact>("update-payments-payouts", { contact_reference_id,tran_id })
+    return this.api.post<IDBMetaContact>("update-payments-payouts", { contact_reference_id, tran_id })
+  }
+
+  update_transactions_status(trans: ITransaction[]) {
+    if(!trans) return trans;
+    trans.forEach(t => {
+      let requries_action = false;
+      let canceled = false;
+      let closed = false;
+      let update = false;
+
+      // === loop payments
+      t.payments.forEach(p => {
+        // Check if hase response
+        if (p.response && p.response.body.status.status == "SUCCESS") {
+          var payment_res = p.response.body.data;
+
+          // update closed amount
+          payment_res.status == "CLO" && (t.closed_payments_amount += payment_res.amount);
+          // is one active
+          if (payment_res.status == "ACT") {
+            requries_action = true
+            update=true;
+          }
+          // is all closed
+          if (payment_res.status == "CLO") {
+            closed = true
+            update=true;
+          }
+          // is cancaled
+          if (payment_res.status == "CAN") {
+            canceled = true;
+            update = false;
+          }
+        }
+      })
+
+      if(update)
+      t.status = canceled ? "canceled" : closed ? "closed" : requries_action ? "requires_action" : "saved";
+
+      // === loop payouts
+      t.payouts.forEach(p => {
+        // Check if hase response
+        if (p.response && p.response.body.status.status == "SUCCESS") {
+          var payout_res = p.response.body.data;
+          // update closed amount
+          payout_res.status == "CLO" && (t.closed_payouts_amount += payout_res.amount);
+        }
+      })
+
+
+    })
+    return trans;
   }
   //#endregion
 
@@ -94,6 +154,8 @@ export class WalletService {
     this.rx.get_db_metacontact();
     return new Promise((resolve, reject) => {
       this.rx.user$.subscribe(u => {
+        this.rx.meta$.value.transactions = this.update_transactions_status(this.rx.meta$.value.transactions);
+        this.rx.meta$.next(this.rx.meta$.value);
         if (u && u.rapyd_wallet_data && u.rapyd_wallet_data.accounts && u.rapyd_wallet_data.accounts.length > 0) {
           let accounts = u.rapyd_wallet_data.accounts
           console.log("accounts");
@@ -136,10 +198,10 @@ export class WalletService {
   }
 
   convert_rxtran_to_transaction(rxtran: IRXTransaction) {
-    let payments:ITransactionFull_payment[]    = [];
-    rxtran.payments.value && rxtran.payments.value.forEach(p => payments.push({request:p} as any))
+    let payments: ITransactionFull_payment[] = [];
+    rxtran.payments.value && rxtran.payments.value.forEach(p => payments.push({ request: p } as any))
     let payouts = [];
-    rxtran.payouts.value && rxtran.payouts.value.forEach(p => payouts.push({request:p} as any))
+    rxtran.payouts.value && rxtran.payouts.value.forEach(p => payouts.push({ request: p } as any))
     let tran: ITransaction = {
       payments,
       id: rxtran.id || this.rx.makeid(5),
@@ -150,16 +212,16 @@ export class WalletService {
 
       transfer_resoponse: {} as any,
 
-      closed_payments_amount:rxtran.closed_payments_amount || 0,
-      closed_payouts_amount:rxtran.closed_payouts_amount || 0,
-      description:rxtran.description,
+      closed_payments_amount: rxtran.closed_payments_amount || 0,
+      closed_payouts_amount: rxtran.closed_payouts_amount || 0,
+      description: rxtran.description,
       execute: true,
       executed: false,
       type: "many2many",
-      execution_date:rxtran.execution_date,
-      status:rxtran.status,
-      payments_executed:rxtran.payments_executed,
-      payouts_executed:rxtran.payouts_executed
+      execution_date: rxtran.execution_date,
+      status: rxtran.status,
+      payments_executed: rxtran.payments_executed,
+      payouts_executed: rxtran.payouts_executed
     }
     return tran;
   }
