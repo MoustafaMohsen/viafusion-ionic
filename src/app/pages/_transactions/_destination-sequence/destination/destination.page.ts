@@ -84,7 +84,7 @@ export class DestinationPage implements OnInit {
     this.required_fields = data;
 
     //#region Beneficiary
-    let fields = [...data.beneficiary_required_fields];
+    let fields = data.beneficiary_required_fields?[...data.beneficiary_required_fields]:[];
     this.required_fields.beneficiary_required_fields = [];
     console.log(fields);
 
@@ -143,7 +143,7 @@ export class DestinationPage implements OnInit {
   }
 
   formate_name(s: string) {
-    return s ? s.replace("_", " ") : s;
+    return s ? s.replace(/_/g, " ") : s;
   }
   cc_to_fields(fields, cc_form: FormGroup) {
     // cc values
@@ -177,7 +177,7 @@ export class DestinationPage implements OnInit {
     let user = this.rx.user$.value;
 
     let payout: ICreatePayout.Request = {
-      payout_amount: this.request_query.payout_amount,
+      payout_amount: parseInt(this.request_query.payout_amount as any),
       payout_method_type: this.request_query.payout_method_type,
       payout_currency: this.request_query.payout_currency,
 
