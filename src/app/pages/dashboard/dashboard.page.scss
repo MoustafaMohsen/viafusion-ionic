@@ -51,6 +51,12 @@ ion-header {
     border-radius: 20px;
     color: var(--secondary);
   }
+  .charge{
+    background-color: var(--secondary-tint);
+    .buttons-div button {
+      background:#fff;
+    }
+  }
 }
 
 
