@@ -70,7 +70,7 @@ export class AvailabeSourcesPage implements OnInit {
   }
   private _filterCountries(value: string): ICountry[] {
     const filterValue = value.toLowerCase();
-    return this.countries.filter(country => country.name.toLowerCase().includes(filterValue));
+    return this.countries.filter(country => country.name.toLowerCase().includes(filterValue) || country.alpha2Code.toLowerCase().includes(filterValue));
   }
 
 }
