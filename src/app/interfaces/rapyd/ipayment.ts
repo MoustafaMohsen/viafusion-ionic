@@ -224,7 +224,16 @@ export namespace PostCreatePayment {
         is_partial: boolean
         currency_code: string
         country_code: string
-        status: string
+        /**One of the following:
+* ACT - Active and awaiting payment. Can be updated.
+* CAN - Canceled by the merchant or the customer's bank.
+* CLO - Closed and paid.
+* ERR - Error. An attempt was made to create or complete a payment, but it failed.
+* EXP - The payment has expired.
+* NEW - Not closed.
+* REV - Reversed by Rapyd. See cancel_reason, above.
+ */
+        status: "ACT"|"CAN"|"CLO"|"ERR"|"EXP"|"NEW"|"REV"
         description: string
         merchant_reference_id: string
         customer_token: string

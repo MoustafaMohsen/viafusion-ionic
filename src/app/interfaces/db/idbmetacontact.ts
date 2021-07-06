@@ -46,8 +46,19 @@ export interface ITransaction {
 
   execute: boolean;
   executed: boolean;
+
   payments_executed?: boolean;
   payouts_executed?: boolean;
+
+  closed_payments_amount:number;
+  closed_payouts_amount:number;
+
+  execution_date:number;
+
+  description:string;
+
+  statues:"closed" | "requires_action" | "canceled" | "saved"
+
   type: "many2many" | "w2w"| `${categories}2${categories}`
 }
 

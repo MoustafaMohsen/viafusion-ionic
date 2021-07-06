@@ -15,26 +15,34 @@ import { WalletService } from 'src/app/services/wallet/wallet.service';
   styleUrls: ['./verify-wallet.page.scss'],
 })
 export class VerifyWalletPage implements OnInit {
-  progress_percent = 80;
-  radius = 100;
+  progress_percent = 10;
+  radius = 80;
   subtitle = "Wallet"
-  constructor(private walletSrv: WalletService, public loading: LoadingService, private router: Router, private rx:RX) {
+  constructor(private walletSrv: WalletService, public loading: LoadingService, private router: Router, private rx: RX) {
     this.watch_change();
   }
 
   wallet_form = new FormGroup({
-    first_name: new FormControl("",[Validators.required]),
-    last_name: new FormControl("",[Validators.required]),
-    email: new FormControl("",[Validators.required,Validators.email]),
-    country: new FormControl("",[Validators.required])
+    first_name: new FormControl("", [Validators.required]),
+    last_name: new FormControl("", [Validators.required]),
+    email: new FormControl("", [Validators.required, Validators.email]),
+    country: new FormControl("", [Validators.required])
 
   })
   ngOnInit() {
+    setInterval(() => {
+      console.log(this.wallet_form);
+      console.log(this.wallet_form.errors);
+    }, 5000)
     setTimeout(() => {
       if (this.rx.user$.value.ewallet && this.rx.user$.value.rapyd_wallet_data) {
-        this.router.navigateByUrl("verification/verify-card?country="+this.wallet_form.value.country)
+        this.router.navigateByUrl("verification/verify-card?country=" + this.wallet_form.value.country)
       }
     }, 3000);
+    this.wallet_form.valueChanges.subscribe(v => {
+      var values = Object.values(this.wallet_form.value).filter(v => v).length
+      this.progress_percent = (values / 4) * 100
+    })
   }
 
   submit() {
@@ -42,18 +50,18 @@ export class VerifyWalletPage implements OnInit {
     console.log(this.wallet_form.value);
     this.loading.start();
     if (this.wallet_form.valid) {
-      this.walletSrv.create_wallet(this.wallet_form.value).subscribe(res=>{
+      this.walletSrv.create_wallet(this.wallet_form.value).subscribe(res => {
         this.loading.stop();
         console.log(res);
         this.rx.user$.next(res.data);
-        if(res.success){
-          this.router.navigateByUrl("verification/verify-card?country="+this.wallet_form.value.country)
-        }else{
+        if (res.success) {
+          this.router.navigateByUrl("verification/verify-card?country=" + this.wallet_form.value.country)
+        } else {
           console.log(res);
           this.rx.toastError(res as any)
 
         }
-      },err=>{
+      }, err => {
         console.log(err);
         this.rx.toastError(err)
 

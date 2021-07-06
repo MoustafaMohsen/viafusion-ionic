@@ -28,8 +28,8 @@ export class WalletService {
   balance$ = new BehaviorSubject<number>(0);
 
   //#region Payments
-  async do_payments() {
-    let tran = this.convert_rxtran_to_transaction(this.rx.temp["transaction"])
+  async do_payments(tran?: ITransaction) {
+    tran = tran?tran:this.convert_rxtran_to_transaction(this.rx.temp["transaction"])
     this.update_user_transactions(tran).then(res => {
       this.execute_payment_transactions(tran.id).subscribe((res) => {
         if (res.success) {
@@ -82,6 +82,11 @@ export class WalletService {
   complete_payout(payout_id: string) {
     return this.api.post<IDBMetaContact>("complete-payouts", { payout_id })
   }
+
+  refresh_transaction_responses(tran_id){
+    let contact_reference_id = this.rx.user$.value.contact_reference_id;
+    return this.api.post<IDBMetaContact>("update-payments-payouts", { contact_reference_id,tran_id })
+  }
   //#endregion
 
   async get_wallet_balance(make_request = false, currency = "USD"): Promise<number> {
@@ -105,6 +110,7 @@ export class WalletService {
 
 
   // ==== Create Transaction
+
 
   update_user_transactions(tran: ITransaction): Promise<IDBMetaContact> {
     var tran_id = tran.id || "tran_" + this.rx.makeid(5);
@@ -144,10 +150,16 @@ export class WalletService {
 
       transfer_resoponse: {} as any,
 
+      closed_payments_amount:rxtran.closed_payments_amount || 0,
+      closed_payouts_amount:rxtran.closed_payouts_amount || 0,
+      description:rxtran.description,
       execute: true,
       executed: false,
-      type: "many2many"
-
+      type: "many2many",
+      execution_date:rxtran.execution_date,
+      statues:rxtran.statues,
+      payments_executed:rxtran.payments_executed,
+      payouts_executed:rxtran.payouts_executed
     }
     return tran;
   }

@@ -1,4 +1,4 @@
-<app-header title="Verify your wallet"></app-header>
+<app-header title="Get your wallet"></app-header>
 
 <ion-content>
 
@@ -15,7 +15,7 @@
         [showTitle]="false"
         [showSubtitle]="true"
         [subtitle]="subtitle"
-        [subtitleFontSize]="'30'"
+        [subtitleFontSize]="(progress_percent / 5 + 20) + ''"
         [showUnits]="false"
         [outerStrokeWidth]="16"
         [outerStrokeColor]="'#b45309'"
@@ -36,30 +36,30 @@
       <div class="flex flex-wrap -mx-3 mb-6">
 
         <div class="w-full my-MD px-3 mb-6 md:mb-0">
-          <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+          <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="fuckautocomplete">
             First Name
           </label>
-          <input formControlName="first_name"
+          <input autocomplete="false" formControlName="first_name"
             class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            id="grid-first-name" type="text" placeholder="first name">
+            type="text" placeholder="first name">
         </div>
 
         <div class="w-full my-MD px-3 mb-6 md:mb-0">
-          <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+          <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="fuckautocomplete">
             last Name
           </label>
-          <input formControlName="last_name"
+          <input autocomplete="false" formControlName="last_name"
             class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            id="grid-first-name" type="text" placeholder="last name">
+            type="text" placeholder="last name">
         </div>
 
         <div class="w-full my-MD px-3 mb-6 md:mb-0">
-          <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+          <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="fuckautocomplete">
             Email
           </label>
-          <input formControlName="email"
+          <input autocomplete="false" formControlName="email"
             class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            id="grid-first-name" type="email" placeholder="example@email.com">
+            type="email" placeholder="example@email.com">
         </div>
 
         <div class="country-row">
@@ -70,7 +70,7 @@
             <div class="relative">
               <mat-form-field class="countries-autocomplete" appearance="fill">
                 <mat-label>Country</mat-label>
-                <input matInput aria-label="Country" [matAutocomplete]="auto_1" formControlName="country">
+                <input autocomplete="false" matInput aria-label="Country" [matAutocomplete]="auto_1" formControlName="country">
                 <mat-autocomplete #auto_1="matAutocomplete">
                   <mat-option class="country-option" *ngFor="let country of filteredCountries | async"
                     [value]="country.alpha2Code">

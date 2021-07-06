@@ -1,8 +1,11 @@
+import { WalletService } from 'src/app/services/wallet/wallet.service';
+import { LoadingService } from './../../../services/loading.service';
 import { Router } from '@angular/router';
 import { ITransaction, ITransactionFull_payment } from './../../../interfaces/db/idbmetacontact';
 import { RX } from './../../../services/rx/events.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ActionStatusesTypes } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-complete-transaction',
@@ -13,9 +16,8 @@ export class CompleteTransactionPage implements OnInit {
 
 
 
-  constructor(private rx: RX, private router: Router) { }
+  constructor(private rx: RX, private router: Router, private walletSrv: WalletService, public loading: LoadingService) { }
 
-  tran_id = "";
   @Input() transaction: ITransaction = {
     "payments": [
       {
@@ -115,17 +117,74 @@ export class CompleteTransactionPage implements OnInit {
     "executed": false,
     "type": "many2many"
   } as any;
-
+  _sub: Subscription
   ionViewWillEnter() {
-    this.transaction = this.transaction ? this.transaction : this.rx.temp.view_transaction
+    this.transaction
+    this._sub = this.rx.temp.view_transaction.subscribe(t => {
+      this.transaction = t
+      console.log("transaction overview updated");
+      console.log(this.transaction);
+    })
   }
 
   ionViewWillLeave() {
+    this._sub.unsubscribe();
   }
   ngOnInit() {
   }
 
+  action_status_type(status): ActionStatusesTypes {
+    let text =
+      status === "ACT" ? { btn_active: true, btn: "Active & Waiting", message: "Active and awaiting payment. Can be updated." } :
+        status === "CAN" ? { btn_active: false, btn: "Canceled", message: "Canceled by the merchant or the customer's bank." } :
+          status === "CLO" ? { btn_active: false, btn: "", message: "Closed and paid." } :
+            status === "ERR" ? { btn_active: false, btn: "", message: "Error. An attempt was made to create or complete a payment, but it failed." } :
+              status === "EXP" ? { btn_active: false, btn: "", message: "The payment has expired." } :
+                status === "NEW" ? { btn_active: true, btn: "", message: "Not closed." } :
+                  status === "REV" ? { btn_active: false, btn: "", message: "Reversed by Rapyd. See cancel_reason, above." } : { btn_active: false, btn: "??", message: "Unkown Error" }
+    return text;
+  }
+
+  payment_action(payment: ITransactionFull_payment) {
+    console.log("compelete_payment()");
+    console.log(payment);
+  }
+
+  refresh_transaction(event?) {
+    if (!this.transaction.id) {
+      return;
+    }
+    this.loading.start();
+    this.walletSrv.refresh_transaction_responses(this.transaction.id).subscribe(data => {
+      this.loading.stop();
+      if (data.success) {
+        this.rx.toast("Transactions Updated","",5000);
+        this.rx.meta$.next(data.data);
+        let newTran = data.data.transactions.find(t=>t.id == this.transaction.id);
+        newTran && this.rx.temp.view_transaction && this.rx.temp.view_transaction.next(newTran);
+      }
+      setTimeout(() => {
+        event&&event.target.complete();
+      }, 2000);
+    })
+  }
+
+  btn_active(payment: ITransactionFull_payment) {
+    if (payment?.response?.body?.data?.status) {
+      return this.action_status_type(payment.response.body.data.status).btn_active && this.loading.loading
+    }
+    if (!payment.response || !payment.response.body) {
+      return false && this.loading.loading; // Change false to true if you want to enable manual payment
+    }
+    return false && this.loading.loading
+  }
+
   card_clicked(payment: ITransactionFull_payment) {
     console.log(payment)
+  }
+
+  do_payments() {
+    this.loading.start()
+    this.walletSrv.do_payments(this.transaction).then(d => this.loading.stop())
   }
 }
