@@ -34,7 +34,6 @@ import { CreateVccPage } from './pages/_cc/_vcc/create-vcc/create-vcc.page';
 import { PccDetailsPage } from './pages/_cc/_pcc/_pcc-details/pcc-details.page';
 import { PccHistoryPage } from './pages/_cc/_pcc/_pcc-details/pcc-history/pcc-history.page';
 import { PccSettingsPage } from './pages/_cc/_pcc/_pcc-details/pcc-settings/pcc-settings.page';
-import { TransactionOverviewPage } from './pages/_transactions/transaction-overview/transaction-overview.page';
 import { InternalTransactionPage } from './pages/_transactions/internal-transaction/internal-transaction.page';
 import { ConfirmPinPage } from './pages/_auth/confirm-pin/confirm-pin.page';
 import { FingerprintPage } from './pages/_auth/fingerprint/fingerprint.page';
@@ -154,7 +153,6 @@ import { DashboardMethodsComponent } from './components/dashboard-methods/dashbo
     PccDetailsPage,
     PccHistoryPage,
     PccSettingsPage,
-    TransactionOverviewPage,
     InternalTransactionPage,
     ConfirmPinPage,
     FingerprintPage,
@@ -184,7 +182,7 @@ import { DashboardMethodsComponent } from './components/dashboard-methods/dashbo
     CompleteTransactionPage,
     BottomNavComponent,
     DashboardMethodsComponent
-    
+
   ],
   entryComponents: [],
   providers: [

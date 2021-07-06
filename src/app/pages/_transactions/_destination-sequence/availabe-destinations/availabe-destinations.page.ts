@@ -21,11 +21,6 @@ import { ICountry } from 'src/app/interfaces/interfaces';
 export class AvailabeDestinationsPage implements OnInit {
 
   //#endregion
-  destination_item: IListPayout.Response = {
-    amount: 0,
-  } as any;
-
-
   payment_list: IListPayout.Response[] = []
 
   constructor(private payouySrv: PayoutService, private loading: LoadingService, private router: Router, public modalCtrl: ModalController, private rx: RX, private route: ActivatedRoute) {
@@ -47,6 +42,11 @@ export class AvailabeDestinationsPage implements OnInit {
       payout_currency: "USD",
       payout_method_type: payout_response.payout_method_type,
       sender_country: this.rx.user$.value.rapyd_contact_data?.country || this.route.snapshot.queryParamMap.get("sender_country"),
+      metadata:{
+        name:payout_response.name,
+        category:payout_response.category,
+        image:payout_response.image,
+      }
     }
     let payout_currencies = payout_response.payout_currencies[0] == "*"? curruncies : payout_response.payout_currencies
     // prompt amount field & currency select

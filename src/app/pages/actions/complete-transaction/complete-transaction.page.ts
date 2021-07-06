@@ -1,7 +1,7 @@
 import { WalletService } from 'src/app/services/wallet/wallet.service';
 import { LoadingService } from './../../../services/loading.service';
 import { Router } from '@angular/router';
-import { ITransaction, ITransactionFull_payment } from './../../../interfaces/db/idbmetacontact';
+import { ITransaction, ITransactionFull_payment, ITransactionFull_payout } from './../../../interfaces/db/idbmetacontact';
 import { RX } from './../../../services/rx/events.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
@@ -179,12 +179,17 @@ export class CompleteTransactionPage implements OnInit {
     return false && this.loading.loading
   }
 
-  card_clicked(payment: ITransactionFull_payment) {
+  card_clicked(payment: ITransactionFull_payment | ITransactionFull_payout) {
     console.log(payment)
   }
 
   do_payments() {
     this.loading.start()
     this.walletSrv.do_payments(this.transaction).then(d => this.loading.stop())
+  }
+
+  do_payouts() {
+    this.loading.start()
+    this.walletSrv.do_payouts(this.transaction).then(d => this.loading.stop())
   }
 }
