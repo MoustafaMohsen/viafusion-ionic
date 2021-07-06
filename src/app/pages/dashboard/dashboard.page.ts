@@ -1,3 +1,5 @@
+import { ITransaction } from 'src/app/interfaces/db/idbmetacontact';
+import { Subject, Subscription } from 'rxjs';
 import { IAPIServerResponse } from './../../interfaces/rapyd/types.d';
 import { IDBContact } from './../../interfaces/db/idbcontact';
 import { RX } from 'src/app/services/rx/events.service';
@@ -16,81 +18,22 @@ import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
 })
 export class DashboardPage implements OnInit, AfterViewInit {
 
-  past_transactions: Transaction[] = [];
-  TDirection = _TDirection;
-  TStatus = _TStatus;
   constructor(public loading: LoadingService, public router: Router, private rx: RX,private walletSrv:WalletService) { }
   ngAfterViewInit(): void {
     this.update_balance();
   }
 
   ngOnInit() {
-    let points: TransactionPoint[] = [{
-      name: "Bank of America",
-      type: TPoint.bank,
-      status: this.TStatus.success
-    },
-    {
-      name: "Wallet",
-      type: TPoint.wallet,
-      status: this.TStatus.pending
-    },
-    {
-      name: "Virtural Card",
-      type: TPoint.vcard,
-      status: this.TStatus.pending
-    },
-    {
-      name: "Physical Card",
-      type: TPoint.pcard,
-      status: this.TStatus.pending
-    }
-    ]
-    this.past_transactions = [
-      {
-        name: "",
-        description: "Details about Transaction status",
-        points: points,
-        start_date: new Date(),
-        direction: this.TDirection.up,
-        amount: 1000,
-        status: this.TStatus.pending
-      },
-      {
-        name: "",
-        description: "Details about Transaction status",
-        points: points,
-        start_date: new Date(),
-        direction: this.TDirection.down,
-        amount: 1000,
-        status: this.TStatus.success
-      },
-      {
-        name: "",
-        description: "Details about Transaction status",
-        points: [points[1], points[2]],
-        start_date: new Date(),
-        direction: this.TDirection.up,
-        amount: 1000,
-        status: this.TStatus.failed
-      },
-    ]
-
-    // if no balance then update accounts
-    this.rx.user$.subscribe(
-      u => {
-        this.user = u;
-        this.balance = this.walletSrv.balance$.value
-      }
-    )
+    this.rx.meta$.subscribe(m=>{
+      m&&this.trans$.next(m.transactions)
+    })
   }
-
-
 
   balance:number;
 
   user: IDBContact = {} as any;
 
+  trans$=new Subject<ITransaction[]>()
 
   async update_balance(){
     this.balance = await this.walletSrv.get_wallet_balance()

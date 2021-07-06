@@ -157,7 +157,7 @@ export class WalletService {
       executed: false,
       type: "many2many",
       execution_date:rxtran.execution_date,
-      statues:rxtran.statues,
+      status:rxtran.status,
       payments_executed:rxtran.payments_executed,
       payouts_executed:rxtran.payouts_executed
     }

@@ -126,9 +126,9 @@ export interface IRXTransaction {
 
   description:string;
 
-  statues:"closed" | "requires_action" | "canceled" | "saved"
+  status:"closed" | "requires_action" | "canceled" | "saved"
 
-  type: "many2many" | "w2w"| `${categories}2${categories}`
+  type: "many2many" | "w2w"| "many2w" | `${categories}2${categories}`
 
 }
 
