@@ -1,18 +1,29 @@
 <app-header title="Complete Transaction"></app-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refresh_transaction($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
 
 
   <!-- Sources Loop -->
+  <div class="">
+    <h2 class="text-lg text-gray-800 letspac-1">
+      Sources of Payments
+    </h2>
+    <ion-button [disabled]="loading.loading$ | async" (click)="do_payments()" expand="full" fill="solid" shape="round">
+      Do Payments
+    </ion-button>
+  </div>
   <div *ngFor="let payment of transaction?.payments" class="sources">
-    <div class="">
-      <h2 class="text-lg text-gray-800 letspac-1">
-        Sources of Payments
-      </h2>
-    </div>
 
-    <div class="selected-item mt-4" (click)="card_clicked(payment)">
-      <div class="flex justify-between">
+    <div class="selected-item mt-4">
+      <div (click)="card_clicked(payment)" class="flex justify-between">
         <div class="w-1/2 badge">
           <div class="badge-div flex justify-start items-center">
             <div class="icon-div">
@@ -45,9 +56,9 @@
         </div>
       </div>
         <div class="text-center primary-badge flex w-full mt-4">
-          <a href="">
-            complete payment
-          </a>
+          <ion-button [disabled]="!btn_active" (click)="payment_action(payment)" expand="block" fill="clear" shape="round">
+            {{payment?.response?.body?.data?.status?action_status_type(payment?.response?.body?.data?.status)?.btn:"Payments Ready"}}
+          </ion-button>
         </div>
       </div>
 

@@ -69,7 +69,12 @@ export class RX {
         execute: false,
         executed: false,
         type: null,
-        id: "tranid_" + this.makeid(5)
+        id: "tranid_" + this.makeid(5),
+        closed_payments_amount:0,
+        closed_payouts_amount:0,
+        description:"",
+        execution_date:0,
+        statues:"saved"
       },
       destination_queries: {} as any
     };
@@ -140,11 +145,12 @@ export class RX {
   }
 
 
-  async toast(message = "okay", title = "") {
+  async toast(message = "okay", title = "",duration=600000) {
     const toast = await this.toastController.create({
       header: title,
       message,
       position: 'bottom',
+      duration,
       buttons: [
         {
           text: 'Done',
@@ -168,9 +174,9 @@ export class RX {
 
     if (!error.success) {
       if (typeof error.message === "string") {
-        this.toast(error.message)
+        this.toast(error.message,"Error")
       } else {
-        this.toast(error.message.body.status.message + "" + error.message.body.status.error_code)
+        this.toast(error.message.body.status.message + "" + error.message.body.status.error_code,"Error")
       }
     }
   }

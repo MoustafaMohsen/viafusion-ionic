@@ -15,7 +15,7 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./verify-card.page.scss'],
 })
 export class VerifyCardPage implements OnInit,AfterViewInit {
-  progress_percent = 50;
+  progress_percent = 10;
   radius = 100;
   subtitle = "card";
 
@@ -41,6 +41,12 @@ export class VerifyCardPage implements OnInit,AfterViewInit {
         }
       })
     }, 1000);
+
+    this.vcc_form.valueChanges.subscribe(v => {
+      var values = Object.values(this.vcc_form.value).filter(v => v).length
+      this.progress_percent = (values / 6) * 100
+    })
+
   }
 
   ngOnInit() {
