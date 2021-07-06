@@ -84,6 +84,7 @@ import { CompleteTransactionPage } from './pages/actions/complete-transaction/co
 import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component';
 import { DashboardMethodsComponent } from './components/dashboard-methods/dashboard-methods.component';
 import { PaymentModalComponent } from './components/payment-modal/payment-modal.component';
+import { SettingsPage } from './pages/actions/settings/settings.page';
 
 @NgModule({
   imports: [
@@ -184,6 +185,8 @@ import { PaymentModalComponent } from './components/payment-modal/payment-modal.
     BottomNavComponent,
     DashboardMethodsComponent,
     PaymentModalComponent,
+    SettingsPage
+
   ],
   entryComponents: [],
   providers: [

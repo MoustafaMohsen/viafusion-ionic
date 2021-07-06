@@ -33,6 +33,10 @@ import { storeIcon } from './consts/store';
 import { bankIcon } from './consts/bank';
 import { cpuIcon } from './consts/cpu';
 import { stockIcon } from './consts/stock';
+import { deleteIcon } from './consts/delete';
+import { phoneIcon } from './consts/phone';
+import { sandboxIcon } from './consts/sandbox';
+import { signOutIcon } from './consts/sign-out';
 
 export const  icons = [
     nfcIcon,
@@ -69,7 +73,11 @@ export const  icons = [
     storeIcon,
     bankIcon,
     cpuIcon,
-    stockIcon
+    stockIcon,
+    deleteIcon,
+    phoneIcon,
+    sandboxIcon,
+    signOutIcon
     
     
 

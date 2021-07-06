@@ -39,6 +39,7 @@ import { MarketplacePage } from './pages/_marketplace/shop/marketplace.page';
 import { SellPage } from './pages/_marketplace/sell/sell.page';
 import { ProductDetailsPage } from './pages/_marketplace/product-details/product-details.page';
 import { CompleteTransactionPage } from './pages/actions/complete-transaction/complete-transaction.page';
+import { SettingsPage } from './pages/actions/settings/settings.page';
 
 const routes: Routes = [
   //
@@ -288,9 +289,15 @@ const routes: Routes = [
       {
         path: 'complete-transaction',
         component: CompleteTransactionPage
+      },
+      {
+        path: 'settings',
+        component: SettingsPage
       }
     ]
   },
+  
+
 
 
 ];
