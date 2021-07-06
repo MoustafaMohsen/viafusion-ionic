@@ -114,12 +114,13 @@ export class CompleteTransactionPage implements OnInit {
 
   async card_clicked(payment: ITransactionFull_payment | ITransactionFull_payout) {
     console.log(payment);
-    let modal = this.modalCtrl.create({
+    let modal = await this.modalCtrl.create({
       component:PaymentModalComponent,
       componentProps:{payment},
       backdropDismiss:true,
       showBackdrop:true
-    })
+    });
+    modal.present();
   }
 
   do_payments() {

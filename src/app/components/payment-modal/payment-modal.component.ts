@@ -1,3 +1,4 @@
+import { ModalController } from '@ionic/angular';
 import { Component, Input, OnInit } from '@angular/core';
 import { ITransactionFull_payment, ITransactionFull_payout } from 'src/app/interfaces/db/idbmetacontact';
 import { PaymentDetails_internal } from 'src/app/interfaces/interfaces';
@@ -10,10 +11,10 @@ import { PaymentDetails_internal } from 'src/app/interfaces/interfaces';
 export class PaymentModalComponent implements OnInit {
 
   @Input() payment: ITransactionFull_payment
-  constructor() { }
+  constructor(private modalCtrl:ModalController) { }
 
   ngOnInit() { }
-  status:PaymentDetails_internal
+  status:PaymentDetails_internal={} as any
   ionViewWillEnter() {
     this.status = this.action_status_type()
   }
@@ -21,22 +22,30 @@ export class PaymentModalComponent implements OnInit {
   continue_btn(){
 
   }
+  close(){
+    this.modalCtrl.dismiss()
+  }
 
   action_status_type() {
     var response: PaymentDetails_internal
 
+    console.log("action_status_type() ");
+    console.log("this.payment");
+    console.log(this.payment);
+
     if (!this.payment.response) {
       response = {
         btn_active: false,
-        btn_text: "Waiting Confirmation",
+        btn_text: "Waiting",
         Status: "Not executed",
-        message: "Payment was not executed, go back and click excute Payments to continue",
+        message: "Payment was not executed, go back and click Do Payments to continue",
         instructions: "" as any,
         redirect_url: "",
         amount: this.payment.request.amount,
         error_message: "",
         response_code: "",
       }
+      return response;
     }
     var status = this.payment.response.body.data.status;
 
@@ -134,6 +143,8 @@ export class PaymentModalComponent implements OnInit {
         }
         break;
     }
+    console.log(response);
+
     return response;
   }
 
