@@ -58,7 +58,7 @@ export class WalletService {
   }
 
   get_rates(query: ICurrency.QueryRequest) {
-    return this.api.post<ICurrency.Response>("get-rates", { query })
+    return this.api.post<ICurrency.Response>("get-rates", query)
   }
 
   //#endregion
