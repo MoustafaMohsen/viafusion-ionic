@@ -176,7 +176,8 @@ export class WalletService {
   // todo:
   do_wallet_2_wallet(w2w:IWallet2Wallet){
     console.log("sending W2W:", w2w);
-    return this.api.post<ILookup_user>("w2w",{w2w})
+    w2w.contact_reference_id = this.rx.user$.value.contact_reference_id
+    return this.api.post<IDBMetaContact>("w2w",w2w)
   }
 
   async get_wallet_balance(make_request = false, currency = "USD"): Promise<number> {

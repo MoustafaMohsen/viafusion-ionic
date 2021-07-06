@@ -19,17 +19,10 @@ export class EnterPhonePage implements OnInit {
   search_form:FormControl=new FormControl("",[Validators.required]);
   entred_phone_numer;
   results:ILookup_user = {users:[]}
-  async initModal(number:string) {
-    this.rx.temp.wallet2wallet.value.phone_number=number
-    this.rx.temp.wallet2wallet.next(this.rx.temp.wallet2wallet.value)
-    const modal = await this.modalCtrl.create({
-      component: ModalComponent,
-      cssClass:"bottom-drawer"
-    });
-      return await modal.present();
-  }
-  ngOnInit() {
 
+
+
+  ngOnInit() {
     this.search_form.valueChanges.pipe().subscribe(v=>{
       this.walletSrv.lookup_user(v).subscribe(r=>{
         if (r.success) {
@@ -42,7 +35,16 @@ export class EnterPhonePage implements OnInit {
     })
   }
 
+  async initModal(number:string) {
+    this.rx.temp.wallet2wallet.value.phone_number=number
+    this.rx.temp.wallet2wallet.next(this.rx.temp.wallet2wallet.value)
+    const modal = await this.modalCtrl.create({
+      component: ModalComponent,
+      cssClass:"bottom-drawer"
+    });
+      return await modal.present();
+  }
   search_contacts(){
-
+    document.getElementById("searchphones")?.focus()
   }
 }
