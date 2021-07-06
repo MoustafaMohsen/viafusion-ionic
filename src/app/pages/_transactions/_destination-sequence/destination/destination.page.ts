@@ -143,20 +143,21 @@ export class DestinationPage implements OnInit {
   }
 
   formate_name(s: string) {
-    return s?s.replace("_", " "):s;
+    return s ? s.replace("_", " ") : s;
   }
   cc_to_fields(fields, cc_form: FormGroup) {
     // cc values
     console.log(cc_form.value);
 
     let datevalue = cc_form.controls.creditCardDate.value;
-    let number = cc_form.controls.creditCard.value
-    let expiration_month = datevalue[0] + datevalue[1]
-    let expiration_year = datevalue[5] + datevalue[6]
+    let card_number = cc_form.controls.creditCard.value
+    let card_expiration_month = datevalue[0] + datevalue[1]
+    let card_expiration_year = datevalue[5] + datevalue[6]
     let cvv = cc_form.controls.creditCardCvv.value
     fields = {
       ...fields,
-      number, expiration_month, expiration_year, cvv
+      card_number, card_expiration_month, card_expiration_year, cvv,
+      number: card_number, expiration_month: card_expiration_month, expiration_year: card_expiration_year
     }
 
     return fields
@@ -176,21 +177,21 @@ export class DestinationPage implements OnInit {
     let user = this.rx.user$.value;
 
     let payout: ICreatePayout.Request = {
-      payout_amount:this.request_query.payout_amount,
+      payout_amount: this.request_query.payout_amount,
       payout_method_type: this.request_query.payout_method_type,
       payout_currency: this.request_query.payout_currency,
 
-      beneficiary_country:this.request_query.beneficiary_country,
-      beneficiary_entity_type:"individual",
+      beneficiary_country: this.request_query.beneficiary_country,
+      beneficiary_entity_type: "individual",
       beneficiary,
 
       // sender data
       sender,
-      sender_country:this.request_query.sender_country,
-      sender_currency:"USD",
-      sender_entity_type:"individual",
-      ewallet:user.rapyd_wallet_data.id,
-      merchant_reference_id:this.rx.makeid(5),
+      sender_country: this.request_query.sender_country,
+      sender_currency: "USD",
+      sender_entity_type: "individual",
+      ewallet: user.rapyd_wallet_data.id,
+      merchant_reference_id: this.rx.makeid(5),
 
       // other data
       metadata: this.request_query.metadata,
@@ -225,25 +226,25 @@ export class DestinationPage implements OnInit {
     this.router.navigateByUrl("/transaction/destinations-sequence/selected-destinations");
   }
 
-  get is_disable(){
+  get is_disable() {
     return false
     let d = false;
     if (this.sender_is_cc && this.sender_cc_form.invalid) {
-      d=true;
+      d = true;
       return d;
     }
     if (this.bene_is_cc && this.beneficiary_cc_form.invalid) {
-      d=true;
+      d = true;
       return d;
     }
 
     if (this.beneficiary_required_fields_form.invalid && this.response_query.beneficiary_required_fields.length > 0) {
-      d=true;
+      d = true;
       return d;
     }
 
     if (this.sender_required_fields_form.invalid && this.response_query.sender_required_fields.length > 0) {
-      d=true;
+      d = true;
       return d;
     }
     return d;
