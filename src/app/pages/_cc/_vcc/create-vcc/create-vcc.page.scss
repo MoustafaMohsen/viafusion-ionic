@@ -9,3 +9,18 @@
 
   }
 }
+.card {
+  margin-top: 9rem;
+    background: #fff;
+    padding: 1rem;
+    border-radius: 23px;
+    box-shadow: 0 19px 38px rgb(0 0 0 / 30%), 0 15px 12px rgb(0 0 0 / 22%);
+    padding-top: 1rem;
+    .vcc{
+      margin-top: -5rem;
+    }
+}
+ion-content {
+  --padding-end: 1rem;
+  --padding-start: 1rem;
+}
