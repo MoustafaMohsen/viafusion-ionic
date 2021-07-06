@@ -151,11 +151,11 @@ export class WalletService {
       // === loop payouts
       // update closed amount
       try {
-        let filterd_payments = t.payouts
+        let filterd_payouts = t.payouts
         .filter(p2=>p2.response && p2.response.body.status.status == "SUCCESS"&& p2.response.body.data.status == "Completed")
         .map(p1=>p1.response.body.data.amount)
 
-        t.closed_payments_amount = filterd_payments.length?filterd_payments.reduce((p,p1)=>p1+p):0
+        t.closed_payouts_amount = filterd_payouts.length?filterd_payouts.reduce((p,p1)=>p1+p):0
       } catch (error) {
         console.log(error);
 
