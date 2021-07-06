@@ -108,14 +108,25 @@ export class WalletService {
       let closed = false;
       let update = false;
 
+      // update closed amount
+      try {
+        let filterd_payments = t.payments
+        .filter(p2=>p2.response && p2.response.body.status.status == "SUCCESS"&&p2.response.body.data.status == "CLO")
+        .map(p1=>p1.response.body.data.amount)
+
+        t.closed_payments_amount = filterd_payments.length?filterd_payments.reduce((p,p1)=>p1+p):0
+      } catch (error) {
+        console.log(error);
+
+      }
+      console.log("-----> closed t.closed_payments_amount",t.closed_payments_amount);
+
       // === loop payments
       t.payments.forEach(p => {
         // Check if hase response
         if (p.response && p.response.body.status.status == "SUCCESS") {
           var payment_res = p.response.body.data;
 
-          // update closed amount
-          payment_res.status == "CLO" && (t.closed_payments_amount += payment_res.amount);
           // is one active
           if (payment_res.status == "ACT") {
             requries_action = true
@@ -138,15 +149,17 @@ export class WalletService {
         t.status = canceled ? "canceled" : closed ? "closed" : requries_action ? "requires_action" : "saved";
 
       // === loop payouts
-      t.payouts.forEach(p => {
-        // Check if hase response
-        if (p.response && p.response.body.status.status == "SUCCESS") {
-          var payout_res = p.response.body.data;
-          // update closed amount
-          payout_res.status == "CLO" && (t.closed_payouts_amount += payout_res.amount);
-        }
-      })
+      // update closed amount
+      try {
+        let filterd_payments = t.payouts
+        .filter(p2=>p2.response && p2.response.body.status.status == "SUCCESS"&& p2.response.body.data.status == "Completed")
+        .map(p1=>p1.response.body.data.amount)
 
+        t.closed_payments_amount = filterd_payments.length?filterd_payments.reduce((p,p1)=>p1+p):0
+      } catch (error) {
+        console.log(error);
+
+      }
 
     })
     return trans;
