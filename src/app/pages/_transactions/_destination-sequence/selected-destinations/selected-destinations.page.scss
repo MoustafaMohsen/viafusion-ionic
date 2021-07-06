@@ -27,13 +27,16 @@ ion-content {
 }
 
 .badge {
-  h4 {
-    padding: 0.5rem;
+  .badge-div {
+    padding: 0.2rem 0.5rem;
     background: var(--secondary-tint);
     width: auto;
-    border-top-left-radius: 24px;
-    border-top-right-radius: 24px;
-    line-height: unset;
+    border-radius: 24px;
+
+    .icon-div {
+      margin-top: 6px;
+      margin-right: 6px;
+    }
   }
 }
 .amount-badge {
@@ -41,14 +44,16 @@ ion-content {
   width: auto;
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
-  width: 33%;
+  
+}
+.delete-badge {
+  border-radius: 24px;
+  padding: 0.4rem 0.5rem;
 }
 
 .destination-card {
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 0 !important;
   border-radius: 24px;
-
+  flex-wrap: wrap;
   .img-container {
     height: 2rem;
 
