@@ -8,7 +8,26 @@
   </ion-refresher>
 
 
-  <!-- Sources Loop -->
+  <!-- Sources Loop --> 
+  
+  <div class="flex justify-between items-center">
+    <div>
+      <h2 class="text-base text-gray-800 letspac-1 font-bold">
+        Payments total: {{transaction?.source_amount}}
+      </h2>
+    </div>
+    <div>
+      <h2 class="text-base text-gray-800 letspac-1 font-bold">
+        Done: {{transaction?.closed_payments_amount}}
+      </h2>
+    </div>
+  </div>
+  <div class="flex jusitfy-between items-center my-4">
+  <ion-button (click)="save_transaction()"   expand="full" fill="solid" shape="round" class="w-full">
+    Save for Later
+  </ion-button>
+  </div>
+
   <div class="flex justify-between items-center">
     <div>
       <h2 class="text-base text-gray-800 letspac-1">
@@ -16,28 +35,13 @@
       </h2>
     </div>
     <div>
-      <ion-button [disabled]="loading.loading$ | async" (click)="do_payments()" expand="full" fill="solid"
-        shape="round">
-        Do Payments
-      </ion-button>
-    </div>
-  </div>
-  <div class="flex justify-between items-center">
-    <div>
-      <h2 class="text-base text-gray-800 letspac-1">
-        Payments total: {{transaction?.source_amount}}
-      </h2>
-    </div>
-    <div>
-      <h2 class="text-base text-gray-800 letspac-1">
-        Done: {{transaction?.closed_payments_amount}}
-      </h2>
+      <button [disabled]="loading.loading$ | async" (click)="do_payments()"   class="p-2  focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+    Do Payments
+      </button>
     </div>
   </div>
 
-  <ion-button (click)="save_transaction()" expand="full" fill="solid" shape="round">
-    Save for Later
-  </ion-button>
+ 
   <div *ngFor="let payment of transaction?.payments" class="sources">
 
     <div class="selected-item mt-4">
@@ -96,9 +100,9 @@
     </h2>
     </div>
     <div>
-    <ion-button [disabled]="loading.loading$ | async" (click)="do_payouts()" expand="full" fill="solid" shape="round">
-      Do Payouts
-    </ion-button>
+    <button  [disabled]="loading.loading$ | async" (click)="do_payouts()"  class="p-2  focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+    Do Payouts
+    </button>
   </div>
   </div>
   <div *ngFor="let payout of transaction?.payouts" class="destinations">
