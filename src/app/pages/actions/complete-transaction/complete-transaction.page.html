@@ -22,6 +22,18 @@
       </ion-button>
     </div>
   </div>
+  <div class="flex justify-between items-center">
+    <div>
+      <h2 class="text-base text-gray-800 letspac-1">
+        Payments total: {{transaction?.source_amount}}
+      </h2>
+    </div>
+    <div>
+      <h2 class="text-base text-gray-800 letspac-1">
+        Done: {{transaction?.closed_payments_amount}}
+      </h2>
+    </div>
+  </div>
 
   <div *ngFor="let payment of transaction?.payments" class="sources">
 
