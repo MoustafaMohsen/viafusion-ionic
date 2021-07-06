@@ -152,7 +152,16 @@ export namespace ICreatePayout {
         payout_currency: string
         sender_amount: number
         sender_currency: string
-        status: string
+        /**	Indicates the status of the payout. Response only.
+          One of the following:
+          * Confirmation - The payout is waiting for a confirmation of the FX rate.
+          * Created - The payout was created successfully.
+          * Completed - The beneficiary received some or all payout funds.
+          * Canceled - The payout was canceled.
+          * Error - The payout was not created or failed after creation.
+          * Expired - The payout has expired.
+          * */
+        status: "Confirmation" |"Created" | "Completed" | "Canceled" |"Error" | "Expired"
         sender_country: string
         sender: Sender
         beneficiary_country: string
