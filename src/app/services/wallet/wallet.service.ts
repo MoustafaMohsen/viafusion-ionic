@@ -63,6 +63,11 @@ export class WalletService {
 
   //#endregion
   //#region Payments
+  save_transaction(tran?: ITransaction) {
+    tran = tran ? tran : this.convert_rxtran_to_transaction(this.rx.temp["transaction"])
+    return this.update_user_transactions(tran);
+  }
+
   async do_payouts(tran?: ITransaction) {
     tran = tran ? tran : this.convert_rxtran_to_transaction(this.rx.temp["transaction"])
     this.update_user_transactions(tran).then(res => {
@@ -96,7 +101,7 @@ export class WalletService {
   }
 
   update_transactions_status(trans: ITransaction[]) {
-    if(!trans) return trans;
+    if (!trans) return trans;
     trans.forEach(t => {
       let requries_action = false;
       let canceled = false;
@@ -114,12 +119,12 @@ export class WalletService {
           // is one active
           if (payment_res.status == "ACT") {
             requries_action = true
-            update=true;
+            update = true;
           }
           // is all closed
           if (payment_res.status == "CLO") {
             closed = true
-            update=true;
+            update = true;
           }
           // is cancaled
           if (payment_res.status == "CAN") {
@@ -129,8 +134,8 @@ export class WalletService {
         }
       })
 
-      if(update)
-      t.status = canceled ? "canceled" : closed ? "closed" : requries_action ? "requires_action" : "saved";
+      if (update)
+        t.status = canceled ? "canceled" : closed ? "closed" : requries_action ? "requires_action" : "saved";
 
       // === loop payouts
       t.payouts.forEach(p => {
@@ -149,8 +154,8 @@ export class WalletService {
   //#endregion
 
   async get_wallet_balance(make_request = false, currency = "USD"): Promise<number> {
-    this.rx.get_db_contact();
     this.rx.get_db_metacontact();
+    this.rx.get_db_contact();
     return new Promise((resolve, reject) => {
       this.rx.user$.subscribe(u => {
         this.rx.meta$.value.transactions = this.update_transactions_status(this.rx.meta$.value.transactions);
