@@ -16,6 +16,7 @@ import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { ListIssuedVcc } from 'src/app/interfaces/rapyd/ivcc';
 import { ITemp, PaymentDetails_internal } from 'src/app/interfaces/interfaces';
+import { IWallet2Wallet } from 'src/app/interfaces/db/idbwallet';
 
 @Injectable({
   providedIn: 'root'
@@ -77,7 +78,8 @@ export class RX {
         status:"saved"
       },
       destination_queries: {} as any,
-      view_transaction: new BehaviorSubject<ITransaction>(null)
+      view_transaction: new BehaviorSubject<ITransaction>(null),
+      wallet2wallet:new BehaviorSubject<IWallet2Wallet>({} as any)
     };
 
   get meta() {

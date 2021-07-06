@@ -10,10 +10,16 @@
                 <ion-icon name="search-outline"></ion-icon>
               </span>
             </button>
-            <input class="w-full rounded mr-4" type="text" placeholder="Search...">
+            <input [formControl]="search_form" class="w-full rounded mr-4" type="number" inputmode="tel" maxlength="15" placeholder="Search...">
         </div>
 
-      <div
+        <ion-list>
+          <ion-item (click)="initModal(user)" *ngFor="let user of results.users">
+            <ion-label>{{user}}</ion-label>
+          </ion-item>
+        </ion-list>
+
+      <div *ngIf="results.users.length < 1"
         class="phone-card duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 items-center px-4 py-5">
         <div class="">
           <svg-icon key="money-bag" fontSize="4rem"></svg-icon>
@@ -37,6 +43,6 @@
     </section>
   </main>
 
-  <ion-button (click)="initModal()">Open Modal</ion-button>
+  <ion-button >Open Modal</ion-button>
 
 </ion-content>
