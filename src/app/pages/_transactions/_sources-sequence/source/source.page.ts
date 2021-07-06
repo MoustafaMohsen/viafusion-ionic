@@ -134,6 +134,7 @@ export class SourcePage implements OnInit {
         name: decodeURIComponent(this.route.snapshot.queryParamMap.get("name")),
         image: decodeURIComponent(this.route.snapshot.queryParamMap.get("image")),
         category: decodeURIComponent(this.route.snapshot.queryParamMap.get("category")),
+        executed:false
       },
       "3DS_requirede": false,
       address: user.rapyd_contact_data.address as any,

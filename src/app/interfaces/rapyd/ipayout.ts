@@ -67,6 +67,7 @@ export namespace IGetPayoutRequiredFields {
           /** add 'https://iconslib.rapyd.net'+  to get valid url*/
           image?:string
           category?:categories
+          executed:false
         }
     }
 }

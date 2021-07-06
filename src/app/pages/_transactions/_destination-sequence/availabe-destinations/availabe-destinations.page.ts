@@ -46,6 +46,7 @@ export class AvailabeDestinationsPage implements OnInit {
         name:payout_response.name,
         category:payout_response.category,
         image:payout_response.image,
+        executed:false
       }
     }
     let payout_currencies = payout_response.payout_currencies[0] == "*"? curruncies : payout_response.payout_currencies
