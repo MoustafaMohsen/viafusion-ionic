@@ -8,4 +8,12 @@
     background-color: transparent;
 
   }
+  
 }
+.show-btn button {
+    justify-content: center;
+    background: var(--secondary-tint);
+    padding: 0.5rem;
+    border-radius: 20px;
+    color: var(--secondary);
+  }

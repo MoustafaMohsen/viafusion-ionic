@@ -1,9 +1,16 @@
 
 ion-content {
   --padding-top: 0px;
+  --padding-end: 1rem;
+  --padding-start:1rem;
 }
-.create-btn button{
-  
+.buttons-div button {
+  justify-content: center;
+  background: #fff;
+  padding: 0.5rem;
+  border-radius: 20px;
+  color: var(--secondary);
+  border: 2px solid;
 }
 
 .show-btn {
