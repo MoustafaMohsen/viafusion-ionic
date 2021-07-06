@@ -1,4 +1,3 @@
-
 <!-- Informations -->
 <div>
   <h2>Payment Informations</h2>
@@ -40,13 +39,28 @@
   <a [href]="status.redirect_url" target="_blank" rel="noopener noreferrer">{{status.redirect_url}}</a>
 </div>
 
+
+<!-- instructions -->
+<div *ngIf="status.instructions?.length">
+
+  <p *ngIf="status.instructions">instructions</p>
+  <p *ngFor="let ins of status.instructions">{{ins}}</p>
+
+</div>
+
+<!-- instructions -->
+<div *ngIf="status.instructions?.name">
+
+  <p *ngIf="">{{status.instructions?.name}}</p>
+  <p *ngFor="let step of status.instructions?.steps">{{step.step1}}</p>
+
+</div>
+
+
 <button [disabled]="!status.btn_active" (click)="continue_btn()" type="button"
-class="py-4 px-6 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
-{{status.btn_text}} <ion-icon name="arrow-forward-outline" class="ml-3 text-2xl"></ion-icon>
+  class="py-4 px-6 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+  {{status.btn_text}} <ion-icon name="arrow-forward-outline" class="ml-3 text-2xl"></ion-icon>
 </button>
 <ion-button (click)="close()" expand="full" fill="solid" shape="round">
   Close
 </ion-button>
-
-<p *ngIf="status.instructions">instructions</p>
-<p *ngFor="let ins of status.instructions">{{ins}}</p>
