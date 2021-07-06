@@ -18,7 +18,6 @@ import { PccDetailsPage } from './pages/_cc/_pcc/_pcc-details/pcc-details.page';
 import { PccHistoryPage } from './pages/_cc/_pcc/_pcc-details/pcc-history/pcc-history.page';
 import { PccSettingsPage } from './pages/_cc/_pcc/_pcc-details/pcc-settings/pcc-settings.page';
 import { InternalTransactionPage } from './pages/_transactions/internal-transaction/internal-transaction.page';
-import { TransactionOverviewPage } from './pages/_transactions/transaction-overview/transaction-overview.page';
 import { FingerprintPage } from './pages/_auth/fingerprint/fingerprint.page';
 import { LoginWithPinPage } from './pages/_auth/login-with-pin/login-with-pin.page';
 import { ConfirmPinPage } from './pages/_auth/confirm-pin/confirm-pin.page';
@@ -218,10 +217,6 @@ const routes: Routes = [
       {
         path: 'internal-transaction',
         component: InternalTransactionPage,
-      },
-      {
-        path: 'transaction-overview',
-        component: TransactionOverviewPage,
       },
       {
         path: 'request-payment',

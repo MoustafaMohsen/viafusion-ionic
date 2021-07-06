@@ -193,11 +193,7 @@ export class DestinationPage implements OnInit {
       merchant_reference_id:this.rx.makeid(5),
 
       // other data
-      metadata: {
-        name: decodeURIComponent(this.route.snapshot.queryParamMap.get("name")),
-        image: decodeURIComponent(this.route.snapshot.queryParamMap.get("image")),
-        category: decodeURIComponent(this.route.snapshot.queryParamMap.get("category")),
-      },
+      metadata: this.request_query.metadata,
       description: "",
       confirm_automatically: true,
       statement_descriptor: "Test Transfer",

@@ -1,3 +1,4 @@
+import { categories } from 'src/app/interfaces/rapyd/types';
 import { RequiredFields } from "./ipayment";
 
 export namespace IListPayout {
@@ -11,7 +12,7 @@ export namespace IListPayout {
         is_online: number
         status: number
         image: string
-        category: string
+        category: categories
         beneficiary_country: string
         payout_currencies: string[]
         sender_entity_types: string[]
@@ -60,7 +61,13 @@ export namespace IGetPayoutRequiredFields {
         beneficiary_country: string
         payout_currency: string
         payout_amount: number
-        payout_method_type: string
+        payout_method_type: string;
+        metadata:{
+          name?:string
+          /** add 'https://iconslib.rapyd.net'+  to get valid url*/
+          image?:string
+          category?:categories
+        }
     }
 }
 
