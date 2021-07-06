@@ -56,8 +56,15 @@ export class SelectedDestinationsPage implements OnInit {
     this.router.navigateByUrl("transaction/destinations-sequence/available-destinations");
   }
 
-  edit_destination(destination: any) {
-    this.router.navigateByUrl("/transaction/destinations-sequence/destination?payment_method=" + encodeURIComponent(destination.payment_method.type) + "&category=" + encodeURIComponent(destination.metadata.category) + "&image=" + encodeURIComponent(destination.metadata.image) + "&name=" + encodeURIComponent(destination.metadata.name))
+  delete_destination(destination: ICreatePayout.Request) {
+    this.selected_destinations = this.rx.temp["transaction"]["payouts"].value;
+    for (let i = 0; i < this.selected_destinations.length; i++) {
+      const dest = this.selected_destinations[i];
+      if (dest.payout_amount == destination.payout_amount && dest.payout_currency == destination.payout_currency && dest.payout_method_type == destination.payout_method_type) {
+        this.selected_destinations.splice(i, 1)
+      }
+    }
+    this.rx.temp["transaction"]["payouts"].next(this.selected_destinations);
   }
 
   get remaing_ballance() {

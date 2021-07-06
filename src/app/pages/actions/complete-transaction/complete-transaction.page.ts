@@ -146,25 +146,52 @@ export class CompleteTransactionPage implements OnInit {
   }
 
   payment_action(payment: ITransactionFull_payment) {
+    if (payment.response && payment.response.body) {
+      this.walletSrv.complete_payment(payment.response.body.data.id).subscribe(res => {
+        if (!res.success) {
+          this.rx.toastError(res as any);
+        } else {
+          var trans = this.rx.meta$.value.transactions
+          for (let i = 0; i < trans.length; i++) {
+            const t = trans[i];
+            if (t.id == this.transaction.id) {
+              t.payments.forEach(p => {
+                if (p.response && p.response.body) {
+                  p.response.body.data = res.data
+                }
+              })
+            }
+          }
+          this.rx.meta$.value.transactions = trans;
+          this.rx.meta$.next(this.rx.meta$.value)
+        }
+      })
+    }
     console.log("compelete_payment()");
     console.log(payment);
   }
 
+
   refresh_transaction(event?) {
-    if (!this.transaction.id) {
+    if (!this.transaction || !this.transaction.id || this.transaction.payments_executed) {
+      setTimeout(() => {
+        event && event.target.complete();
+      }, 2000);
+
       return;
     }
     this.loading.start();
     this.walletSrv.refresh_transaction_responses(this.transaction.id).subscribe(data => {
       this.loading.stop();
       if (data.success) {
-        this.rx.toast("Transactions Updated","",5000);
+        this.rx.toast("Transactions Updated", "", 5000);
+        data.data.transactions = this.walletSrv.update_transactions_status(data.data.transactions)
         this.rx.meta$.next(data.data);
-        let newTran = data.data.transactions.find(t=>t.id == this.transaction.id);
+        let newTran = data.data.transactions.find(t => t.id == this.transaction.id);
         newTran && this.rx.temp.view_transaction && this.rx.temp.view_transaction.next(newTran);
       }
       setTimeout(() => {
-        event&&event.target.complete();
+        event && event.target.complete();
       }, 2000);
     })
   }
@@ -184,7 +211,7 @@ export class CompleteTransactionPage implements OnInit {
   }
 
   do_payments() {
-    this.loading.start()
+    this.loading.start();
     this.walletSrv.do_payments(this.transaction).then(d => this.loading.stop())
   }
 

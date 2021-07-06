@@ -91,3 +91,23 @@ export namespace TransferToWallet {
     metadata?: any
   }
 }
+
+
+export namespace ICurrency {
+  export interface QueryRequest {
+      sell_currency: string
+      buy_currency: string
+      action_type: "payment"|"payout"
+  }
+  export interface Response {
+      sell_currency: string
+      buy_currency: string
+      action_type: "payment"|"payout"
+      fixed_side: any
+      rate: number
+      date: string
+      sell_amount: any
+      buy_amount: any
+  }
+
+}

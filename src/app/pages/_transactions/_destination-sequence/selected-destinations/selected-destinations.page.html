@@ -19,7 +19,7 @@
     <!-- Destination List -->
     <div class="selected-destinations" *ngFor="let destination of selected_destinations">
 
-      <div class="selected-item mt-4" (click)="edit_destination(destination)">
+      <div class="selected-item mt-4">
         <div class="flex justify-between">
           <div class="w-1/2 badge">
 
@@ -30,6 +30,10 @@
           </div>
 
           <div class="amount-badge bg-green-700 text-center">
+            <h4 class="">{{destination.payout_amount | currency}}</h4>
+          </div>
+          <div class="amount-badge bg-red-700 text-center" (click)="delete_destination(destination)">
+            <h4 class="">Delete</h4>
           </div>
         </div>
         <div
