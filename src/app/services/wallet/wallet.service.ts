@@ -56,8 +56,8 @@ export class WalletService {
   }
   //#endregion
   //#region Payments
-  async do_payouts() {
-    let tran = this.convert_rxtran_to_transaction(this.rx.temp["transaction"])
+  async do_payouts(tran?: ITransaction) {
+    tran = tran?tran:this.convert_rxtran_to_transaction(this.rx.temp["transaction"])
     this.update_user_transactions(tran).then(res => {
       this.execute_payout_transactions(tran.id).subscribe((res) => {
         if (res.success) {
