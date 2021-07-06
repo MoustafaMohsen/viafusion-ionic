@@ -25,7 +25,7 @@ export class SourcePage implements OnInit {
 
   is_edit = false;
   edit_index = -1;
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.payment_method = decodeURIComponent(this.route.snapshot.queryParamMap.get("payment_method"));
     this.route.queryParamMap.subscribe(m => {
       this.update_query(m.get("payment_method"));
@@ -42,7 +42,7 @@ export class SourcePage implements OnInit {
   }
 
 
-  update_query(payment_method){
+  update_query(payment_method) {
     this.render_required_fields();
     // validate payment is uniqe
     for (let i = 0; i < this.rx.temp["transaction"]["payments"].value.length; i++) {
@@ -96,7 +96,7 @@ export class SourcePage implements OnInit {
 
 
 
-  cc_to_fields(fields,cc_form: FormGroup) {
+  cc_to_fields(fields, cc_form: FormGroup) {
     // cc values
     console.log(cc_form.value);
 
@@ -112,14 +112,16 @@ export class SourcePage implements OnInit {
 
     return fields
   }
-
+  formate_name(s: string) {
+    return s ? s.replace(/_/g, " ") : s;
+  }
   submit() {
 
     let user = this.rx.user$.value;
     var fields: PostCreatePayment.IFields = { ...this.fields_form.value };
 
     if (this.is_cc) {
-      fields = this.cc_to_fields(fields,this.cc_form);
+      fields = this.cc_to_fields(fields, this.cc_form);
     }
 
     console.log(fields);
@@ -134,7 +136,7 @@ export class SourcePage implements OnInit {
         name: decodeURIComponent(this.route.snapshot.queryParamMap.get("name")),
         image: decodeURIComponent(this.route.snapshot.queryParamMap.get("image")),
         category: decodeURIComponent(this.route.snapshot.queryParamMap.get("category")),
-        executed:false
+        executed: false
       },
       "3DS_requirede": false,
       address: user.rapyd_contact_data.address as any,
@@ -155,7 +157,7 @@ export class SourcePage implements OnInit {
 
     // TODO: filter currencies of response object, make capture null if category was not card
     // fix capture error
-    payment.capture = payment.metadata.category == "card"?true:null;
+    payment.capture = payment.metadata.category == "card" ? true : null;
 
     let sources = [...this.rx.temp["transaction"]["payments"].value]
     // validate payment is uniqe

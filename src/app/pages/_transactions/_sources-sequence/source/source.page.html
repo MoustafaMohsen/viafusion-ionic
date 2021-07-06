@@ -22,6 +22,7 @@
             <!-- Number -->
             <div *ngIf="f.type == 'number' || f.type == 'integer'" class="w-full my-MD px-3 mb-6 md:mb-0">
               <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+                {{formate_name(f.name)}}
                 {{f.instructions}}
               </label>
               <input [formControlName]="f.name"
@@ -31,6 +32,7 @@
             <!-- Text -->
             <div *ngIf="f.type == 'string' || f.type == 'text'" class="w-full my-MD px-3 mb-6 md:mb-0">
               <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+                {{formate_name(f.name)}}
                 {{f.instructions}}
               </label>
               <input [formControlName]="f.name"
@@ -40,6 +42,7 @@
             <!-- Checkbox -->
             <div *ngIf="f.type == 'boolean' || f.type == 'checkbox'" class="w-full my-MD px-3 mb-6 md:mb-0">
               <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+                {{formate_name(f.name)}}
                 {{f.instructions}}
               </label>
               <label class="capitalize inline-flex items-center">

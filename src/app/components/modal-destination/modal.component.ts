@@ -52,7 +52,7 @@ export class ModalDestinationComponent implements OnInit {
     console.log("this.form", this.form);
     console.log("this.request_query", this.request_query);
     this.request_query.payout_currency = this.form.value.currency
-    this.request_query.payout_amount = this.form.value.amount
+    this.request_query.payout_amount = this.selected_buy_currency=="USD"?this.form.value.amount:(parseInt(this.form.value.amount)/this.rates[this.selected_buy_currency].rate)
     console.log("done this.request_query", this.request_query);
 
     var query_id = this.rx.makeid(5);

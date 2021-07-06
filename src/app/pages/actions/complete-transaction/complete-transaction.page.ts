@@ -135,12 +135,12 @@ export class CompleteTransactionPage implements OnInit {
 
   action_status_type(status): ActionStatusesTypes {
     let text =
-      status === "ACT" ? { btn_active: true, btn: "Active & Waiting", message: "Active and awaiting payment. Can be updated." } :
+      status === "ACT" ? { btn_active: true, btn: "Waiting Confirmation", message: "Active and awaiting payment. Can be updated." } :
         status === "CAN" ? { btn_active: false, btn: "Canceled", message: "Canceled by the merchant or the customer's bank." } :
-          status === "CLO" ? { btn_active: false, btn: "", message: "Closed and paid." } :
-            status === "ERR" ? { btn_active: false, btn: "", message: "Error. An attempt was made to create or complete a payment, but it failed." } :
-              status === "EXP" ? { btn_active: false, btn: "", message: "The payment has expired." } :
-                status === "NEW" ? { btn_active: true, btn: "", message: "Not closed." } :
+          status === "CLO" ? { btn_active: false, btn: "Done", message: "Closed and paid." } :
+            status === "ERR" ? { btn_active: false, btn: "Errored", message: "Error. An attempt was made to create or complete a payment, but it failed." } :
+              status === "EXP" ? { btn_active: false, btn: "Expired", message: "The payment has expired." } :
+                status === "NEW" ? { btn_active: true, btn: "New", message: "Not closed." } :
                   status === "REV" ? { btn_active: false, btn: "", message: "Reversed by Rapyd. See cancel_reason, above." } : { btn_active: false, btn: "??", message: "Unkown Error" }
     return text;
   }
@@ -173,7 +173,7 @@ export class CompleteTransactionPage implements OnInit {
 
 
   refresh_transaction(event?) {
-    if (!this.transaction || !this.transaction.id || this.transaction.payments_executed) {
+    if (!this.transaction || !this.transaction.id) {
       setTimeout(() => {
         event && event.target.complete();
       }, 2000);
