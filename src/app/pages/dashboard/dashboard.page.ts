@@ -75,6 +75,21 @@ export class DashboardPage implements OnInit, AfterViewInit {
   view_all_btn() {
     this.router.navigateByUrl("/transaction/transaction-history");
   }
+
+  store() {
+    this.router.navigateByUrl("/marketplace/shop");
+  }
+
+  sell() {
+    this.router.navigateByUrl("/marketplace/sell");
+  }
+  seeAll() {
+    this.router.navigateByUrl("/cc/list-of-cc");
+  }
+
+  create() {
+    this.router.navigateByUrl("/cc/vcc/create-vcc");
+  }
   onClick() {
 
   }
