@@ -100,6 +100,14 @@ export class CompleteTransactionPage implements OnInit {
     })
   }
 
+  save_transaction(){
+    if (!this.transaction || !this.transaction.id) {
+      this.rx.toast("Transaction not found!")
+      return;
+    }
+    this.loading.start();
+    this.walletSrv.save_transaction()
+  }
   btn_active(payment: ITransactionFull_payment | ITransactionFull_payout) {
     if (payment?.response?.body?.data?.status) {
       return this.action_status_type(payment.response.body.data.status).btn_active && this.loading.loading
@@ -122,13 +130,11 @@ export class CompleteTransactionPage implements OnInit {
   }
 
   do_payments() {
-    return;
     this.loading.start();
     this.walletSrv.do_payments(this.transaction).then(d => this.loading.stop())
   }
 
   do_payouts() {
-    return;
     this.loading.start()
     this.walletSrv.do_payouts(this.transaction).then(d => this.loading.stop())
   }

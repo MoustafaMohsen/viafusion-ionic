@@ -53,7 +53,7 @@ export class PaymentModalComponent implements OnInit {
       case "ACT":
         response = {
           btn_active: true,
-          btn_text: "Waiting Confirmation",
+          btn_text: "Click to Confirm manually",
           Status: "Active and awaiting payment. Can be updated",
           message: "Click on the link below to complete transaction (you are in sandbox, use rapyd:success as credentials)",
           instructions: this.payment.response.body.data.instructions,
