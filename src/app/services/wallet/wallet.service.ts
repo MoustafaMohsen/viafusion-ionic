@@ -35,6 +35,8 @@ export class WalletService {
     tran.id || (tran.id = "tran_" + this.rx.makeid(5))
     this.update_user_transactions(tran).then(res => {
       this.execute_payment_transactions(tran.id).subscribe((res) => {
+        this.rx.reset_temp_value();
+        this.rx.get_db_metacontact();
         if (res.success) {
           this.rx.toast("Payments Done")
           console.log(res.data);

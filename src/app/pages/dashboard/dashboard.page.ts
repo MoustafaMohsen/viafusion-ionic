@@ -65,16 +65,19 @@ export class DashboardPage implements OnInit {
   }
 
   make_transaction() {
+    this.rx.reset_temp_transactions()
     this.rx.temp["transaction"].type = "many2many";
     this.router.navigateByUrl("/transaction/sources-sequence/available-sources");
   }
 
   charge_wallet() {
+    this.rx.reset_temp_transactions()
     this.rx.temp["transaction"].type = "many2w";
     this.router.navigateByUrl("/transaction/sources-sequence/available-sources");
   }
 
   insta_send() {
+    this.rx.reset_temp_transactions()
     this.router.navigateByUrl("/insta-send/enter-amount");
   }
 

@@ -38,6 +38,7 @@ export class SelectedSourcesPage implements OnInit {
     // this.rx.save_temp();
     this.rx.temp.view_transaction.next(this.walletSrv.convert_rxtran_to_transaction(this.rx.temp["transaction"]))
     console.log("this.rx.temp.view_transaction");
+    console.log(this.rx.temp["transaction"]);
 
     this.router.navigateByUrl("/action/complete-transaction")
   }

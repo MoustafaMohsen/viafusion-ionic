@@ -23,17 +23,21 @@ export class CompleteTransactionPage implements OnInit {
   @Input() transaction: ITransaction;
   _sub: Subscription
   ionViewWillEnter() {
-  }
+    console.log("Entred: Complete Transaction ionViewWillEnter()");
 
-  ionViewWillLeave() {
-  }
-  ngOnInit() {
     this._sub = this.rx.temp.view_transaction.subscribe(t => {
       console.log("transaction overview updated");
       console.log(this.transaction);
       if (!t) return;
       this.transaction = t
     })
+  }
+
+  ionViewWillLeave() {
+    this._sub.unsubscribe();
+  }
+  ngOnInit() {
+    console.log("left: Complete Transaction ionViewWillEnter()");
   }
 
   action_status_type(status): ActionStatusesTypes {
@@ -90,7 +94,8 @@ export class CompleteTransactionPage implements OnInit {
       if (data.success) {
         this.rx.toast("Transactions Updated", "", 5000);
         data.data.transactions = this.walletSrv.update_transactions_status(data.data.transactions)
-        this.rx.meta$.next(data.data);
+        this.rx.reset_temp_value();
+        this.rx.get_db_metacontact();
         let newTran = data.data.transactions.find(t => t.id == this.transaction.id);
         newTran && this.rx.temp.view_transaction && this.rx.temp.view_transaction.next(newTran);
       }
