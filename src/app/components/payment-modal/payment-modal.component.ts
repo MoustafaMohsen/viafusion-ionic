@@ -1,3 +1,4 @@
+import { LoadingService } from './../../services/loading.service';
 import { RX } from 'src/app/services/rx/events.service';
 import { ModalController } from '@ionic/angular';
 import { Component, Input, OnInit } from '@angular/core';
@@ -14,7 +15,7 @@ import { ICreatePayout } from 'src/app/interfaces/rapyd/ipayout';
 export class PaymentModalComponent implements OnInit {
 
   @Input() payment: ITransactionFull_payment
-  constructor(private modalCtrl:ModalController, private rx:RX) { }
+  constructor(private modalCtrl:ModalController, private rx:RX,private loading:LoadingService) { }
 
   ngOnInit() { }
   status:PaymentDetails_internal={} as any
@@ -29,6 +30,10 @@ export class PaymentModalComponent implements OnInit {
     this.modalCtrl.dismiss()
   }
 
+
+  btn_active(payment: ITransactionFull_payment) {
+    return this.status.btn_active && !this.loading.loading
+  }
 
 
 

@@ -40,18 +40,6 @@ export class CompleteTransactionPage implements OnInit {
     console.log("left: Complete Transaction ionViewWillEnter()");
   }
 
-  action_status_type(status): ActionStatusesTypes {
-    let text =
-      status === "ACT" ? { btn_active: true, btn: "Waiting Confirmation", message: "Active and awaiting payment. Can be updated." } :
-        status === "CAN" ? { btn_active: false, btn: "Canceled", message: "Canceled by the merchant or the customer's bank." } :
-          status === "CLO" ? { btn_active: false, btn: "Done", message: "Closed and paid." } :
-            status === "ERR" ? { btn_active: false, btn: "Errored", message: "Error. An attempt was made to create or complete a payment, but it failed." } :
-              status === "EXP" ? { btn_active: false, btn: "Expired", message: "The payment has expired." } :
-                status === "NEW" ? { btn_active: true, btn: "New", message: "Not closed." } :
-                  status === "REV" ? { btn_active: false, btn: "", message: "Reversed by Rapyd. See cancel_reason, above." } : { btn_active: false, btn: "??", message: "Unkown Error" }
-    return text;
-  }
-
   payment_action(payment: ITransactionFull_payment) {
     return;
     if (payment.response && payment.response.body) {
@@ -113,15 +101,9 @@ export class CompleteTransactionPage implements OnInit {
     this.loading.start();
     this.walletSrv.save_transaction()
   }
-  btn_active(payment: ITransactionFull_payment | ITransactionFull_payout) {
-    if (payment?.response?.body?.data?.status) {
-      return this.action_status_type(payment.response.body.data.status).btn_active && this.loading.loading
-    }
-    if (!payment.response || !payment.response.body) {
-      return false && this.loading.loading; // Change false to true if you want to enable manual payment
-    }
-    return false && this.loading.loading
-  }
+
+
+
 
   async open_payment_details(payment:ITransactionFull_payment) {
     console.log(payment);
