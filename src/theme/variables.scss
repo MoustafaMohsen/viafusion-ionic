@@ -132,6 +132,7 @@ $app-theme: mat.define-light-theme((
 
   // others
   --raised-card-by:#{$raised-card-by};
+  --offset-bottom: 0 !important;
 }
 @media (prefers-color-scheme: dark) {
   .ios body, .md body{

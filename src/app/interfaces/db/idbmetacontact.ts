@@ -62,6 +62,12 @@ export interface ITransaction {
 
   type: "many2many" | "w2w"| "many2w" | "w2recived" |`${categories}2${categories}`
 }
+export interface IReducedTransaction{
+  source_amount?: number;
+  destination_amount?: number;
+  closed_payments_amount:number;
+  closed_payouts_amount:number;
+}
 
 export interface IExcuteTransaction{
   contact_reference_id:number,
