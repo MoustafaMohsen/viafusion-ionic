@@ -1,5 +1,5 @@
 import { HelperService } from './../../../services/util/helper';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { WalletService } from 'src/app/services/wallet/wallet.service';
 import { LoadingService } from './../../../services/loading.service';
 import { Router } from '@angular/router';
@@ -19,7 +19,7 @@ export class CompleteTransactionPage implements OnInit {
 
 
 
-  constructor(private rx: RX, private router: Router, private walletSrv: WalletService, public loading: LoadingService, private modalCtrl: ModalController,private h:HelperService) { }
+  constructor(private rx: RX, private router: Router, private walletSrv: WalletService, public loading: LoadingService, private modalCtrl: ModalController, private h: HelperService, private alertController: AlertController) { }
 
   @Input() transaction: ITransaction;
   _sub: Subscription
@@ -94,6 +94,11 @@ export class CompleteTransactionPage implements OnInit {
     })
   }
 
+  disable_do_payments_btn() {
+    let is_loading = this.loading.loading;
+    let is_closed = this.transaction.status == "closed";
+  }
+
   save_transaction() {
     if (!this.transaction || !this.transaction.id) {
       this.rx.toast("Transaction not found!")
@@ -107,11 +112,11 @@ export class CompleteTransactionPage implements OnInit {
 
 
 
-  async open_payment_details(payment:ITransactionFull_payment) {
+  async open_payment_details(payment: ITransactionFull_payment) {
     console.log(payment);
     let modal = await this.modalCtrl.create({
       component: PaymentModalComponent,
-      componentProps: { payment,operation_type:"payment" },
+      componentProps: { payment, operation_type: "payment" },
       backdropDismiss: true,
       showBackdrop: true
     });
@@ -122,19 +127,45 @@ export class CompleteTransactionPage implements OnInit {
     console.log(payment);
     let modal = await this.modalCtrl.create({
       component: PaymentModalComponent,
-      componentProps: { payment,operation_type:"payout" },
+      componentProps: { payment, operation_type: "payout" },
       backdropDismiss: true,
       showBackdrop: true
     });
     modal.present();
   }
 
-  do_payments() {
-    console.log("do_payments() btn");
-    this.loading.start();
-    this.transaction.status = "created"
-    this.transaction.execute_payments = true
-    this.walletSrv.do_payments(this.transaction).then(d => this.loading.stop())
+  async do_payments() {
+    const alert = await this.alertController.create({
+      cssClass: 'alert-class',
+      message: "You might have done this action before, are you sure you want to repeat is?",
+      buttons: [{
+        text: "Yes",
+        role: "do_action"
+      }, {
+        text: "No",
+        role: "cancel"
+      }]
+    });
+
+    var do_action = ()=>{
+      console.log("do_payments() btn");
+      this.loading.start();
+      this.transaction.status = "created"
+      this.transaction.execute_payments = true
+      this.walletSrv.do_payments(this.transaction).then(d => this.loading.stop())
+    }
+
+    if(this.transaction.execute_payments || this.transaction.payments.filter(p=>p.response).length){
+      await alert.present();
+      const { role } = await alert.onDidDismiss();
+      console.log('onDidDismiss resolved with role', role);
+      role=="yes" && do_action();
+    }
+    else{
+      do_action();
+    }
+
+
   }
 
   do_payouts() {

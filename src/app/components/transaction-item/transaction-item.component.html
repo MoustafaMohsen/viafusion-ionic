@@ -4,24 +4,24 @@
   <div class="title-row pl-1 md:mr-16 w-full flex justify-between items-center">
     <div *ngIf="transaction.type == 'many2many'"
       class="flex text-lg leading-6 font-medium dark:text-white text-gray-800">
-      <h4 class="">Sent</h4>
+      <h4 class="">Send</h4>
       <ion-icon name="arrow-up-outline"></ion-icon>
     </div>
     <div *ngIf="transaction.type == 'many2w'"
       class="flex text-lg leading-6 font-medium text-gray-800 dark:text-white">
-      <h4>Recived</h4>
+      <h4>Recive</h4>
       <ion-icon name="arrow-down-outline"></ion-icon>
     </div>
 
     <div *ngIf="transaction.type == 'w2w'"
       class="flex text-lg leading-6 font-medium text-gray-800 dark:text-white">
-      <h4>Sent To Wallet</h4>
+      <h4>Send To Wallet</h4>
       <ion-icon name="circle-outline"></ion-icon>
     </div>
 
     <div *ngIf="transaction.type == 'w2recived'"
       class="flex text-lg leading-6 font-medium text-gray-800 dark:text-white">
-      <h4>Recived From Wallet</h4>
+      <h4>Recive From Wallet</h4>
       <ion-icon name="circle-outline"></ion-icon>
     </div>
 
