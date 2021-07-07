@@ -85,6 +85,7 @@ import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component
 import { DashboardMethodsComponent } from './components/dashboard-methods/dashboard-methods.component';
 import { PaymentModalComponent } from './components/payment-modal/payment-modal.component';
 import { SettingsPage } from './pages/actions/settings/settings.page';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
   imports: [
@@ -127,7 +128,8 @@ import { SettingsPage } from './pages/actions/settings/settings.page';
     MatInputModule,
     MatSelectModule,
     LacMatTelInputModule,
-    NgxCcModule
+    NgxCcModule,
+    MatDatepickerModule,
   ],
   declarations: [
     AppComponent,

@@ -156,3 +156,17 @@ export interface PaymentDetails_internal{
   response_code: string;
   cancel_reason?: string;
 }
+
+
+export interface RquiredFormTypes{
+  type:"text" | "number" | "date" | "checkbox" | "options" | "disabled";
+  label:string;
+  name:string;
+  description:string;
+  disabled_value:string;
+  options:{
+    value:string
+    name:string
+  }[]
+  is_options:boolean
+}

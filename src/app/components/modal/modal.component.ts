@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { RX } from 'src/app/services/rx/events.service';
 
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -17,7 +17,7 @@ export class ModalComponent implements OnInit {
   @Input() message: string;
 
   constructor(
-    private modalCtr: ModalController, private rx:RX,private walletSrv:WalletService,private router:Router
+    private modalCtr: ModalController, private rx:RX,private walletSrv:WalletService,private router:Router,private alertCtr:AlertController
   ) { }
 
   async close() {
@@ -33,7 +33,13 @@ export class ModalComponent implements OnInit {
         console.log("w2w res",res);
 
         if (res.success) {
-          await this.rx.toast("Sent " + this.amount+"$ to " + this.rx.temp.wallet2wallet.value.phone_number)
+          this.alertCtr.create({
+            header:"Sent " + this.amount+"$ to " + this.rx.temp.wallet2wallet.value.phone_number,
+            subHeader:new Date().toLocaleString(),
+            message:this.message,
+            buttons:['Okay']
+          }).then(m=>m.present())
+
           this.rx.temp.wallet2wallet.next({} as any) //rest status
           this.rx.get_db_metacontact();
           this.rx.get_db_contact();

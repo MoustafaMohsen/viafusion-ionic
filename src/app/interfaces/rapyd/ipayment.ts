@@ -405,6 +405,7 @@ export namespace RequiredFields {
     regex: string
     is_required: boolean
     instructions: string
+    description: string
   }
 
   export interface PaymentMethodOption {

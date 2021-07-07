@@ -188,3 +188,7 @@ ion-toast{
 .w-100{
   width: 100%;
 }
+
+input.ng-invalid:not(.mat-input-element){
+  border:dashed rgb(235, 115, 115);
+}

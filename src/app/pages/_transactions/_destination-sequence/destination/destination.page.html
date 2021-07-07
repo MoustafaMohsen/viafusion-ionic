@@ -6,127 +6,230 @@
     <div class="w-full max-w-lg">
       <div class="flex flex-wrap -mx-3 mb-6">
 
+        <!-- ======================== Beneficiary ===================== -->
+        <div *ngIf="required_fields?.sender_required_fields?.length > 0" class="sender_form">
+          <h2 *ngIf="required_fields?.beneficiary_required_fields?.length > 0" class="capitalize block tracking-wide text-gray-900 text-4xl font-bold mb-2">Beneficiary Required Fields</h2>
+          <form [formGroup]="beneficiary_required_fields_form" class="w-full">
+            <!-- Loop -->
+            <div *ngFor="let f of bene_html_fields" class="fields-container">
 
-        <!-- Beneficiary Fields -->
-        <h2 *ngIf="required_fields?.beneficiary_required_fields?.length > 0" class="capitalize block tracking-wide text-gray-900 text-4xl font-bold mb-2">Beneficiary Required Fields</h2>
-        <form [formGroup]="beneficiary_required_fields_form" class="w-full">
-          <div class="fields-container" *ngFor="let f of required_fields?.beneficiary_required_fields">
-            <!-- Number -->
-            <div *ngIf="f.type == 'number' || f.type == 'integer'" class="w-full px-3 mb-6 md:mb-0">
-              <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
-                {{formate_name(f.name)}}
-                {{f.instructions}}
-              </label>
-              <input [formControlName]="f.name"
-                class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                type="number" placeholder="number">
+              <!-- Number -->
+              <div *ngIf="f.type == 'number'" class="w-full px-3 mb-6 md:mb-0">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+                    {{f.label}}
+                  </mat-label>
+                  <input matInput [formControlName]="f.name"
+                    class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    type="number" placeholder="number">
+                  <mat-hint>
+                    <p>{{f.description}}
+                  </mat-hint>
+                </mat-form-field>
+              </div>
+
+
+              <!-- Text -->
+              <div *ngIf="f.type == 'text'" class="w-full px-3 mb-6 md:mb-0">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+                    {{f.label}}
+                  </mat-label>
+                  <input matInput [formControlName]="f.name"
+                    class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    type="text" placeholder="text">
+                  <mat-hint>
+                    <p>{{f.description}}
+                  </mat-hint>
+                </mat-form-field>
+              </div>
+
+              <!-- Date -->
+              <div class="w-full px-3 mb-6 md:mb-0">
+                <mat-form-field *ngIf="f.type == 'date'" appearance="fill">
+                  <mat-label>{{formate_name(f.name)}}
+                    {{f.label}}
+                  </mat-label>
+                  <input matInput [formControlName]="f.name">
+                  <mat-hint>
+                    <p>{{f.description}}
+                  </mat-hint>
+                </mat-form-field>
+
+              </div>
+
+
+              <!-- Checkbox -->
+              <div *ngIf="f.type == 'checkbox'" class="w-full px-3 mb-6 md:mb-0">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+                    {{f.label}}
+                  </label>
+                  <label class="capitalize inline-flex items-center">
+                    <input matInput [formControlName]="f.name" type="checkbox" class="form-checkbox h-6 w-6 text-orange-600" checked>
+                  </label>
+                  <mat-hint>
+                    <p>{{f.description}}
+                  </mat-hint>
+                </mat-form-field>
+              </div>
+
+              <!-- Options -->
+
+              <mat-form-field *ngIf="f.type == 'options'" appearance="fill">
+                <mat-label>{{f.label}}</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let o of f.options" [value]="o.value">
+                    {{o.name}}
+                  </mat-option>
+                </mat-select>
+                <mat-hint>
+                  <p>{{f.description}}
+                </mat-hint>
+              </mat-form-field>
+
             </div>
-            <!-- Text -->
-            <div *ngIf="f.type == 'string' || f.type == 'text'" class="w-full px-3 mb-6 md:mb-0">
-              <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
-                {{formate_name(f.name)}}
-                {{f.instructions}}
-              </label>
-              <input [formControlName]="f.name"
-                class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                type="text" placeholder="text">
-            </div>
-            <!-- Checkbox -->
-            <div *ngIf="f.type == 'boolean' || f.type == 'checkbox'" class="w-full px-3 mb-6 md:mb-0">
-              <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
-                {{formate_name(f.name)}}
-
-              </label>
-              <label class="capitalize inline-flex items-center">
-                <input [formControlName]="f.name" type="checkbox" class="form-checkbox h-6 w-6 text-orange-600" checked>
-                <span class="ml-3 text-gray-700 text-lg">{{f.instructions}}</span>
-              </label>
-            </div>
-          </div>
-
-
-
-        </form>
-
-        <!-- #region Credit Card Form -->
-        <form *ngIf="bene_is_cc" class="rounded-card cc-form" [formGroup]="beneficiary_cc_form">
-          <mat-form-field class="w-100 ngx-cc-form-field">
-            <ngx-cc name="cardNumber" styleClass="card" formControlName="creditCard"></ngx-cc>
-            <mat-placeholder>0000 0000 0000 0000</mat-placeholder>
-            <mat-error *ngIf="beneficiary_cc_form.controls.creditCard.invalid">Card number is not valid</mat-error>
-          </mat-form-field>
-          <div class="w-100 cc-date-cvv-container">
-            <mat-form-field class="w-5/12 ngx-cc-form-field">
-              <ngx-cc-date formControlName="creditCardDate"></ngx-cc-date>
-              <mat-placeholder>MM / YY</mat-placeholder>
-              <mat-error *ngIf="beneficiary_cc_form.controls.creditCardDate.invalid">Expiration date is not valid</mat-error>
+            <!-- End of Loop -->
+          </form>
+          <!--  =========== CC ========= -->
+          <!-- #region Credit Card Form -->
+          <form *ngIf="bene_is_cc" class="rounded-card cc-form" [formGroup]="beneficiary_cc_form">
+            <mat-form-field class="w-100 ngx-cc-form-field">
+              <ngx-cc name="cardNumber" styleClass="card" formControlName="creditCard"></ngx-cc>
+              <mat-placeholder>0000 0000 0000 0000</mat-placeholder>
+              <mat-error *ngIf="beneficiary_cc_form.controls.creditCard.invalid">Card number is not valid</mat-error>
             </mat-form-field>
-            <mat-form-field class="w-5/12 ngx-cc-form-field">
-              <ngx-cc-cvv formControlName="creditCardCvv"></ngx-cc-cvv>
-              <mat-placeholder>CVV</mat-placeholder>
-              <mat-error *ngIf="beneficiary_cc_form.controls.creditCardCvv.invalid">Security code is not valid</mat-error>
-            </mat-form-field>
-          </div>
-        </form>
+            <div class="w-100 cc-date-cvv-container">
+              <mat-form-field class="w-5/12 ngx-cc-form-field">
+                <ngx-cc-date formControlName="creditCardDate"></ngx-cc-date>
+                <mat-placeholder>MM / YY</mat-placeholder>
+                <mat-error *ngIf="beneficiary_cc_form.controls.creditCardDate.invalid">Expiration date is not valid</mat-error>
+              </mat-form-field>
+              <mat-form-field class="w-5/12 ngx-cc-form-field">
+                <ngx-cc-cvv formControlName="creditCardCvv"></ngx-cc-cvv>
+                <mat-placeholder>CVV</mat-placeholder>
+                <mat-error *ngIf="beneficiary_cc_form.controls.creditCardCvv.invalid">Security code is not valid</mat-error>
+              </mat-form-field>
+            </div>
+          </form>
+        </div>
 
+
+
+        <!-- ======================== SENDER ===================== -->
         <!-- Sender Fields -->
-        <h2 *ngIf="required_fields?.sender_required_fields?.length > 0" class="capitalize block tracking-wide text-gray-900 text-4xl font-bold mb-2">Sender Required Fields</h2>
-        <form [formGroup]="sender_required_fields_form">
-          <div class="fields-container" *ngFor="let f of required_fields?.sender_required_fields">
-            <!-- Number -->
-            <div *ngIf="f.type == 'number' || f.type == 'integer'" class="w-full px-3 mb-6 md:mb-0">
-              <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
-                {{formate_name(f.name)}}
-              </label>
-              <input [formControlName]="f.name"
-                class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                type="number" placeholder="number">
+        <div *ngIf="required_fields?.sender_required_fields?.length > 0" class="sender_form">
+          <h2 class="capitalize block tracking-wide text-gray-900 text-4xl font-bold mb-2">Sender Required Fields</h2>
+          <form [formGroup]="sender_required_fields_form" class="w-full">
+
+            <!-- Loop -->
+            <div *ngFor="let f of sender_html_fields" class="fields-container">
+
+              <!-- Number -->
+              <div *ngIf="f.type == 'number'" class="w-full px-3 mb-6 md:mb-0">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+                    {{f.label}}
+                  </mat-label>
+                  <input matInput [formControlName]="f.name"
+                    class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    type="number" placeholder="number">
+                  <mat-hint>
+                    <p>{{f.description}}
+                  </mat-hint>
+                </mat-form-field>
+              </div>
+
+
+              <!-- Text -->
+              <div *ngIf="f.type == 'text'" class="w-full px-3 mb-6 md:mb-0">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+                    {{f.label}}
+                  </mat-label>
+                  <input matInput [formControlName]="f.name"
+                    class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    type="text" placeholder="text">
+                  <mat-hint>
+                    <p>{{f.description}}
+                  </mat-hint>
+                </mat-form-field>
+              </div>
+
+              <!-- Date -->
+              <div class="w-full px-3 mb-6 md:mb-0">
+                <mat-form-field *ngIf="f.type == 'date'" appearance="fill">
+                  <mat-label>{{formate_name(f.name)}}
+                    {{f.label}}
+                  </mat-label>
+                  <input matInput [formControlName]="f.name">
+                  <mat-hint>
+                    <p>{{f.description}}
+                  </mat-hint>
+                </mat-form-field>
+
+              </div>
+
+
+              <!-- Checkbox -->
+              <div *ngIf="f.type == 'checkbox'" class="w-full px-3 mb-6 md:mb-0">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
+                    {{f.label}}
+                  </label>
+                  <label class="capitalize inline-flex items-center">
+                    <input matInput [formControlName]="f.name" type="checkbox" class="form-checkbox h-6 w-6 text-orange-600" checked>
+                  </label>
+                  <mat-hint>
+                    <p>{{f.description}}
+                  </mat-hint>
+                </mat-form-field>
+              </div>
+
+              <!-- Options -->
+
+              <mat-form-field *ngIf="f.type == 'options'" appearance="fill">
+                <mat-label>{{f.label}}</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let o of f.options" [value]="o.value">
+                    {{o.name}}
+                  </mat-option>
+                </mat-select>
+                <mat-hint>
+                  <p>{{f.description}}
+                </mat-hint>
+              </mat-form-field>
+
             </div>
-            <!-- Text -->
-            <div *ngIf="f.type == 'string' || f.type == 'text'" class="w-full px-3 mb-6 md:mb-0">
-              <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
-                {{formate_name(f.name)}}
-              </label>
-              <input [formControlName]="f.name"
-                class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                type="text" placeholder="text">
-            </div>
-            <!-- Checkbox -->
-            <div *ngIf="f.type == 'boolean' || f.type == 'checkbox'" class="w-full px-3 mb-6 md:mb-0">
-              <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
-                {{formate_name(f.name)}}
-              </label>
-              <label class="capitalize inline-flex items-center">
-                <input [formControlName]="f.name" type="checkbox" class="form-checkbox h-6 w-6 text-orange-600" checked>
-                <span class="ml-3 text-gray-700 text-lg">label</span>
-              </label>
-            </div>
-          </div>
+            <!-- End of Loop -->
 
 
 
-        </form>
+          </form>
 
-        <!-- #region Credit Card Form -->
-        <form *ngIf="sender_is_cc" class="rounded-card cc-form" [formGroup]="sender_cc_form">
-          <mat-form-field class="w-100 ngx-cc-form-field">
-            <ngx-cc name="cardNumber" styleClass="card" formControlName="creditCard"></ngx-cc>
-            <mat-placeholder>0000 0000 0000 0000</mat-placeholder>
-            <mat-error *ngIf="sender_cc_form.controls.creditCard.invalid">Card number is not valid</mat-error>
-          </mat-form-field>
-          <div class="w-100 cc-date-cvv-container">
-            <mat-form-field class="w-5/12 ngx-cc-form-field">
-              <ngx-cc-date formControlName="creditCardDate"></ngx-cc-date>
-              <mat-placeholder>MM / YY</mat-placeholder>
-              <mat-error *ngIf="sender_cc_form.controls.creditCardDate.invalid">Expiration date is not valid</mat-error>
+
+          <!--  =========== CC ========= -->
+          <!-- #region Credit Card Form -->
+          <form *ngIf="sender_is_cc" class="rounded-card cc-form" [formGroup]="sender_cc_form">
+            <mat-form-field class="w-100 ngx-cc-form-field">
+              <ngx-cc name="cardNumber" styleClass="card" formControlName="creditCard"></ngx-cc>
+              <mat-placeholder>0000 0000 0000 0000</mat-placeholder>
+              <mat-error *ngIf="sender_cc_form.controls.creditCard.invalid">Card number is not valid</mat-error>
             </mat-form-field>
-            <mat-form-field class="w-5/12 ngx-cc-form-field">
-              <ngx-cc-cvv formControlName="creditCardCvv"></ngx-cc-cvv>
-              <mat-placeholder>CVV</mat-placeholder>
-              <mat-error *ngIf="sender_cc_form.controls.creditCardCvv.invalid">Security code is not valid</mat-error>
-            </mat-form-field>
-          </div>
-        </form>
+            <div class="w-100 cc-date-cvv-container">
+              <mat-form-field class="w-5/12 ngx-cc-form-field">
+                <ngx-cc-date formControlName="creditCardDate"></ngx-cc-date>
+                <mat-placeholder>MM / YY</mat-placeholder>
+                <mat-error *ngIf="sender_cc_form.controls.creditCardDate.invalid">Expiration date is not valid</mat-error>
+              </mat-form-field>
+              <mat-form-field class="w-5/12 ngx-cc-form-field">
+                <ngx-cc-cvv formControlName="creditCardCvv"></ngx-cc-cvv>
+                <mat-placeholder>CVV</mat-placeholder>
+                <mat-error *ngIf="sender_cc_form.controls.creditCardCvv.invalid">Security code is not valid</mat-error>
+              </mat-form-field>
+            </div>
+          </form>
+        </div>
 
 
 
