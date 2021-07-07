@@ -14,7 +14,7 @@
             <div *ngFor="let f of bene_html_fields" class="fields-container">
 
               <!-- Number -->
-              <div *ngIf="f.type == 'number'" class="w-full px-3 mb-6 md:mb-0">
+              <div *ngIf="f.type == 'number'" class="w-full  mb-6 md:mb-0">
                 <mat-form-field class="example-full-width" appearance="fill">
                   <mat-label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
                     {{f.label}}
@@ -30,7 +30,7 @@
 
 
               <!-- Text -->
-              <div *ngIf="f.type == 'text'" class="w-full px-3 mb-6 md:mb-0">
+              <div *ngIf="f.type == 'text'" class="w-full  mb-6 md:mb-0">
                 <mat-form-field class="example-full-width" appearance="fill">
                   <mat-label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
                     {{f.label}}
@@ -45,9 +45,9 @@
               </div>
 
               <!-- Date -->
-              <div class="w-full px-3 mb-6 md:mb-0">
+              <div class="w-full  mb-6 md:mb-0">
                 <mat-form-field *ngIf="f.type == 'date'" appearance="fill">
-                  <mat-label>{{formate_name(f.name)}}
+                  <mat-label>
                     {{f.label}}
                   </mat-label>
                   <input matInput [formControlName]="f.name">
@@ -60,7 +60,7 @@
 
 
               <!-- Checkbox -->
-              <div *ngIf="f.type == 'checkbox'" class="w-full px-3 mb-6 md:mb-0">
+              <div *ngIf="f.type == 'checkbox'" class="w-full  mb-6 md:mb-0">
                 <mat-form-field class="example-full-width" appearance="fill">
                   <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
                     {{f.label}}
@@ -126,7 +126,7 @@
             <div *ngFor="let f of sender_html_fields" class="fields-container">
 
               <!-- Number -->
-              <div *ngIf="f.type == 'number'" class="w-full px-3 mb-6 md:mb-0">
+              <div *ngIf="f.type == 'number'" class="w-full  mb-6 md:mb-0">
                 <mat-form-field class="example-full-width" appearance="fill">
                   <mat-label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
                     {{f.label}}
@@ -142,7 +142,7 @@
 
 
               <!-- Text -->
-              <div *ngIf="f.type == 'text'" class="w-full px-3 mb-6 md:mb-0">
+              <div *ngIf="f.type == 'text'" class="w-full  mb-6 md:mb-0">
                 <mat-form-field class="example-full-width" appearance="fill">
                   <mat-label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
                     {{f.label}}
@@ -157,9 +157,9 @@
               </div>
 
               <!-- Date -->
-              <div class="w-full px-3 mb-6 md:mb-0">
+              <div class="w-full  mb-6 md:mb-0">
                 <mat-form-field *ngIf="f.type == 'date'" appearance="fill">
-                  <mat-label>{{formate_name(f.name)}}
+                  <mat-label>
                     {{f.label}}
                   </mat-label>
                   <input matInput [formControlName]="f.name">
@@ -172,7 +172,7 @@
 
 
               <!-- Checkbox -->
-              <div *ngIf="f.type == 'checkbox'" class="w-full px-3 mb-6 md:mb-0">
+              <div *ngIf="f.type == 'checkbox'" class="w-full  mb-6 md:mb-0">
                 <mat-form-field class="example-full-width" appearance="fill">
                   <label class="capitalize block tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-first-name">
                     {{f.label}}

@@ -26,9 +26,9 @@ export class RX {
     this.init_service();
   }
 
-  public user$;
+  public user$:BehaviorSubject<IDBContact>;
 
-  public meta$;
+  public meta$:BehaviorSubject<IDBMetaContact>;
 
   init_service() {
     this.user$ = new BehaviorSubject<IDBContact>({
