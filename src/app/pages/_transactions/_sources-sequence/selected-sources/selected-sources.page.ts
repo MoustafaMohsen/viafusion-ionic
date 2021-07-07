@@ -25,8 +25,7 @@ export class SelectedSourcesPage implements OnInit {
     this.rx.temp.transaction.payments.subscribe(d=>{
       this.selected_sources = d;
       // calculate source total
-      this.source_amount = this.rx.temp["transaction"].source_amount = this.selected_sources.map(s=>s.amount).reduce((a, b) => a + b, 0)
-      +"" || 0+"";
+      this.source_amount = this.rx.temp["transaction"].source_amount = this.selected_sources.map(s=>s.amount).reduce((a, b) => a + b, 0)+"" || 0+"";
     })
   }
   continue_to_destination() {

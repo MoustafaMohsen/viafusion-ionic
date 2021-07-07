@@ -39,8 +39,7 @@ export class SelectedDestinationsPage implements OnInit {
     this.rx.temp.transaction.payouts.subscribe(d => {
       this.selected_destinations = d;
       // calculate destination total
-      this.destination_amount = this.rx.temp["transaction"].destination_amount = this.selected_destinations.map(s => s.payout_amount).reduce((a, b) => a + b, 0)
-        + "" || 0 + "";
+      this.destination_amount = this.rx.temp["transaction"].destination_amount = this.selected_destinations.map(s => s.payout_amount).reduce((a, b) => a + b, 0) + "" || 0 + "";
 
     })
   }

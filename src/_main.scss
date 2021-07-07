@@ -192,3 +192,7 @@ ion-toast{
 input.ng-invalid:not(.mat-input-element){
   border:dashed rgb(235, 115, 115);
 }
+
+.ionic-content {
+  --offset-bottom: 0 !important;
+}

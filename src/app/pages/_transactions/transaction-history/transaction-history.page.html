@@ -1,4 +1,3 @@
-
 <ion-content class="block relative">
 
   <div class="filter">
@@ -11,28 +10,35 @@
 
   </div>
 
-<div class=" items mt-4">
-  <div class="list-header bg-gray-400 flex justify-between">
-    <div class="date">
-      <p> June 2021 </p>
+  <!-- Saved Transactions -->
+  <div class=" items mt-4">
+    <div class="list-header bg-gray-400 flex justify-between">
+      <div class="date">
+        <p> Saved transactions </p>
+      </div>
+      <div class="amount">
+        <p> $ 5.600 </p>
+      </div>
     </div>
-    <div class="amount">
-      <p> $ 5.600 </p>
-    </div>
-  </div>
-  <app-transaction-item class="block relative mt-4" *ngFor="let t of past_transactions" [transaction]="t">
-  </app-transaction-item>
-</div>
-<div class=" items mt-4">
-  <div class="list-header bg-gray-400 flex justify-between">
-    <div class="date">
-      <p> June 2021 </p>
-    </div>
-    <div class="amount">
-      <p> $ 5.600 </p>
+    <div class="pending-transactions-section">
+      <app-transaction-item class="block relative mt-4" *ngFor="let t of saved_trans" [transaction]="t">
+      </app-transaction-item>
     </div>
   </div>
-  <app-transaction-item class="block relative mt-4" *ngFor="let t of past_transactions" [transaction]="t">
-  </app-transaction-item>
-</div>
+
+
+  <div class=" items mt-4">
+    <div class="list-header bg-gray-400 flex justify-between">
+      <div class="date">
+        <p> June 2021 </p>
+      </div>
+      <div class="amount">
+        <p> $ 5.600 </p>
+      </div>
+    </div>
+    <div class="pending-transactions-section">
+      <app-transaction-item class="block relative mt-4" *ngFor="let t of past_trans" [transaction]="t">
+      </app-transaction-item>
+    </div>
+  </div>
 </ion-content>

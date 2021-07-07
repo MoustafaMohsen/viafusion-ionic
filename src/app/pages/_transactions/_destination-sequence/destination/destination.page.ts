@@ -1,16 +1,10 @@
-import { BehaviorSubject } from 'rxjs';
 import { RX } from 'src/app/services/rx/events.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { LoadingService } from 'src/app/services/loading.service';
-import { PayoutService } from 'src/app/services/auth/payout';
-import { ICreatePayout, IGetPayoutRequiredFields } from 'src/app/interfaces/rapyd/ipayout';
-import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
-import { IAPIServerResponse } from 'src/app/interfaces/rapyd/types';
+import { IGetPayoutRequiredFields } from 'src/app/interfaces/rapyd/ipayout';
 import { RquiredFormTypes } from 'src/app/interfaces/interfaces';
-import { RequiredFields } from 'src/app/interfaces/rapyd/ipayment';
-import { HelperService } from 'src/app/services/helper.service';
+import { HelperService } from 'src/app/services/util/helper';
 
 @Component({
   selector: 'app-destination',
