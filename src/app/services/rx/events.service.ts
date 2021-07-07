@@ -23,45 +23,50 @@ import { IWallet2Wallet } from 'src/app/interfaces/db/idbwallet';
 })
 export class RX {
   constructor(private storage: Storage, private api: Api, private alertController: AlertController, private toastController: ToastController) {
-    this.reset_temp_value();
+    this.init_service();
   }
 
-  public user$ = new BehaviorSubject<IDBContact>({
-    security: {
-      login: {
-        authenticated: false,
-        // checkes
-        otp_passed: false,
-        pin_passed: false,
-        fp_passed: false,
-        device_passed: false,
+  public user$;
 
-        // has
-        has_otp: false,
-        has_pin: false,
-        has_fp: false,
-        has_device: false,
+  public meta$;
 
-        // values
-        _otp_value: null,
-        _pin_value: null,
-        _fp_value: null,
-        _device_value: null,
+  init_service() {
+    this.user$ = new BehaviorSubject<IDBContact>({
+      security: {
+        login: {
+          authenticated: false,
+          // checkes
+          otp_passed: false,
+          pin_passed: false,
+          fp_passed: false,
+          device_passed: false,
 
-        user_registred: false,
-        user_verified: false,
+          // has
+          has_otp: false,
+          has_pin: false,
+          has_fp: false,
+          has_device: false,
 
-        resend_otp_after: 60,
+          // values
+          _otp_value: null,
+          _pin_value: null,
+          _fp_value: null,
+          _device_value: null,
 
-        data: null,
-        _sandbox: true,
+          user_registred: false,
+          user_verified: false,
 
+          resend_otp_after: 60,
+
+          data: null,
+          _sandbox: true,
+
+        }
       }
-    }
-  });
-
-  public meta$ = new BehaviorSubject<IDBMetaContact>(null);
-
+    });
+    this.meta$ = new BehaviorSubject<IDBMetaContact>(null);
+    this.reset_temp_value();
+  }
 
 
   temp: ITemp = {} as any;
@@ -69,31 +74,31 @@ export class RX {
     this.temp = {
       view_transaction: new BehaviorSubject<ITransaction>(null),
       wallet2wallet: new BehaviorSubject<IWallet2Wallet>({} as any),
-      transaction:{}
+      transaction: {}
     } as any;
     this.reset_temp_transactions();
 
   }
   reset_temp_transactions() {
 
-    this.temp.transaction.source_amount= "0",
-    this.temp.transaction.destination_amount= "0",
-    this.temp.transaction.execute= false,
-    this.temp.transaction.executed= false,
-    this.temp.transaction.type= null,
-    this.temp.transaction.id= "tranid_" + this.makeid(5),
-    this.temp.transaction.closed_payments_amount= 0,
-    this.temp.transaction.closed_payouts_amount= 0,
-    this.temp.transaction.description= "",
-    this.temp.transaction.execution_date= new Date().getTime()/1000,
-    this.temp.transaction.status= "saved"
+    this.temp.transaction.source_amount = "0",
+      this.temp.transaction.destination_amount = "0",
+      this.temp.transaction.execute = false,
+      this.temp.transaction.executed = false,
+      this.temp.transaction.type = null,
+      this.temp.transaction.id = "tranid_" + this.makeid(5),
+      this.temp.transaction.closed_payments_amount = 0,
+      this.temp.transaction.closed_payouts_amount = 0,
+      this.temp.transaction.description = "",
+      this.temp.transaction.execution_date = new Date().getTime() / 1000,
+      this.temp.transaction.status = "saved"
 
     // don't lose current subscribers
     if (!this.temp.transaction.payments) {
-      this.temp.transaction.payments= new BehaviorSubject<PostCreatePayment.Request[]>([])
+      this.temp.transaction.payments = new BehaviorSubject<PostCreatePayment.Request[]>([])
     }
     if (!this.temp.transaction.payouts) {
-      this.temp.transaction.payouts= new BehaviorSubject<ICreatePayout.Request[]>([])
+      this.temp.transaction.payouts = new BehaviorSubject<ICreatePayout.Request[]>([])
     }
 
     this.temp.destination_queries = {}
