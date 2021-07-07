@@ -124,12 +124,13 @@ export class WalletService {
   }
 
   async get_wallet_balance(make_request = false, currency = "USD"): Promise<number> {
-    this.rx.get_db_metacontact();
-    this.rx.get_db_contact();
+    await this.rx.get_db_metacontact();
+    await  this.rx.get_db_contact();
     return new Promise((resolve, reject) => {
       var sub = this.rx.user$.subscribe(u => {
         this.rx.meta$.value.transactions = this.h.update_transactions_status(this.rx.meta$.value.transactions);
         this.rx.meta$.next(this.rx.meta$.value);
+        this.rx.post_db_metacontact();
         if (u && u.rapyd_wallet_data && u.rapyd_wallet_data.accounts && u.rapyd_wallet_data.accounts.length > 0) {
           let accounts = u.rapyd_wallet_data.accounts
           console.log("accounts");
@@ -140,7 +141,10 @@ export class WalletService {
           this.balance$.next(balance);
           resolve(balance)
         }
-      }).unsubscribe()
+      })
+      setTimeout(() => {
+        sub.unsubscribe();
+      }, 100);
     })
   }
 

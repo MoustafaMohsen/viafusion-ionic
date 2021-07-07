@@ -15,13 +15,15 @@ import { ICreatePayout } from 'src/app/interfaces/rapyd/ipayout';
 })
 export class PaymentModalComponent implements OnInit {
 
-  @Input() payment: ITransactionFull_payment
+  @Input() payment: any
+  @Input() operation_type: "payment"|"payout"
   constructor(private modalCtrl:ModalController, private rx:RX,private loading:LoadingService,private h:HelperService) { }
 
   ngOnInit() { }
   status:PaymentPayoutDetails_internal={} as any
   ionViewWillEnter() {
-    this.status = this.h.action_status_type(this.payment);
+    if(this.operation_type="payment")this.status = this.h.action_status_type_payment(this.payment);
+    if(this.operation_type="payout")this.status = this.h.action_status_type_payout(this.payment);
   }
 
   continue_btn(){

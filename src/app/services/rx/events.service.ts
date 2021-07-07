@@ -92,7 +92,7 @@ export class RX {
       this.temp.transaction.closed_payouts_amount = 0,
       this.temp.transaction.description = "",
       this.temp.transaction.execution_date = new Date().getTime() / 1000,
-      this.temp.transaction.status = "saved"
+      this.temp.transaction.status = "created"
 
     // don't lose current subscribers
     if (!this.temp.transaction.payments) {

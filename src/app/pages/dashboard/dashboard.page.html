@@ -190,7 +190,7 @@
 
       </ng-container>
 
-      <app-transaction-item class="block relative mt-4" *ngFor="let t of trans$ | async" [transaction]="t">
+      <app-transaction-item class="block relative mt-4" *ngFor="let t of trans" [transaction]="t">
       </app-transaction-item>
       <div class="row button-row mt-4">
         <ion-button (click)="view_all_btn()" expand="full" fill="outline" shape="round"> View all </ion-button>

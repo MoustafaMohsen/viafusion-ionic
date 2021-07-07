@@ -18,22 +18,25 @@ import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
 })
 export class DashboardPage implements OnInit {
 
-  constructor(public loading: LoadingService, public router: Router, private rx: RX, private walletSrv: WalletService) { }
+  constructor(public loading: LoadingService, public router: Router, public rx: RX, private walletSrv: WalletService) { }
   ionViewWillEnter() {
     this.update_balance();
   }
 
   ngOnInit() {
     this.rx.meta$.subscribe(m => {
-      m && this.trans$.next(m.transactions.slice(0, 10))
-    })
+      if(m ){
+        this.trans = m.transactions.slice(0, 10)
+      }
+    });
+    this.walletSrv.balance$.subscribe(b=>this.balance=b)
   }
 
   balance: number;
 
   user: IDBContact = {} as any;
 
-  trans$ = new Subject<ITransaction[]>()
+  trans : ITransaction[] = []
 
   async update_balance() {
     this.balance = await this.walletSrv.get_wallet_balance()

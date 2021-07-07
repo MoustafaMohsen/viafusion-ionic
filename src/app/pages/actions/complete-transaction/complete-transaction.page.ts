@@ -73,7 +73,7 @@ export class CompleteTransactionPage implements OnInit {
     // TODO: remove return
     setTimeout(() => {
       event && event.target.complete();
-    }, 2000);
+    }, 20000);
     if (!this.transaction || !this.transaction.id) {
       return;
     }
@@ -90,7 +90,7 @@ export class CompleteTransactionPage implements OnInit {
       }
       setTimeout(() => {
         event && event.target.complete();
-      }, 2000);
+      }, 1000);
     })
   }
 
@@ -99,7 +99,8 @@ export class CompleteTransactionPage implements OnInit {
       this.rx.toast("Transaction not found!")
       return;
     }
-    this.loading.start();
+    // this.loading.start();
+    this.rx.temp["transaction"].status = this.transaction.status = "saved";
     this.walletSrv.save_transaction()
   }
 
@@ -110,7 +111,7 @@ export class CompleteTransactionPage implements OnInit {
     console.log(payment);
     let modal = await this.modalCtrl.create({
       component: PaymentModalComponent,
-      componentProps: { payment },
+      componentProps: { payment,operation_type:"payment" },
       backdropDismiss: true,
       showBackdrop: true
     });
@@ -121,7 +122,7 @@ export class CompleteTransactionPage implements OnInit {
     console.log(payment);
     let modal = await this.modalCtrl.create({
       component: PaymentModalComponent,
-      componentProps: { payment },
+      componentProps: { payment,operation_type:"payout" },
       backdropDismiss: true,
       showBackdrop: true
     });
@@ -132,13 +133,15 @@ export class CompleteTransactionPage implements OnInit {
     console.log("do_payments() btn");
     this.loading.start();
     this.transaction.status = "created"
+    this.transaction.execute_payments = true
     this.walletSrv.do_payments(this.transaction).then(d => this.loading.stop())
   }
 
   do_payouts() {
     console.log("do_payouts() btn");
-
     this.loading.start()
+    this.transaction.status = "created"
+    this.transaction.execute_payouts = true
     this.walletSrv.do_payouts(this.transaction).then(d => this.loading.stop())
   }
 }

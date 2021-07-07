@@ -124,6 +124,15 @@
   </div>
 
   <!-- Wallet to Wallet Points -->
+  <div *ngIf="transaction.type=='w2many'" class="relative w-full h-10 flex justify-between items-center footer-progress-indicators">
+    <ion-icon *ngIf="true" name="wallet-outline"></ion-icon>
+    <div class="dash points_count_2">
+      <ion-progress-bar reversed="true" value="0" buffer="0"></ion-progress-bar>
+    </div>
+    <ion-icon *ngIf="true" name="business-outline"></ion-icon>
+  </div>
+
+  <!-- Wallet to Wallet Points -->
   <div *ngIf="transaction.type=='many2many'" class="relative w-full h-10 flex justify-between items-center footer-progress-indicators">
     <ion-icon *ngIf="true" name="business-outline"></ion-icon>
       <div class="dash points_count_3">
