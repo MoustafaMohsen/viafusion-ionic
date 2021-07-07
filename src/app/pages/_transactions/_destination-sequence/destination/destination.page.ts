@@ -1,3 +1,5 @@
+import { LoadingService } from './../../../../services/loading.service';
+import { PayoutService } from 'src/app/services/auth/payout';
 import { RX } from 'src/app/services/rx/events.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -5,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { IGetPayoutRequiredFields } from 'src/app/interfaces/rapyd/ipayout';
 import { RquiredFormTypes } from 'src/app/interfaces/interfaces';
 import { HelperService } from 'src/app/services/util/helper';
+import { AlertController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-destination',
@@ -13,7 +16,7 @@ import { HelperService } from 'src/app/services/util/helper';
 })
 export class DestinationPage implements OnInit {
 
-  constructor(private router: Router, private route: ActivatedRoute, private rx: RX, private fb: FormBuilder,public h:HelperService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private rx: RX, private fb: FormBuilder, public h: HelperService, private payoutSrv: PayoutService, public loading: LoadingService, public loadingController: LoadingController, public alertController: AlertController) { }
 
   request_query: IGetPayoutRequiredFields.QueryRequest = {} as any;
   response_query: IGetPayoutRequiredFields.Response = {} as any;
@@ -22,8 +25,8 @@ export class DestinationPage implements OnInit {
   sender_required_fields_form = new FormGroup({});
   beneficiary_required_fields_form = new FormGroup({});
 
-  bene_html_fields:RquiredFormTypes[]
-  sender_html_fields:RquiredFormTypes[]
+  bene_html_fields: RquiredFormTypes[]
+  sender_html_fields: RquiredFormTypes[]
   diable_submit = true;
 
   is_edit = false;
@@ -82,7 +85,7 @@ export class DestinationPage implements OnInit {
     this.required_fields = data;
 
     //#region Beneficiary
-    let fields = data.beneficiary_required_fields?[...data.beneficiary_required_fields]:[];
+    let fields = data.beneficiary_required_fields ? [...data.beneficiary_required_fields] : [];
     this.required_fields.beneficiary_required_fields = [];
     console.log(fields);
 
@@ -148,21 +151,51 @@ export class DestinationPage implements OnInit {
   }
 
 
-  submit() {
+  get_payout_object() {
     let beneficiary = this.beneficiary_required_fields_form.value;
     if (this.bene_is_cc) {
       beneficiary = this.h.merge_fields_to_with_cc_form(beneficiary, this.beneficiary_cc_form);
     }
 
-    let sender = this.beneficiary_required_fields_form.value;
+    let sender = this.sender_required_fields_form.value;
     if (this.sender_is_cc) {
       sender = this.h.merge_fields_to_with_cc_form(sender, this.sender_cc_form);
     }
 
     let ewallet = this.rx.user$.value.ewallet;
 
-    var payout = this.h.create_payout_object(this.request_query,ewallet,sender,beneficiary)
+    var payout = this.h.create_payout_object(this.request_query, ewallet, sender, beneficiary)
+    return payout
+  }
+  async simulate() {
+    let payout = this.get_payout_object();
+    this.loading.start();
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 20000
+    });
 
+    await loading.present();
+    console.log('Simulating Payout');
+    console.log(payout);
+    this.payoutSrv.simulate_payout(payout).subscribe(async (res) => {
+      var result = res.data
+      loading.dismiss();
+      const alert = await this.alertController.create({
+        cssClass: 'alert-class',
+        header: result.success?"Success":"Failed",
+        subHeader: result.error_code?"Error Code:"+result.error_code:"",
+        message: result.message,
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    })
+  }
+  submit() {
+
+    let payout = this.get_payout_object();
 
     let destinations = [...this.rx.temp["transaction"]["payouts"].value]
     // validate payout is uniqe
@@ -188,10 +221,10 @@ export class DestinationPage implements OnInit {
 
   cancel() {
     console.log("----");
-    console.log("this.sender_required_fields_form",this.sender_required_fields_form);
-    console.log("this.beneficiary_required_fields_form",this.beneficiary_required_fields_form);
+    console.log("this.sender_required_fields_form", this.sender_required_fields_form);
+    console.log("this.beneficiary_required_fields_form", this.beneficiary_required_fields_form);
     console.log("----");
-    return ;
+    return;
     this.router.navigateByUrl("/transaction/destinations-sequence/selected-destinations");
   }
 
