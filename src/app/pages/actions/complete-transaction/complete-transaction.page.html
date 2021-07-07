@@ -93,7 +93,21 @@
     <img src="../../../../assets/images/logo/logo.svg" width="40%" alt="" srcset="">
   </div>
   <!-- Destinations Loop -->
+
   <div class="flex justify-between items-center">
+    <div>
+      <h2 class="text-base text-gray-800 letspac-1 font-bold">
+        Payouts total: {{transaction?.destination_amount}}
+      </h2>
+    </div>
+    <div>
+      <h2 class="text-base text-gray-800 letspac-1 font-bold">
+        Done: {{transaction?.closed_payouts_amount}}
+      </h2>
+    </div>
+  </div>
+
+  <div class="flex justify-between items-center mt-4">
     <div class="">
     <h2 class="text-base text-gray-800 letspac-1">
       Destinations of Payouts
@@ -106,18 +120,7 @@
   </div>
   </div>
 
-  <div class="flex justify-between items-center">
-    <div>
-      <h2 class="text-base text-gray-800 letspac-1">
-        Payouts total: {{transaction?.destination_amount}}
-      </h2>
-    </div>
-    <div>
-      <h2 class="text-base text-gray-800 letspac-1">
-        Done: {{transaction?.closed_payouts_amount}}
-      </h2>
-    </div>
-  </div>
+ 
 
   <div *ngFor="let payout of transaction?.payouts" class="destinations">
 
