@@ -38,8 +38,8 @@ export interface IDBMetaContact {
 
 export interface ITransaction {
   id: string;
-  source_amount?: string;
-  destination_amount?: string;
+  source_amount?: number;
+  destination_amount?: number;
   payments: ITransactionFull_payment[];
   payouts: ITransactionFull_payout[];
   transfer_resoponse:TransferToWallet.Response;
