@@ -264,7 +264,7 @@ export namespace PostCreatePayment {
     outcome: any
     visual_codes: VisualCodes
     textual_codes: TextualCodes
-    instructions: any[]
+    instructions: any
     ewallet_id: string
     ewallets: Ewallet[]
     payment_method_options: PaymentMethodOptions

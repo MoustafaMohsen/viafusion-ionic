@@ -1,4 +1,4 @@
-import { IUtilitiesResponse } from './../../interfaces/rapyd/rest-response';
+import { IRapydStatusResponse, IUtilitiesResponse } from './../../interfaces/rapyd/rest-response';
 import { Api } from './../api/api';
 import { StorageService } from './../storage/storage.service';
 import { Injectable } from '@angular/core';
@@ -26,9 +26,9 @@ export class RX {
     this.init_service();
   }
 
-  public user$:BehaviorSubject<IDBContact>;
+  public user$: BehaviorSubject<IDBContact>;
 
-  public meta$:BehaviorSubject<IDBMetaContact>;
+  public meta$: BehaviorSubject<IDBMetaContact>;
 
   init_service() {
     this.user$ = new BehaviorSubject<IDBContact>({
@@ -113,7 +113,7 @@ export class RX {
     return this.meta$.asObservable().pipe(filter(user => !!user))
   }
 
-  async reset_storage(){
+  async reset_storage() {
     await this.storage.set("user", null);
     await this.storage.set("meta", null);
   }
@@ -276,144 +276,150 @@ export class RX {
   }
 
   // === get status
-  action_status_type(payment: ITransactionFull_payment | any): PaymentDetails_internal {
-    var response = payment.response
-    var status = {} as any
+  action_status_type(full_payment: ITransactionFull_payment): PaymentDetails_internal {
 
-    console.log("action_status_type() ");
-    console.log("payment");
-    console.log(payment);
-    if (!response) {
-      status = {
+    var payment_response:PostCreatePayment.Response = full_payment.response?.body?.data
+    var payment_status_response:IRapydStatusResponse = full_payment.response?.body?.status
+    var result: PaymentDetails_internal = {} as any
+
+    console.log("=== action_status_type started ===> full_payment");
+    console.log(full_payment);
+
+    console.log("payment_response");
+    console.log(payment_response);
+
+    // If payment doesn't have server response and was not requested
+    if (!payment_response) {
+      result = {
         btn_active: false,
         btn_text: "Waiting",
         Status: "Not executed",
         message: "Payment was not executed, go back and click Do Payments to continue",
         instructions: "" as any,
         redirect_url: "",
-        amount: payment.request.amount,
+        amount: full_payment?.request?.amount,
         error_message: "",
         response_code: "",
       }
-      response.amount =payment?.request?.amount || (payment.request.payout_amount)
-    return status;
+      return result;
     }
     // status = response?.body?.data?.status as any;
-    status.amount = payment.request.amount || payment.request.payout_amount
-    switch (status) {
-      case "Confirmation":
-        response = {
-          btn_active: false,
-          btn_text: "Confirmation",
-          Status: "The payout is waiting for a confirmation of the FX rate",
-          message: "you might need to click on the link below to complete transaction (you are in sandbox, use rapyd:success as credentials)",
-          instructions: response.body.data.instructions,
-          redirect_url: response.body.data.redirect_url,
-          amount: response.body.data.amount,
-          error_message: response.body.status.message,
-          response_code: response.body.status.response_code,
-        }
-        break;
+    result.amount = payment_response.amount
+    switch (payment_response.status) {
+      // case "Confirmation":
+      //   result = {
+      //     btn_active: false,
+      //     btn_text: "Confirmation",
+      //     Status: "The payout is waiting for a confirmation of the FX rate",
+      //     message: "you might need to click on the link below to complete transaction (you are in sandbox, use rapyd:success as credentials)",
+      //     instructions: payment_response.instructions,
+      //     redirect_url: payment_response.redirect_url,
+      //     amount: payment_response.amount,
+      //     error_message: payment_status_response.message,
+      //     response_code: payment_status_response.response_code,
+      //   }
+      //   break;
       case "ACT":
-        response = {
+        result = {
           btn_active: true,
           btn_text: "Click to Confirm manually",
           Status: "Active and awaiting payment. Can be updated",
           message: "Click on the link below to complete transaction (you are in sandbox, use rapyd:success as credentials)",
-          instructions: response.body.data.instructions,
-          redirect_url: response.body.data.redirect_url,
-          amount: response.body.data.amount,
-          error_message: response.body.status.message,
-          response_code: response.body.status.response_code,
+          instructions: payment_response.instructions,
+          redirect_url: payment_response.redirect_url,
+          amount: payment_response.amount,
+          error_message: payment_status_response.message,
+          response_code: payment_status_response.response_code,
         }
         break;
       case "CAN":
-      case "Canceled":
-        response = {
+      // case "Canceled":
+        result = {
           btn_active: false,
           btn_text: "Cancled",
           Status: "Cancled",
           message: "Canceled by the merchant or the customer's bank.",
-          instructions: response.body.data.instructions,
-          redirect_url: response.body.data.redirect_url,
-          amount: response.body.data.amount,
-          error_message: response.body.status.message,
-          response_code: response.body.status.response_code,
+          instructions: payment_response.instructions,
+          redirect_url: payment_response.redirect_url,
+          amount: payment_response.amount,
+          error_message: payment_status_response.message,
+          response_code: payment_status_response.response_code,
         }
         break;
       case "CLO":
-      case "Completed":
-        response = {
+      // case "Completed":
+        result = {
           btn_active: false,
           btn_text: "Done",
           Status: "Done",
           message: "Closed and paid.",
-          instructions: response.body.data.instructions,
-          redirect_url: response.body.data.redirect_url,
-          amount: response.body.data.amount,
-          error_message: response.body.status.message,
-          response_code: response.body.status.response_code,
+          instructions: payment_response.instructions,
+          redirect_url: payment_response.redirect_url,
+          amount: payment_response.amount,
+          error_message: payment_status_response.message,
+          response_code: payment_status_response.response_code,
         }
         break;
       case "ERR":
-      case "Error":
-        response = {
+      // case "Error":
+        result = {
           btn_active: false,
           btn_text: "Errored",
           Status: "Errored",
           message: "Error. An attempt was made to create or complete a payment, but it failed.",
-          instructions: response.body.data.instructions,
-          redirect_url: response.body.data.redirect_url,
-          amount: response.body.data.amount,
-          error_message: response.body.status.message,
-          response_code: response.body.status.response_code,
+          instructions: payment_response.instructions,
+          redirect_url: payment_response.redirect_url,
+          amount: payment_response.amount,
+          error_message: payment_status_response.message,
+          response_code: payment_status_response.response_code,
         }
         break;
       case "EXP":
-      case "Expired":
-        response = {
+      // case "Expired":
+        result = {
           btn_active: false,
           btn_text: "Expired",
           Status: "Active and awaiting payment. Can be updated",
           message: "The payment has expired.",
-          instructions: response.body.data.instructions,
-          redirect_url: response.body.data.redirect_url,
-          amount: response.body.data.amount,
-          error_message: response.body.status.message,
-          response_code: response.body.status.response_code,
+          instructions: payment_response.instructions,
+          redirect_url: payment_response.redirect_url,
+          amount: payment_response.amount,
+          error_message: payment_status_response.message,
+          response_code: payment_status_response.response_code,
         }
         break;
       case "REV":
-        response = {
+        result = {
           btn_active: true,
           btn_text: "REV",
           Status: "New, refresh after a while",
           message: "Reversed by Rapyd. See cancel reason",
-          cancel_reason: response.body.data.cancel_reason,
-          instructions: response.body.data.instructions,
-          redirect_url: response.body.data.redirect_url,
-          amount: response.body.data.amount,
-          error_message: response.body.status.message,
-          response_code: response.body.status.response_code,
+          cancel_reason: payment_response.cancel_reason,
+          instructions: payment_response.instructions,
+          redirect_url: payment_response.redirect_url,
+          amount: payment_response.amount,
+          error_message: payment_status_response.message,
+          response_code: payment_status_response.response_code,
         }
         break;
       default:
-        response = {
+        result = {
           btn_active: false,
           btn_text: "Errored",
           Status: "Errored",
           message: "Error. An attempt was made to create or complete a payment, but it failed.",
-          instructions: response.body.data.instructions,
-          redirect_url: response.body.data.redirect_url,
-          amount: response.body.data.amount,
-          error_message: response.body.status.message,
-          response_code: response.body.status.response_code,
+          instructions: payment_response.instructions,
+          redirect_url: payment_response.redirect_url,
+          amount: payment_response.amount,
+          error_message: payment_status_response.message,
+          response_code: payment_status_response.response_code,
         }
         break;
     }
+    console.log("===action_status_type done ===> status");
     console.log(status);
 
-    return response;
+    return result;
   }
 }
 

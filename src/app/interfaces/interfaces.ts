@@ -149,7 +149,7 @@ export interface PaymentDetails_internal{
   btn_text: string;
   Status: string;
   message: string;
-  instructions?: ICreatePayout.Instructions | any;
+  instructions?: any;
   redirect_url: string;
   amount: number;
   error_message: string;

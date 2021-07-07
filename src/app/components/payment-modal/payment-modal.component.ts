@@ -3,6 +3,8 @@ import { ModalController } from '@ionic/angular';
 import { Component, Input, OnInit } from '@angular/core';
 import { ITransactionFull_payment, ITransactionFull_payout } from 'src/app/interfaces/db/idbmetacontact';
 import { PaymentDetails_internal } from 'src/app/interfaces/interfaces';
+import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
+import { ICreatePayout } from 'src/app/interfaces/rapyd/ipayout';
 
 @Component({
   selector: 'app-payment-modal',

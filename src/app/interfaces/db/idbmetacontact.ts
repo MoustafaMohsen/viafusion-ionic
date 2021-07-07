@@ -77,13 +77,13 @@ export interface IExcuteTransaction{
 export interface ITransactionFull_payment {
   request:PostCreatePayment.Request;
   response:IUtilitiesResponse<PostCreatePayment.Response>;
-  status:"CLO" | "ACT"
+  // status:"CLO" | "ACT"
 }
 
 export interface ITransactionFull_payout {
   request:ICreatePayout.Request
   response:IUtilitiesResponse<ICreatePayout.Response>
-  status:"CLO" | "ACT"
+  // status:"CLO" | "ACT"
 }
 
 
