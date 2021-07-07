@@ -1,3 +1,4 @@
+import { LoginService } from 'src/app/services/auth/login.service';
 import { RX } from 'src/app/services/rx/events.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,7 +11,7 @@ export class SettingsPage implements OnInit {
 
   phone_number = "";
   name = "";
-  constructor(private rx:RX) { }
+  constructor(private rx:RX,private loginSrv:LoginService) { }
 
   ngOnInit() {
     this.rx.user$.subscribe(u=>{
@@ -20,6 +21,10 @@ export class SettingsPage implements OnInit {
       }
       this.name = u.rapyd_contact_data.first_name + u.rapyd_contact_data.last_name
     })
+  }
+
+  logout(){
+    this.loginSrv.logout()
   }
 
 }

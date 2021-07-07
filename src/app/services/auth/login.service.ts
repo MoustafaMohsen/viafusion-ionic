@@ -85,5 +85,11 @@ export class LoginService {
     }
   }
 
+  logout(){
+    this.rx.init_service();
+    window.location.href = '/auth/login'
+    location.reload();
+  }
+
 
 }
