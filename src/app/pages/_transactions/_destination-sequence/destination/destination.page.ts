@@ -157,7 +157,7 @@ export class DestinationPage implements OnInit {
       beneficiary = this.h.merge_fields_to_with_cc_form(beneficiary, this.beneficiary_cc_form);
     }
 
-    let sender = this.beneficiary_required_fields_form.value;
+    let sender = this.sender_required_fields_form.value;
     if (this.sender_is_cc) {
       sender = this.h.merge_fields_to_with_cc_form(sender, this.sender_cc_form);
     }
@@ -173,11 +173,12 @@ export class DestinationPage implements OnInit {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Please wait...',
-      duration: 2000
+      duration: 20000
     });
 
     await loading.present();
-    console.log('Loading dismissed!');
+    console.log('Simulating Payout');
+    console.log(payout);
     this.payoutSrv.simulate_payout(payout).subscribe(async (res) => {
       var result = res.data
       loading.dismiss();
