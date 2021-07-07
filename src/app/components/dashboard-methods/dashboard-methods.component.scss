@@ -23,22 +23,30 @@
     top: -2.4rem;
     left: 1.4rem;
     box-shadow: rgb(60 64 67 / 30%) -1px 1px 10px 4px;
-}
+  }
+
+  .bank-point {
+    background-color: #b3b397;
+  }
 
   .card-point {
-    background-color: #fdab05;
+    background-color: #e1b46a;
   }
-  .cash-point{
-    background-color: #da3b3b;
+
+  .cash-point {
+    background-color: #83c985;
   }
-  .crypto-point{
-    background-color: #f009e4;
+
+  .crypto-point {
+    background-color: #b885b6;
   }
-  .stock-point{
-    background-color: #098f88;
+
+  .stock-point {
+    background-color: #79b0ad;
   }
+
   svg-icon {
-    color: #fff;
+    color: #000;
   }
 }
 
