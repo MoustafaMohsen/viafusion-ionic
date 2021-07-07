@@ -85,10 +85,10 @@ export class LoginService {
     }
   }
 
-  logout(){
+  async logout(){
     this.rx.init_service();
-    window.location.href = '/auth/login'
-    location.reload();
+    await this.rx.reset_storage()
+    window.location.href = '/auth/login';
   }
 
 
