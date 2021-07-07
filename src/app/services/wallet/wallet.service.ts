@@ -1,15 +1,16 @@
 import { IDBMetaContact, ITransaction, ITransactionFull_payment } from './../../interfaces/db/idbmetacontact';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { LoadingService } from '../loading.service';
 import { Router } from '@angular/router';
 import { Api } from '../api/api';
-import { ICreateWallet } from 'src/app/interfaces/db/idbwallet';
+import { ICreateWallet, ILookup_user, IWallet2Wallet } from 'src/app/interfaces/db/idbwallet';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
 import { ICurrency, WalletBalanceResponse } from 'src/app/interfaces/rapyd/iwallet';
 import { IRXTransaction } from 'src/app/interfaces/interfaces';
 import { RX } from '../rx/events.service';
 import { PostCreatePayment } from 'src/app/interfaces/rapyd/ipayment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,8 @@ export class WalletService {
     tran.id || (tran.id = "tran_" + this.rx.makeid(5))
     this.update_user_transactions(tran).then(res => {
       this.execute_payment_transactions(tran.id).subscribe((res) => {
+        this.rx.reset_temp_value();
+        this.rx.get_db_metacontact();
         if (res.success) {
           this.rx.toast("Payments Done")
           console.log(res.data);
@@ -108,13 +111,15 @@ export class WalletService {
       let closed = false;
       let update = false;
 
-      // update closed amount
+      // update closed amount if you can
       try {
-        let filterd_payments = t.payments
-        .filter(p2=>p2.response && p2.response.body.status.status == "SUCCESS"&&p2.response.body.data.status == "CLO")
-        .map(p1=>p1.response.body.data.amount)
+        if (t.type != "w2w" && t.type != "w2recived") {
+          let filterd_payments = t.payments
+          .filter(p2=>p2.response && p2.response.body.status.status == "SUCCESS"&&p2.response.body.data.status == "CLO")
+          .map(p1=>p1.response.body.data.amount)
 
-        t.closed_payments_amount = filterd_payments.length?filterd_payments.reduce((p,p1)=>p1+p):0
+          t.closed_payments_amount = filterd_payments.length?filterd_payments.reduce((p,p1)=>p1+p):0
+        }
       } catch (error) {
         console.log(error);
 
@@ -122,7 +127,7 @@ export class WalletService {
       console.log("-----> closed t.closed_payments_amount",t.closed_payments_amount);
 
       // === loop payments
-      t.payments.forEach(p => {
+      t.payments?.forEach(p => {
         // Check if hase response
         if (p.response && p.response.body.status.status == "SUCCESS") {
           var payment_res = p.response.body.data;
@@ -151,11 +156,13 @@ export class WalletService {
       // === loop payouts
       // update closed amount
       try {
-        let filterd_payouts = t.payouts
-        .filter(p2=>p2.response && p2.response.body.status.status == "SUCCESS"&& p2.response.body.data.status == "Completed")
-        .map(p1=>p1.response.body.data.amount)
+        if (t.type != "w2w" && t.type != "w2recived") {
+          let filterd_payouts = t.payouts
+          .filter(p2=>p2.response && p2.response.body.status.status == "SUCCESS"&& p2.response.body.data.status == "Completed")
+          .map(p1=>p1.response.body.data.amount)
 
-        t.closed_payouts_amount = filterd_payouts.length?filterd_payouts.reduce((p,p1)=>p1+p):0
+          t.closed_payouts_amount = filterd_payouts.length?filterd_payouts.reduce((p,p1)=>p1+p):0
+        }
       } catch (error) {
         console.log(error);
 
@@ -165,6 +172,19 @@ export class WalletService {
     return trans;
   }
   //#endregion
+
+  lookup_user(phone_number){
+    console.log("looking up:", phone_number);
+
+    return this.api.post<ILookup_user>("get-like-db-user",{phone_number})
+  }
+
+  // todo:
+  do_wallet_2_wallet(w2w:IWallet2Wallet){
+    console.log("sending W2W:", w2w);
+    w2w.contact_reference_id = this.rx.user$.value.contact_reference_id
+    return this.api.post<IDBMetaContact>("w2w",w2w)
+  }
 
   async get_wallet_balance(make_request = false, currency = "USD"): Promise<number> {
     this.rx.get_db_metacontact();

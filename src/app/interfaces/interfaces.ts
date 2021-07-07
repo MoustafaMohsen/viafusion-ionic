@@ -1,5 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 import { ITransaction } from "./db/idbmetacontact";
+import { IWallet2Wallet } from './db/idbwallet';
 import { PostCreatePayment } from './rapyd/ipayment';
 import { ICreatePayout, IGetPayoutRequiredFields } from "./rapyd/ipayout";
 import { ListIssuedVcc } from "./rapyd/ivcc";
@@ -101,8 +102,10 @@ export interface ITemp {
     }
   },
   view_transaction: BehaviorSubject<ITransaction>,
-  vcc_details?: ListIssuedVcc.Response
+  vcc_details?: ListIssuedVcc.Response,
+  wallet2wallet:BehaviorSubject<IWallet2Wallet>
 }
+
 
 export interface IRXTransaction {
   id: string;
