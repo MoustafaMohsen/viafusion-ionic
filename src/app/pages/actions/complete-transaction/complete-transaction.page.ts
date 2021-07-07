@@ -99,14 +99,19 @@ export class CompleteTransactionPage implements OnInit {
     let is_closed = this.transaction.status == "closed";
   }
 
-  save_transaction() {
+  async save_transaction() {
     if (!this.transaction || !this.transaction.id) {
       this.rx.toast("Transaction not found!")
       return;
     }
     // this.loading.start();
     this.rx.temp["transaction"].status = this.transaction.status = "saved";
-    this.walletSrv.save_transaction()
+    await this.walletSrv.save_transaction()
+  }
+
+  async schedual_transaction(){
+    await this.save_transaction();
+    this.router.navigateByUrl("/transaction/schedule-payment")
   }
 
 

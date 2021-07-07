@@ -26,7 +26,7 @@ export class DashboardPage implements OnInit {
   ngOnInit() {
     this.rx.meta$.subscribe(m => {
       if(m ){
-        this.trans = m.transactions.slice(0, 10)
+        this.trans = m.transactions?.slice(0, 10)
       }
     });
     this.walletSrv.balance$.subscribe(b=>this.balance=b)
