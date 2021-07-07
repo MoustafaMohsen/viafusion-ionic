@@ -1,66 +1,124 @@
 <!-- Informations -->
-<div>
-  <h2>Payment Informations</h2>
+<div class="p-4 flex flex-col justify-between">
+  <div class="">
+
+    <div class="flex justify-center items-center my-4">
+      <h2 class="font-bold text-2xl">Payment Informations</h2>
+    </div>
+
+    <div class="flex justify-start items-center my-4">
+      <span class="font-bold text-xl">
+        Payment Amount : <span class="font-normal"> {{status.amount | currency:'USD':'symbol':'3.0'}}</span>
+      </span>
+    </div>
+
+    <div class="flex justify-start items-center my-4">
+      <div class="">
+        <span class="font-bold text-xl">
+          Category :
+        </span>
+      </div>
+      <div class="ml-4">
+        <span class="font-normal">
+          <div class="badge-div flex justify-start items-center">
+            <!-- <div class="icon-div">
+              <svg-icon [key]="payment?.request?.metadata?.category" fontSize="16px" class="ml-2"></svg-icon>
+            </div> -->
+            <div>
+              <span *ngIf="payment?.request?.metadata?.category == 'cash'">Cash</span>
+              <span *ngIf="payment?.request?.metadata?.category == 'ewallet'">Wallet</span>
+              <span *ngIf="payment?.request?.metadata?.category == 'bank_transfer'">Bank Transfer</span>
+              <span *ngIf="payment?.request?.metadata?.category == 'bank_redirect'">Bank Redirect</span>
+              <span *ngIf="payment?.request?.metadata?.category == 'card'">Card</span>
+              <span *ngIf="payment?.request?.metadata?.category == 'rapyd_ewallet'">Rapyd</span>
+            </div>
+
+          </div>
+        </span>
+      </div>
+    </div>
+
+
+    <div class="flex justify-start items-center my-4 card flex-col" *ngIf="status.response_code || status.error_message">
+      <div class="w-full">
+        <span class="font-bold text-xl">
+          Payemt Error :
+        </span>
+      </div>
+      <div class="w-full">
+        <div class="ml-4">
+          <span class="font-normal">
+            <p class="font-bold">Error code:</p><span  class="font-normal">{{status.response_code}}</span>
+          </span>
+        </div>
+        <div class="ml-4">
+          <span class="font-normal">
+            <p class="font-bold">Error Message:</p><span class="font-normal">{{status.error_message}}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="flex justify-start items-center my-4 card flex-col">
+      <div class="w-full">
+        <span class="font-bold text-xl">
+         Status :
+        </span>
+      </div>
+      <div class="w-full">
+        <div class="ml-4">
+          <span class="font-normal">
+            <p class="font-bold">Status Details:</p><span class="font-normal">{{status.Status}}</span>
+          </span>
+        </div>
+        <div class="ml-4">
+          <span class="font-normal">
+            <p class="font-bold">Status Message:</p><span class="fonr-normal">{{status.message}}</span> 
+           </span>
+        </div>
+        <div class="ml-4">
+          <span class="font-normal">
+             <a [href]="status.redirect_url" target="_blank" rel="noopener noreferrer">{{status.redirect_url}}</a>
+          </span>
+        </div>
+      </div>
+    </div>
+
+
+<div class="flex justify-start items-center my-4 card flex-col">
+    <!-- instructions -->
+    <div *ngIf="status.instructions?.length" class="w-full">
+      <!-- <p *ngIf="status.instructions">instructions</p> -->
+      <div *ngFor="let inst of status.instructions" >
+        <!-- <p *ngFor="let ins of status.instructions">{{ins}}</p> -->
+        <p *ngIf="" class="font-bold">{{inst?.name}}</p>
+        <p *ngFor="let step of inst?.steps" class="font-bold">{{step.step1}}</p>
+      </div>
+    </div>
+
+    <!-- instructions -->
+    <div *ngIf="status.instructions?.name" class="w-full">
+      <p *ngIf="">{{status.instructions?.name}}</p>
+      <p *ngFor="let step of status.instructions?.steps">{{step.step1}}</p>
+
+    </div>
+
 </div>
 
-<h4>Payment Amount</h4>
-<p>{{status.amount | currency:'USD':'symbol':'3.0'}}</p>
-
-
-<h2>Category</h2>
-<div class="badge-div flex justify-start items-center">
-  <div class="icon-div">
-    <svg-icon [key]="payment?.request?.metadata?.category" fontSize="16px" class="ml-2"></svg-icon>
   </div>
-  <div>
-    <span *ngIf="payment?.request?.metadata?.category == 'cash'">Cash</span>
-    <span *ngIf="payment?.request?.metadata?.category == 'ewallet'">Wallet</span>
-    <span *ngIf="payment?.request?.metadata?.category == 'bank_transfer'">Bank Transfer</span>
-    <span *ngIf="payment?.request?.metadata?.category == 'bank_redirect'">Bank Redirect</span>
-    <span *ngIf="payment?.request?.metadata?.category == 'card'">Card</span>
-    <span *ngIf="payment?.request?.metadata?.category == 'rapyd_ewallet'">Rapyd</span>
+
+
+
+
+
+  <div class="">
+    <button [disabled]="!status.btn_active" (click)="continue_btn()" type="button"
+      class="py-4 px-6 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+      {{status.btn_text}} <ion-icon name="arrow-forward-outline" class="ml-3 text-2xl"></ion-icon>
+    </button>
+    <ion-button (click)="close()" expand="full" fill="solid" shape="round">
+      Close
+    </ion-button>
   </div>
-
 </div>
-
-<!-- If Error -->
-<div *ngIf="status.response_code || status.error_message" class="card">
-  <h4>Payemt Error</h4>
-  <p>Error code:</p><span>{{status.response_code}}</span>
-  <p>Error Message:</p><span>{{status.error_message}}</span>
-</div>
-
-<!-- If Not Error -->
-<div class="card">
-  <h4>Status</h4>
-  <p>{{status.Status}}</p>
-  <h4>Message</h4>
-  <p>{{status.message}}</p>
-  <a [href]="status.redirect_url" target="_blank" rel="noopener noreferrer">{{status.redirect_url}}</a>
-</div>
-
-
-<!-- instructions -->
-<div *ngIf="status.instructions?.length">
-
-  <p *ngIf="status.instructions">instructions</p>
-  <p *ngFor="let ins of status.instructions">{{ins}}</p>
-
-</div>
-
-<!-- instructions -->
-<div *ngIf="status.instructions?.name">
-
-  <p *ngIf="">{{status.instructions?.name}}</p>
-  <p *ngFor="let step of status.instructions?.steps">{{step.step1}}</p>
-
-</div>
-
-
-<button [disabled]="!status.btn_active" (click)="continue_btn()" type="button"
-  class="py-4 px-6 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
-  {{status.btn_text}} <ion-icon name="arrow-forward-outline" class="ml-3 text-2xl"></ion-icon>
-</button>
-<ion-button (click)="close()" expand="full" fill="solid" shape="round">
-  Close
-</ion-button>

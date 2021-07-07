@@ -17,7 +17,7 @@ import { WalletService } from 'src/app/services/wallet/wallet.service';
 export class VerifyWalletPage implements OnInit {
   progress_percent = 10;
   radius = 80;
-  subtitle = "Wallet"
+  subtitle = ""
   constructor(private walletSrv: WalletService, public loading: LoadingService, private router: Router, private rx: RX) {
     this.watch_change();
   }

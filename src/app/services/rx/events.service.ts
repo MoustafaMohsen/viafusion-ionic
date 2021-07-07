@@ -271,14 +271,13 @@ export class RX {
   }
 
   // === get status
-  action_status_type(payment: ITransactionFull_payment): PaymentDetails_internal {
+  action_status_type(payment: ITransactionFull_payment | any): PaymentDetails_internal {
     var response = payment.response
     var status: any
 
     console.log("action_status_type() ");
     console.log("payment");
     console.log(payment);
-
     if (!response) {
       status = {
         btn_active: false,
@@ -291,13 +290,15 @@ export class RX {
         error_message: "",
         response_code: "",
       }
-      return status;
+      response.amount =payment?.request?.amount || (payment.request.payout_amount)
+    return status;
     }
     status = response.body.data.status as any;
+    response.amount =payment.request.amount || (payment.request.payout_amount)
 
     switch (status) {
       case "Confirmation":
-        status = {
+        response = {
           btn_active: false,
           btn_text: "Confirmation",
           Status: "The payout is waiting for a confirmation of the FX rate",
@@ -310,7 +311,7 @@ export class RX {
         }
         break;
       case "ACT":
-        status = {
+        response = {
           btn_active: true,
           btn_text: "Click to Confirm manually",
           Status: "Active and awaiting payment. Can be updated",
@@ -324,7 +325,7 @@ export class RX {
         break;
       case "CAN":
       case "Canceled":
-        status = {
+        response = {
           btn_active: false,
           btn_text: "Cancled",
           Status: "Cancled",
@@ -338,7 +339,7 @@ export class RX {
         break;
       case "CLO":
       case "Completed":
-        status = {
+        response = {
           btn_active: false,
           btn_text: "Done",
           Status: "Done",
@@ -352,7 +353,7 @@ export class RX {
         break;
       case "ERR":
       case "Error":
-        status = {
+        response = {
           btn_active: false,
           btn_text: "Errored",
           Status: "Errored",
@@ -366,7 +367,7 @@ export class RX {
         break;
       case "EXP":
       case "Expired":
-        status = {
+        response = {
           btn_active: false,
           btn_text: "Expired",
           Status: "Active and awaiting payment. Can be updated",
@@ -379,7 +380,7 @@ export class RX {
         }
         break;
       case "REV":
-        status = {
+        response = {
           btn_active: true,
           btn_text: "REV",
           Status: "New, refresh after a while",
@@ -393,7 +394,7 @@ export class RX {
         }
         break;
       default:
-        status = {
+        response = {
           btn_active: false,
           btn_text: "Errored",
           Status: "Errored",
@@ -408,7 +409,7 @@ export class RX {
     }
     console.log(status);
 
-    return status;
+    return response;
   }
 }
 
