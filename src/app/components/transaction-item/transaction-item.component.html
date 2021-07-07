@@ -12,9 +12,16 @@
       <h4>Recived</h4>
       <ion-icon name="arrow-down-outline"></ion-icon>
     </div>
+
     <div *ngIf="transaction.type == 'w2w'"
       class="flex text-lg leading-6 font-medium text-gray-800 dark:text-white">
-      <h4>Sent</h4>
+      <h4>Sent To Wallet</h4>
+      <ion-icon name="circle-outline"></ion-icon>
+    </div>
+
+    <div *ngIf="transaction.type == 'w2recived'"
+      class="flex text-lg leading-6 font-medium text-gray-800 dark:text-white">
+      <h4>Recived From Wallet</h4>
       <ion-icon name="circle-outline"></ion-icon>
     </div>
 
