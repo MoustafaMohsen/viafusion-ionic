@@ -51,7 +51,7 @@
         <div
           class="source-card transition duration-500 ease-in-out hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 flex justify-between items-center source-item">
           <div class="w-full">
-            <div (click)="card_clicked(payment)" class="flex justify-between items-center">
+            <div class="flex justify-between items-center">
 
               <div class="done-badge w-auto text-base font-medium dark:text-white text-gray-800">
                 <h4 class="">DONE</h4>
@@ -103,10 +103,7 @@
 
 
           <div class="w-full">
-            <!-- <button class="text-center primary-badge flex w-full" [disabled]="!btn_active(payment)" (click)="payment_action(payment)">
-              {{payment?.response?.body?.data?.status?action_status_type(payment?.response?.body?.data?.status)?.btn:"Collection is Ready"}}
-            </button> -->
-            <button class="text-center primary-badge flex w-full">
+            <button (click)="open_payment_details(payment)" class="text-center primary-badge flex w-full">
               Show Details
             </button>
           </div>
@@ -146,13 +143,12 @@
         </h2>
       </div>
       <div>
-        <button [disabled]="loading.loading$ | async" (click)="do_payouts()"
+        <button [disabled]="loading.loading" (click)="do_payouts()"
           class="p-2  focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
           Do Payouts
         </button>
       </div>
     </div>
-
 
 
     <div *ngFor="let payout of transaction?.payouts" class="destinations">
@@ -161,7 +157,7 @@
         <div
           class="destination-card transition duration-500 ease-in-out hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 flex justify-between items-center destination-item">
           <div class="w-full">
-            <div (click)="card_clicked(payout)" class="flex justify-between items-center">
+            <div class="flex justify-between items-center">
 
               <div class="done-badge w-auto text-base font-medium dark:text-white text-gray-800">
                 <h4 class="">DONE</h4>
@@ -175,7 +171,6 @@
               </div>
             </div>
           </div>
-
 
 
           <div class="w-full flex">
@@ -200,9 +195,6 @@
 
 
 
-
-
-
           <div class="w-full flex my-4">
             <div class="flex items-center w-2/3 text-base font-medium dark:text-white text-gray-800">
               <h4 class="">{{payout.request.metadata.name}}</h4>
@@ -213,12 +205,8 @@
           </div>
 
 
-
           <div class="flex w-full">
-            <!-- <button class="text-center primary-badge w-full" [disabled]="true">
-              {{payout?.response?.body?.data?.status?action_status_type(payout?.response?.body?.data?.status)?.btn:"Payouts Ready"}}
-            </button> -->
-            <button class="text-center primary-badge flex w-full">
+            <button (click)="open_payout_details(payout)" class="text-center primary-badge flex w-full">
               Show Details
             </button>
           </div>
