@@ -1,3 +1,4 @@
+import { HelperService } from './../util/helper';
 import { IDBMetaContact, ITransaction, ITransactionFull_payment } from './../../interfaces/db/idbmetacontact';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -17,7 +18,7 @@ import { map } from 'rxjs/operators';
 })
 export class WalletService {
 
-  constructor(private api: Api, private rx: RX, private router: Router, private loading: LoadingService) { }
+  constructor(private api: Api, private rx: RX, private router: Router, private loading: LoadingService, private h:HelperService) { }
 
   create_wallet(form: ICreateWallet.Form) {
     let contact_reference_id = this.rx.user$.value.contact_reference_id;
@@ -34,7 +35,7 @@ export class WalletService {
     tran = tran ? tran : this.convert_rxtran_to_transaction(this.rx.temp["transaction"]);
     tran.execute_payments = true;
     tran.id || (tran.id = "tran_" + this.rx.makeid(5))
-    this.update_user_transactions(tran).then(async (res) => {
+    this.post_transaction(tran).then(async (res) => {
       await this.rx.get_db_metacontact();
       this.execute_payment_transactions(tran.id).subscribe((res) => {
         this.rx.reset_temp_value();
@@ -70,13 +71,13 @@ export class WalletService {
   //#region Payments
   save_transaction(tran?: ITransaction) {
     tran = tran ? tran : this.convert_rxtran_to_transaction(this.rx.temp["transaction"])
-    return this.update_user_transactions(tran);
+    return this.post_transaction(tran);
   }
 
   async do_payouts(tran?: ITransaction) {
     tran = tran ? tran : this.convert_rxtran_to_transaction(this.rx.temp["transaction"])
     tran.execute_payouts = true;
-    this.update_user_transactions(tran).then(async (res) => {
+    this.post_transaction(tran).then(async (res) => {
       await this.rx.get_db_metacontact();
       this.execute_payout_transactions(tran.id).subscribe((res) => {
         if (res.success) {
@@ -87,7 +88,7 @@ export class WalletService {
         }
       }, err => {
         this.rx.toastError(err)
-      })
+      }).unsubscribe();
     }).catch(this.rx.toastError)
   }
 
@@ -116,19 +117,12 @@ export class WalletService {
       let update = false;
 
       // update closed amount if you can
-      try {
-        if (t.type != "w2w" && t.type != "w2recived") {
-          let filterd_payments = t.payments
-          .filter(p2=>p2.response && p2.response.body.status.status == "SUCCESS"&&p2.response.body.data.status == "CLO")
-          .map(p1=>p1.response.body.data.amount)
-
-          t.closed_payments_amount = filterd_payments.length?filterd_payments.reduce((p,p1)=>p1+p):0
-        }
-      } catch (error) {
-        console.log(error);
-
-      }
-      console.log("-----> closed t.closed_payments_amount",t.closed_payments_amount);
+      let r = this.h.reduce_transaction_amounts(t);
+      t.source_amount = r.source_amount as any
+      t.destination_amount = r.destination_amount as any
+      t.closed_payments_amount = r.closed_payments_amount
+      t.closed_payouts_amount = r.closed_payouts_amount
+      console.log("-----> closed t.closed_payments_amount", t.closed_payments_amount);
 
       // === loop payments
       t.payments?.forEach(p => {
@@ -156,38 +150,22 @@ export class WalletService {
 
       if (update)
         t.status = canceled ? "canceled" : closed ? "closed" : requries_action ? "requires_action" : "saved";
-
-      // === loop payouts
-      // update closed amount
-      try {
-        if (t.type != "w2w" && t.type != "w2recived") {
-          let filterd_payouts = t.payouts
-          .filter(p2=>p2.response && p2.response.body.status.status == "SUCCESS"&& p2.response.body.data.status == "Completed")
-          .map(p1=>p1.response.body.data.amount)
-
-          t.closed_payouts_amount = filterd_payouts.length?filterd_payouts.reduce((p,p1)=>p1+p):0
-        }
-      } catch (error) {
-        console.log(error);
-
-      }
-
     })
     return trans;
   }
   //#endregion
 
-  lookup_user(phone_number){
+  lookup_user(phone_number) {
     console.log("looking up:", phone_number);
 
-    return this.api.post<ILookup_user>("get-like-db-user",{phone_number})
+    return this.api.post<ILookup_user>("get-like-db-user", { phone_number })
   }
 
   // todo:
-  do_wallet_2_wallet(w2w:IWallet2Wallet){
+  do_wallet_2_wallet(w2w: IWallet2Wallet) {
     console.log("sending W2W:", w2w);
     w2w.contact_reference_id = this.rx.user$.value.contact_reference_id
-    return this.api.post<IDBMetaContact>("w2w",w2w)
+    return this.api.post<IDBMetaContact>("w2w", w2w)
   }
 
   async get_wallet_balance(make_request = false, currency = "USD"): Promise<number> {
@@ -215,7 +193,7 @@ export class WalletService {
   // ==== Create Transaction
 
 
-  update_user_transactions(tran: ITransaction): Promise<IDBMetaContact> {
+  post_transaction(tran: ITransaction): Promise<IDBMetaContact> {
     var tran_id = tran.id || "tran_" + this.rx.makeid(5);
     tran.id = tran_id
 
@@ -268,6 +246,7 @@ export class WalletService {
 
   // === helpers
 
+  // if we will use currencies in the future
   reduce_accounts_to_amount(accounts: WalletBalanceResponse[], currency: string) {
     let filterd = accounts.filter(a => a.currency == currency);
     if (filterd) {
