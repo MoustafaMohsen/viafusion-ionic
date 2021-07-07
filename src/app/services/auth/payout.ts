@@ -6,7 +6,7 @@ import { ILogin, ILoginTransportObj } from 'src/app/interfaces/db/ilogin';
 import { Api } from '../api/api';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
 import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
-import { IGetPayoutRequiredFields, IListPayout } from 'src/app/interfaces/rapyd/ipayout';
+import { ICreatePayout, IGetPayoutRequiredFields, IListPayout, ISimulateTransaction } from 'src/app/interfaces/rapyd/ipayout';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +21,8 @@ export class PayoutService {
   }
   get_required_fields(obj:IGetPayoutRequiredFields.QueryRequest){
     return this.api.post<IUtilitiesResponse<IGetPayoutRequiredFields.Response>>("list-payout-required-fields",obj)
+  }
+  simulate_payout(create_payout_object: ICreatePayout.Request){
+    return this.api.post<ISimulateTransaction>("simulate-payout",create_payout_object)
   }
 }
