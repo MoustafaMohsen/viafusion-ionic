@@ -44,7 +44,7 @@ export class SelectedDestinationsPage implements OnInit {
 
     })
   }
-  continue_to_destination() {
+  continue_to_overview() {
     // this.rx.save_temp();
     this.rx.temp.view_transaction.next(this.walletSrv.convert_rxtran_to_transaction(this.rx.temp["transaction"]))
     console.log("this.rx.temp.view_transaction");
