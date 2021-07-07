@@ -194,7 +194,7 @@ export class WalletService {
     this.rx.get_db_metacontact();
     this.rx.get_db_contact();
     return new Promise((resolve, reject) => {
-      this.rx.user$.subscribe(u => {
+      var sub = this.rx.user$.subscribe(u => {
         this.rx.meta$.value.transactions = this.update_transactions_status(this.rx.meta$.value.transactions);
         this.rx.meta$.next(this.rx.meta$.value);
         if (u && u.rapyd_wallet_data && u.rapyd_wallet_data.accounts && u.rapyd_wallet_data.accounts.length > 0) {
@@ -207,7 +207,7 @@ export class WalletService {
           this.balance$.next(balance);
           resolve(balance)
         }
-      })
+      }).unsubscribe()
     })
   }
 
