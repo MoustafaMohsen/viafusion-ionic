@@ -168,6 +168,8 @@ export namespace ICreatePayout {
     beneficiary: Beneficiary
     fx_rate: number
     instructions: Instructions
+    redirect_url?:string
+    cancel_reason?:string
     ewallets: Ewallet[]
     metadata: Metadata
     description: string

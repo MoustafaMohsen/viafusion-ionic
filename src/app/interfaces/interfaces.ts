@@ -144,7 +144,7 @@ export interface ActionStatusesTypes {
 }
 
 
-export interface PaymentDetails_internal{
+export interface PaymentPayoutDetails_internal{
   btn_active: boolean;
   btn_text: string;
   Status: string;

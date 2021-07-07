@@ -1,3 +1,4 @@
+import { HelperService } from './../../../services/util/helper';
 import { ModalController } from '@ionic/angular';
 import { WalletService } from 'src/app/services/wallet/wallet.service';
 import { LoadingService } from './../../../services/loading.service';
@@ -18,7 +19,7 @@ export class CompleteTransactionPage implements OnInit {
 
 
 
-  constructor(private rx: RX, private router: Router, private walletSrv: WalletService, public loading: LoadingService, private modalCtrl: ModalController) { }
+  constructor(private rx: RX, private router: Router, private walletSrv: WalletService, public loading: LoadingService, private modalCtrl: ModalController,private h:HelperService) { }
 
   @Input() transaction: ITransaction;
   _sub: Subscription
@@ -81,7 +82,7 @@ export class CompleteTransactionPage implements OnInit {
       this.loading.stop();
       if (data.success) {
         this.rx.toast("Transactions Updated", "", 5000);
-        data.data.transactions = this.walletSrv.update_transactions_status(data.data.transactions)
+        data.data.transactions = this.h.update_transactions_status(data.data.transactions)
         this.rx.reset_temp_value();
         this.rx.get_db_metacontact();
         let newTran = data.data.transactions.find(t => t.id == this.transaction.id);
@@ -130,6 +131,7 @@ export class CompleteTransactionPage implements OnInit {
   do_payments() {
     console.log("do_payments() btn");
     this.loading.start();
+    this.transaction.status = "created"
     this.walletSrv.do_payments(this.transaction).then(d => this.loading.stop())
   }
 
