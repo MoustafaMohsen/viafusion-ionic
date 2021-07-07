@@ -186,6 +186,10 @@
       <ion-text color="primary">
         <h1 class="letspac-1 font-bold text-xl text-gray-800 mt-8"> Recent Transactions : </h1>
       </ion-text>
+      <ng-container>
+
+      </ng-container>
+
       <app-transaction-item class="block relative mt-4" *ngFor="let t of trans$ | async" [transaction]="t">
       </app-transaction-item>
       <div class="row button-row mt-4">

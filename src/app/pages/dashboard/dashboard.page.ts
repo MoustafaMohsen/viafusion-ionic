@@ -25,7 +25,7 @@ export class DashboardPage implements OnInit {
 
   ngOnInit() {
     this.rx.meta$.subscribe(m => {
-      m && this.trans$.next(m.transactions)
+      m && this.trans$.next(m.transactions.slice(0, 10))
     })
   }
 
