@@ -112,3 +112,15 @@ export namespace IResponseCreateWallet {
   }
 
 }
+
+export interface ILookup_user{
+  users:string[];
+}
+
+export interface IWallet2Wallet{
+  contact_reference_id:number,
+  phone_number:string,
+  amount:number,
+  currecny:"USD",
+  message:string,
+}

@@ -16,34 +16,34 @@ import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
 })
-export class DashboardPage implements OnInit, AfterViewInit {
+export class DashboardPage implements OnInit {
 
-  constructor(public loading: LoadingService, public router: Router, private rx: RX,private walletSrv:WalletService) { }
-  ngAfterViewInit(): void {
+  constructor(public loading: LoadingService, public router: Router, private rx: RX, private walletSrv: WalletService) { }
+  ionViewWillEnter() {
     this.update_balance();
   }
 
   ngOnInit() {
-    this.rx.meta$.subscribe(m=>{
-      m&&this.trans$.next(m.transactions)
+    this.rx.meta$.subscribe(m => {
+      m && this.trans$.next(m.transactions)
     })
   }
 
-  balance:number;
+  balance: number;
 
   user: IDBContact = {} as any;
 
-  trans$=new Subject<ITransaction[]>()
+  trans$ = new Subject<ITransaction[]>()
 
-  async update_balance(){
+  async update_balance() {
     this.balance = await this.walletSrv.get_wallet_balance()
   }
 
-  ion_refresh(e){
+  ion_refresh(e) {
     console.log(e);
-    this.update_balance().then(d=>{
+    this.update_balance().then(d => {
       e.target.complete();
-    }).catch((error)=>{
+    }).catch((error) => {
       console.error(error);
       this.rx.toastError(error)
     });
@@ -65,10 +65,19 @@ export class DashboardPage implements OnInit, AfterViewInit {
   }
 
   make_transaction() {
-    this.router.navigateByUrl("/transaction/sources-sequence/selected-sources");
+    this.rx.reset_temp_transactions()
+    this.rx.temp["transaction"].type = "many2many";
+    this.router.navigateByUrl("/transaction/sources-sequence/available-sources");
   }
 
-  insta_send(){
+  charge_wallet() {
+    this.rx.reset_temp_transactions()
+    this.rx.temp["transaction"].type = "many2w";
+    this.router.navigateByUrl("/transaction/sources-sequence/available-sources");
+  }
+
+  insta_send() {
+    this.rx.reset_temp_transactions()
     this.router.navigateByUrl("/insta-send/enter-amount");
   }
 

@@ -16,12 +16,15 @@ import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { ListIssuedVcc } from 'src/app/interfaces/rapyd/ivcc';
 import { ITemp, PaymentDetails_internal } from 'src/app/interfaces/interfaces';
+import { IWallet2Wallet } from 'src/app/interfaces/db/idbwallet';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RX {
-  constructor(private storage: Storage, private api: Api, private alertController: AlertController, private toastController: ToastController) { }
+  constructor(private storage: Storage, private api: Api, private alertController: AlertController, private toastController: ToastController) {
+    this.reset_temp_value();
+  }
 
   public user$ = new BehaviorSubject<IDBContact>({
     security: {
@@ -60,26 +63,46 @@ export class RX {
   public meta$ = new BehaviorSubject<IDBMetaContact>(null);
 
 
-  temp:ITemp= {
-      transaction: {
-        payments: new BehaviorSubject<PostCreatePayment.Request[]>([]),
-        payouts: new BehaviorSubject<ICreatePayout.Request[]>([]),
-        source_amount: "0",
-        destination_amount: "0",
-        execute: false,
-        executed: false,
-        type: null,
-        id: "tranid_" + this.makeid(5),
-        closed_payments_amount:0,
-        closed_payouts_amount:0,
-        description:"",
-        execution_date:0,
-        status:"saved"
-      },
-      destination_queries: {} as any,
-      view_transaction: new BehaviorSubject<ITransaction>(null)
-    };
 
+  temp: ITemp = {} as any;
+  reset_temp_value() {
+    this.temp = {
+      view_transaction: new BehaviorSubject<ITransaction>(null),
+      wallet2wallet: new BehaviorSubject<IWallet2Wallet>({} as any),
+      transaction:{}
+    } as any;
+    this.reset_temp_transactions();
+
+  }
+  reset_temp_transactions() {
+
+    this.temp.transaction.source_amount= "0",
+    this.temp.transaction.destination_amount= "0",
+    this.temp.transaction.execute= false,
+    this.temp.transaction.executed= false,
+    this.temp.transaction.type= null,
+    this.temp.transaction.id= "tranid_" + this.makeid(5),
+    this.temp.transaction.closed_payments_amount= 0,
+    this.temp.transaction.closed_payouts_amount= 0,
+    this.temp.transaction.description= "",
+    this.temp.transaction.execution_date= new Date().getTime()/1000,
+    this.temp.transaction.status= "saved"
+
+    // don't lose current subscribers
+    if (!this.temp.transaction.payments) {
+      this.temp.transaction.payments= new BehaviorSubject<PostCreatePayment.Request[]>([])
+    }
+    if (!this.temp.transaction.payouts) {
+      this.temp.transaction.payouts= new BehaviorSubject<ICreatePayout.Request[]>([])
+    }
+
+    this.temp.destination_queries = {}
+    console.log("Temp Transaction reset");
+    console.log("this.temp");
+    console.log(this.temp);
+
+
+  }
   get meta() {
     return this.meta$.asObservable().pipe(filter(user => !!user))
   }
@@ -146,7 +169,7 @@ export class RX {
   }
 
 
-  async toast(message = "okay", title = "",duration=600000) {
+  async toast(message = "okay", title = "", duration = 600000) {
     const toast = await this.toastController.create({
       header: title,
       message,
@@ -165,7 +188,7 @@ export class RX {
     await toast.present();
 
     const { role } = await toast.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
+    console.log("toast");
   }
 
   toastError(error: IAPIServerResponse<IUtilitiesResponse>) {
@@ -175,9 +198,9 @@ export class RX {
 
     if (!error.success) {
       if (typeof error.message === "string") {
-        this.toast(error.message,"Error")
+        this.toast(error.message, "Error")
       } else {
-        this.toast(error.message.body.status.message + "" + error.message.body.status.error_code,"Error")
+        this.toast(error.message.body.status.message + "" + error.message.body.status.error_code, "Error")
       }
     }
   }
@@ -243,7 +266,7 @@ export class RX {
   }
 
   // === get status
-  action_status_type(payment: ITransactionFull_payment):PaymentDetails_internal {
+  action_status_type(payment: ITransactionFull_payment): PaymentDetails_internal {
     var response = payment.response
     var status: any
 

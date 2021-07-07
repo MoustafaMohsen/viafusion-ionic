@@ -151,7 +151,7 @@ $app-theme: mat.define-light-theme((
     $steps: 19;
     $amount: 4;
     @for $i from 1 through $steps {
-      --ion-color-step-#{$i*50}: #{lighten($bg-color, $i * $amount)};
+      --ion-color-step-#{$i*50}: #{darken($bg-color, $i * $amount)};
     }
   }
 
