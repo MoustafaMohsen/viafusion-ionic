@@ -88,7 +88,7 @@ export class WalletService {
         }
       }, err => {
         this.rx.toastError(err)
-      }).unsubscribe();
+      });
     }).catch(this.rx.toastError)
   }
 

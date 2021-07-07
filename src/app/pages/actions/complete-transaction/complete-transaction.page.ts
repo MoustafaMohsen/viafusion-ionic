@@ -135,11 +135,14 @@ export class CompleteTransactionPage implements OnInit {
   }
 
   do_payments() {
+    console.log("do_payments() btn");
     this.loading.start();
     this.walletSrv.do_payments(this.transaction).then(d => this.loading.stop())
   }
 
   do_payouts() {
+    console.log("do_payouts() btn");
+
     this.loading.start()
     this.walletSrv.do_payouts(this.transaction).then(d => this.loading.stop())
   }
