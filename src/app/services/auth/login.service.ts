@@ -1,3 +1,4 @@
+import { StorageService } from './../storage/storage.service';
 import { LoadingService } from './../loading.service';
 import { Router } from '@angular/router';
 import { RX } from './../rx/events.service';
@@ -11,24 +12,24 @@ import { IDBContact } from 'src/app/interfaces/db/idbcontact';
 })
 export class LoginService {
 
-  constructor(private api: Api, private rx: RX, private router: Router, private loading: LoadingService) {
+  constructor(private api: Api, private rx: RX, private router: Router, private loading: LoadingService, private storage: StorageService) {
   }
 
   async send_login(phone_number: string) {
     this.loading.start();
     let login = {
       phone_number,
-      login:{}
+      login: {}
     }
     await this.api.post<ILoginTransportObj<IDBContact>>("login", login).subscribe((res) => {
       this.loading.stop();
       console.log("send_login() res.data");
       console.log(res.data);
       if (res.success && res.data) {
-        let user:IDBContact = {
-          contact_reference_id:res.data.contact_reference_id,
-          security:{
-            login:res.data.login
+        let user: IDBContact = {
+          contact_reference_id: res.data.contact_reference_id,
+          security: {
+            login: res.data.login
           }
         }
         console.log("Sending logged in user to user$", user);
@@ -48,7 +49,7 @@ export class LoginService {
   confirm_otp(otp: number | string) {
     let user = this.rx.user$.value
     return this.api.post<IDBContact>("confirm-otp", {
-      user:{contact_reference_id:user.contact_reference_id},
+      user: { contact_reference_id: user.contact_reference_id },
       otp
     })
   }
@@ -56,7 +57,7 @@ export class LoginService {
   confirm_pin(pin: number | string) {
     let user = this.rx.user$.value
     return this.api.post<IDBContact>("confirm-pin", {
-      user:{contact_reference_id:user.contact_reference_id},
+      user: { contact_reference_id: user.contact_reference_id },
       pin
     })
   }
@@ -64,31 +65,39 @@ export class LoginService {
   set_pin(pin: number | string) {
     let user = this.rx.user$.value
     return this.api.post<IDBContact>("set-pin", {
-      user:{contact_reference_id:user.contact_reference_id},
+      user: { contact_reference_id: user.contact_reference_id },
       pin
     })
   }
 
 
 
-  login_register_sequence(){
+  login_register_sequence() {
     var user = this.rx.user$.value;
     // TODO: login sequence
     if (user.security.login.has_pin) {
       console.log("user HAVE pin");
 
       this.router.navigateByUrl("/auth/login-with-pin");
-    }else{
+    } else {
       console.log("user DOESN'T HAVE pin");
 
       this.router.navigateByUrl("/auth/register-pin");
     }
   }
 
-  async logout(){
+  async logout() {
     this.rx.init_service();
     await this.rx.reset_storage()
     window.location.href = '/auth/login';
+  }
+
+  is_loggedin(){
+    return new Promise(async (resolve,reject)=>{
+      setTimeout(async () => {
+        return resolve((await this.storage.get("user") as IDBContact)?.security?.login?.authenticated)
+      }, 0);
+    })
   }
 
 

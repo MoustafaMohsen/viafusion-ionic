@@ -86,6 +86,7 @@ import { DashboardMethodsComponent } from './components/dashboard-methods/dashbo
 import { PaymentModalComponent } from './components/payment-modal/payment-modal.component';
 import { SettingsPage } from './pages/actions/settings/settings.page';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { HelperService } from './services/util/helper';
 
 @NgModule({
   imports: [
@@ -193,7 +194,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
   entryComponents: [],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    Api, LoginService, DataService, RX, StorageService, PaymentService,WalletService,VccService,PayoutService
+    Api, LoginService, DataService, RX, StorageService, PaymentService,WalletService,VccService,PayoutService,HelperService,
   ],
   bootstrap: [AppComponent],
 })

@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { LoginService } from './../../../services/auth/login.service';
 import { Component } from '@angular/core';
@@ -15,8 +16,18 @@ export class LoginPage {
   form = new FormGroup({
     phone:new FormControl("",[Validators.required])
   })
-  constructor(private login_srv:LoginService, public loading:LoadingService) {}
+  constructor(private login_srv:LoginService, public loading:LoadingService,private router:Router) {}
 
+  _sub:Subscription;
+  async ngOnInit() {
+    console.log("this.login_srv.is_loggedin");
+    console.log("====>",);
+    let loggedin = await this.login_srv.is_loggedin()
+    if (loggedin) {
+      this.router.navigateByUrl("/dashboard")
+    }
+
+  }
   async submit(){
     // let phone_number = this.form.controls.phone.value //(this.form.controls.phone.value as string).replace(/ |\(|\)|-/g,"");
     const phone_number = parsePhoneNumber(this.form.controls.phone.value)
