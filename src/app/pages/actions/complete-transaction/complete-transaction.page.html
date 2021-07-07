@@ -38,7 +38,7 @@
         </h2>
       </div>
       <div>
-        <button [disabled]="(loading.loading) || ((transaction?.closed_payments_amount - transaction?.source_amount) < 1)" (click)="do_payments()"
+        <button [disabled]="(loading.loading) || this.transaction.execute_payments" (click)="do_payments()"
           class="p-2  focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
           Do Payments
         </button>

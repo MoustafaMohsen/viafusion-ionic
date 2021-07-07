@@ -29,6 +29,7 @@
               <span *ngIf="payment?.request?.metadata?.category == 'ewallet'">Wallet</span>
               <span *ngIf="payment?.request?.metadata?.category == 'bank_transfer'">Bank Transfer</span>
               <span *ngIf="payment?.request?.metadata?.category == 'bank_redirect'">Bank Redirect</span>
+              <span *ngIf="payment?.request?.metadata?.category == 'bank'">Bank</span>
               <span *ngIf="payment?.request?.metadata?.category == 'card'">Card</span>
               <span *ngIf="payment?.request?.metadata?.category == 'rapyd_ewallet'">Rapyd</span>
             </div>
@@ -74,7 +75,7 @@
         </div>
         <div class="ml-4">
           <span class="font-normal">
-            <p class="font-bold">Status Message:</p><span class="fonr-normal">{{status.message}}</span> 
+            <p class="font-bold">Status Message:</p><span class="fonr-normal">{{status.message}}</span>
            </span>
         </div>
         <div class="ml-4">
