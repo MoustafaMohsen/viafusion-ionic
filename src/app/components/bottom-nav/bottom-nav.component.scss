@@ -2,3 +2,18 @@
     background: #000000;
     box-shadow: rgb(60 64 67 / 30%) -1px 1px 10px 4px;
 }
+.dashboard {
+    height: 5rem;
+    background: #e88d0a;
+    position: relative;
+    margin-top: -2rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    svg-icon {
+        font-size: 3rem;
+    color: #000;
+    }
+}
