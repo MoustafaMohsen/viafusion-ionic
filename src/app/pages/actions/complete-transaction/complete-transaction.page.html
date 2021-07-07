@@ -12,6 +12,11 @@
   <ng-container *ngIf="transaction?.payments?.length > 0">
 
     <div class="flex jusitfy-between items-center mb-4">
+      <ion-button [disabled]="transaction.status != 'created'" (click)="schedual_transaction()" expand="full" fill="solid" shape="round" class="w-full">
+        {{'Schedual payment'}}
+      </ion-button>
+    </div>
+    <div class="flex jusitfy-between items-center mb-4">
       <ion-button [disabled]="transaction.status != 'created'" (click)="save_transaction()" expand="full" fill="solid" shape="round" class="w-full">
         {{transaction.status == 'created'?'Save for Later':"Saved"}}
       </ion-button>

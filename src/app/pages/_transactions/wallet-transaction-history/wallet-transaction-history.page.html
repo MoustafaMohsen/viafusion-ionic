@@ -1,0 +1,44 @@
+<app-header title="Wallet History"></app-header>
+
+
+<ion-content class="block relative">
+
+  <!-- <div class="filter">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60">
+      <path d="M 0 30 L 70 30 Q 100 60 130 30 L 200 30 L 200 0 L 0 0 Z" fill="#000000" style="
+        filter: drop-shadow(0 3px 2px rgba(0,0,0,0.5));
+        fill: white;
+    "></path>
+    </svg>
+
+  </div> -->
+
+  <!-- Saved Transactions -->
+
+
+  <div class=" items">
+    <div class="list-header bg-gray-400 flex justify-between">
+      <div class="date">
+        <p class="text-xl font-bold letspac-1 text-black"> Saved transactions </p>
+      </div>
+    </div>
+    <div class="pending-transactions-section">
+      <app-wallet-transaction-item class="block relative mt-4" *ngFor="let t of wallet_trans" [transaction]="t">
+      </app-wallet-transaction-item>
+    </div>
+  </div>
+
+<!--
+  <div class=" items mt-4">
+    <div class="list-header bg-gray-400 flex justify-between">
+      <div class="date">
+        <p class='text-xl font-bold letspac-1 text-black'> July , 2021 </p>
+      </div>
+    </div>
+    <div class="pending-transactions-section">
+      <app-wallet-transaction-item class="block relative mt-4" *ngFor="let t of past_trans" [transaction]="t">
+      </app-wallet-transaction-item>
+    </div>
+  </div> -->
+</ion-content>
+

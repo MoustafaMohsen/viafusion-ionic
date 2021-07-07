@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { Api } from '../api/api';
 import { ICreateWallet, ILookup_user, IWallet2Wallet } from 'src/app/interfaces/db/idbwallet';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
-import { ICurrency, WalletBalanceResponse } from 'src/app/interfaces/rapyd/iwallet';
+import { ICurrency, IWalletTransaction, WalletBalanceResponse } from 'src/app/interfaces/rapyd/iwallet';
 import { IRXTransaction } from 'src/app/interfaces/interfaces';
 import { RX } from '../rx/events.service';
 import { PostCreatePayment } from 'src/app/interfaces/rapyd/ipayment';
@@ -18,7 +18,7 @@ import { map } from 'rxjs/operators';
 })
 export class WalletService {
 
-  constructor(private api: Api, private rx: RX, private router: Router, private loading: LoadingService, private h:HelperService) { }
+  constructor(private api: Api, private rx: RX, private router: Router, private loading: LoadingService, private h: HelperService) { }
 
   create_wallet(form: ICreateWallet.Form) {
     let contact_reference_id = this.rx.user$.value.contact_reference_id;
@@ -52,6 +52,10 @@ export class WalletService {
     }).catch(this.rx.toastError)
   }
 
+  get_detailed_wallet_transactions() {
+    let contact_reference_id = this.rx.user$.value.contact_reference_id;
+    return this.api.post<{data:IWalletTransaction[]}>("wallet-transactions", { contact_reference_id })
+  }
   execute_payment_transactions(tran_id: string) {
     let contact_reference_id = this.rx.user$.value.contact_reference_id;
     return this.api.post<IDBMetaContact>("execute-payments", { contact_reference_id, tran_id })
@@ -125,7 +129,7 @@ export class WalletService {
 
   async get_wallet_balance(make_request = false, currency = "USD"): Promise<number> {
     await this.rx.get_db_metacontact();
-    await  this.rx.get_db_contact();
+    await this.rx.get_db_contact();
     return new Promise((resolve, reject) => {
       var sub = this.rx.user$.subscribe(u => {
         this.rx.meta$.value.transactions = this.h.update_transactions_status(this.rx.meta$.value.transactions);

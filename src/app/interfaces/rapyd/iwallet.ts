@@ -1,5 +1,6 @@
 import { IAccType } from './general';
 import { IContact } from "./icontact";
+import { WalletTransactionTypes } from './types';
 
 export interface IWallet {
   first_name?: string
@@ -95,19 +96,104 @@ export namespace TransferToWallet {
 
 export namespace ICurrency {
   export interface QueryRequest {
-      sell_currency: string
-      buy_currency: string
-      action_type: "payment"|"payout"
+    sell_currency: string
+    buy_currency: string
+    action_type: "payment" | "payout"
   }
   export interface Response {
-      sell_currency: string
-      buy_currency: string
-      action_type: "payment"|"payout"
-      fixed_side: any
-      rate: number
-      date: string
-      sell_amount: any
-      buy_amount: any
+    sell_currency: string
+    buy_currency: string
+    action_type: "payment" | "payout"
+    fixed_side: any
+    rate: number
+    date: string
+    sell_amount: any
+    buy_amount: any
   }
 
+}
+
+
+export interface IWalletTransaction {
+  id: string
+  amount: number
+  currency: string
+  ewallet_id: string
+  type: WalletTransactionTypes
+  balance_type: string
+  balance?: number
+  created_at: number
+  status: string
+  reason: string
+}
+
+export const wallet_transaction_description = {
+  /**
+* Funds transferred from a bank account to a wallet via an issued bank account number.
+*/
+  bank_issuing_in: "Bank transfer received",
+  /**
+  * Funds returned to wallet from canceled or rejected payout.
+  */
+  payout_funds_in: "Cancellation of disbursement",
+  /**
+  * Refund against funds paid out to a card issued by Rapyd.
+  */
+  card_issuing_in: "Card payout reversal",
+  /**
+  * Adjust the amount of a transaction made by an issued card.
+  */
+  card_issuing_adjustment: "Card issuing adjustment",
+  /**
+  * Funds deposited to wallet at point of sale.
+  */
+  deposit_funds: "Deposit at POS",
+  /**
+  * Funds paid out via a payout.
+  */
+  payout_funds_out: "Disbursement",
+  /**
+  * Funds paid out from wallet to a service provider.
+  */
+  provider_service_funds_out: "Disbursement to service provider",
+  /**
+  * Funds added to wallet.
+  */
+  add_funds: "Funds added",
+  /**
+  * Funds collected to wallet.
+  */
+  payment_funds_in: "Funds collected",
+  /**
+  * Funds paid out from wallet via issued card.
+  */
+  card_issuing_out: "Funds paid out via card",
+  /**
+  * Funds removed from wallet.
+  */
+  remove_funds: "Funds removed",
+  /**
+  * Transfers funds from the 'available_balance' to the 'on_hold_balance'.
+  */
+  put_funds_on_hold: "Put funds on hold",
+  /**
+  * Funds refunded against a payment.
+  */
+  payment_funds_out: "Refund against funds collected",
+  /**
+  * Wallet credited with funds released from escrow.
+  */
+  release_escrow: "Release from escrow",
+  /**
+  * Transfers wallet funds from the on-hold balance to the available balance.
+  */
+  release_on_hold_funds: "Release on-hold funds",
+  /**
+  * Funds transferred between two wallets.
+  */
+  p2p_transfer: "Wallet-to-wallet transfer",
+  /**
+  * Cash withdrawn from wallet at point of sale.
+  */
+  withdraw_funds: "Withdrawal at POS",
 }
