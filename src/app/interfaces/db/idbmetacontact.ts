@@ -58,7 +58,7 @@ export interface ITransaction {
 
   description:string;
 
-  status:"closed" | "requires_action" | "canceled" | "saved"
+  status: "closed" | "requires_action" | "canceled" | "saved" | "created"
 
   type: "many2many" | "w2w"| "many2w" | "w2recived" |`${categories}2${categories}`
 }
