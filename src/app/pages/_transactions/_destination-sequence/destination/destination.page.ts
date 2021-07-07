@@ -8,6 +8,8 @@ import { PayoutService } from 'src/app/services/auth/payout';
 import { ICreatePayout, IGetPayoutRequiredFields } from 'src/app/interfaces/rapyd/ipayout';
 import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
 import { IAPIServerResponse } from 'src/app/interfaces/rapyd/types';
+import { RquiredFormTypes } from 'src/app/interfaces/interfaces';
+import { RequiredFields } from 'src/app/interfaces/rapyd/ipayment';
 
 @Component({
   selector: 'app-destination',
@@ -25,6 +27,8 @@ export class DestinationPage implements OnInit {
   sender_required_fields_form = new FormGroup({});
   beneficiary_required_fields_form = new FormGroup({});
 
+  bene_html_fields:RquiredFormTypes[]
+  sender_html_fields:RquiredFormTypes[]
   diable_submit = true;
 
   is_edit = false;
@@ -137,6 +141,13 @@ export class DestinationPage implements OnInit {
 
       }
     }
+
+    this.bene_html_fields = this.get_html_fields(this.required_fields.beneficiary_required_fields)
+    this.sender_html_fields = this.get_html_fields(this.required_fields.sender_required_fields)
+    console.log("==>this.bene_html_fields");
+    console.log(this.bene_html_fields);
+    console.log("==>this.sender_html_fields");
+    console.log(this.sender_html_fields);
     console.log("==>this.required_fields");
     console.log(this.required_fields);
     //#endregion
@@ -227,26 +238,93 @@ export class DestinationPage implements OnInit {
   }
 
   get is_disable() {
-    return false
     let d = false;
-    if (this.sender_is_cc && this.sender_cc_form.invalid) {
-      d = true;
-      return d;
-    }
-    if (this.bene_is_cc && this.beneficiary_cc_form.invalid) {
+
+    // Validate sender cc fields
+    if (this?.sender_is_cc && this?.sender_cc_form?.invalid) {
       d = true;
       return d;
     }
 
-    if (this.beneficiary_required_fields_form.invalid && this.response_query.beneficiary_required_fields.length > 0) {
+    // Validate bene cc fields
+    if (this?.bene_is_cc && this?.beneficiary_cc_form?.invalid) {
       d = true;
       return d;
     }
 
-    if (this.sender_required_fields_form.invalid && this.response_query.sender_required_fields.length > 0) {
+    // Validate sender form fields if it has any
+    if (this?.sender_required_fields_form?.invalid && this?.response_query?.sender_required_fields?.length > 0) {
       d = true;
       return d;
     }
+
+    // Validate bene form fields if it has any
+    if (this?.beneficiary_required_fields_form?.invalid && this?.response_query?.beneficiary_required_fields?.length > 0) {
+      d = true;
+      return d;
+    }
+
     return d;
   }
+
+  // format html field from regx rules
+  formate_field(f:RequiredFields.Field){
+    let res:RquiredFormTypes={} as any;
+    var get_label = ()=>{
+      return this.formate_name(f.name)
+    }
+    var get_description = ()=>{
+      return f.description || f.instructions ||  f.name
+    }
+    var is_options = ()=>{
+      return /\([a-z|_]+\)/gm.test(f.regex)
+    }
+    var get_disabled = ()=>{
+      let value = "";
+      /^[a-z]+$/.test(f.regex) && (value = f.regex)
+      return value;
+    }
+
+    var get_options = ()=>{
+      let options = []
+      if (is_options()) {
+        let regoptions = f.regex.replace(/\)|\(/gm,"").split("|")
+        regoptions.forEach(o=>{
+          options.push({
+            name:this.formate_name(o),
+            value:o
+          })
+        })
+      }
+      return options
+    }
+
+    res.name = f.name
+    res.label = get_label();
+    res.description = get_description();
+    res.options= get_options();
+    res.disabled_value= get_disabled();
+    // number
+    if ((f.type == 'number' || f.type == 'integer' ) && !res.disabled_value) {
+      res.type = "number"
+    }
+    if ((f.type == 'string' || f.type == 'text' ) && !res.disabled_value) {
+      res.type = "text"
+    }
+    if ((f.type == 'date' || f.type == 'datetime' ) && !res.disabled_value) {
+      res.type = "number"
+    }
+    res.type = is_options()? "options" : "text";
+    return res;
+  }
+
+  get_html_fields(fields:RequiredFields.Field[]){
+    let res = []
+    for (let i = 0; i < fields.length; i++) {
+      const f = fields[i];
+      res.push(this.formate_field(f))
+    }
+    return res;
+  }
 }
+
