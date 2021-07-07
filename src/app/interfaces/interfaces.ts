@@ -119,7 +119,9 @@ export interface IRXTransaction {
   payments_executed?: boolean;
   payouts_executed?: boolean;
 
-  execute: boolean;
+  execute_payments: boolean;
+  execute_payouts: boolean;
+
   executed: boolean;
 
   closed_payments_amount:number;

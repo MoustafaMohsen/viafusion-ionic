@@ -31,9 +31,11 @@ export class WalletService {
 
   //#region Payments
   async do_payments(tran?: ITransaction) {
-    tran = tran ? tran : this.convert_rxtran_to_transaction(this.rx.temp["transaction"])
+    tran = tran ? tran : this.convert_rxtran_to_transaction(this.rx.temp["transaction"]);
+    tran.execute_payments = true;
     tran.id || (tran.id = "tran_" + this.rx.makeid(5))
-    this.update_user_transactions(tran).then(res => {
+    this.update_user_transactions(tran).then(async (res) => {
+      await this.rx.get_db_metacontact();
       this.execute_payment_transactions(tran.id).subscribe((res) => {
         this.rx.reset_temp_value();
         this.rx.get_db_metacontact();
@@ -73,7 +75,9 @@ export class WalletService {
 
   async do_payouts(tran?: ITransaction) {
     tran = tran ? tran : this.convert_rxtran_to_transaction(this.rx.temp["transaction"])
-    this.update_user_transactions(tran).then(res => {
+    tran.execute_payouts = true;
+    this.update_user_transactions(tran).then(async (res) => {
+      await this.rx.get_db_metacontact();
       this.execute_payout_transactions(tran.id).subscribe((res) => {
         if (res.success) {
           this.rx.toast("Payouts Done")
@@ -252,14 +256,12 @@ export class WalletService {
       closed_payments_amount: rxtran.closed_payments_amount || 0,
       closed_payouts_amount: rxtran.closed_payouts_amount || 0,
       description: rxtran.description,
-      execute: true,
-      executed: false,
       type: "many2many",
       execution_date: rxtran.execution_date,
       status: rxtran.status,
       payments_executed: rxtran.payments_executed,
       payouts_executed: rxtran.payouts_executed
-    }
+    } as any
     return tran;
   }
 

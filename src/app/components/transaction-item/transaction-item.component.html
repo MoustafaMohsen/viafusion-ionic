@@ -83,7 +83,7 @@
 
     <div class="date flex">
       <div class="text-gray-600 dark:text-gray-200 text-sm">
-        {{transaction.execution_date | date}}
+        {{transaction.execution_date*1000 | date}}
       </div>
 
     </div>

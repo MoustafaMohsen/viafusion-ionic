@@ -83,7 +83,8 @@ export class RX {
 
     this.temp.transaction.source_amount = "0",
       this.temp.transaction.destination_amount = "0",
-      this.temp.transaction.execute = false,
+      this.temp.transaction.execute_payments = false,
+      this.temp.transaction.execute_payouts = false,
       this.temp.transaction.executed = false,
       this.temp.transaction.type = null,
       this.temp.transaction.id = "tranid_" + this.makeid(5),
@@ -112,6 +113,10 @@ export class RX {
     return this.meta$.asObservable().pipe(filter(user => !!user))
   }
 
+  async reset_storage(){
+    await this.storage.set("user", null);
+    await this.storage.set("meta", null);
+  }
   async init_subscribe() {
     this.storage.get("user").then(storage_user => {
       console.log("====== First time ==== storage get user 🏪>>");
@@ -271,9 +276,9 @@ export class RX {
   }
 
   // === get status
-  action_status_type(payment: ITransactionFull_payment): PaymentDetails_internal {
+  action_status_type(payment: ITransactionFull_payment | any): PaymentDetails_internal {
     var response = payment.response
-    var status: any
+    var status = {} as any
 
     console.log("action_status_type() ");
     console.log("payment");
@@ -293,8 +298,8 @@ export class RX {
       }
       return status;
     }
-    status = response.body.data.status as any;
-
+    // status = response?.body?.data?.status as any;
+    status.amount = payment.request.amount || payment.request.payout_amount
     switch (status) {
       case "Confirmation":
         status = {
