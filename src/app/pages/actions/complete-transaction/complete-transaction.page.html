@@ -11,7 +11,14 @@
   <!-- Sources Loop -->
   <ng-container *ngIf="transaction?.payments?.length > 0">
 
-    <div class="flex justify-between items-center">
+    <div class="flex jusitfy-between items-center mb-4">
+      <ion-button (click)="save_transaction()" expand="full" fill="solid" shape="round" class="w-full">
+        Save for Later
+      </ion-button>
+    </div>
+
+
+    <div class="flex justify-between items-center payment-title my-4">
       <div>
         <h2 class="text-base text-gray-800 letspac-1 font-bold">
           Payments total: {{transaction?.source_amount}}
@@ -23,11 +30,6 @@
         </h2>
       </div>
     </div>
-    <div class="flex jusitfy-between items-center my-4">
-      <ion-button (click)="save_transaction()" expand="full" fill="solid" shape="round" class="w-full">
-        Save for Later
-      </ion-button>
-    </div>
 
     <div class="flex justify-between items-center">
       <div>
@@ -36,7 +38,8 @@
         </h2>
       </div>
       <div>
-        <button [disabled]="loading.loading$ | async" (click)="do_payments()" class="p-2  focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+        <button [disabled]="loading.loading$ | async" (click)="do_payments()"
+          class="p-2  focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
           Do Payments
         </button>
       </div>
@@ -45,25 +48,17 @@
     <div *ngFor="let payment of transaction?.payments" class="sources">
 
       <div class="selected-item mt-4">
-        <div class="source-card transition duration-500 ease-in-out hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 flex justify-between items-center source-item">
+        <div
+          class="source-card transition duration-500 ease-in-out hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 flex justify-between items-center source-item">
           <div class="w-full">
             <div (click)="card_clicked(payment)" class="flex justify-between items-center">
-              <div class="w-auto badge">
-                <div class="badge-div flex justify-start items-center">
-                  <div class="icon-div">
-                    <svg-icon [key]="payment?.request?.metadata?.category" fontSize="16px" class="ml-2"></svg-icon>
-                  </div>
-                  <div>
-                    <span *ngIf="payment?.request?.metadata?.category == 'cash'">Cash</span>
-                    <span *ngIf="payment?.request?.metadata?.category == 'ewallet'">Wallet</span>
-                    <span *ngIf="payment?.request?.metadata?.category == 'bank_transfer'">Bank Transfer</span>
-                    <span *ngIf="payment?.request?.metadata?.category == 'bank_redirect'">Bank Redirect</span>
-                    <span *ngIf="payment?.request?.metadata?.category == 'card'">Card</span>
-                    <span *ngIf="payment?.request?.metadata?.category == 'rapyd_ewallet'">Rapyd</span>
-                  </div>
 
-                </div>
+              <div class="done-badge w-auto text-base font-medium dark:text-white text-gray-800">
+                <h4 class="">DONE</h4>
               </div>
+
+
+
               <div class="amount-badge text-center">
                 <span *ngIf="payment?.request?.amount != -1" class="text-green-900 font-bold letspac-2">
                   {{payment?.request?.amount | currency}}
@@ -71,6 +66,30 @@
               </div>
             </div>
           </div>
+
+          <div class="w-full flex">
+            <div class="w-auto badge">
+              <div class="badge-div flex justify-start items-center">
+                <div class="icon-div">
+                  <svg-icon [key]="payment?.request?.metadata?.category" fontSize="16px" class="ml-2"></svg-icon>
+                </div>
+                <div>
+                  <span *ngIf="payment?.request?.metadata?.category == 'cash'">Cash</span>
+                  <span *ngIf="payment?.request?.metadata?.category == 'ewallet'">Wallet</span>
+                  <span *ngIf="payment?.request?.metadata?.category == 'bank_transfer'">Bank Transfer</span>
+                  <span *ngIf="payment?.request?.metadata?.category == 'bank_redirect'">Bank Redirect</span>
+                  <span *ngIf="payment?.request?.metadata?.category == 'card'">Card</span>
+                  <span *ngIf="payment?.request?.metadata?.category == 'rapyd_ewallet'">Rapyd</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+
+
+
           <div class="w-full flex my-4">
             <div class="flex items-center w-2/3 text-base font-medium dark:text-white text-gray-800">
               <h4 class="">{{payment?.request?.metadata?.name}}</h4>
@@ -79,9 +98,16 @@
               <img [src]="payment?.request?.metadata?.image" alt="">
             </div>
           </div>
+
+
+
+
           <div class="w-full">
-            <button class="text-center primary-badge flex w-full" [disabled]="!btn_active(payment)" (click)="payment_action(payment)">
+            <!-- <button class="text-center primary-badge flex w-full" [disabled]="!btn_active(payment)" (click)="payment_action(payment)">
               {{payment?.response?.body?.data?.status?action_status_type(payment?.response?.body?.data?.status)?.btn:"Collection is Ready"}}
+            </button> -->
+            <button class="text-center primary-badge flex w-full">
+              Show Details
             </button>
           </div>
         </div>
@@ -99,6 +125,19 @@
 
 
   <ng-container *ngIf="transaction?.payouts?.length > 0">
+
+    <div class="flex justify-between items-center payment-title my-4">
+      <div>
+        <h2 class="text-base text-gray-800 letspac-1 font-bold">
+          Payouts total: {{transaction?.destination_amount}}
+        </h2>
+      </div>
+      <div>
+        <h2 class="text-base text-gray-800 letspac-1 font-bold">
+          Done: {{transaction?.closed_payouts_amount}}
+        </h2>
+      </div>
+    </div>
     <!-- Destinations Loop -->
     <div class="flex justify-between items-center">
       <div class="">
@@ -107,48 +146,28 @@
         </h2>
       </div>
       <div>
-        <button [disabled]="loading.loading$ | async" (click)="do_payouts()" class="p-2  focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+        <button [disabled]="loading.loading$ | async" (click)="do_payouts()"
+          class="p-2  focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
           Do Payouts
         </button>
       </div>
     </div>
 
-    <div class="flex justify-between items-center">
-      <div>
-        <h2 class="text-base text-gray-800 letspac-1">
-          Payouts total: {{transaction?.destination_amount}}
-        </h2>
-      </div>
-      <div>
-        <h2 class="text-base text-gray-800 letspac-1">
-          Done: {{transaction?.closed_payouts_amount}}
-        </h2>
-      </div>
-    </div>
+
 
     <div *ngFor="let payout of transaction?.payouts" class="destinations">
 
       <div class="selected-item mt-4">
-        <div class="destination-card transition duration-500 ease-in-out hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 flex justify-between items-center destination-item">
+        <div
+          class="destination-card transition duration-500 ease-in-out hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 flex justify-between items-center destination-item">
           <div class="w-full">
             <div (click)="card_clicked(payout)" class="flex justify-between items-center">
-              <div class="w-auto badge">
-                <div class="badge-div flex justify-start items-center">
-                  <div class="icon-div">
-                    <svg-icon [key]="payout?.request?.metadata?.category" fontSize="16px" class="ml-2"></svg-icon>
-                  </div>
-                  <div>
-                    <span *ngIf="payout?.request?.metadata?.category == 'cash'">Cash</span>
-                    <span *ngIf="payout?.request?.metadata?.category == 'ewallet'">Wallet</span>
-                    <span *ngIf="payout?.request?.metadata?.category == 'bank_transfer'">Bank Transfer</span>
-                    <span *ngIf="payout?.request?.metadata?.category == 'bank_redirect'">Bank Redirect</span>
-                    <span *ngIf="payout?.request?.metadata?.category == 'bank'">Bank</span>
-                    <span *ngIf="payout?.request?.metadata?.category == 'card'">Card</span>
-                    <span *ngIf="payout?.request?.metadata?.category == 'rapyd_ewallet'">Rapyd</span>
-                  </div>
 
-                </div>
+              <div class="done-badge w-auto text-base font-medium dark:text-white text-gray-800">
+                <h4 class="">DONE</h4>
               </div>
+
+
               <div class="amount-badge text-center">
                 <span *ngIf="payout.request.payout_amount != -1" class="text-green-900 font-bold letspac-2">
                   {{payout.request.payout_amount | currency}}
@@ -156,6 +175,34 @@
               </div>
             </div>
           </div>
+
+
+
+          <div class="w-full flex">
+            <div class="w-auto badge">
+              <div class="badge-div flex justify-start items-center">
+                <div class="icon-div">
+                  <svg-icon [key]="payout?.request?.metadata?.category" fontSize="16px" class="ml-2"></svg-icon>
+                </div>
+                <div>
+                  <span *ngIf="payout?.request?.metadata?.category == 'cash'">Cash</span>
+                  <span *ngIf="payout?.request?.metadata?.category == 'ewallet'">Wallet</span>
+                  <span *ngIf="payout?.request?.metadata?.category == 'bank_transfer'">Bank Transfer</span>
+                  <span *ngIf="payout?.request?.metadata?.category == 'bank_redirect'">Bank Redirect</span>
+                  <span *ngIf="payout?.request?.metadata?.category == 'bank'">Bank</span>
+                  <span *ngIf="payout?.request?.metadata?.category == 'card'">Card</span>
+                  <span *ngIf="payout?.request?.metadata?.category == 'rapyd_ewallet'">Rapyd</span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
           <div class="w-full flex my-4">
             <div class="flex items-center w-2/3 text-base font-medium dark:text-white text-gray-800">
               <h4 class="">{{payout.request.metadata.name}}</h4>
@@ -164,9 +211,15 @@
               <img [src]="payout.request.metadata.image" alt="">
             </div>
           </div>
+
+
+
           <div class="flex w-full">
-            <button class="text-center primary-badge w-full" [disabled]="true">
+            <!-- <button class="text-center primary-badge w-full" [disabled]="true">
               {{payout?.response?.body?.data?.status?action_status_type(payout?.response?.body?.data?.status)?.btn:"Payouts Ready"}}
+            </button> -->
+            <button class="text-center primary-badge flex w-full">
+              Show Details
             </button>
           </div>
         </div>
