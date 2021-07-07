@@ -233,24 +233,10 @@ export class HelperService {
         error_message: "",
         response_code: "",
       }
+      result.category = full_payment?.request?.metadata?.category
       return result;
     }
-    // status = response?.body?.data?.status as any;
-    result.amount = payment_response.amount
     switch (payment_response.status) {
-      // case "Confirmation":
-      //   result = {
-      //     btn_active: false,
-      //     btn_text: "Confirmation",
-      //     Status: "The payout is waiting for a confirmation of the FX rate",
-      //     message: "you might need to click on the link below to complete transaction (you are in sandbox, use rapyd:success as credentials)",
-      //     instructions: payment_response.instructions,
-      //     redirect_url: payment_response.redirect_url,
-      //     amount: payment_response.amount,
-      //     error_message: payment_status_response.message,
-      //     response_code: payment_status_response.response_code,
-      //   }
-      //   break;
       case "ACT":
         result = {
           btn_active: true,
@@ -350,7 +336,8 @@ export class HelperService {
     }
     console.log("===action_status_type_payment done ===> status");
     console.log(status);
-
+    result.amount = payment_response.amount
+    result.category = payment_response?.payment_method_data?.category
     return result;
   }
   // === get status
@@ -382,10 +369,9 @@ export class HelperService {
       return result;
     }
     // status = response?.body?.data?.status as any;
-    result.amount = payment_response.amount;
 
     // for response status type, as I don't garunte the status response
-    let condition :any = payment_response.status
+    let condition: any = payment_response.status
     switch (condition) {
       case "Confirmation":
         result = {
@@ -499,7 +485,7 @@ export class HelperService {
     }
     console.log("===action_status_type_payment done ===> status");
     console.log(status);
-
+    result.amount = payment_response.amount;
     return result;
   }
 }

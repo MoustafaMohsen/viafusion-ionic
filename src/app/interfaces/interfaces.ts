@@ -131,7 +131,7 @@ export interface IRXTransaction {
 
   description:string;
 
-  status:"closed" | "requires_action" | "canceled" | "saved"
+  status:"closed" | "requires_action" | "canceled" | "saved" | "created"
 
   type: "many2many" | "w2w"| "many2w" | `${categories}2${categories}`
 
@@ -153,6 +153,7 @@ export interface PaymentPayoutDetails_internal{
   redirect_url: string;
   amount: number;
   error_message: string;
+  category?: string;
   response_code: string;
   cancel_reason?: string;
 }
