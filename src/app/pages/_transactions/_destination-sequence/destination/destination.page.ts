@@ -10,6 +10,7 @@ import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
 import { IAPIServerResponse } from 'src/app/interfaces/rapyd/types';
 import { RquiredFormTypes } from 'src/app/interfaces/interfaces';
 import { RequiredFields } from 'src/app/interfaces/rapyd/ipayment';
+import { HelperService } from 'src/app/services/helper.service';
 
 @Component({
   selector: 'app-destination',
@@ -18,7 +19,7 @@ import { RequiredFields } from 'src/app/interfaces/rapyd/ipayment';
 })
 export class DestinationPage implements OnInit {
 
-  constructor(private router: Router, private route: ActivatedRoute, private rx: RX, private fb: FormBuilder) { }
+  constructor(private router: Router, private route: ActivatedRoute, private rx: RX, private fb: FormBuilder,public h:HelperService) { }
 
   request_query: IGetPayoutRequiredFields.QueryRequest = {} as any;
   response_query: IGetPayoutRequiredFields.Response = {} as any;
@@ -38,7 +39,6 @@ export class DestinationPage implements OnInit {
   ionViewWillEnter() {
     this.route.queryParamMap.subscribe(m => {
       this.update_query(m.get("query_id"));
-
     })
   }
   ngOnInit() {
@@ -58,13 +58,13 @@ export class DestinationPage implements OnInit {
   update_query(query_id) {
     this.query_id = query_id;
     if (!this.rx.temp.destination_queries[query_id]) {
-      this.router.navigateByUrl("/transaction/destinations-sequence/available-destinations");
+      this.router.navigateByUrl("/dashboard");
     }
     this.request_query = this.rx.temp.destination_queries[query_id].request_query
     this.response_query = this.rx.temp.destination_queries[query_id].response_query
 
     if (!this.request_query) {
-      this.router.navigateByUrl("/transaction/destinations-sequence/available-destinations");
+      this.router.navigateByUrl("/dashboard");
     }
     this.render_required_fields(this.response_query);
     // validate payout is uniqe
@@ -142,8 +142,8 @@ export class DestinationPage implements OnInit {
       }
     }
 
-    this.bene_html_fields = this.get_html_fields(this.required_fields.beneficiary_required_fields)
-    this.sender_html_fields = this.get_html_fields(this.required_fields.sender_required_fields)
+    this.bene_html_fields = this.h.get_html_fields(this.required_fields.beneficiary_required_fields)
+    this.sender_html_fields = this.h.get_html_fields(this.required_fields.sender_required_fields)
     console.log("==>this.bene_html_fields");
     console.log(this.bene_html_fields);
     console.log("==>this.sender_html_fields");
@@ -153,63 +153,22 @@ export class DestinationPage implements OnInit {
     //#endregion
   }
 
-  formate_name(s: string) {
-    return s ? s.replace(/_/g, " ") : s;
-  }
-  cc_to_fields(fields, cc_form: FormGroup) {
-    // cc values
-    console.log(cc_form.value);
-
-    let datevalue = cc_form.controls.creditCardDate.value;
-    let card_number = cc_form.controls.creditCard.value
-    let card_expiration_month = datevalue[0] + datevalue[1]
-    let card_expiration_year = datevalue[5] + datevalue[6]
-    let cvv = cc_form.controls.creditCardCvv.value
-    fields = {
-      ...fields,
-      card_number, card_expiration_month, card_expiration_year, cvv,
-      number: card_number, expiration_month: card_expiration_month, expiration_year: card_expiration_year
-    }
-
-    return fields
-  }
 
   submit() {
     let beneficiary = this.beneficiary_required_fields_form.value;
     if (this.bene_is_cc) {
-      beneficiary = this.cc_to_fields(beneficiary, this.beneficiary_cc_form);
+      beneficiary = this.h.merge_fields_to_with_cc_form(beneficiary, this.beneficiary_cc_form);
     }
 
     let sender = this.beneficiary_required_fields_form.value;
     if (this.sender_is_cc) {
-      sender = this.cc_to_fields(sender, this.sender_cc_form);
+      sender = this.h.merge_fields_to_with_cc_form(sender, this.sender_cc_form);
     }
 
-    let user = this.rx.user$.value;
+    let ewallet = this.rx.user$.value.ewallet;
 
-    let payout: ICreatePayout.Request = {
-      payout_amount: parseInt(this.request_query.payout_amount as any),
-      payout_method_type: this.request_query.payout_method_type,
-      payout_currency: this.request_query.payout_currency,
+    var payout = this.h.create_payout_object(this.request_query,ewallet,sender,beneficiary)
 
-      beneficiary_country: this.request_query.beneficiary_country,
-      beneficiary_entity_type: "individual",
-      beneficiary,
-
-      // sender data
-      sender,
-      sender_country: this.request_query.sender_country,
-      sender_currency: "USD",
-      sender_entity_type: "individual",
-      ewallet: user.rapyd_wallet_data.id,
-      merchant_reference_id: this.rx.makeid(5),
-
-      // other data
-      metadata: this.request_query.metadata,
-      description: "",
-      confirm_automatically: true,
-      statement_descriptor: "Test Transfer",
-    }
 
     let destinations = [...this.rx.temp["transaction"]["payouts"].value]
     // validate payout is uniqe
@@ -234,6 +193,11 @@ export class DestinationPage implements OnInit {
   }
 
   cancel() {
+    console.log("----");
+    console.log("this.sender_required_fields_form",this.sender_required_fields_form);
+    console.log("this.beneficiary_required_fields_form",this.beneficiary_required_fields_form);
+    console.log("----");
+    return ;
     this.router.navigateByUrl("/transaction/destinations-sequence/selected-destinations");
   }
 
@@ -267,64 +231,5 @@ export class DestinationPage implements OnInit {
     return d;
   }
 
-  // format html field from regx rules
-  formate_field(f:RequiredFields.Field){
-    let res:RquiredFormTypes={} as any;
-    var get_label = ()=>{
-      return this.formate_name(f.name)
-    }
-    var get_description = ()=>{
-      return f.description || f.instructions ||  f.name
-    }
-    var is_options = ()=>{
-      return /\([a-z|_]+\)/gm.test(f.regex)
-    }
-    var get_disabled = ()=>{
-      let value = "";
-      /^[a-z]+$/.test(f.regex) && (value = f.regex)
-      return value;
-    }
-
-    var get_options = ()=>{
-      let options = []
-      if (is_options()) {
-        let regoptions = f.regex.replace(/\)|\(/gm,"").split("|")
-        regoptions.forEach(o=>{
-          options.push({
-            name:this.formate_name(o),
-            value:o
-          })
-        })
-      }
-      return options
-    }
-
-    res.name = f.name
-    res.label = get_label();
-    res.description = get_description();
-    res.options= get_options();
-    res.disabled_value= get_disabled();
-    // number
-    if ((f.type == 'number' || f.type == 'integer' ) && !res.disabled_value) {
-      res.type = "number"
-    }
-    if ((f.type == 'string' || f.type == 'text' ) && !res.disabled_value) {
-      res.type = "text"
-    }
-    if ((f.type == 'date' || f.type == 'datetime' ) && !res.disabled_value) {
-      res.type = "number"
-    }
-    res.type = is_options()? "options" : "text";
-    return res;
-  }
-
-  get_html_fields(fields:RequiredFields.Field[]){
-    let res = []
-    for (let i = 0; i < fields.length; i++) {
-      const f = fields[i];
-      res.push(this.formate_field(f))
-    }
-    return res;
-  }
 }
 
