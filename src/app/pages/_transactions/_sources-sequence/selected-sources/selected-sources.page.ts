@@ -1,3 +1,4 @@
+import { WalletService } from 'src/app/services/wallet/wallet.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ISource, TStatus as _TStatus, TSourcePoint as _TSourcePoint } from 'src/app/interfaces/interfaces';
@@ -17,7 +18,7 @@ export class SelectedSourcesPage implements OnInit {
   selected_sources: PostCreatePayment.Request[] = [];
   source_amount = "0"
 
-  constructor(private loading: LoadingService, private router: Router, private rx: RX) { }
+  constructor(private loading: LoadingService, private router: Router, public rx: RX,private walletSrv:WalletService) { }
 
   ngOnInit() {
     this.selected_sources = this.rx.temp["transaction"]["payments"].value;
@@ -31,6 +32,14 @@ export class SelectedSourcesPage implements OnInit {
   continue_to_destination() {
     // this.rx.save_temp();
     this.router.navigateByUrl("transaction/destinations-sequence/selected-destinations");
+  }
+
+  continue_to_overview() {
+    // this.rx.save_temp();
+    this.rx.temp.view_transaction.next(this.walletSrv.convert_rxtran_to_transaction(this.rx.temp["transaction"]))
+    console.log("this.rx.temp.view_transaction");
+
+    this.router.navigateByUrl("/action/complete-transaction")
   }
 
   add_source() {
