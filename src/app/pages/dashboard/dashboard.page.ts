@@ -12,6 +12,7 @@ import { TDirection as _TDirection, Transaction, TStatus as _TStatus } from 'src
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { LoadingService } from 'src/app/services/loading.service';
 import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
+import { IdentityVerification } from 'src/app/interfaces/rapyd/iwallet';
 
 @Component({
   selector: 'app-dashboard',
@@ -110,5 +111,25 @@ export class DashboardPage implements OnInit {
 
   async generate_checkout_page(){
     this.router.navigateByUrl("/payment/generate-qr-code");
+  }
+  async generate_idv_page(){
+    let req:IdentityVerification.Request = {
+      contact:this.rx.user$.value.contact,
+      ewallet:this.rx.user$.value.ewallet,
+      reference_id:this.rx.user$.value.contact_reference_id +"__ignore__" + this.rx.makeid(5)
+    }
+    this.walletSrv.generate_idv_page(req).subscribe(res=>{
+      if(res.success){
+        this.rx.temp.idv = res.data;
+        console.log(res.data);
+        this.rx.toast("Verification page generate");
+      }else{
+        this.rx.toastError(res as any)
+      }
+    })
+  }
+
+  get is_verified(){
+    return this.rx?.user$?.value?.rapyd_contact_data?.verification_status != "not verified"
   }
 }

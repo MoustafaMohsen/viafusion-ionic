@@ -76,7 +76,7 @@ export class WalletService {
   }
 
   generate_idv_page(request: IdentityVerification.Request) {
-    return this.api.post<IdentityVerification.Response>("generate-checkout", request)
+    return this.api.post<IdentityVerification.Response>("generate-idv", request)
   }
 
   //#endregion

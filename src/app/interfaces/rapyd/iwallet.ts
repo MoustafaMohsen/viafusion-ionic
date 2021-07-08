@@ -358,7 +358,7 @@ export namespace IdentityVerification {
       reference_id: string
       ewallet: string
       contact: string
-      page_expiration: number
+      page_expiration?: number
   }
 
   export interface Response {
