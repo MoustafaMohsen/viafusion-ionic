@@ -12,6 +12,8 @@
       </span>
     </div>
 
+    <div class="line"></div>
+
     <div class="flex justify-start items-center my-4">
       <div class="">
         <span class="font-bold text-xl">
@@ -38,8 +40,11 @@
       </div>
     </div>
 
+    <div class="line"></div>
 
-    <div class="flex justify-start items-center my-4 card flex-col" *ngIf="status.response_code || status.error_message">
+
+    <div class="flex justify-start items-center my-4 card flex-col"
+      *ngIf="status.response_code || status.error_message">
       <div class="w-full">
         <span class="font-bold text-xl">
           Payemt Error :
@@ -48,7 +53,7 @@
       <div class="w-full">
         <div class="ml-4">
           <span class="font-normal">
-            <p class="font-bold">Error code:</p><span  class="font-normal">{{status.response_code}}</span>
+            <p class="font-bold">Error code:</p><span class="font-normal">{{status.response_code}}</span>
           </span>
         </div>
         <div class="ml-4">
@@ -58,53 +63,66 @@
         </div>
       </div>
     </div>
+  
 
+    <div class="flex justify-start items-center mt-4 card flex-col">
 
-    <div class="flex justify-start items-center my-4 card flex-col">
       <div class="w-full">
-        <span class="font-bold text-xl">
-         Status :
-        </span>
-      </div>
-      <div class="w-full">
-        <div class="ml-4">
+        <div class="mb-4">
           <span class="font-normal">
-            <p class="font-bold">Status Details:</p><span class="font-normal">{{status.Status}}</span>
+            <p class="font-bold text-xl">Status Details :</p>
+            <span class="font-normal my-4">{{status.Status}}</span>
           </span>
         </div>
-        <div class="ml-4">
+        <div class="line"></div>
+
+        <div class="my-4">
           <span class="font-normal">
-            <p class="font-bold">Status Message:</p><span class="fonr-normal">{{status.message}}</span> 
-           </span>
-        </div>
-        <div class="ml-4">
-          <span class="font-normal">
-             <a [href]="status.redirect_url" target="_blank" rel="noopener noreferrer">{{status.redirect_url}}</a>
+            <p class="font-bold text-xl">Status Message :</p>
+            <span class="fonr-normal my-4">{{status.message}}</span>
           </span>
         </div>
+
+        <div class="line"></div>
+
+        <div class="my-4">
+          <span class="font-normal">
+            <p class="font-bold text-xl">Link :</p>
+            <a [href]="status.redirect_url" target="_blank" rel="noopener noreferrer"
+              class="my-4">{{status.redirect_url}}</a>
+          </span>
+
+          <button type="button" class="p-2 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+            Click to open link <svg-icon key="tabs" fontSize="1.8rem" class="ml-2"></svg-icon>
+          </button>
+
+        </div>
       </div>
     </div>
 
 
-<div class="flex justify-start items-center my-4 card flex-col">
-    <!-- instructions -->
-    <div *ngIf="status.instructions?.length" class="w-full">
-      <!-- <p *ngIf="status.instructions">instructions</p> -->
-      <div *ngFor="let inst of status.instructions" >
-        <!-- <p *ngFor="let ins of status.instructions">{{ins}}</p> -->
-        <p *ngIf="" class="font-bold">{{inst?.name}}</p>
-        <p *ngFor="let step of inst?.steps" class="font-bold">{{step.step1}}</p>
+    <div class="flex justify-start items-center mb-4 card flex-col">
+      <!-- instructions -->
+      <div *ngIf="status.instructions?.length" class="w-full">
+        <!-- <p *ngIf="status.instructions">instructions</p> -->
+        <div *ngFor="let inst of status.instructions">
+          <!-- <p *ngFor="let ins of status.instructions">{{ins}}</p> -->
+          <p *ngIf="" class="font-bold">{{inst?.name}}</p>
+          <p class="font-bold text-xl">Instructions : </p>
+          <p *ngFor="let step of inst?.steps" class="font-normal">{{step.step1}}</p>
+        </div>
       </div>
+
+      <!-- instructions -->
+      <div *ngIf="status.instructions?.name" class="w-full">
+        <p *ngIf="" class="font-bold">{{status.instructions?.name}}</p>
+        <p class="font-bold text-xl">Instructions : </p>
+        <p *ngFor="let step of status.instructions?.steps" class="font-normal">{{step.step1}}</p>
+
+      </div>
+
     </div>
 
-    <!-- instructions -->
-    <div *ngIf="status.instructions?.name" class="w-full">
-      <p *ngIf="">{{status.instructions?.name}}</p>
-      <p *ngFor="let step of status.instructions?.steps">{{step.step1}}</p>
-
-    </div>
-
-</div>
 
   </div>
 
@@ -112,11 +130,11 @@
 
 
 
-  <div class="mt-32">
-    <button [disabled]="!status.btn_active" (click)="continue_btn()" type="button"
-      class="p-2 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
-      {{status.btn_text}} <ion-icon name="arrow-forward-outline" class="ml-3 text-2xl"></ion-icon>
-    </button>
+  <div class="">
+    <ion-button [disabled]="!status.btn_active" (click)="continue_btn()" expand="full" fill="outline" shape="round">
+      {{status.btn_text}}
+    </ion-button>
+
     <ion-button (click)="close()" expand="full" fill="solid" shape="round">
       Close
     </ion-button>

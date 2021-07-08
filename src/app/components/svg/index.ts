@@ -38,6 +38,7 @@ import { phoneIcon } from './consts/phone';
 import { sandboxIcon } from './consts/sandbox';
 import { signOutIcon } from './consts/sign-out';
 import { walletIcon } from './consts/wallet';
+import { tabsIcon } from './consts/tabs';
 
 export const  icons = [
     nfcIcon,
@@ -79,7 +80,8 @@ export const  icons = [
     phoneIcon,
     sandboxIcon,
     signOutIcon,
-    walletIcon
+    walletIcon,
+    tabsIcon
     
     
 
