@@ -55,7 +55,7 @@ ion-header {
     // background-color: var(--secondary-tint);
     background-image: url("../../../assets/images/Simple\ Shiny.svg");
     background-size: contain;
-    .buttons-div button {
+    .buttons-div button,.buttons-div a {
       background:#fff;
     }
     svg-icon {

@@ -180,7 +180,7 @@ export class RX {
   }
 
 
-  async toast(message = "okay", title = "", duration = 600000) {
+  async toast(message = "okay", title = "", duration = 30000) {
     const toast = await this.toastController.create({
       header: title,
       message,

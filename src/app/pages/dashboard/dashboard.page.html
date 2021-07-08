@@ -202,16 +202,29 @@
           <div class="icon">
             <svg-icon key="check" fontSize="3rem" class="mr-2"></svg-icon>
           </div>
-          <div class="">
+          <div *ngIf="!is_verified" class="">
             <p class="text-gray-900 text-xl font-bold">Can't Access all Features</p>
             <span class="mt-2">Verify your Identity Now</span>
           </div>
         </div>
 
-        <div class="flex text-lg leading-6 font-medium dark:text-white text-gray-800 mt-4 buttons-div">
-          <button (click)="make_transaction()" class="w-full">
+        <!-- If no verification is found -->
+        <div *ngIf="is_verified" class="flex text-lg leading-6 font-medium dark:text-white text-gray-800 mt-4 buttons-div">
+          <button class="w-full">
+            You are Verifired
+          </button>
+        </div>
+        <!-- If no verification is found -->
+        <div *ngIf="!rx.temp?.idv?.redirect_url && !is_verified" class="flex text-lg leading-6 font-medium dark:text-white text-gray-800 mt-4 buttons-div">
+          <button (click)="generate_idv_page()" class="w-full">
             Verify
           </button>
+        </div>
+        <div *ngIf="rx.temp?.idv?.redirect_url" class="flex text-lg leading-6 font-medium dark:text-white text-gray-800 mt-4 buttons-div">
+          <!-- If no verification is found -->
+          <a *ngIf="rx.temp?.idv?.redirect_url" [href]="rx.temp?.idv?.redirect_url" target="_blank" class="w-full">
+            Open Verification link
+          </a>
         </div>
       </div>
 
