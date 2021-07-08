@@ -19,7 +19,7 @@ export class VerifyWalletPage implements OnInit {
   progress_percent = 10;
   radius = 80;
   subtitle = ""
-  constructor(private walletSrv: WalletService, public loading: LoadingService, private router: Router, private rx: RX,private loginSrv:LoginService) {
+  constructor(private walletSrv: WalletService, public loading: LoadingService, private router: Router, private rx: RX, private loginSrv: LoginService) {
     this.watch_change();
   }
 
@@ -56,7 +56,7 @@ export class VerifyWalletPage implements OnInit {
         } else {
           console.log(res);
           this.rx.toastError(res as any)
-
+          this.loginSrv.critical_error_delete_account()
         }
       }, err => {
         console.log(err);
