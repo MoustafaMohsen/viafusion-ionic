@@ -99,7 +99,10 @@ import { IbanSettingsPage } from './pages/_cc/iban/iban-details/iban-settings/ib
 @NgModule({
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+      scrollAssist: false,
+      scrollPadding: false
+    }),
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,

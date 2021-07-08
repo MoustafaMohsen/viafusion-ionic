@@ -13,6 +13,9 @@ export class Api {
     if (environment.dev2) {
       this.url='http://192.168.1.3:3005';
     }
+    if (environment.production) {
+      this.url='https://viafusion-expressjs-wlbud.ondigitalocean.app';
+    }
   }
 
   get<T>(endpoint: string, params?: any, reqOpts?: any) {
