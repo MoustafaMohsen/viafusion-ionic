@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
-import { ICreateVccToUser, ICreateVccToUser_Metadata, ISetCardStatus, IssueVccRequestForm, ListIssuedVcc, ListIssuedVccTransactions } from 'src/app/interfaces/rapyd/ivcc';
+import { ICreateVccToUser, ICreateVccToUser_Metadata, ISetCardStatus, ISimulateCardAuthorization, IssueVccRequestForm, ListIssuedVcc, ListIssuedVccTransactions } from 'src/app/interfaces/rapyd/ivcc';
 import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
 import { Api } from '../api/api';
 import { LoadingService } from '../loading.service';
@@ -36,6 +36,10 @@ export class VccService {
 
   set_card_status(status_obj:ISetCardStatus) {
     return this.api.post<IUtilitiesResponse<ListIssuedVccTransactions.Response[]>>("set-card-status",status_obj)
+  }
+
+  simulate_card_authorization(status_obj:ISimulateCardAuthorization) {
+    return this.api.post<IUtilitiesResponse<ListIssuedVccTransactions.Response>>("simulate-card-authorization",status_obj)
   }
 
   create_vcc_to_user(metadata: ICreateVccToUser_Metadata) {

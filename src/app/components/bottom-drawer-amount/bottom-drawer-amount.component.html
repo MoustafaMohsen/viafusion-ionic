@@ -1,0 +1,29 @@
+<ion-content>
+  <div class="row modal-content relative">
+    <div>
+      <p class="text-gray-600 mt-2 f-p">Enter Amount and Select Currency</p>
+      <p class="letspac-1">Account Ballance {{remaing_ballance | currency}}</p>
+      <div class="flex justify-between" [formGroup]="form">
+        <mat-form-field appearance="outline" class="text-gray-600 mt-1 f-p w-5/12" appearance="fill">
+          <mat-label>Amount</mat-label>
+          <input type="number" inputmode="numeric" matInput formControlName="amount">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="text-gray-600 mt-1 f-p  w-5/12" appearance="fill">
+          <mat-label>Currency</mat-label>
+          <mat-select value="USD" formControlName="currency">
+            <mat-option *ngFor="let c of currencies" [value]="c">{{c}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+    </div>
+
+    <div class="button-row absolute">
+      <button [disabled]="form.invalid" (click)="continue()" type="button"
+        class="py-4 px-6 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+        Continue <ion-icon name="arrow-forward-outline" class="ml-3 text-2xl"></ion-icon>
+      </button>
+    </div>
+  </div>
+</ion-content>
