@@ -173,7 +173,7 @@ export class DestinationPage implements OnInit {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Please wait...',
-      duration: 20000
+      duration: 60000
     });
 
     await loading.present();
