@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { Api } from '../api/api';
 import { ICreateWallet, ILookup_user, IWallet2Wallet } from 'src/app/interfaces/db/idbwallet';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
-import { ICurrency, WalletBalanceResponse } from 'src/app/interfaces/rapyd/iwallet';
+import { ICreateChckoutPage, ICurrency, IWalletTransaction, WalletBalanceResponse } from 'src/app/interfaces/rapyd/iwallet';
 import { IRXTransaction } from 'src/app/interfaces/interfaces';
 import { RX } from '../rx/events.service';
 import { PostCreatePayment } from 'src/app/interfaces/rapyd/ipayment';
@@ -18,7 +18,7 @@ import { map } from 'rxjs/operators';
 })
 export class WalletService {
 
-  constructor(private api: Api, private rx: RX, private router: Router, private loading: LoadingService, private h:HelperService) { }
+  constructor(private api: Api, private rx: RX, private router: Router, private loading: LoadingService, private h: HelperService) { }
 
   create_wallet(form: ICreateWallet.Form) {
     let contact_reference_id = this.rx.user$.value.contact_reference_id;
@@ -52,6 +52,10 @@ export class WalletService {
     }).catch(this.rx.toastError)
   }
 
+  get_detailed_wallet_transactions() {
+    let contact_reference_id = this.rx.user$.value.contact_reference_id;
+    return this.api.post<{data:IWalletTransaction[]}>("wallet-transactions", { contact_reference_id })
+  }
   execute_payment_transactions(tran_id: string) {
     let contact_reference_id = this.rx.user$.value.contact_reference_id;
     return this.api.post<IDBMetaContact>("execute-payments", { contact_reference_id, tran_id })
@@ -65,6 +69,10 @@ export class WalletService {
 
   get_rates(query: ICurrency.QueryRequest) {
     return this.api.post<ICurrency.Response>("get-rates", query)
+  }
+
+  generate_checkout_page(request: ICreateChckoutPage.Request) {
+    return this.api.post<ICreateChckoutPage.Response>("generate-checkout", request)
   }
 
   //#endregion
@@ -108,51 +116,6 @@ export class WalletService {
     return this.api.post<IDBMetaContact>("update-payments-payouts", { contact_reference_id, tran_id })
   }
 
-  update_transactions_status(trans: ITransaction[]) {
-    if (!trans) return trans;
-    trans.forEach(t => {
-      let requries_action = false;
-      let canceled = false;
-      let closed = false;
-      let update = false;
-
-      // update closed amount if you can
-      let r = this.h.reduce_transaction_amounts(t);
-      t.source_amount = r.source_amount as any
-      t.destination_amount = r.destination_amount as any
-      t.closed_payments_amount = r.closed_payments_amount
-      t.closed_payouts_amount = r.closed_payouts_amount
-      console.log("-----> closed t.closed_payments_amount", t.closed_payments_amount);
-
-      // === loop payments
-      t.payments?.forEach(p => {
-        // Check if hase response
-        if (p.response && p.response.body.status.status == "SUCCESS") {
-          var payment_res = p.response.body.data;
-
-          // is one active
-          if (payment_res.status == "ACT") {
-            requries_action = true
-            update = true;
-          }
-          // is all closed
-          if (payment_res.status == "CLO") {
-            closed = true
-            update = true;
-          }
-          // is cancaled
-          if (payment_res.status == "CAN") {
-            canceled = true;
-            update = false;
-          }
-        }
-      })
-
-      if (update)
-        t.status = canceled ? "canceled" : closed ? "closed" : requries_action ? "requires_action" : "saved";
-    })
-    return trans;
-  }
   //#endregion
 
   lookup_user(phone_number) {
@@ -169,12 +132,13 @@ export class WalletService {
   }
 
   async get_wallet_balance(make_request = false, currency = "USD"): Promise<number> {
-    this.rx.get_db_metacontact();
-    this.rx.get_db_contact();
+    await this.rx.get_db_metacontact();
+    await this.rx.get_db_contact();
     return new Promise((resolve, reject) => {
       var sub = this.rx.user$.subscribe(u => {
-        this.rx.meta$.value.transactions = this.update_transactions_status(this.rx.meta$.value.transactions);
+        this.rx.meta$.value.transactions = this.h.update_transactions_status(this.rx.meta$.value.transactions);
         this.rx.meta$.next(this.rx.meta$.value);
+        this.rx.post_db_metacontact();
         if (u && u.rapyd_wallet_data && u.rapyd_wallet_data.accounts && u.rapyd_wallet_data.accounts.length > 0) {
           let accounts = u.rapyd_wallet_data.accounts
           console.log("accounts");
@@ -185,7 +149,10 @@ export class WalletService {
           this.balance$.next(balance);
           resolve(balance)
         }
-      }).unsubscribe()
+      })
+      setTimeout(() => {
+        sub.unsubscribe();
+      }, 100);
     })
   }
 
@@ -234,7 +201,7 @@ export class WalletService {
       closed_payments_amount: rxtran.closed_payments_amount || 0,
       closed_payouts_amount: rxtran.closed_payouts_amount || 0,
       description: rxtran.description,
-      type: "many2many",
+      type: rxtran.type || "many2many",
       execution_date: rxtran.execution_date,
       status: rxtran.status,
       payments_executed: rxtran.payments_executed,

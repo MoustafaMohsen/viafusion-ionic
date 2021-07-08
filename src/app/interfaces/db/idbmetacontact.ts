@@ -38,8 +38,8 @@ export interface IDBMetaContact {
 
 export interface ITransaction {
   id: string;
-  source_amount?: string;
-  destination_amount?: string;
+  source_amount?: number;
+  destination_amount?: number;
   payments: ITransactionFull_payment[];
   payouts: ITransactionFull_payout[];
   transfer_resoponse:TransferToWallet.Response;
@@ -58,9 +58,9 @@ export interface ITransaction {
 
   description:string;
 
-  status:"closed" | "requires_action" | "canceled" | "saved"
+  status: "closed" | "requires_action" | "canceled" | "saved" | "created"
 
-  type: "many2many" | "w2w"| "many2w" | "w2recived" |`${categories}2${categories}`
+  type: "many2many" | "w2w"| "many2w" | "w2recived" | "w2many" |`${categories}2${categories}`
 }
 export interface IReducedTransaction{
   source_amount?: number;

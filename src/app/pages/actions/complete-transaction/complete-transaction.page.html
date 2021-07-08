@@ -1,4 +1,4 @@
-<app-header title="Complete Transaction"></app-header>
+<app-header title="Transaction Overview"></app-header>
 
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="refresh_transaction($event)">
@@ -12,8 +12,13 @@
   <ng-container *ngIf="transaction?.payments?.length > 0">
 
     <div class="flex jusitfy-between items-center mb-4">
-      <ion-button (click)="save_transaction()" expand="full" fill="solid" shape="round" class="w-full">
-        Save for Later
+      <ion-button [disabled]="transaction.status != 'created'" (click)="schedual_transaction()" expand="full" fill="solid" shape="round" class="w-full">
+        {{'Schedual payment'}}
+      </ion-button>
+    </div>
+    <div class="flex jusitfy-between items-center mb-4">
+      <ion-button [disabled]="transaction.status != 'created'" (click)="save_transaction()" expand="full" fill="solid" shape="round" class="w-full">
+        {{transaction.status == 'created'?'Save for Later':"Saved"}}
       </ion-button>
     </div>
 
@@ -34,11 +39,11 @@
     <div class="flex justify-between items-center">
       <div>
         <h2 class="text-base text-gray-800 letspac-1">
-          Sources of Payments
+          Sources of Transaction
         </h2>
       </div>
       <div>
-        <button [disabled]="loading.loading$ | async" (click)="do_payments()"
+        <button [disabled]="(loading.loading) || this.transaction.execute_payments" (click)="do_payments()"
           class="p-2  focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
           Do Payments
         </button>
@@ -139,7 +144,7 @@
     <div class="flex justify-between items-center">
       <div class="">
         <h2 class="text-base text-gray-800 letspac-1">
-          Destinations of Payouts
+          Destinations of Transaction
         </h2>
       </div>
       <div>

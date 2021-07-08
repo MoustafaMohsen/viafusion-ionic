@@ -87,6 +87,11 @@ import { PaymentModalComponent } from './components/payment-modal/payment-modal.
 import { SettingsPage } from './pages/actions/settings/settings.page';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { HelperService } from './services/util/helper';
+import { WalletTransactionHistoryPage } from './pages/_transactions/wallet-transaction-history/wallet-transaction-history.page';
+import { WalletTransactionItemComponent } from './components/wallet-transaction-item/wallet-transaction-item.component';
+import { BottomDrawerModalComponent } from './components/bottom-drawer-amount/bottom-drawer-amount.component';
+import { GenerateCheckoutComponent } from './components/generate-checkout/generate-checkout.component';
+import { NgxKjuaModule } from 'ngx-kjua';
 
 @NgModule({
   imports: [
@@ -131,6 +136,7 @@ import { HelperService } from './services/util/helper';
     LacMatTelInputModule,
     NgxCcModule,
     MatDatepickerModule,
+    NgxKjuaModule,
   ],
   declarations: [
     AppComponent,
@@ -188,8 +194,11 @@ import { HelperService } from './services/util/helper';
     BottomNavComponent,
     DashboardMethodsComponent,
     PaymentModalComponent,
-    SettingsPage
-
+    SettingsPage,
+    WalletTransactionHistoryPage,
+    WalletTransactionItemComponent,
+    BottomDrawerModalComponent,
+    GenerateCheckoutComponent,
   ],
   entryComponents: [],
   providers: [

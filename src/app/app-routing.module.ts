@@ -40,6 +40,7 @@ import { SellPage } from './pages/_marketplace/sell/sell.page';
 import { ProductDetailsPage } from './pages/_marketplace/product-details/product-details.page';
 import { CompleteTransactionPage } from './pages/actions/complete-transaction/complete-transaction.page';
 import { SettingsPage } from './pages/actions/settings/settings.page';
+import { WalletTransactionHistoryPage } from './pages/_transactions/wallet-transaction-history/wallet-transaction-history.page';
 
 const routes: Routes = [
   //
@@ -124,6 +125,11 @@ const routes: Routes = [
             path: 'vcc-details',
             component: VccDetailsPage,
             children: [
+              {
+                path: '',
+                redirectTo: 'vcc-history',
+                pathMatch: 'full'
+              },
               {
                 path: 'vcc-history',
                 component: VccHistoryPage,
@@ -214,7 +220,10 @@ const routes: Routes = [
         path: 'transaction-history',
         component: TransactionHistoryPage,
       },
-
+      {
+        path: 'wallet-transaction-history',
+        component: WalletTransactionHistoryPage,
+      },
       {
         path: 'internal-transaction',
         component: InternalTransactionPage,
@@ -285,7 +294,7 @@ const routes: Routes = [
   },
   {
     path: 'action',
-    children:[
+    children: [
       {
         path: 'complete-transaction',
         component: CompleteTransactionPage
@@ -296,7 +305,7 @@ const routes: Routes = [
       }
     ]
   },
-  
+
 
 
 

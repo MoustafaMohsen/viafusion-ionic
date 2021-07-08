@@ -3,14 +3,38 @@
 <ion-content>
 
   <div class="flex flex-col items-center">
-  <p class="text-3xl text-gray-500">Pay With One Touch</p>
+    <p class="text-3xl text-gray-500">Pay With One Touch</p>
 
-  <div class="icon-container">
-     <svg-icon key="qr-code" fontSize="13rem"></svg-icon>
+    <div class="icon-container">
+      <ngx-kjua
+        [text]="this.checkout_url"
+        [renderAsync]="false"
+        [render]="'svg'"
+        [crisp]="true"
+        [minVersion]="1"
+        [ecLevel]="'H'"
+        [size]="400"
+        [ratio]="undefined"
+        [fill]="'#333'"
+        [back]="'#fff'"
+        [rounded]="100"
+        [quiet]="1"
+        [mode]="'plain'"
+        [mSize]="30"
+        [mPosX]="50"
+        [mPosY]="50"
+        [label]="'label text'"
+        [fontname]="'sans-serif'"
+        [fontcolor]="'#ff9818'"
+        [image]="undefined"
+        [cssClass]="'image-auto'"></ngx-kjua>
+
+    </div>
+
+
+    <button (click)="copy_link()" class="my-4 text-base p-4 font-bold bg-yellow-200 text-yellow-800 rounded-full">Copy link</button>
+    <a [href]="this.checkout_url" target="_blank" class="my-4 text-base p-4 font-bold bg-yellow-200 text-yellow-800 rounded-full">Open link</a>
+
+
   </div>
-
-  <p class="my-4 text-base p-4 font-bold bg-yellow-200 text-yellow-800 rounded-full">Comming Soon</p>
-
- 
-</div>
 </ion-content>

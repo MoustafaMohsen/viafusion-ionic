@@ -1,3 +1,4 @@
+import { ICreateChckoutPage } from 'src/app/interfaces/rapyd/iwallet';
 import { BehaviorSubject } from 'rxjs';
 import { ITransaction } from "./db/idbmetacontact";
 import { IWallet2Wallet } from './db/idbwallet';
@@ -103,7 +104,8 @@ export interface ITemp {
   },
   view_transaction: BehaviorSubject<ITransaction>,
   vcc_details?: ListIssuedVcc.Response,
-  wallet2wallet:BehaviorSubject<IWallet2Wallet>
+  wallet2wallet:BehaviorSubject<IWallet2Wallet>,
+  checkouts:ICreateChckoutPage.Response[]
 }
 
 
@@ -131,7 +133,7 @@ export interface IRXTransaction {
 
   description:string;
 
-  status:"closed" | "requires_action" | "canceled" | "saved"
+  status:"closed" | "requires_action" | "canceled" | "saved" | "created"
 
   type: "many2many" | "w2w"| "many2w" | `${categories}2${categories}`
 
@@ -144,7 +146,7 @@ export interface ActionStatusesTypes {
 }
 
 
-export interface PaymentDetails_internal{
+export interface PaymentPayoutDetails_internal{
   btn_active: boolean;
   btn_text: string;
   Status: string;
@@ -153,6 +155,7 @@ export interface PaymentDetails_internal{
   redirect_url: string;
   amount: number;
   error_message: string;
+  category?: string;
   response_code: string;
   cancel_reason?: string;
 }

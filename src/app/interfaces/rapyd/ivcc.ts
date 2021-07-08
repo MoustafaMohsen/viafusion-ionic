@@ -135,13 +135,20 @@ export namespace ListIssuedVccTransactions {
   }
 }
 
+// I had to work very fast and i'm working alone, sorry for the mess!
 export interface ISetCardStatus{
   /**Card ID */
   card:string,
   status:"active"|"unblock"|"block"
 }
 
-
+export interface ISimulateCardAuthorization {
+  /**Card ID */
+  card_id: string,
+  amount:number,
+  currency: "USD",
+  [key:string]:any
+}
 // Frontend-server interface
 export interface ICreateVccToUser {
   contact_reference_id: number

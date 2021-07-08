@@ -1,0 +1,16 @@
+ion-content {
+  --background: #ededed;
+  .modal-content {
+    .f-p {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+    .amount {
+      font-size: 1.6rem;
+    }
+  }
+}
+.button-row {
+  bottom: -35%;
+  width: 100%;
+}
