@@ -96,7 +96,10 @@ import { NgxKjuaModule } from 'ngx-kjua';
 @NgModule({
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+      scrollAssist: false,
+      scrollPadding: false
+    }),
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
