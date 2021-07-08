@@ -1,5 +1,26 @@
 <ion-content>
   <div class="row modal-content relative">
+    <div class="country-row">
+      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-country">
+          Country of payment
+        </label>
+        <div class="relative">
+          <mat-form-field class="countries-autocomplete" appearance="fill">
+            <mat-label>Country</mat-label>
+            <input matInput aria-label="Country" [matAutocomplete]="auto" [formControl]="countryCtrl">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option class="country-option" *ngFor="let country of filteredCountries | async"
+                [value]="country.alpha2Code">
+                <img class="example-option-img" aria-hidden [src]="country.flag">
+                <span>{{country.name}}</span>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+        </div>
+      </div>
+    </div>
     <div>
       <p class="text-gray-600 mt-2 f-p">{{title}}</p>
       <p class="letspac-1">Account Ballance {{remaing_ballance | currency}}</p>
@@ -10,7 +31,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="text-gray-600 mt-1 f-p  w-5/12" appearance="fill">
-          <mat-label>Currency</mat-label>
+          <mat-label>Currency of payment</mat-label>
           <mat-select value="USD" formControlName="currency">
             <mat-option *ngFor="let c of currencies" [value]="c">{{c}}</mat-option>
           </mat-select>
@@ -24,6 +45,9 @@
         class="py-4 px-6 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
         Continue <ion-icon name="arrow-forward-outline" class="ml-3 text-2xl"></ion-icon>
       </button>
+      <ion-button (click)="close()" expand="full" fill="outline" shape="round">
+        Close
+      </ion-button>
     </div>
   </div>
 </ion-content>

@@ -346,7 +346,7 @@ export namespace ICreateChckoutPage {
       merchant_currency_only: boolean
       billing_address_collect: boolean
       dynamic_currency_conversion: boolean
-      merchant_color: any
+      merchant_color?: any
     }
 
 }

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { Api } from '../api/api';
 import { ICreateWallet, ILookup_user, IWallet2Wallet } from 'src/app/interfaces/db/idbwallet';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
-import { ICurrency, IWalletTransaction, WalletBalanceResponse } from 'src/app/interfaces/rapyd/iwallet';
+import { ICreateChckoutPage, ICurrency, IWalletTransaction, WalletBalanceResponse } from 'src/app/interfaces/rapyd/iwallet';
 import { IRXTransaction } from 'src/app/interfaces/interfaces';
 import { RX } from '../rx/events.service';
 import { PostCreatePayment } from 'src/app/interfaces/rapyd/ipayment';
@@ -71,7 +71,7 @@ export class WalletService {
     return this.api.post<ICurrency.Response>("get-rates", query)
   }
 
-  get_rates(request: ICreateChckoutPage.Request) {
+  generate_checkout_page(request: ICreateChckoutPage.Request) {
     return this.api.post<ICreateChckoutPage.Response>("get-rates", request)
   }
 

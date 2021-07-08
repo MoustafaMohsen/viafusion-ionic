@@ -18,6 +18,7 @@ export class BottomDrawerModalComponent {
 
   @Input() currencies: string[] = ["USD"];
   @Input() remaing_ballance;
+  @Input() title = "Enter Amount and Select Currency";
   amount = 0;
 
   ionViewWillEnter() {
