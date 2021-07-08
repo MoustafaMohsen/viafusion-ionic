@@ -41,6 +41,7 @@ import { ProductDetailsPage } from './pages/_marketplace/product-details/product
 import { CompleteTransactionPage } from './pages/actions/complete-transaction/complete-transaction.page';
 import { SettingsPage } from './pages/actions/settings/settings.page';
 import { WalletTransactionHistoryPage } from './pages/_transactions/wallet-transaction-history/wallet-transaction-history.page';
+import { GenerateCheckoutPage } from './pages/_payment/generate-checkout/generate-checkout.page';
 
 const routes: Routes = [
   //
@@ -162,6 +163,10 @@ const routes: Routes = [
       {
         path: 'qr-payment',
         component: QrPaymentPage,
+      },
+      {
+        path: 'generate-qr-code',
+        component: GenerateCheckoutPage,
       },
       {
         path: 'cc-payment',
