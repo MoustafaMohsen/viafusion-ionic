@@ -14,7 +14,7 @@ export class Api {
       this.url='http://192.168.1.3:3005';
     }
     if (environment.production) {
-      this.url='https://viafusion-expressjs-wlbud.ondigitalocean.app';
+      this.url='https://viafusion.net/api/v1';
     }
   }
 
