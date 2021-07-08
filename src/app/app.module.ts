@@ -92,6 +92,9 @@ import { WalletTransactionItemComponent } from './components/wallet-transaction-
 import { BottomDrawerModalComponent } from './components/bottom-drawer-amount/bottom-drawer-amount.component';
 import { GenerateCheckoutPage } from './pages/_payment/generate-checkout/generate-checkout.page';
 import { NgxKjuaModule } from 'ngx-kjua';
+import { IbanDetailsPage } from './pages/_cc/iban/iban-details/iban-details.page';
+import { IbanHistoryPage } from './pages/_cc/iban/iban-details/iban-history/iban-history.page';
+import { IbanSettingsPage } from './pages/_cc/iban/iban-details/iban-settings/iban-settings.page';
 
 @NgModule({
   imports: [
@@ -199,6 +202,9 @@ import { NgxKjuaModule } from 'ngx-kjua';
     WalletTransactionItemComponent,
     BottomDrawerModalComponent,
     GenerateCheckoutPage,
+    IbanDetailsPage,
+    IbanHistoryPage,
+    IbanSettingsPage
   ],
   entryComponents: [],
   providers: [

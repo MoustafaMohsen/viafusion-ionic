@@ -42,6 +42,10 @@ import { CompleteTransactionPage } from './pages/actions/complete-transaction/co
 import { SettingsPage } from './pages/actions/settings/settings.page';
 import { WalletTransactionHistoryPage } from './pages/_transactions/wallet-transaction-history/wallet-transaction-history.page';
 import { GenerateCheckoutPage } from './pages/_payment/generate-checkout/generate-checkout.page';
+import { IbanDetailsPage } from './pages/_cc/iban/iban-details/iban-details.page';
+import { IbanHistoryPage } from './pages/_cc/iban/iban-details/iban-history/iban-history.page';
+import { IbanSettingsPage } from './pages/_cc/iban/iban-details/iban-settings/iban-settings.page';
+
 
 const routes: Routes = [
   //
@@ -146,6 +150,28 @@ const routes: Routes = [
       {
         path: 'list-of-cc',
         component: ListOfCcPage,
+      },
+      {
+        path: 'iban',
+        children: [
+          {
+            path: 'iban-details',
+            component: IbanDetailsPage,
+            children: [
+              {
+                path: 'iban-history',
+                component: IbanHistoryPage
+              },
+              {
+                path: 'iban-settings',
+                component: IbanSettingsPage
+              },
+            ]
+          },
+
+
+        ]
+
       },
     ],
   },
@@ -310,6 +336,9 @@ const routes: Routes = [
       }
     ]
   },
+
+
+
 
 
 
