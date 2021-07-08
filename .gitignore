@@ -31,3 +31,5 @@ npm-debug.log*
 /www
 src/environments/environment.dev2.ts
 src/environments/environment.ts
+android/
+ios/
