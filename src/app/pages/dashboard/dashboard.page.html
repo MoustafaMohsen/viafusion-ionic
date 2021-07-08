@@ -152,18 +152,18 @@
       <div class="transition mt-4 charge duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 source-item">
         <p class="text-base text-gray-500"></p>
         <div class="flex mt-5">
-          <div class="icon">
+          <div class="icon m-2">
             <svg-icon key="qr-code" fontSize="3rem"></svg-icon>
           </div>
           <div class="">
-            <p class="text-gray-900 text-xl font-bold">Someonw Owes you!</p>
-            <span class="mt-2 text-gray-700">Charge and access unlimited possibilities</span>
+            <p class="text-gray-900 text-xl font-bold">Someone Owes you!</p>
+            <span class="mt-2 text-gray-700">Generate payment QR Code or Link</span>
           </div>
         </div>
 
         <div class="flex text-lg leading-6 font-medium dark:text-white text-gray-800 mt-4 buttons-div">
           <button (click)="generate_checkout_page()" class="w-full">
-            Generate payment QR Code or Link
+            Generate QR Code or Link
           </button>
         </div>
       </div>
@@ -193,6 +193,26 @@
           </div>
         </div>
 
+      </div>
+
+
+      <div class="transition mt-4 duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 source-item">
+        <p class="text-base text-gray-500">VERIFY YOUR IDENTITY</p>
+        <div class="flex mt-5">
+          <div class="icon">
+            <svg-icon key="check" fontSize="3rem" class="mr-2"></svg-icon>
+          </div>
+          <div class="">
+            <p class="text-gray-900 text-xl font-bold">Can't Access all Features</p>
+            <span class="mt-2">Verify your Identity Now</span>
+          </div>
+        </div>
+
+        <div class="flex text-lg leading-6 font-medium dark:text-white text-gray-800 mt-4 buttons-div">
+          <button (click)="make_transaction()" class="w-full">
+            Verify
+          </button>
+        </div>
       </div>
 
 

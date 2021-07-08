@@ -39,6 +39,8 @@ import { sandboxIcon } from './consts/sandbox';
 import { signOutIcon } from './consts/sign-out';
 import { walletIcon } from './consts/wallet';
 import { tabsIcon } from './consts/tabs';
+import { historyIcon } from './consts/history';
+import { checkIcon } from './consts/check';
 
 export const  icons = [
     nfcIcon,
@@ -81,7 +83,9 @@ export const  icons = [
     sandboxIcon,
     signOutIcon,
     walletIcon,
-    tabsIcon
+    tabsIcon,
+    historyIcon,
+    checkIcon
     
     
 
