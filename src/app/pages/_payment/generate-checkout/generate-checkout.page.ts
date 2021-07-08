@@ -14,10 +14,10 @@ import { WalletService } from 'src/app/services/wallet/wallet.service';
 
 @Component({
   selector: 'app-generate-checkout',
-  templateUrl: './generate-checkout.component.html',
-  styleUrls: ['./generate-checkout.component.scss'],
+  templateUrl: './generate-checkout.page.html',
+  styleUrls: ['./generate-checkout.page.scss'],
 })
-export class GenerateCheckoutComponent {
+export class GenerateCheckoutPage {
 
   @Input() currencies: string[] = curruncies;
   @Input() remaing_ballance;
@@ -87,6 +87,10 @@ export class GenerateCheckoutComponent {
     })
   }
 
+  open_latest(){
+    this.router.navigateByUrl("/payment/qr-payment")
+  }
+
 
 
 
@@ -107,6 +111,8 @@ export class GenerateCheckoutComponent {
 
   private _filterCountries(value: string): ICountry[] {
     const filterValue = value.toLowerCase();
+    console.log(value);
+
     return this.countries.filter(country => country.name.toLowerCase().includes(filterValue));
   }
   //#endregion
