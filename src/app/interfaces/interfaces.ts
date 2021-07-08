@@ -1,3 +1,4 @@
+import { ICreateChckoutPage } from 'src/app/interfaces/rapyd/iwallet';
 import { BehaviorSubject } from 'rxjs';
 import { ITransaction } from "./db/idbmetacontact";
 import { IWallet2Wallet } from './db/idbwallet';
@@ -103,7 +104,8 @@ export interface ITemp {
   },
   view_transaction: BehaviorSubject<ITransaction>,
   vcc_details?: ListIssuedVcc.Response,
-  wallet2wallet:BehaviorSubject<IWallet2Wallet>
+  wallet2wallet:BehaviorSubject<IWallet2Wallet>,
+  checkouts:ICreateChckoutPage.Response[]
 }
 
 

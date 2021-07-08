@@ -488,4 +488,28 @@ export class HelperService {
     result.amount = payment_response.amount;
     return result;
   }
+
+  copy(txt) {
+    var m = document;
+    txt = m.createTextNode(txt);
+    var w = window as any;
+    var b = m.body as any;
+    b.appendChild(txt) ;
+    if (b.createTextRange) {
+      var d = b.createTextRange();
+      d.moveToElementText(txt);
+      d.select();
+      m.execCommand('copy');
+    }
+    else {
+      var d = m.createRange() as any;
+      var g = w.getSelection;
+      d.selectNodeContents(txt);
+      g().removeAllRanges();
+      g().addRange(d);
+      m.execCommand('copy');
+      g().removeAllRanges();
+    }
+    txt.remove();
+  }
 }

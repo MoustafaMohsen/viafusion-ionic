@@ -9,8 +9,10 @@
      <svg-icon key="qr-code" fontSize="13rem"></svg-icon>
   </div>
 
-  <p class="my-4 text-base p-4 font-bold bg-yellow-200 text-yellow-800 rounded-full">Comming Soon</p>
 
- 
+  <button (click)="copy_link()" class="my-4 text-base p-4 font-bold bg-yellow-200 text-yellow-800 rounded-full">Copy link</button>
+  <a [href]="this.checkout_link" target="_blank" class="my-4 text-base p-4 font-bold bg-yellow-200 text-yellow-800 rounded-full">Open link</a>
+
+
 </div>
 </ion-content>

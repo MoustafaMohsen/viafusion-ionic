@@ -103,6 +103,7 @@ export class RX {
     }
 
     this.temp.destination_queries = {}
+    this.temp.checkouts = this.temp.checkouts || []; // make checkout persistent by session
     console.log("Temp Transaction reset");
     console.log("this.temp");
     console.log(this.temp);
