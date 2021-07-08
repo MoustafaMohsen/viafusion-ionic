@@ -1,3 +1,4 @@
+import { LoginService } from 'src/app/services/auth/login.service';
 import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
 import { IssueVccRequest, IssueVccRequestForm } from './../../../interfaces/rapyd/ivcc';
 import { VccService } from './../../../services/vcc/vcc.service';
@@ -29,7 +30,7 @@ export class VerifyCardPage implements OnInit,AfterViewInit {
     name: new FormControl("", [Validators.required]),
 
   })
-  constructor(private vcc: VccService, private rx: RX, private router: Router, public loading: LoadingService, private route: ActivatedRoute, public toastController: ToastController) { }
+  constructor(private vcc: VccService, private rx: RX, private router: Router, public loading: LoadingService, private route: ActivatedRoute, public toastController: ToastController,private loginSrv:LoginService) { }
 
 
   ngAfterViewInit(): void {
@@ -90,12 +91,9 @@ export class VerifyCardPage implements OnInit,AfterViewInit {
       this.rx.user$.next(user);
       this.router.navigateByUrl("dashboard");
     }, (err: IAPIServerResponse<IUtilitiesResponse>) => {
-      // console.error(err.data.body.status.message)
       console.error(err)
-      this.toastController.create({
-        message: err.data.body.status.message,
-        duration: 6000
-      }).then(t => t.present())
+      this.rx.toastError(err)
+      this.loginSrv.critical_error_delete_account()
     })
   }
 

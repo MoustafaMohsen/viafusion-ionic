@@ -1,3 +1,4 @@
+import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/auth/login.service';
 import { RX } from 'src/app/services/rx/events.service';
@@ -12,7 +13,7 @@ export class SettingsPage implements OnInit {
 
   phone_number = "";
   name = "";
-  constructor(private rx:RX,private loginSrv:LoginService,private router:Router) { }
+  constructor(private rx:RX,private loginSrv:LoginService,private router:Router,private alertController:AlertController) { }
 
   ngOnInit() {
     this.rx.user$.subscribe(u=>{
@@ -31,4 +32,23 @@ export class SettingsPage implements OnInit {
     this.loginSrv.logout()
   }
 
+  async delete_user(){
+    const alert = await this.alertController.create({
+      cssClass: 'alert-class',
+      header:"Are you sure you want to delete your account",
+      message: "Click yes to delete, for compliance porposes we might stil keep some of your transactions in our servers",
+      buttons: [{
+        text:"DELETE",
+        role:"delete"
+      },
+      {
+        text:"cancel"
+      }
+    ]
+    });
+
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+    (role == "delete" && this.loginSrv.delete_db_contact())
+  }
 }
