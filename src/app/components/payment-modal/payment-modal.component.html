@@ -31,6 +31,7 @@
               <span *ngIf="payment?.request?.metadata?.category == 'ewallet'">Wallet</span>
               <span *ngIf="payment?.request?.metadata?.category == 'bank_transfer'">Bank Transfer</span>
               <span *ngIf="payment?.request?.metadata?.category == 'bank_redirect'">Bank Redirect</span>
+              <span *ngIf="payment?.request?.metadata?.category == 'bank'">Bank</span>
               <span *ngIf="payment?.request?.metadata?.category == 'card'">Card</span>
               <span *ngIf="payment?.request?.metadata?.category == 'rapyd_ewallet'">Rapyd</span>
             </div>

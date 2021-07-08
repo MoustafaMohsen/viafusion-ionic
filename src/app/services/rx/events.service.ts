@@ -12,17 +12,17 @@ import { IDBMetaContact, ITransaction, ITransactionFull_payment } from 'src/app/
 import { ICreatePayout, IGetPayoutRequiredFields } from 'src/app/interfaces/rapyd/ipayout';
 import { TransferToWallet } from 'src/app/interfaces/rapyd/iwallet';
 import { categories, IAPIServerResponse } from 'src/app/interfaces/rapyd/types';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { ListIssuedVcc } from 'src/app/interfaces/rapyd/ivcc';
-import { ITemp, PaymentDetails_internal } from 'src/app/interfaces/interfaces';
+import { ITemp, PaymentPayoutDetails_internal } from 'src/app/interfaces/interfaces';
 import { IWallet2Wallet } from 'src/app/interfaces/db/idbwallet';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RX {
-  constructor(private storage: Storage, private api: Api, private alertController: AlertController, private toastController: ToastController) {
+  constructor(private storage: Storage, private api: Api, private alertController: AlertController, private toastController: ToastController, public loadingController: LoadingController) {
     this.init_service();
   }
 
@@ -92,7 +92,7 @@ export class RX {
       this.temp.transaction.closed_payouts_amount = 0,
       this.temp.transaction.description = "",
       this.temp.transaction.execution_date = new Date().getTime() / 1000,
-      this.temp.transaction.status = "saved"
+      this.temp.transaction.status = "created"
 
     // don't lose current subscribers
     if (!this.temp.transaction.payments) {
@@ -103,6 +103,7 @@ export class RX {
     }
 
     this.temp.destination_queries = {}
+    this.temp.checkouts = this.temp.checkouts || []; // make checkout persistent by session
     console.log("Temp Transaction reset");
     console.log("this.temp");
     console.log(this.temp);
@@ -275,151 +276,19 @@ export class RX {
     return result;
   }
 
-  // === get status
-  action_status_type(full_payment: ITransactionFull_payment): PaymentDetails_internal {
+  loading_present:any;
+  async show_loading(max_duartion = 20000) {
+    this.loading_present = await this.loadingController.create({
+      cssClass: 'loading-class',
+      message: 'Please wait...',
+      duration: max_duartion
+    });
 
-    var payment_response:PostCreatePayment.Response = full_payment.response?.body?.data
-    var payment_status_response:IRapydStatusResponse = full_payment.response?.body?.status
-    var result: PaymentDetails_internal = {} as any
-
-    console.log("=== action_status_type started ===> full_payment");
-    console.log(full_payment);
-
-    console.log("payment_response");
-    console.log(payment_response);
-
-    // If payment doesn't have server response and was not requested
-    if (!payment_response) {
-      result = {
-        btn_active: false,
-        btn_text: "Waiting",
-        Status: "Not executed",
-        message: "Payment was not executed, go back and click Do Payments to continue",
-        instructions: "" as any,
-        redirect_url: "",
-        amount: full_payment?.request?.amount,
-        error_message: "",
-        response_code: "",
-      }
-      return result;
-    }
-    // status = response?.body?.data?.status as any;
-    result.amount = payment_response.amount
-    switch (payment_response.status) {
-      // case "Confirmation":
-      //   result = {
-      //     btn_active: false,
-      //     btn_text: "Confirmation",
-      //     Status: "The payout is waiting for a confirmation of the FX rate",
-      //     message: "you might need to click on the link below to complete transaction (you are in sandbox, use rapyd:success as credentials)",
-      //     instructions: payment_response.instructions,
-      //     redirect_url: payment_response.redirect_url,
-      //     amount: payment_response.amount,
-      //     error_message: payment_status_response.message,
-      //     response_code: payment_status_response.response_code,
-      //   }
-      //   break;
-      case "ACT":
-        result = {
-          btn_active: true,
-          btn_text: "Click to Confirm manually",
-          Status: "Active and awaiting payment. Can be updated",
-          message: "Click on the link below to complete transaction (you are in sandbox, use rapyd:success as credentials)",
-          instructions: payment_response.instructions,
-          redirect_url: payment_response.redirect_url,
-          amount: payment_response.amount,
-          error_message: payment_status_response.message,
-          response_code: payment_status_response.response_code,
-        }
-        break;
-      case "CAN":
-      // case "Canceled":
-        result = {
-          btn_active: false,
-          btn_text: "Cancled",
-          Status: "Cancled",
-          message: "Canceled by the merchant or the customer's bank.",
-          instructions: payment_response.instructions,
-          redirect_url: payment_response.redirect_url,
-          amount: payment_response.amount,
-          error_message: payment_status_response.message,
-          response_code: payment_status_response.response_code,
-        }
-        break;
-      case "CLO":
-      // case "Completed":
-        result = {
-          btn_active: false,
-          btn_text: "Done",
-          Status: "Done",
-          message: "Closed and paid.",
-          instructions: payment_response.instructions,
-          redirect_url: payment_response.redirect_url,
-          amount: payment_response.amount,
-          error_message: payment_status_response.message,
-          response_code: payment_status_response.response_code,
-        }
-        break;
-      case "ERR":
-      // case "Error":
-        result = {
-          btn_active: false,
-          btn_text: "Errored",
-          Status: "Errored",
-          message: "Error. An attempt was made to create or complete a payment, but it failed.",
-          instructions: payment_response.instructions,
-          redirect_url: payment_response.redirect_url,
-          amount: payment_response.amount,
-          error_message: payment_status_response.message,
-          response_code: payment_status_response.response_code,
-        }
-        break;
-      case "EXP":
-      // case "Expired":
-        result = {
-          btn_active: false,
-          btn_text: "Expired",
-          Status: "Active and awaiting payment. Can be updated",
-          message: "The payment has expired.",
-          instructions: payment_response.instructions,
-          redirect_url: payment_response.redirect_url,
-          amount: payment_response.amount,
-          error_message: payment_status_response.message,
-          response_code: payment_status_response.response_code,
-        }
-        break;
-      case "REV":
-        result = {
-          btn_active: true,
-          btn_text: "REV",
-          Status: "New, refresh after a while",
-          message: "Reversed by Rapyd. See cancel reason",
-          cancel_reason: payment_response.cancel_reason,
-          instructions: payment_response.instructions,
-          redirect_url: payment_response.redirect_url,
-          amount: payment_response.amount,
-          error_message: payment_status_response.message,
-          response_code: payment_status_response.response_code,
-        }
-        break;
-      default:
-        result = {
-          btn_active: false,
-          btn_text: "Errored",
-          Status: "Errored",
-          message: "Error. An attempt was made to create or complete a payment, but it failed.",
-          instructions: payment_response.instructions,
-          redirect_url: payment_response.redirect_url,
-          amount: payment_response.amount,
-          error_message: payment_status_response.message,
-          response_code: payment_status_response.response_code,
-        }
-        break;
-    }
-    console.log("===action_status_type done ===> status");
-    console.log(status);
-
-    return result;
+    await this.loading_present.present();
   }
+  async dismiss_loading(){
+    await this.loading_present?.dismiss();
+  }
+
 }
 

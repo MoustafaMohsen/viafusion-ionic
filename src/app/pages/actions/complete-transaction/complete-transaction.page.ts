@@ -1,4 +1,5 @@
-import { ModalController } from '@ionic/angular';
+import { HelperService } from './../../../services/util/helper';
+import { ModalController, AlertController } from '@ionic/angular';
 import { WalletService } from 'src/app/services/wallet/wallet.service';
 import { LoadingService } from './../../../services/loading.service';
 import { Router } from '@angular/router';
@@ -18,7 +19,7 @@ export class CompleteTransactionPage implements OnInit {
 
 
 
-  constructor(private rx: RX, private router: Router, private walletSrv: WalletService, public loading: LoadingService, private modalCtrl: ModalController) { }
+  constructor(private rx: RX, private router: Router, private walletSrv: WalletService, public loading: LoadingService, private modalCtrl: ModalController, private h: HelperService, private alertController: AlertController) { }
 
   @Input() transaction: ITransaction;
   _sub: Subscription
@@ -38,18 +39,6 @@ export class CompleteTransactionPage implements OnInit {
   }
   ngOnInit() {
     console.log("left: Complete Transaction ionViewWillEnter()");
-  }
-
-  action_status_type(status): ActionStatusesTypes {
-    let text =
-      status === "ACT" ? { btn_active: true, btn: "Waiting Confirmation", message: "Active and awaiting payment. Can be updated." } :
-        status === "CAN" ? { btn_active: false, btn: "Canceled", message: "Canceled by the merchant or the customer's bank." } :
-          status === "CLO" ? { btn_active: false, btn: "Done", message: "Closed and paid." } :
-            status === "ERR" ? { btn_active: false, btn: "Errored", message: "Error. An attempt was made to create or complete a payment, but it failed." } :
-              status === "EXP" ? { btn_active: false, btn: "Expired", message: "The payment has expired." } :
-                status === "NEW" ? { btn_active: true, btn: "New", message: "Not closed." } :
-                  status === "REV" ? { btn_active: false, btn: "", message: "Reversed by Rapyd. See cancel_reason, above." } : { btn_active: false, btn: "??", message: "Unkown Error" }
-    return text;
   }
 
   payment_action(payment: ITransactionFull_payment) {
@@ -84,7 +73,7 @@ export class CompleteTransactionPage implements OnInit {
     // TODO: remove return
     setTimeout(() => {
       event && event.target.complete();
-    }, 2000);
+    }, 20000);
     if (!this.transaction || !this.transaction.id) {
       return;
     }
@@ -93,7 +82,7 @@ export class CompleteTransactionPage implements OnInit {
       this.loading.stop();
       if (data.success) {
         this.rx.toast("Transactions Updated", "", 5000);
-        data.data.transactions = this.walletSrv.update_transactions_status(data.data.transactions)
+        data.data.transactions = this.h.update_transactions_status(data.data.transactions)
         this.rx.reset_temp_value();
         this.rx.get_db_metacontact();
         let newTran = data.data.transactions.find(t => t.id == this.transaction.id);
@@ -101,33 +90,38 @@ export class CompleteTransactionPage implements OnInit {
       }
       setTimeout(() => {
         event && event.target.complete();
-      }, 2000);
+      }, 1000);
     })
   }
 
-  save_transaction() {
+  disable_do_payments_btn() {
+    let is_loading = this.loading.loading;
+    let is_closed = this.transaction.status == "closed";
+  }
+
+  async save_transaction() {
     if (!this.transaction || !this.transaction.id) {
       this.rx.toast("Transaction not found!")
       return;
     }
-    this.loading.start();
-    this.walletSrv.save_transaction()
-  }
-  btn_active(payment: ITransactionFull_payment | ITransactionFull_payout) {
-    if (payment?.response?.body?.data?.status) {
-      return this.action_status_type(payment.response.body.data.status).btn_active && this.loading.loading
-    }
-    if (!payment.response || !payment.response.body) {
-      return false && this.loading.loading; // Change false to true if you want to enable manual payment
-    }
-    return false && this.loading.loading
+    // this.loading.start();
+    this.rx.temp["transaction"].status = this.transaction.status = "saved";
+    await this.walletSrv.save_transaction()
   }
 
-  async open_payment_details(payment:ITransactionFull_payment) {
+  async schedual_transaction(){
+    await this.save_transaction();
+    this.router.navigateByUrl("/transaction/schedule-payment")
+  }
+
+
+
+
+  async open_payment_details(payment: ITransactionFull_payment) {
     console.log(payment);
     let modal = await this.modalCtrl.create({
       component: PaymentModalComponent,
-      componentProps: { payment },
+      componentProps: { payment, operation_type: "payment" },
       backdropDismiss: true,
       showBackdrop: true
     });
@@ -138,23 +132,52 @@ export class CompleteTransactionPage implements OnInit {
     console.log(payment);
     let modal = await this.modalCtrl.create({
       component: PaymentModalComponent,
-      componentProps: { payment },
+      componentProps: { payment, operation_type: "payout" },
       backdropDismiss: true,
       showBackdrop: true
     });
     modal.present();
   }
 
-  do_payments() {
-    console.log("do_payments() btn");
-    this.loading.start();
-    this.walletSrv.do_payments(this.transaction).then(d => this.loading.stop())
+  async do_payments() {
+    const alert = await this.alertController.create({
+      cssClass: 'alert-class',
+      message: "You might have done this action before, are you sure you want to repeat is?",
+      buttons: [{
+        text: "Yes",
+        role: "do_action"
+      }, {
+        text: "No",
+        role: "cancel"
+      }]
+    });
+
+    var do_action = ()=>{
+      console.log("do_payments() btn");
+      this.loading.start();
+      this.transaction.status = "created"
+      this.transaction.execute_payments = true
+      this.walletSrv.do_payments(this.transaction).then(d => this.loading.stop())
+    }
+
+    if(this.transaction.execute_payments || this.transaction.payments.filter(p=>p.response).length){
+      await alert.present();
+      const { role } = await alert.onDidDismiss();
+      console.log('onDidDismiss resolved with role', role);
+      role=="yes" && do_action();
+    }
+    else{
+      do_action();
+    }
+
+
   }
 
   do_payouts() {
     console.log("do_payouts() btn");
-
     this.loading.start()
+    this.transaction.status = "created"
+    this.transaction.execute_payouts = true
     this.walletSrv.do_payouts(this.transaction).then(d => this.loading.stop())
   }
 }

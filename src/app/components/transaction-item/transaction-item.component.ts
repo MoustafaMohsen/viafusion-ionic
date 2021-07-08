@@ -67,4 +67,8 @@ export class TransactionItemComponent implements OnInit {
         break;
     }
   }
+
+  get is_schedualed(){
+    return this.transaction?.id?.indexOf("tranid_schedualed_") != -1
+  }
 }

@@ -1,3 +1,5 @@
+import { BottomDrawerModalComponent } from 'src/app/components/bottom-drawer-amount/bottom-drawer-amount.component';
+import { ModalController } from '@ionic/angular';
 import { ITransaction } from 'src/app/interfaces/db/idbmetacontact';
 import { Subject, Subscription } from 'rxjs';
 import { IAPIServerResponse } from './../../interfaces/rapyd/types.d';
@@ -10,6 +12,7 @@ import { TDirection as _TDirection, Transaction, TStatus as _TStatus } from 'src
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { LoadingService } from 'src/app/services/loading.service';
 import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
+import { GenerateCheckoutComponent } from 'src/app/components/generate-checkout/generate-checkout.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,22 +21,25 @@ import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
 })
 export class DashboardPage implements OnInit {
 
-  constructor(public loading: LoadingService, public router: Router, private rx: RX, private walletSrv: WalletService) { }
+  constructor(public loading: LoadingService, public router: Router, public rx: RX, private walletSrv: WalletService,private modatCtrl:ModalController) { }
   ionViewWillEnter() {
     this.update_balance();
   }
 
   ngOnInit() {
     this.rx.meta$.subscribe(m => {
-      m && this.trans$.next(m.transactions.slice(0, 10))
-    })
+      if(m ){
+        this.trans = m.transactions?.slice(0, 10)
+      }
+    });
+    this.walletSrv.balance$.subscribe(b=>this.balance=b)
   }
 
   balance: number;
 
   user: IDBContact = {} as any;
 
-  trans$ = new Subject<ITransaction[]>()
+  trans : ITransaction[] = []
 
   async update_balance() {
     this.balance = await this.walletSrv.get_wallet_balance()
@@ -101,5 +107,15 @@ export class DashboardPage implements OnInit {
   }
   onClick() {
 
+  }
+
+  async generate_checkout_page(){
+    const modal = await this.modatCtrl.create({
+      component:GenerateCheckoutComponent,
+      componentProps:{
+
+      }
+    })
+    modal.present();
   }
 }

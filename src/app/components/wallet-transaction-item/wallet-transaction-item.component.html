@@ -1,0 +1,112 @@
+<div
+  class="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 items-center p-4">
+
+  <div
+    class="flex text-lg leading-6 font-medium text-gray-800 dark:text-white">
+    <h4>{{transaction.status}}</h4>
+    <ion-icon name="circle-outline"></ion-icon>
+  </div>
+  <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+    <span aria-hidden="true" class="absolute inset-0 opacity-50 rounded-full">
+    </span>
+    <span class="relative">
+      {{transaction.amount | currency}}
+    </span>
+  </span>
+
+
+<div class="status-row md:mr-16 w-full flex justify-between items-center">
+
+  <!-- Transaction Status -->
+  <!-- if success -->
+  <div class="" *ngIf="transaction.status == 'closed'">
+    <span class="relative inline-block px-3 py-1 font-semibold text-gray-800 leading-tight">
+      <span aria-hidden="true" class="absolute inset-0 bg-green-200 opacity-50 rounded-full">
+      </span>
+      <span class="relative">
+        {{transaction.balance?"Balance: "+transaction.balance:""}}
+      </span>
+      <ion-icon name="circle-outline"></ion-icon>
+
+    </span>
+  </div>
+
+  <!-- if pending -->
+  <div class="" *ngIf="transaction.status == 'requires_action'">
+    <span class="relative inline-block px-3 py-1 font-semibold text-yellow-900 leading-tight">
+      <span aria-hidden="true" class="absolute inset-0 bg-yellow-200 opacity-50 rounded-full">
+      </span>
+      <span class="relative">
+        Require Action
+      </span>
+    </span>
+  </div>
+
+
+  <div class="date flex">
+    <div class="text-gray-600 dark:text-gray-200 text-sm">
+      {{transaction.created_at*1000 | date}}
+    </div>
+
+  </div>
+</div>
+
+
+<div class="details-row flex justify-between items-center my-2">
+
+  <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-200">
+    {{trans_desc[transaction.type]}}
+  </p>
+
+</div>
+
+</div>
+
+<!-- <ion-icon *ngIf="true" name="business-outline"></ion-icon>
+  <ion-icon *ngIf="true" name="cash"></ion-icon>
+  <ion-icon *ngIf="true" name="logo-usd"></ion-icon>
+  <ion-icon *ngIf="true" name="card-outline"></ion-icon> -->
+
+
+<!-- Wallet to Wallet Points -->
+<!-- <div *ngIf="transaction.type=='w2w'" class="relative w-full h-10 flex justify-between items-center footer-progress-indicators">
+    <ion-icon *ngIf="true" name="wallet-outline"></ion-icon>
+      <div class="dash points_count_2">
+        <ion-progress-bar reversed="true" value="0" buffer="0"></ion-progress-bar>
+      </div>
+    <ion-icon *ngIf="true" name="wallet-outline"></ion-icon>
+  </div> -->
+
+<!-- Wallet to Wallet Points -->
+<!-- <div *ngIf="transaction.type=='many2w'" class="relative w-full h-10 flex justify-between items-center footer-progress-indicators">
+    <ion-icon *ngIf="true" name="business-outline"></ion-icon>
+      <div class="dash points_count_2">
+        <ion-progress-bar reversed="true" value="0" buffer="0"></ion-progress-bar>
+      </div>
+    <ion-icon *ngIf="true" name="wallet-outline"></ion-icon>
+  </div> -->
+
+<!-- Wallet to Wallet Points -->
+<!-- <div *ngIf="transaction.type=='w2many'" class="relative w-full h-10 flex justify-between items-center footer-progress-indicators">
+    <ion-icon *ngIf="true" name="wallet-outline"></ion-icon>
+    <div class="dash points_count_2">
+      <ion-progress-bar reversed="true" value="0" buffer="0"></ion-progress-bar>
+    </div>
+    <ion-icon *ngIf="true" name="business-outline"></ion-icon>
+  </div> -->
+
+<!-- Wallet to Wallet Points -->
+<!-- <div *ngIf="transaction.type=='many2many'" class="relative w-full h-10 flex justify-between items-center footer-progress-indicators">
+    <ion-icon *ngIf="true" name="business-outline"></ion-icon>
+      <div class="dash points_count_3">
+        <ion-progress-bar reversed="true" value="0" buffer="0"></ion-progress-bar>
+      </div>
+    <ion-icon *ngIf="true" name="wallet-outline"></ion-icon>
+    <div class="dash points_count_3">
+      <ion-progress-bar reversed="true" value="0" buffer="0"></ion-progress-bar>
+    </div>
+    <ion-icon *ngIf="true" name="business-outline"></ion-icon>
+
+  </div> -->
+
+<!-- </div> -->
