@@ -1,33 +1,33 @@
-ion-content{
+ion-content {
   .header-row {
     h1 {
-     
     }
-    p{
-      
+    p {
     }
   }
-  .phone-row{
-    input , select {
-       --tw-ring-color:transparent;
+  .phone-row {
+    input,
+    select {
+      --tw-ring-color: transparent;
     }
-   
+
     label {
       color: var(--secondary);
     }
-    p{
+    p {
     }
     span {
       color: var(--secondary);
     }
   }
-  .button-row{
+  .button-row {
+    --offset-bottom: 0 !important;
     width: 100%;
     padding: 2rem;
     position: absolute;
     bottom: 0;
     left: 0;
-    button{
+    button {
       width: 100%;
     }
   }
