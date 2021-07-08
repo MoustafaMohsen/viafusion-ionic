@@ -350,3 +350,36 @@ export namespace ICreateChckoutPage {
     }
 
 }
+
+
+
+export namespace IdentityVerification {
+  export interface Request {
+      reference_id: string
+      ewallet: string
+      contact: string
+      page_expiration: number
+  }
+
+  export interface Response {
+      id: string
+      status: string
+      reference_id: string
+      wallet: string
+      contact: string
+      language: any
+      country: any
+      page_expiration: number
+      request_type: string
+      send_callback: any
+      valid_countries: any
+      redirect_url: string
+      merchant_website: string
+      merchant_color: string
+      merchant_design: any
+      merchant_language: any
+      merchant_logo: string
+      cancel_url: any
+      complete_url: any
+  }
+}
