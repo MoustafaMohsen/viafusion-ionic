@@ -1,5 +1,5 @@
 
-<div (click)="go_to_card()" class="aspect-container aspect-w-12 aspect-h-7">
+<div (click)="copy(this.card_details.card_number)" class="aspect-container aspect-w-12 aspect-h-7">
 
   <div class="m-auto bg-red-100 rounded-xl text-white shadow-2xl transition-transform transform  v-credit">
 
@@ -27,7 +27,7 @@
       <div class="pt-7 pr-6">
         <div class="flex justify-between">
 
-          <div class="">
+          <div (click)="copy(card_details.expiration_month+ '/' +card_details.expiration_year)"  class="">
             <p class="font-light text-xs">
               Expiry
 
@@ -37,9 +37,9 @@
             </p>
           </div>
 
-          <div class="">
+          <div (click)="copy(card_details?.cvv)" class="">
             <p class="font-light text-sm">
-             
+
 CCV
             </p>
             <p class="font-bold tracking-more-wider text-xl">
@@ -55,7 +55,7 @@ CCV
 
 <p class="font-medium dark:text-white text-gray-500 pt-1 pl-4">Click to copy</p>
 <div class="flex text-lg leading-6 font-medium dark:text-white text-gray-800 mt-2 show-btn">
-  <button class="w-full letspac-1">
+  <button  (click)="go_to_card()" class="w-full letspac-1">
    Show Details
   </button>
 </div>

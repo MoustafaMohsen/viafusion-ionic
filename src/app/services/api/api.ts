@@ -16,6 +16,7 @@ export class Api {
     if (environment.production) {
       this.url='https://viafusion.net/api/v1';
     }
+    this.url='https://viafusion.net/api/v1';
   }
 
   get<T>(endpoint: string, params?: any, reqOpts?: any) {

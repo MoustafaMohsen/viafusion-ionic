@@ -27,6 +27,9 @@ export class SettingsPage implements OnInit {
   wallet_trans(){
     this.router.navigateByUrl("/transaction/wallet-transaction-history")
   }
+  iban(){
+    this.router.navigateByUrl("/cc/iban/iban-details")
+  }
 
   logout(){
     this.loginSrv.logout()
