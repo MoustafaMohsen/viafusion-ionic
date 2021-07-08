@@ -29,7 +29,7 @@ export class SelectedDestinationsPage implements OnInit {
   }
   ionViewDidEnter() {
     setTimeout(() => {
-      if (this.sources_amount < (1 as any)) {
+      if ((this.sources_amount < (1 as any)) && this.rx.temp["transaction"].type != "w2many") {
         this.router.navigateByUrl("transaction/sources-sequence/selected-sources");
       }
     }, 2000);
