@@ -91,6 +91,7 @@ import { WalletTransactionHistoryPage } from './pages/_transactions/wallet-trans
 import { WalletTransactionItemComponent } from './components/wallet-transaction-item/wallet-transaction-item.component';
 import { BottomDrawerModalComponent } from './components/bottom-drawer-amount/bottom-drawer-amount.component';
 import { GenerateCheckoutComponent } from './components/generate-checkout/generate-checkout.component';
+import { NgxKjuaModule } from 'ngx-kjua';
 
 @NgModule({
   imports: [
@@ -135,6 +136,7 @@ import { GenerateCheckoutComponent } from './components/generate-checkout/genera
     LacMatTelInputModule,
     NgxCcModule,
     MatDatepickerModule,
+    NgxKjuaModule,
   ],
   declarations: [
     AppComponent,

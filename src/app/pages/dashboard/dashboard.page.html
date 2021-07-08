@@ -9,10 +9,10 @@
         <div class="">
           <h3 class="text-5xl">{{balance | currency:'USD':'symbol':'3.0'}}</h3>
         </div>
-          <!-- <svg-icon class="svg-white" key="notification-colored" fontSize="35px"></svg-icon> -->
-          <div class="flex">
-            <img src="../../../assets/images/logo/logo.svg" width="40%" alt="" srcset="">
-          </div>
+        <!-- <svg-icon class="svg-white" key="notification-colored" fontSize="35px"></svg-icon> -->
+        <div class="flex">
+          <img src="../../../assets/images/logo/logo.svg" width="40%" alt="" srcset="">
+        </div>
       </div>
       <p class="text-gray-300 letspac-1 text-xl">Available balance</p>
       <!-- <div class="row mt-6 buttons-row">
@@ -56,24 +56,25 @@
 
     <div class="send-container mt-10">
 
-  <div class="transition mt-4 charge duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 source-item">
-      <p class="text-base text-gray-500"></p>
-      <div class="flex mt-5">
-        <div class="icon">
-          <svg-icon key="ewallet" fontSize="3rem" class="mr-2"></svg-icon>
+      <div class="transition mt-4 charge duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 source-item">
+        <p class="text-base text-gray-500"></p>
+        <div class="flex mt-5">
+          <div class="icon">
+            <svg-icon key="ewallet" fontSize="3rem" class="mr-2"></svg-icon>
+          </div>
+          <div class="">
+            <p class="text-gray-900 text-xl font-bold">Charge your wallet now!</p>
+            <span class="mt-2 text-gray-700">Charge and access unlimited possibilities</span>
+          </div>
         </div>
-        <div class="">
-          <p class="text-gray-900 text-xl font-bold">Charge your wallet now!</p>
-          <span class="mt-2 text-gray-700">Make it up to them Now</span>
+
+        <div class="flex text-lg leading-6 font-medium dark:text-white text-gray-800 mt-4 buttons-div">
+          <button (click)="charge_wallet()" class="w-full">
+            Charge
+          </button>
         </div>
       </div>
 
-      <div class="flex text-lg leading-6 font-medium dark:text-white text-gray-800 mt-4 buttons-div">
-        <button (click)="charge_wallet()" class="w-full">
-          Charge
-        </button>
-      </div>
-    </div>
 
       <div class="transition mt-4 duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 source-item">
         <p class="text-base text-gray-500">SEND OR REQUEST CREDIT</p>
@@ -146,6 +147,25 @@
           </div>
         </div>
 
+      </div>
+
+      <div class="transition mt-4 charge duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 source-item">
+        <p class="text-base text-gray-500"></p>
+        <div class="flex mt-5">
+          <div class="icon">
+            <svg-icon key="qr-code" fontSize="3rem"></svg-icon>
+          </div>
+          <div class="">
+            <p class="text-gray-900 text-xl font-bold">Someonw Owes you!</p>
+            <span class="mt-2 text-gray-700">Charge and access unlimited possibilities</span>
+          </div>
+        </div>
+
+        <div class="flex text-lg leading-6 font-medium dark:text-white text-gray-800 mt-4 buttons-div">
+          <button (click)="generate_checkout_page()" class="w-full">
+            Generate payment QR Code or Link
+          </button>
+        </div>
       </div>
 
       <div class="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 source-item mt-4">

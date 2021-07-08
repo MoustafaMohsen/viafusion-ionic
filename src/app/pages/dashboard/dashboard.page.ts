@@ -116,5 +116,6 @@ export class DashboardPage implements OnInit {
 
       }
     })
+    modal.present();
   }
 }
