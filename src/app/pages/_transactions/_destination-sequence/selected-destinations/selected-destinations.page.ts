@@ -67,6 +67,9 @@ export class SelectedDestinationsPage implements OnInit {
   }
 
   get remaing_ballance() {
-    return (this.sources_amount as any) - (this.destination_amount as any)
+    var diff = (this.sources_amount as any) - (this.destination_amount as any);
+    var ballance = this.walletSrv.balance$.value;
+    var remaining = this.rx.temp["transaction"].type != "w2many" ? diff : ballance
+    return remaining
   }
 }
