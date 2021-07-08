@@ -8,8 +8,8 @@
         <div class="relative">
           <mat-form-field class="countries-autocomplete" appearance="fill">
             <mat-label>Country</mat-label>
-            <input matInput aria-label="Country" [matAutocomplete]="auto" [formControl]="countryCtrl">
-            <mat-autocomplete #auto="matAutocomplete">
+            <input matInput aria-label="Country" [matAutocomplete]="auto_generate" [formControl]="countryCtrl">
+            <mat-autocomplete #auto_generate="matAutocomplete">
               <mat-option class="country-option" *ngFor="let country of filteredCountries | async"
                 [value]="country.alpha2Code">
                 <img class="example-option-img" aria-hidden [src]="country.flag">
@@ -45,6 +45,9 @@
         class="py-4 px-6 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
         Continue <ion-icon name="arrow-forward-outline" class="ml-3 text-2xl"></ion-icon>
       </button>
+      <ion-button *ngIf="this.checkout_url" (click)="open_latest()" expand="full" fill="outline" shape="round">
+        Latest generated code
+      </ion-button>
       <ion-button (click)="close()" expand="full" fill="outline" shape="round">
         Close
       </ion-button>

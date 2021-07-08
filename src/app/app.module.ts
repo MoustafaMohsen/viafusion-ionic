@@ -90,7 +90,7 @@ import { HelperService } from './services/util/helper';
 import { WalletTransactionHistoryPage } from './pages/_transactions/wallet-transaction-history/wallet-transaction-history.page';
 import { WalletTransactionItemComponent } from './components/wallet-transaction-item/wallet-transaction-item.component';
 import { BottomDrawerModalComponent } from './components/bottom-drawer-amount/bottom-drawer-amount.component';
-import { GenerateCheckoutComponent } from './components/generate-checkout/generate-checkout.component';
+import { GenerateCheckoutPage } from './pages/_payment/generate-checkout/generate-checkout.page';
 import { NgxKjuaModule } from 'ngx-kjua';
 
 @NgModule({
@@ -198,7 +198,7 @@ import { NgxKjuaModule } from 'ngx-kjua';
     WalletTransactionHistoryPage,
     WalletTransactionItemComponent,
     BottomDrawerModalComponent,
-    GenerateCheckoutComponent,
+    GenerateCheckoutPage,
   ],
   entryComponents: [],
   providers: [

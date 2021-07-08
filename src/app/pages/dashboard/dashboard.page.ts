@@ -12,7 +12,6 @@ import { TDirection as _TDirection, Transaction, TStatus as _TStatus } from 'src
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { LoadingService } from 'src/app/services/loading.service';
 import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
-import { GenerateCheckoutComponent } from 'src/app/components/generate-checkout/generate-checkout.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -110,12 +109,6 @@ export class DashboardPage implements OnInit {
   }
 
   async generate_checkout_page(){
-    const modal = await this.modatCtrl.create({
-      component:GenerateCheckoutComponent,
-      componentProps:{
-
-      }
-    })
-    modal.present();
+    this.router.navigateByUrl("/payment/generate-qr-code");
   }
 }
