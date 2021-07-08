@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { Api } from '../api/api';
 import { ICreateWallet, ILookup_user, IWallet2Wallet } from 'src/app/interfaces/db/idbwallet';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
-import { ICreateChckoutPage, ICurrency, IWalletTransaction, WalletBalanceResponse } from 'src/app/interfaces/rapyd/iwallet';
+import { ICreateChckoutPage, ICurrency, IdentityVerification, IWalletTransaction, WalletBalanceResponse } from 'src/app/interfaces/rapyd/iwallet';
 import { IRXTransaction } from 'src/app/interfaces/interfaces';
 import { RX } from '../rx/events.service';
 import { PostCreatePayment } from 'src/app/interfaces/rapyd/ipayment';
@@ -73,6 +73,10 @@ export class WalletService {
 
   generate_checkout_page(request: ICreateChckoutPage.Request) {
     return this.api.post<ICreateChckoutPage.Response>("generate-checkout", request)
+  }
+
+  generate_idv_page(request: IdentityVerification.Request) {
+    return this.api.post<IdentityVerification.Response>("generate-checkout", request)
   }
 
   //#endregion
