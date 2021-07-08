@@ -42,6 +42,18 @@ export class SelectedSourcesPage implements OnInit {
     this.router.navigateByUrl("/action/complete-transaction")
   }
 
+
+  delete_source(source: PostCreatePayment.Request) {
+    this.selected_sources = this.rx.temp["transaction"]["payments"].value;
+    for (let i = 0; i < this.selected_sources.length; i++) {
+      const dest = this.selected_sources[i];
+      if (dest.amount == source.amount && dest.currency == source.currency && dest.payment_method == source.payment_method) {
+        this.selected_sources.splice(i, 1)
+      }
+    }
+    this.rx.temp["transaction"]["payments"].next(this.selected_sources);
+  }
+
   add_source() {
     this.router.navigateByUrl("transaction/sources-sequence/available-sources");
   }

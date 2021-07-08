@@ -1,5 +1,3 @@
-
-
 ion-content {
   --padding-top: 0.5rem;
 }
@@ -7,8 +5,7 @@ ion-content {
   h3 {
     font-size: 1.5rem;
   }
-  h1
-  {
+  h1 {
     font-size: 2.5rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -19,13 +16,123 @@ ion-content {
     margin: unset;
     padding-left: 1.2rem;
   }
-  p
-  {
+  p {
     font-size: 2rem;
     letter-spacing: 1px;
   }
 }
 
+.badge {
+  .badge-div {
+    padding: 0.2rem 0.5rem;
+    background: var(--secondary-tint);
+    width: auto;
+    border-radius: 24px;
+
+    .icon-div {
+      margin-top: 6px;
+      margin-right: 6px;
+    }
+  }
+}
+.amount-badge {
+  padding: 0.5rem;
+  width: auto;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+}
+.delete-badge {
+  border-radius: 24px;
+  padding: 0.4rem 0.5rem;
+}
+
+.destination-card {
+  border-radius: 24px;
+  flex-wrap: wrap;
+  .img-container {
+    height: 2rem;
+
+    img {
+      object-fit: contain;
+      width: auto;
+      height: auto;
+      max-height: 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+.footer-section {
+  position: static;
+  bottom: 0;
+  width: 100%;
+  height: 11rem;
+  left: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  > * {
+    width: 100%;
+  }
+
+  .progress-indication {
+    display: flex;
+    .point {
+      width: 3.5rem;
+      z-index: 5;
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      &.destination-point {
+      }
+
+      &.destination-point {
+      }
+    }
+    .connecting-dash {
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+  }
+  span {
+    font-size: 1.4rem;
+  }
+}
+
+.destination-item {
+  box-shadow: 0 9px 60px 6px rgba(0, 0, 0, 0.1),
+    0 12px 12px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+}
+
+ion-content {
+  --padding-top: 0.5rem;
+}
+.balance-header {
+  h3 {
+    font-size: 1.5rem;
+  }
+  h1 {
+    font-size: 2.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background: var(--secondary-shade);
+    width: 70%;
+    border-radius: 40px;
+    padding: 0.5rem;
+    margin: unset;
+    padding-left: 1.2rem;
+  }
+  p {
+    font-size: 2rem;
+    letter-spacing: 1px;
+  }
+}
 
 .badge {
   .badge-div {
@@ -44,8 +151,7 @@ ion-content {
 .amount-badge {
   padding: 0.5rem;
   width: auto;
-  width:auto;
-
+  width: auto;
 }
 
 .source-card {
@@ -61,13 +167,10 @@ ion-content {
       max-height: 100%;
       max-width: 100%;
     }
-
   }
-
 }
 
-
-.footer-section{
+.footer-section {
   position: static;
   bottom: 0;
   width: 100%;
@@ -79,47 +182,39 @@ ion-content {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  > *{
+  > * {
     width: 100%;
   }
 
-  .progress-indication{
+  .progress-indication {
     display: flex;
-    .point{
+    .point {
       width: 3.5rem;
       z-index: 5;
       position: relative;
       display: flex;
       align-items: center;
 
-      &.source-point
-      {
-
+      &.source-point {
       }
 
-      &.destination-point{
+      &.destination-point {
       }
-
     }
-    .connecting-dash{
+    .connecting-dash {
       width: 100%;
       display: flex;
       align-items: center;
     }
-
-
-
   }
   span {
     font-size: 1.4rem;
   }
-
 }
 
-.source-item{
-  box-shadow:   0 9px 60px 6px rgba(0, 0, 0, 0.1), 0 12px 12px 2px rgba(0, 0, 0, 0.05);
+.source-item {
+  box-shadow: 0 9px 60px 6px rgba(0, 0, 0, 0.1),
+    0 12px 12px 2px rgba(0, 0, 0, 0.05);
   border-radius: 20px;
   flex-wrap: wrap;
 }
-
-

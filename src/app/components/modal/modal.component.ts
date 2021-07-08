@@ -41,8 +41,8 @@ export class ModalComponent implements OnInit {
           }).then(m=>m.present())
 
           this.rx.temp.wallet2wallet.next({} as any) //rest status
-          this.rx.get_db_metacontact();
-          this.rx.get_db_contact();
+          // this.rx.get_db_metacontact();
+          // this.rx.get_db_contact();
           this.walletSrv.get_wallet_balance().then();
           this.close();
           this.router.navigateByUrl("/dashboard");

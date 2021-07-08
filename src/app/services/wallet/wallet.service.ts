@@ -39,7 +39,7 @@ export class WalletService {
       await this.rx.get_db_metacontact();
       this.execute_payment_transactions(tran.id).subscribe((res) => {
         this.rx.reset_temp_value();
-        this.rx.get_db_metacontact();
+        this.get_wallet_balance();
         if (res.success) {
           this.rx.toast("Payments Done")
           console.log(res.data);
@@ -47,6 +47,7 @@ export class WalletService {
           this.rx.toastError(res as any)
         }
       }, err => {
+        this.get_wallet_balance();
         this.rx.toastError(err)
       })
     }).catch(this.rx.toastError)
@@ -54,7 +55,7 @@ export class WalletService {
 
   get_detailed_wallet_transactions() {
     let contact_reference_id = this.rx.user$.value.contact_reference_id;
-    return this.api.post<{data:IWalletTransaction[]}>("wallet-transactions", { contact_reference_id })
+    return this.api.post<{ data: IWalletTransaction[] }>("wallet-transactions", { contact_reference_id })
   }
   execute_payment_transactions(tran_id: string) {
     let contact_reference_id = this.rx.user$.value.contact_reference_id;
@@ -83,6 +84,7 @@ export class WalletService {
   //#region Payments
   save_transaction(tran?: ITransaction) {
     tran = tran ? tran : this.convert_rxtran_to_transaction(this.rx.temp["transaction"])
+    this.get_wallet_balance();
     return this.post_transaction(tran);
   }
 
@@ -92,6 +94,7 @@ export class WalletService {
     this.post_transaction(tran).then(async (res) => {
       await this.rx.get_db_metacontact();
       this.execute_payout_transactions(tran.id).subscribe((res) => {
+        this.get_wallet_balance();
         if (res.success) {
           this.rx.toast("Payouts Done")
           console.log(res.data);
@@ -99,6 +102,7 @@ export class WalletService {
           this.rx.toastError(res as any)
         }
       }, err => {
+        this.get_wallet_balance();
         this.rx.toastError(err)
       });
     }).catch(this.rx.toastError)
@@ -132,7 +136,7 @@ export class WalletService {
   do_wallet_2_wallet(w2w: IWallet2Wallet) {
     console.log("sending W2W:", w2w);
     w2w.contact_reference_id = this.rx.user$.value.contact_reference_id
-    return this.api.post<IDBMetaContact>("w2w", w2w)
+    return this.api.post<IDBMetaContact>("w2w", w2w).pipe()
   }
 
   async get_wallet_balance(make_request = false, currency = "USD"): Promise<number> {
@@ -154,9 +158,10 @@ export class WalletService {
           resolve(balance)
         }
       })
+      // just a work around for now
       setTimeout(() => {
         sub.unsubscribe();
-      }, 100);
+      }, 10000);
     })
   }
 
