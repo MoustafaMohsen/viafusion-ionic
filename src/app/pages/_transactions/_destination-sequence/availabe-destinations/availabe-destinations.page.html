@@ -1,4 +1,4 @@
-<app-header title="Availabe Destinations" back_url="/transaction/destinations-sequence/selected-destinations"></app-header>
+<app-header title="Where the money will go" back_url="/transaction/destinations-sequence/selected-destinations"></app-header>
 
 <ion-content>
 
@@ -36,17 +36,17 @@
 
 
     <div (click)="select_destination(destination_item)" *ngFor="let destination_item of payment_list" class="block relative mt-8">
-     
+
 
       <div class="destination-card transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 flex justify-between items-center destination-item">
-       
+
         <div class="w-full">
           <div class="w-2/5 badge">
             <div class="badge-div flex justify-start items-center">
               <div class="icon-div">
               <svg-icon [key]="destination_item.category" fontSize="16px" class="ml-2"></svg-icon>
               </div>
-           
+
             <div class="">
               <span *ngIf="destination_item.category == 'cash'">Cash</span>
               <span *ngIf="destination_item.category == 'ewallet'">Wallet</span>
@@ -60,7 +60,7 @@
 </div>
         <div class="w-full flex my-4">
 
-      
+
         <div class="flex items-center w-2/3 text-base font-medium dark:text-white text-gray-800">
 
           <h4 class="">{{destination_item.name}}</h4>

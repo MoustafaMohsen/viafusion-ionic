@@ -136,7 +136,7 @@ export interface IRXTransaction {
 
   status:"closed" | "requires_action" | "canceled" | "saved" | "created"
 
-  type: "many2many" | "w2w"| "many2w" | `${categories}2${categories}`
+  type: "many2many" | "w2w"| "many2w" | "w2many" | `${categories}2${categories}`
 
 }
 
