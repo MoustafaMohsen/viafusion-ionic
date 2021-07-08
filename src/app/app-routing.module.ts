@@ -126,6 +126,11 @@ const routes: Routes = [
             component: VccDetailsPage,
             children: [
               {
+                path: '',
+                redirectTo: 'vcc-history',
+                pathMatch: 'full'
+              },
+              {
                 path: 'vcc-history',
                 component: VccHistoryPage,
               },
@@ -289,7 +294,7 @@ const routes: Routes = [
   },
   {
     path: 'action',
-    children:[
+    children: [
       {
         path: 'complete-transaction',
         component: CompleteTransactionPage

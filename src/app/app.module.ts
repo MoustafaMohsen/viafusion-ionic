@@ -89,6 +89,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { HelperService } from './services/util/helper';
 import { WalletTransactionHistoryPage } from './pages/_transactions/wallet-transaction-history/wallet-transaction-history.page';
 import { WalletTransactionItemComponent } from './components/wallet-transaction-item/wallet-transaction-item.component';
+import { BottomDrawerModalComponent } from './components/bottom-drawer-amount/bottom-drawer-amount.component';
 
 @NgModule({
   imports: [
@@ -193,6 +194,7 @@ import { WalletTransactionItemComponent } from './components/wallet-transaction-
     SettingsPage,
     WalletTransactionHistoryPage,
     WalletTransactionItemComponent,
+    BottomDrawerModalComponent,
   ],
   entryComponents: [],
   providers: [

@@ -12,7 +12,7 @@ import { IDBMetaContact, ITransaction, ITransactionFull_payment } from 'src/app/
 import { ICreatePayout, IGetPayoutRequiredFields } from 'src/app/interfaces/rapyd/ipayout';
 import { TransferToWallet } from 'src/app/interfaces/rapyd/iwallet';
 import { categories, IAPIServerResponse } from 'src/app/interfaces/rapyd/types';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { ListIssuedVcc } from 'src/app/interfaces/rapyd/ivcc';
 import { ITemp, PaymentPayoutDetails_internal } from 'src/app/interfaces/interfaces';
@@ -22,7 +22,7 @@ import { IWallet2Wallet } from 'src/app/interfaces/db/idbwallet';
   providedIn: 'root'
 })
 export class RX {
-  constructor(private storage: Storage, private api: Api, private alertController: AlertController, private toastController: ToastController) {
+  constructor(private storage: Storage, private api: Api, private alertController: AlertController, private toastController: ToastController, public loadingController: LoadingController) {
     this.init_service();
   }
 
@@ -273,6 +273,20 @@ export class RX {
         charactersLength));
     }
     return result;
+  }
+
+  loading_present:any;
+  async show_loading(max_duartion = 20000) {
+    this.loading_present = await this.loadingController.create({
+      cssClass: 'loading-class',
+      message: 'Please wait...',
+      duration: max_duartion
+    });
+
+    await this.loading_present.present();
+  }
+  async dismiss_loading(){
+    await this.loading_present?.dismiss();
   }
 
 }

@@ -71,6 +71,10 @@ export class WalletService {
     return this.api.post<ICurrency.Response>("get-rates", query)
   }
 
+  get_rates(request: ICreateChckoutPage.Request) {
+    return this.api.post<ICreateChckoutPage.Response>("get-rates", request)
+  }
+
   //#endregion
   //#region Payments
   save_transaction(tran?: ITransaction) {
