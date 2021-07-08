@@ -1,3 +1,4 @@
+import { AlertController } from '@ionic/angular';
 import { StorageService } from './../storage/storage.service';
 import { LoadingService } from './../loading.service';
 import { Router } from '@angular/router';
@@ -12,7 +13,7 @@ import { IDBContact } from 'src/app/interfaces/db/idbcontact';
 })
 export class LoginService {
 
-  constructor(private api: Api, private rx: RX, private router: Router, private loading: LoadingService, private storage: StorageService) {
+  constructor(private api: Api, private rx: RX, private router: Router, private loading: LoadingService, private storage: StorageService, private alertController:AlertController) {
   }
 
   async send_login(phone_number: string) {
@@ -70,6 +71,40 @@ export class LoginService {
     })
   }
 
+
+
+
+  async delete_db_contact(): Promise<IDBContact> {
+    return new Promise((resolve, reject) => {
+      let contact = this.rx.user$.value
+      this.api.post<IDBContact>("delete-db-user", contact).subscribe(res => {
+        if (res.success) {
+          this.rx.toast("You account was deleted");
+          this.logout();
+        }else{
+          this.rx.toastError(res as any)
+        }
+      })
+    })
+  }
+
+  async critical_error_delete_account(){
+    const alert = await this.alertController.create({
+      cssClass: 'alert-class',
+      header:"Critical Error",
+      message: "An Important security check has failed, your account will be deleted, don't worry you can sign up again",
+      buttons: [{
+        text:"DELETE",
+        role:"delete"
+      },
+      {
+        text:"cancel"
+      }
+    ]
+    });
+    await alert.present();
+    this.delete_db_contact();
+  }
 
 
   login_register_sequence() {

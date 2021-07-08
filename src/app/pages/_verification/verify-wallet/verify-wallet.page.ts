@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ICountry } from 'src/app/interfaces/interfaces';
+import { LoginService } from 'src/app/services/auth/login.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { RX } from 'src/app/services/rx/events.service';
 import { contries } from 'src/app/services/static/datasets';
@@ -18,7 +19,7 @@ export class VerifyWalletPage implements OnInit {
   progress_percent = 10;
   radius = 80;
   subtitle = ""
-  constructor(private walletSrv: WalletService, public loading: LoadingService, private router: Router, private rx: RX) {
+  constructor(private walletSrv: WalletService, public loading: LoadingService, private router: Router, private rx: RX,private loginSrv:LoginService) {
     this.watch_change();
   }
 
@@ -60,6 +61,7 @@ export class VerifyWalletPage implements OnInit {
       }, err => {
         console.log(err);
         this.rx.toastError(err)
+        this.loginSrv.critical_error_delete_account()
 
       }
       )
