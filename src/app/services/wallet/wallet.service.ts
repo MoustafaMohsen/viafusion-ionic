@@ -72,7 +72,7 @@ export class WalletService {
   }
 
   generate_checkout_page(request: ICreateChckoutPage.Request) {
-    return this.api.post<ICreateChckoutPage.Response>("get-rates", request)
+    return this.api.post<ICreateChckoutPage.Response>("generate-checkout", request)
   }
 
   //#endregion

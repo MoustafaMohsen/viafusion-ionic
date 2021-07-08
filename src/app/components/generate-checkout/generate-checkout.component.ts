@@ -75,8 +75,10 @@ export class GenerateCheckoutComponent {
       if (res.success) {
         this.checkout_url = res.data.redirect_url;
         this.rx.temp.checkouts.push(res.data);
+        console.log(res.data);
+
         this.rx.toast("Payment Request created succesfully");
-        this.router.navigateByUrl("/payment/qr-code")
+        this.router.navigateByUrl("/payment/qr-payment")
       } else {
         this.rx.toastError(res as any)
       }
