@@ -22,7 +22,7 @@ export class SelectedDestinationsPage implements OnInit {
   destination_amount = "0"
   sources_amount = "0"
 
-  constructor(private loading: LoadingService, private router: Router, private rx: RX, private walletSrv: WalletService) { }
+  constructor(private loading: LoadingService, private router: Router, public rx: RX, private walletSrv: WalletService) { }
 
   ionViewWillEnter() {
     this.sources_amount = this.rx.temp["transaction"].source_amount

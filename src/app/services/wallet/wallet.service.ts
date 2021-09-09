@@ -35,22 +35,27 @@ export class WalletService {
     tran = tran ? tran : this.convert_rxtran_to_transaction(this.rx.temp["transaction"]);
     tran.execute_payments = true;
     tran.id || (tran.id = "tran_" + this.rx.makeid(5))
-    this.post_transaction(tran).then(async (res) => {
-      await this.rx.get_db_metacontact();
-      this.execute_payment_transactions(tran.id).subscribe((res) => {
-        this.rx.reset_temp_value();
-        this.get_wallet_balance();
-        if (res.success) {
-          this.rx.toast("Payments Done")
-          console.log(res.data);
-        } else {
-          this.rx.toastError(res as any)
-        }
-      }, err => {
-        this.get_wallet_balance();
-        this.rx.toastError(err)
-      })
-    }).catch(this.rx.toastError)
+    return new Promise((resolve,reject)=>{
+      this.post_transaction(tran).then(async (res) => {
+        await this.rx.get_db_metacontact();
+        this.execute_payment_transactions(tran.id).subscribe(async (res) => {
+          this.rx.reset_temp_value();
+          await this.get_wallet_balance();
+          if (res.success) {
+            this.rx.toast("Payments Done")
+            console.log(res.data);
+            resolve(res.data);
+          } else {
+            this.rx.toastError(res as any)
+            reject(res.message);
+          }
+        }, err => {
+          this.get_wallet_balance();
+          this.rx.toastError(err);
+          reject(err)
+        })
+      }).catch(this.rx.toastError)
+    })
   }
 
   get_detailed_wallet_transactions() {
@@ -91,7 +96,7 @@ export class WalletService {
   async do_payouts(tran?: ITransaction) {
     tran = tran ? tran : this.convert_rxtran_to_transaction(this.rx.temp["transaction"])
     tran.execute_payouts = true;
-    this.post_transaction(tran).then(async (res) => {
+    await this.post_transaction(tran).then(async (res) => {
       await this.rx.get_db_metacontact();
       this.execute_payout_transactions(tran.id).subscribe((res) => {
         this.get_wallet_balance();

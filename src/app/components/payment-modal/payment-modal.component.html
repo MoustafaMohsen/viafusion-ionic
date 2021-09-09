@@ -64,7 +64,7 @@
         </div>
       </div>
     </div>
-  
+
 
     <div class="flex justify-start items-center mt-4 card flex-col">
 
@@ -93,9 +93,9 @@
               class="my-4">{{status.redirect_url}}</a>
           </span>
 
-          <button type="button" class="p-2 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+          <a *ngIf="status.redirect_url" [href]="status.redirect_url" target="_blank" type="button" class="p-2 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
             Click to open link <svg-icon key="tabs" fontSize="1.8rem" class="ml-2"></svg-icon>
-          </button>
+          </a>
 
         </div>
       </div>

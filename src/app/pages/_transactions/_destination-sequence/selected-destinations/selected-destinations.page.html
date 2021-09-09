@@ -1,4 +1,4 @@
-<app-header title="Selected Destinations" back_url="/transaction/sources-sequence/selected-sources"></app-header>
+<app-header title="Selected Destinations" [back_url]="rx.temp['transaction'].type == 'w2many'?'/dashboard':'/transaction/sources-sequence/selected-sources'"></app-header>
 
 <ion-content>
 

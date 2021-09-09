@@ -26,6 +26,7 @@ export class GenerateCheckoutPage {
 
   ionViewWillEnter() {
     this.remaing_ballance = this.walletSrv.balance$.value
+    this.watch_change();
   }
 
   form = new FormGroup({

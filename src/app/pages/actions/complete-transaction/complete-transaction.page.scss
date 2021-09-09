@@ -65,7 +65,7 @@ ion-content {
     width: 100%;
     color:var(--secondary);
     box-shadow: 0px 3px 1px 0px #b55408;
-    
+
   }
 
   .green-badge {
@@ -98,9 +98,15 @@ ion-content {
 .error-badge {
   background: rgb(254, 202, 202);
   color: red;
+  padding: 0.5rem 1rem;
+  letter-spacing: 1px;
+  border-radius: 40px;
 }
 
 .require-badge {
   background: rgb(214, 208, 208);
   color: rgb(33, 30, 30);
+  padding: 0.5rem 1rem;
+  letter-spacing: 1px;
+  border-radius: 40px;
 }

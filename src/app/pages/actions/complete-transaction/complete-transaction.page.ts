@@ -27,10 +27,10 @@ export class CompleteTransactionPage implements OnInit {
     console.log("Entred: Complete Transaction ionViewWillEnter()");
 
     this._sub = this.rx.temp.view_transaction.subscribe(t => {
-      console.log("transaction overview updated");
-      console.log(this.transaction);
       if (!t) return;
       this.transaction = t
+      console.log("transaction overview updated");
+      console.log(this.transaction);
     })
   }
 
@@ -78,15 +78,18 @@ export class CompleteTransactionPage implements OnInit {
       return;
     }
     this.loading.start();
-    this.walletSrv.refresh_transaction_responses(this.transaction.id).subscribe(data => {
+    this.walletSrv.refresh_transaction_responses(this.transaction.id).subscribe(async (data) => {
       this.loading.stop();
       if (data.success) {
         this.rx.toast("Transactions Updated", "", 5000);
-        data.data.transactions = this.h.update_transactions_status(data.data.transactions)
+        // data.data.transactions = this.h.update_transactions_status(data.data.transactions)
         this.rx.reset_temp_value();
-        this.rx.get_db_metacontact();
-        let newTran = data.data.transactions.find(t => t.id == this.transaction.id);
-        newTran && this.rx.temp.view_transaction && this.rx.temp.view_transaction.next(newTran);
+        await this.walletSrv.get_wallet_balance();
+        setTimeout(() => {
+          let newTran = this.rx.meta$.value.transactions.find(t => t.id == this.transaction.id);
+          newTran && this.rx.temp.view_transaction.next(newTran);
+          newTran && (this.transaction = newTran)
+        }, 50);
       }
       setTimeout(() => {
         event && event.target.complete();
@@ -157,10 +160,10 @@ export class CompleteTransactionPage implements OnInit {
       this.loading.start();
       this.transaction.status = "created"
       this.transaction.execute_payments = true
-      this.walletSrv.do_payments(this.transaction).then(d => this.loading.stop())
+      this.walletSrv.do_payments(this.transaction).then(d =>{this.refresh_transaction()})
     }
 
-    if(this.transaction.execute_payments || this.transaction.payments.filter(p=>p.response).length){
+    if(this.transaction.payments_executed || this.transaction.payments.filter(p=>p.response).length){
       await alert.present();
       const { role } = await alert.onDidDismiss();
       console.log('onDidDismiss resolved with role', role);
@@ -178,6 +181,6 @@ export class CompleteTransactionPage implements OnInit {
     this.loading.start()
     this.transaction.status = "created"
     this.transaction.execute_payouts = true
-    this.walletSrv.do_payouts(this.transaction).then(d => this.loading.stop())
+    this.walletSrv.do_payouts(this.transaction).then(d =>{this.refresh_transaction()})
   }
 }
