@@ -14,9 +14,9 @@ export class Api {
       this.url='http://192.168.1.3:3005';
     }
     if (environment.production) {
-      this.url='https://viafusion.net/api/v1';
+      this.url='https://api.viafusion.net';
     }
-    this.url='https://viafusion.net/api/v1';
+    this.url='https://api.viafusion.net';
   }
 
   get<T>(endpoint: string, params?: any, reqOpts?: any) {
