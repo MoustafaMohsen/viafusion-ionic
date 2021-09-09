@@ -72,8 +72,6 @@ export class RX {
   temp: ITemp = {} as any;
   reset_temp_value() {
     this.temp = {
-      view_transaction: new BehaviorSubject<ITransaction>(null),
-      wallet2wallet: new BehaviorSubject<IWallet2Wallet>({} as any),
       transaction: {}
     } as any;
     this.reset_temp_transactions();
@@ -100,6 +98,12 @@ export class RX {
     }
     if (!this.temp.transaction.payouts) {
       this.temp.transaction.payouts = new BehaviorSubject<ICreatePayout.Request[]>([])
+    }
+    if (!this.temp.view_transaction) {
+      this.temp.view_transaction = new BehaviorSubject<ITransaction>(null)
+    }
+    if (!this.temp.wallet2wallet) {
+      this.temp.wallet2wallet = new BehaviorSubject<IWallet2Wallet>({} as any)
     }
 
     this.temp.destination_queries = {}
@@ -148,8 +152,10 @@ export class RX {
       if (!u || !u.contact_reference_id) {
         // this.get_db_metacontact();
       }
-      await this.storage.set("meta", u);
-      console.log("=== Meta storage was set with value", u);
+      if (u && u.contact_reference_id) {
+        await this.storage.set("meta", u);
+        console.log("=== Meta storage was set with value", u);
+      }
     })
   }
 

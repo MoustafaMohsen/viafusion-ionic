@@ -43,8 +43,8 @@
         </h2>
       </div>
       <div>
-        <button [disabled]="(loading.loading) || this.transaction.execute_payments" (click)="do_payments()"
-          class="p-2  focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+        <button [disabled]="(loading.loading) || this.transaction.payments_executed" (click)="do_payments()"
+          class="p-3  focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
           Do Payments
         </button>
       </div>
@@ -58,10 +58,18 @@
           <div class="w-full">
             <div class="flex justify-between items-center">
 
-              <div class="done-badge w-auto text-base font-medium dark:text-white text-gray-800">
+              <div *ngIf="transaction?.status == 'closed'">
                 <h4 class="">DONE</h4>
               </div>
-
+              <div   *ngIf="transaction?.status == 'requires_action'" class="require-badge w-auto text-base font-medium dark:text-white text-gray-800">
+                <h4 class="">Requires Action</h4>
+              </div>
+              <div   *ngIf="transaction?.status == 'canceled'" class="done-badge w-auto text-base font-medium dark:text-white text-gray-800">
+                <h4 class="">Canceled</h4>
+              </div>
+              <div   *ngIf="!(payment?.response)" class="require-badge w-auto text-base font-medium dark:text-white text-gray-800">
+                <h4 class="">Not executed</h4>
+              </div>
 
 
               <div class="amount-badge text-center">
@@ -148,8 +156,8 @@
         </h2>
       </div>
       <div>
-        <button [disabled]="loading.loading" (click)="do_payouts()"
-          class="p-2  focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
+        <button [disabled]="loading.loading || this.transaction.payouts_executed" (click)="do_payouts()"
+          class="p-3  focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1">
           Do Payouts
         </button>
       </div>
