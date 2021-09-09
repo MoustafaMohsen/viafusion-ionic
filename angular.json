@@ -55,7 +55,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "baseHref": "https://viafusion.net/app/",
+              "baseHref": "https://app.viafusion.net/",
               "budgets": [{
                 "type": "initial",
                 "maximumWarning": "6mb",
@@ -76,7 +76,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "baseHref": "https://viafusion.net/app/",
+              "baseHref": "https://app.viafusion.net/",
               "budgets": [{
                 "type": "initial",
                 "maximumWarning": "6mb",
