@@ -58,10 +58,10 @@
           <div class="w-full">
             <div class="flex justify-between items-center">
 
-              <div *ngIf="transaction?.status == 'closed'">
+              <div *ngIf="transaction?.status == 'closed'" class="bg-green-200">
                 <h4 class="">DONE</h4>
               </div>
-              <div   *ngIf="transaction?.status == 'requires_action'" class="require-badge w-auto text-base font-medium dark:text-white text-gray-800">
+              <div   *ngIf="transaction?.status == 'requires_action'" class="require-badge bg-yellow-200 w-auto text-base font-medium dark:text-white text-gray-800">
                 <h4 class="">Requires Action</h4>
               </div>
               <div   *ngIf="transaction?.status == 'canceled'" class="done-badge w-auto text-base font-medium dark:text-white text-gray-800">
