@@ -23,7 +23,12 @@ export class ModalDestinationComponent implements OnInit {
   selected_buy_currency: string;
   amount = 0;
   ionViewWillEnter() {
-    this.remaing_ballance = (this.rx.temp["transaction"].source_amount as any) - (this.rx.temp["transaction"].destination_amount as any)
+    if (this.rx.temp["transaction"].source_amount == "0") {
+      this.remaing_ballance = this.walletSrv.balance$.value
+    }else{
+      this.remaing_ballance = (this.rx.temp["transaction"].source_amount as any) - (this.rx.temp["transaction"].destination_amount as any);
+    }
+
     this.form.controls.amount.setValidators([Validators.required, Validators.min(0), Validators.max(this.remaing_ballance)])
 
     this.form.controls.currency.valueChanges.subscribe(async (v) => {
