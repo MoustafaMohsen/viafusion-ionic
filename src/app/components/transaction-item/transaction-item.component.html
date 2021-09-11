@@ -2,6 +2,11 @@
   class="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 items-center p-4">
 
   <div class="title-row pl-1 md:mr-16 w-full flex justify-between items-center">
+    <div *ngIf="transaction.type == 'w2many'"
+      class="flex text-lg leading-6 font-medium dark:text-white text-gray-800">
+      <h4 class="">Send</h4>
+      <ion-icon name="arrow-up-outline"></ion-icon>
+    </div>
     <div *ngIf="transaction.type == 'many2many'"
       class="flex text-lg leading-6 font-medium dark:text-white text-gray-800">
       <h4 class="">Send</h4>
@@ -9,7 +14,7 @@
     </div>
     <div *ngIf="transaction.type == 'many2w'"
       class="flex text-lg leading-6 font-medium text-gray-800 dark:text-white">
-      <h4>Recive</h4>
+      <h4>Receive</h4>
       <ion-icon name="arrow-down-outline"></ion-icon>
     </div>
 
@@ -21,7 +26,7 @@
 
     <div *ngIf="transaction.type == 'w2recived'"
       class="flex text-lg leading-6 font-medium text-gray-800 dark:text-white">
-      <h4>Recive From Wallet</h4>
+      <h4>Receive From Wallet</h4>
       <ion-icon name="circle-outline"></ion-icon>
     </div>
 
