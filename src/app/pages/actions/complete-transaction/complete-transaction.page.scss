@@ -9,8 +9,10 @@ ion-content {
   --padding-end: 1rem;
   --padding-start: 1rem;
 
-  .source-item , .destination-item{
-    box-shadow: 0 9px 60px 6px rgba(0, 0, 0, 0.1), 0 12px 12px 2px rgba(0, 0, 0, 0.05);
+  .source-item,
+  .destination-item {
+    box-shadow: 0 9px 60px 6px rgba(0, 0, 0, 0.1),
+      0 12px 12px 2px rgba(0, 0, 0, 0.05);
     border-radius: 20px;
     display: flex;
     flex-wrap: wrap;
@@ -47,9 +49,7 @@ ion-content {
         max-height: 100%;
         max-width: 100%;
       }
-
     }
-
   }
 
   .primary-badge,
@@ -63,9 +63,8 @@ ion-content {
     display: flex;
     justify-content: center;
     width: 100%;
-    color:var(--secondary);
+    color: var(--secondary);
     box-shadow: 0px 3px 1px 0px #b55408;
-
   }
 
   .green-badge {
@@ -77,14 +76,17 @@ ion-content {
     background: rgb(254, 202, 202);
     color: red;
   }
-
+}
+.action-button {
+  font-size: 0.9em;
+  padding: 0.5em;
 }
 
 .payment-title {
   margin-right: -1rem;
   margin-left: -1rem;
   padding: 1rem;
-  background:  var(--secondary-tint);
+  background: var(--secondary-tint);
 }
 
 .done-badge {
