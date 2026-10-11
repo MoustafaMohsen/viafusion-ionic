@@ -9,8 +9,8 @@ import { environment } from 'src/environments/environment';
 })
 export class DemoHintComponent {
 
-  @Input() step: "phone" | "otp" | "pin" | "sources" = "phone";
-  /** emits the sample phone number when the visitor asks to fill it in */
+  @Input() step: "phone" | "otp" | "pin" | "sources" | "destinations" | "recipient" | "recipients" = "phone";
+  /** emits when the visitor asks for the sample values: the sample phone number on the phone step, an empty string elsewhere */
   @Output() use_sample = new EventEmitter<string>();
 
   demo = environment.demo;
@@ -22,5 +22,9 @@ export class DemoHintComponent {
 
   fill_phone() {
     this.use_sample.emit(DEMO_PHONE);
+  }
+
+  fill_sample() {
+    this.use_sample.emit("");
   }
 }

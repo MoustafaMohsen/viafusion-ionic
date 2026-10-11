@@ -29,7 +29,7 @@ export class EnterPhonePage implements OnInit {
           this.results=r.data;
           this.results.users.filter(p=>p!=this.rx.user$.value.phone_number)
         }else{
-          this.rx.toastError(r.message)
+          this.rx.toastError(r as any)
         }
       })
     })

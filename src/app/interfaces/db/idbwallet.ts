@@ -123,4 +123,6 @@ export interface IWallet2Wallet{
   amount:number,
   currecny:"USD",
   message:string,
+  /** set once per confirmation so a repeated request is not sent twice */
+  transfer_id?:string,
 }

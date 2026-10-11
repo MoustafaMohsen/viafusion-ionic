@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PostCreatePayment, RequiredFields } from 'src/app/interfaces/rapyd/ipayment';
 import { PaymentService } from 'src/app/services/auth/payment';
 import { LoadingService } from 'src/app/services/loading.service';
+import { MONEY_PATTERN, round_money } from 'src/app/services/util/money';
 
 @Component({
   selector: 'app-source',
@@ -19,7 +20,7 @@ export class SourcePage implements OnInit {
   payment_method: string = "";
   required_fields: RequiredFields.Response = {} as any;
   fields_form = new FormGroup({
-    amount: new FormControl("", [Validators.required, Validators.min(1)])
+    amount: new FormControl("", [Validators.required, Validators.min(0.01), Validators.pattern(MONEY_PATTERN)])
   });
   diable_submit = true;
 
@@ -43,6 +44,8 @@ export class SourcePage implements OnInit {
 
 
   update_query(payment_method) {
+    this.is_edit = false;
+    this.edit_index = -1;
     this.render_required_fields();
     // validate payment is uniqe
     for (let i = 0; i < this.rx.temp["transaction"]["payments"].value.length; i++) {
@@ -127,7 +130,7 @@ export class SourcePage implements OnInit {
     console.log(fields);
     delete fields.amount;
     let payment: PostCreatePayment.Request = {
-      amount: parseInt(this.fields_form.get("amount").value),
+      amount: round_money(this.fields_form.get("amount").value),
       payment_method: {
         type: this.payment_method as any,
         fields: fields

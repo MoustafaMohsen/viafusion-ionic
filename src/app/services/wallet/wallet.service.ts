@@ -12,6 +12,7 @@ import { IRXTransaction } from 'src/app/interfaces/interfaces';
 import { RX } from '../rx/events.service';
 import { PostCreatePayment } from 'src/app/interfaces/rapyd/ipayment';
 import { map } from 'rxjs/operators';
+import { round_money } from '../util/money';
 
 @Injectable({
   providedIn: 'root'
@@ -205,8 +206,8 @@ export class WalletService {
     let tran: ITransaction = {
       payments,
       id: rxtran.id || this.rx.makeid(5),
-      source_amount: parseInt(rxtran.source_amount as any) as any,
-      destination_amount: parseInt(rxtran.destination_amount as any) as any,
+      source_amount: (round_money(rxtran.source_amount) || 0) as any,
+      destination_amount: (round_money(rxtran.destination_amount) || 0) as any,
 
       payouts,
 

@@ -25,6 +25,10 @@ export class CompleteTransactionPage implements OnInit {
   _sub: Subscription
   ionViewWillEnter() {
     console.log("Entred: Complete Transaction ionViewWillEnter()");
+    // the opened transaction lives in memory: after a refresh, return to the dashboard where it can be reopened
+    if (!this.rx.temp.view_transaction.value) {
+      this.router.navigateByUrl("/dashboard");
+    }
 
     this._sub = this.rx.temp.view_transaction.subscribe(t => {
       if (!t) return;
@@ -188,6 +192,10 @@ export class CompleteTransactionPage implements OnInit {
   }
 
   do_payouts() {
+    // a second click while the first is on its way must not pay out twice
+    if (this.loading.loading) {
+      return;
+    }
     console.log("do_payouts() btn");
     this.loading.start()
     this.transaction.status = "created"

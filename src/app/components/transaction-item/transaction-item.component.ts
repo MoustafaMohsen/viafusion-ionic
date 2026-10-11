@@ -68,6 +68,11 @@ export class TransactionItemComponent implements OnInit {
     }
   }
 
+  /** payments were collected, the destinations are still waiting to be paid */
+  get payouts_pending(){
+    return !!this.transaction?.payments_executed && !!this.transaction?.payouts?.length && !this.transaction?.payouts_executed
+  }
+
   get is_schedualed(){
     return this.transaction?.id?.indexOf("tranid_schedualed_") != -1
   }

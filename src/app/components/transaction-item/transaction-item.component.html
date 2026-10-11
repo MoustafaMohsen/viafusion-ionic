@@ -59,7 +59,7 @@
         <span aria-hidden="true" class="absolute inset-0 bg-yellow-200 opacity-50 rounded-full">
         </span>
         <span class="relative">
-          Require Action
+          {{payouts_pending ? 'Payouts pending' : 'Require Action'}}
         </span>
       </span>
     </div>
@@ -99,6 +99,7 @@
 
     <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-200">
       {{transaction.description}}
+      <span *ngIf="payouts_pending" class="block text-yellow-900">Tap to open it and finish with "Do Payouts".</span>
     </p>
 
   </div>

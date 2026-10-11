@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingService } from 'src/app/services/loading.service';
 import { RX } from 'src/app/services/rx/events.service';
 import { ICreatePayout } from 'src/app/interfaces/rapyd/ipayout';
+import { round_money, sum_money } from 'src/app/services/util/money';
 
 
 @Component({
@@ -39,7 +40,7 @@ export class SelectedDestinationsPage implements OnInit {
     this.rx.temp.transaction.payouts.subscribe(d => {
       this.selected_destinations = d;
       // calculate destination total
-      this.destination_amount = this.rx.temp["transaction"].destination_amount = this.selected_destinations.map(s => s.payout_amount).reduce((a, b) => a + b, 0) + "" || 0 + "";
+      this.destination_amount = this.rx.temp["transaction"].destination_amount = sum_money(this.selected_destinations.map(s => s.payout_amount)) + "";
 
     })
   }
@@ -67,9 +68,14 @@ export class SelectedDestinationsPage implements OnInit {
   }
 
   get remaing_ballance() {
-    var diff = (this.sources_amount as any) - (this.destination_amount as any);
+    var diff = round_money((this.sources_amount as any) - (this.destination_amount as any));
     var ballance = this.walletSrv.balance$.value;
-    var remaining = this.rx.temp["transaction"].type != "w2many" ? diff : ballance
+    var remaining = this.rx.temp["transaction"].type != "w2many" ? diff : round_money(ballance - (this.destination_amount as any))
     return remaining
+  }
+
+  /** what the destinations are paid from: the sources, or the wallet balance for a transfer from the wallet */
+  get available_amount() {
+    return this.rx.temp["transaction"].type != "w2many" ? this.sources_amount : this.walletSrv.balance$.value
   }
 }

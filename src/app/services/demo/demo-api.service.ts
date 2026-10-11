@@ -8,9 +8,11 @@ import { ILogin } from 'src/app/interfaces/db/ilogin';
 import { ListIssuedVcc, ListIssuedVccTransactions } from 'src/app/interfaces/rapyd/ivcc';
 import { IWalletTransaction } from 'src/app/interfaces/rapyd/iwallet';
 import { IAPIServerResponse, WalletTransactionTypes } from 'src/app/interfaces/rapyd/types';
+import { from_usd, is_money, round_money, sum_money, to_cents, to_usd } from '../util/money';
 import {
-  demo_contact, demo_metacontact, demo_payment_methods, demo_payment_response, demo_rapyd_contact, demo_required_fields, demo_transaction,
-  demo_wallet_transaction, demo_wallet_transactions, DEMO_CONTACT_REFERENCE_ID, DEMO_MAX_CARDS, DEMO_MAX_TOP_UP, DEMO_OTP, DEMO_PIN
+  demo_contact, demo_metacontact, demo_payment_methods, demo_payment_response, demo_payout_methods, demo_payout_required_fields, demo_payout_response,
+  demo_rapyd_contact, demo_required_fields, demo_transaction, demo_wallet_transaction, demo_wallet_transactions,
+  DEMO_CONTACT_REFERENCE_ID, DEMO_EWALLET, DEMO_MAX_CARDS, DEMO_MAX_TOP_UP, DEMO_OTP, DEMO_PIN, DEMO_RATES, DEMO_RECIPIENTS
 } from './demo-data';
 
 const STORAGE_KEY = "viafusion-demo:backend";
@@ -118,6 +120,31 @@ export class DemoApi {
           ? this.ok(this.meta())
           : this.fail("Demo mode: this transaction was not found."));
 
+      // ======== sending money
+      case "POST list-payout-methods":
+        return this.authenticated(() => this.ok(this.rapyd(demo_payout_methods(body.country || "US"))));
+
+      case "POST list-payout-required-fields":
+        return this.authenticated(() => this.is_demo_payout_method(body.payout_method_type)
+          ? this.ok(this.rapyd(demo_payout_required_fields(body)))
+          : this.fail("Demo mode: '" + body.payout_method_type + "' is not a demo destination."));
+
+      case "POST get-rates":
+        return this.authenticated(() => this.rate(body.buy_currency));
+
+      case "POST simulate-payout":
+        return this.authenticated(() => this.ok(this.payout_dry_run(body)));
+
+      case "POST execute-payouts":
+        return this.authenticated(() => this.execute_payouts(body.tran_id));
+
+      // ======== wallet to wallet
+      case "POST get-like-db-user":
+        return this.authenticated(() => this.ok({ users: this.lookup_recipients(body.phone_number) }));
+
+      case "POST w2w":
+        return this.authenticated(() => this.wallet_to_wallet(body));
+
       // ======== virtual cards
       case "POST create-vcc-to-user":
         return this.authenticated(() => this.create_card(body.metadata));
@@ -169,14 +196,15 @@ export class DemoApi {
     }
     let stored = this.state.meta.transactions;
     let incoming: ITransaction[] = this.clone(body.transactions).filter(t => t && t.id);
-    let merged = incoming.map(t => stored.find(s => s.id == t.id && s.payments_executed) || this.sanitize_transaction(t));
-    stored.filter(s => s.payments_executed && !merged.some(t => t.id == s.id)).forEach(s => merged.push(s));
+    let settled = (s: ITransaction) => s.payments_executed || s.payouts_executed || s.executed;
+    let merged = incoming.map(t => stored.find(s => s.id == t.id && settled(s)) || this.sanitize_transaction(t));
+    stored.filter(s => settled(s) && !merged.some(t => t.id == s.id)).forEach(s => merged.push(s));
     this.state.meta.transactions = merged;
     this.save();
     return this.ok(this.meta());
   }
 
-  /** a transaction the app is still building: nothing typed as payment details is kept, and it cannot arrive already paid */
+  /** a transaction the app is still building: nothing typed as payment or recipient details is kept, and it cannot arrive already paid */
   private sanitize_transaction(tran: ITransaction): ITransaction {
     (tran.payments || []).forEach((p: any) => {
       if (p.request) {
@@ -188,9 +216,18 @@ export class DemoApi {
       }
       delete p.response;
     });
+    (tran.payouts || []).forEach((p: any) => {
+      if (p.request) {
+        p.request.beneficiary = {};
+        p.request.sender = {};
+      }
+      delete p.response;
+    });
     tran.payments_executed = false;
+    tran.payouts_executed = false;
     tran.executed = false;
     tran.closed_payments_amount = 0;
+    tran.closed_payouts_amount = 0;
     return tran;
   }
 
@@ -210,16 +247,17 @@ export class DemoApi {
       return this.fail("Demo mode: this transaction was not found.");
     }
     if (tran.payments_executed) {
-      return this.fail("This top-up was already completed. Your balance was not changed again.");
+      return this.fail("These payments were already completed. Your balance was not changed again.");
     }
-    if (tran.type != "many2w") {
-      return this.fail("Demo mode: only wallet top-ups are simulated, transfers to other destinations are not.");
+    if (tran.type != "many2w" && tran.type != "many2many") {
+      return this.fail("Demo mode: this kind of transaction has no payments to run.");
     }
+    let top_up = tran.type == "many2w";
     let payments = tran.payments || [];
     // a refused top-up stays in the history as failed, it never touches the balance
     let decline = (message: string) => {
       tran.status = "canceled";
-      tran.description = tran.description || "Top-up declined";
+      this.describe(tran, top_up ? "Top-up declined" : "Transfer declined");
       this.save();
       return this.fail(message);
     };
@@ -227,34 +265,224 @@ export class DemoApi {
       return decline("Add at least one source before confirming.");
     }
     for (let p of payments) {
-      let amount = p.request && p.request.amount;
-      if (typeof amount != "number" || !isFinite(amount) || amount <= 0) {
-        return decline("Enter an amount greater than zero for every source.");
+      if (!is_money(p.request && p.request.amount)) {
+        return decline("Enter an amount greater than zero, with at most two decimals, for every source.");
       }
       if (!this.is_demo_payment_method(p.request.payment_method && p.request.payment_method.type)) {
         return decline("Demo mode: only the demo payment sources can be used.");
       }
     }
-    let total = this.money(payments.reduce((sum, p) => sum + p.request.amount, 0));
+    let total = sum_money(payments.map(p => p.request.amount));
     if (total > DEMO_MAX_TOP_UP) {
       return decline("Demo top-ups are limited to $" + DEMO_MAX_TOP_UP.toLocaleString("en-US") + " at a time.");
     }
 
     let now = this.now();
     let sources = payments.map(p => (p.request.metadata && p.request.metadata.name) || p.request.payment_method.type).join(", ");
-    tran.description = (tran.description && tran.description != "Top-up declined") ? tran.description : "Wallet top-up via " + sources;
+    // a transfer with destinations is not finished by collecting its payments: the payouts still have to run
+    let payouts_pending = !top_up && (tran.payouts || []).length > 0;
+    this.describe(tran, (top_up ? "Wallet top-up via " : "Transfer funded by ") + sources + (payouts_pending ? " (payouts pending)" : ""));
     payments.forEach((p, i) => {
       p.request.metadata = { ...p.request.metadata, executed: true };
       p.response = demo_payment_response(tran.id + "_" + i, p.request.amount, tran.description, now) as any;
     });
     tran.execute_payments = true;
     tran.payments_executed = true;
-    tran.executed = true;
-    tran.status = "closed";
+    tran.executed = !payouts_pending;
+    tran.status = payouts_pending ? "requires_action" : "closed";
     tran.source_amount = total;
     tran.closed_payments_amount = total;
     tran.execution_date = now;
-    this.move_money(total, "payment_funds_in", tran.description);
+    this.move_money(total, "payment_funds_in", (top_up ? "Wallet top-up via " : "Transfer funded by ") + sources);
+    this.save();
+    return this.ok(this.meta());
+  }
+
+  /** fills in a description unless the visitor wrote one; a later step may refine what an earlier step wrote */
+  private describe(tran: ITransaction, text: string) {
+    if (!tran.description || (tran as any).demo_auto_description) {
+      tran.description = text;
+      (tran as any).demo_auto_description = true;
+    }
+  }
+
+  // ======== sending money
+
+  private is_demo_payout_method(type: string) {
+    return demo_payout_methods("US").some(m => m.payout_method_type == type);
+  }
+
+  /** fixed demo rate: units of `currency` per 1 USD */
+  private rate(currency: string) {
+    let rate = DEMO_RATES[currency];
+    if (!rate) {
+      return this.fail("Demo mode: there is no simulated exchange rate for " + currency + ".");
+    }
+    return this.ok({ sell_currency: "USD", buy_currency: currency, action_type: "payout", fixed_side: null, rate, date: "simulated", sell_amount: null, buy_amount: null });
+  }
+
+  /** why a payout cannot be made, or nothing when it can */
+  private payout_problem(request: any): string {
+    if (!is_money(request && request.payout_amount)) {
+      return "Enter an amount greater than zero, with at most two decimals, for every destination.";
+    }
+    if (!this.is_demo_payout_method(request.payout_method_type)) {
+      return "Demo mode: only the demo destinations can be used.";
+    }
+    if (!DEMO_RATES[request.payout_currency]) {
+      return "Demo mode: there is no simulated exchange rate for " + request.payout_currency + ".";
+    }
+    // the amount in the destination currency, when the app sent it, must cost exactly the USD amount at the demo rate
+    let entered = request.metadata && request.metadata.payout_currency_amount;
+    if (entered !== undefined && entered !== null && (!is_money(entered) || to_cents(to_usd(entered, DEMO_RATES[request.payout_currency])) != to_cents(request.payout_amount))) {
+      return "The amount does not match the simulated exchange rate. Enter the destination again.";
+    }
+    return "";
+  }
+
+  /** what the recipient gets, in the destination currency: the amount that was entered, or the USD amount converted */
+  private paid_amount(request: any): number {
+    let rate = DEMO_RATES[request.payout_currency];
+    let entered = request.metadata && request.metadata.payout_currency_amount;
+    return is_money(entered) ? round_money(entered) : from_usd(request.payout_amount, rate);
+  }
+
+  /** the "Simulate Payout" button: checks one destination without moving anything */
+  private payout_dry_run(request: any) {
+    let problem = this.payout_problem(request);
+    return problem
+      ? { success: false, message: problem, error_code: "DEMO_INVALID_PAYOUT" }
+      : { success: true, message: "This destination would be accepted. Nothing was sent, this is a simulation.", error_code: "" };
+  }
+
+  /**
+   * Pays the destinations of a transfer out of the wallet. A transfer funded by sources ("many2many") must have run
+   * its payments first, so the wallet only ever pays out what those sources brought in; a transfer from the wallet
+   * ("w2many") is paid from the balance.
+   */
+  private execute_payouts(tran_id: string) {
+    let tran = this.find_transaction(tran_id);
+    if (!tran) {
+      return this.fail("Demo mode: this transaction was not found.");
+    }
+    if (tran.payouts_executed) {
+      return this.fail("This transfer was already completed. Your balance was not changed again.");
+    }
+    if (tran.type != "many2many" && tran.type != "w2many") {
+      return this.fail("Demo mode: this kind of transaction has no payouts to run.");
+    }
+    let funded_by_sources = tran.type == "many2many";
+    if (funded_by_sources && !tran.payments_executed) {
+      return this.fail("Run the payments first: the destinations are paid from the money your sources bring in.");
+    }
+    let payouts = tran.payouts || [];
+    // a refused wallet transfer stays in the history as failed, it never touches the balance
+    let decline = (message: string) => {
+      if (!funded_by_sources) {
+        tran.status = "canceled";
+        this.describe(tran, "Transfer declined");
+        this.save();
+      }
+      return this.fail(message);
+    };
+    if (!payouts.length) {
+      return decline("Add at least one destination before confirming.");
+    }
+    for (let p of payouts) {
+      let problem = this.payout_problem(p.request);
+      if (problem) {
+        return decline(problem);
+      }
+    }
+    let total = sum_money(payouts.map(p => p.request.payout_amount));
+    if (funded_by_sources) {
+      let funded = sum_money((tran.payments || []).map(p => p.request.amount));
+      if (to_cents(total) > to_cents(funded)) {
+        return this.fail("The destinations add up to more than the sources ($" + total + " of $" + funded + ").");
+      }
+    }
+    if (to_cents(total) > to_cents(this.account.balance)) {
+      return decline("Not enough balance in your wallet for this transfer.");
+    }
+
+    let now = this.now();
+    let names = payouts.map(p => (p.request.metadata && p.request.metadata.name) || p.request.payout_method_type).join(", ");
+    this.describe(tran, (funded_by_sources ? "Transfer to " : "Wallet transfer to ") + names);
+    payouts.forEach((p, i) => {
+      let currency = p.request.payout_currency, rate = DEMO_RATES[currency], amount = p.request.payout_amount;
+      p.request.metadata = { ...p.request.metadata, executed: true };
+      let paid = this.paid_amount(p.request);
+      p.response = demo_payout_response(tran.id + "_" + i, amount, currency, rate, now, paid) as any;
+      let name = (p.request.metadata && p.request.metadata.name) || p.request.payout_method_type;
+      this.move_money(-amount, "payout_funds_out", name + (currency == "USD" ? "" : " (" + paid + " " + currency + " at the simulated rate " + rate + ")"));
+    });
+    tran.execute_payouts = true;
+    tran.payouts_executed = true;
+    tran.executed = true;
+    tran.status = "closed";
+    if (!funded_by_sources) {
+      tran.source_amount = total;
+    }
+    tran.destination_amount = total;
+    tran.closed_payouts_amount = total;
+    tran.execution_date = now;
+    this.save();
+    return this.ok(this.meta());
+  }
+
+  // ======== wallet to wallet
+
+  /** the demo recipients whose number contains the typed digits */
+  private lookup_recipients(query: any): string[] {
+    let digits = ((query === null || query === undefined) ? "" : query + "").replace(/\D/g, "");
+    if (!digits) {
+      return [];
+    }
+    return DEMO_RECIPIENTS.filter(r => r.phone.replace(/\D/g, "").indexOf(digits) != -1).map(r => r.phone);
+  }
+
+  private wallet_to_wallet(body: { phone_number?: string, amount?: any, message?: string, transfer_id?: string }) {
+    let recipient = DEMO_RECIPIENTS.find(r => r.phone == body.phone_number + "");
+    if (!recipient) {
+      return this.fail("This number is not one of the demo recipients.");
+    }
+    if (!is_money(body.amount)) {
+      return this.fail("Enter an amount greater than zero, with at most two decimals.");
+    }
+    let amount = round_money(body.amount);
+    // one transfer per confirmation: the app sends the same id again when a confirmation is repeated
+    let tran_id = "tranid_w2w" + ((body.transfer_id || this.id(10)) + "").replace(/[^a-zA-Z0-9]/g, "").slice(0, 24);
+    if (this.find_transaction(tran_id)) {
+      return this.fail("This transfer was already sent. Your balance was not changed again.");
+    }
+    if (to_cents(amount) > to_cents(this.account.balance)) {
+      return this.fail("Not enough balance in your wallet for this transfer.");
+    }
+    let now = this.now();
+    let message = (body.message || "").toString().trim().slice(0, 80);
+    let description = "To " + recipient.name + " (" + recipient.phone + ")" + (message ? ": " + message : "");
+    let tran: ITransaction = {
+      id: tran_id,
+      type: "w2w",
+      description,
+      source_amount: amount,
+      destination_amount: amount,
+      payments: [],
+      payouts: [],
+      transfer_resoponse: {
+        id: "transfer_demo_" + this.id(10), status: "CLO", amount, currency_code: "USD", destination_phone_number: recipient.phone,
+        destination_ewallet_id: "ewallet_demo_recipient", source_ewallet_id: DEMO_EWALLET, created_at: now,
+      } as any,
+      execute_payments: false,
+      execute_payouts: false,
+      executed: true,
+      closed_payments_amount: 0,
+      closed_payouts_amount: 0,
+      execution_date: now,
+      status: "closed",
+    };
+    this.state.meta.transactions.push(tran);
+    this.move_money(-amount, "p2p_transfer", description);
     this.save();
     return this.ok(this.meta());
   }
@@ -329,17 +557,17 @@ export class DemoApi {
     if (!card) {
       return this.fail("Demo mode: this card was not found.");
     }
-    let amount = this.money(Number(body.amount));
-    if (!isFinite(amount) || amount <= 0) {
-      return this.fail("Enter an amount greater than zero.");
+    if (!is_money(body.amount)) {
+      return this.fail("Enter an amount greater than zero, with at most two decimals.");
     }
+    let amount = round_money(body.amount);
     if ((body.currency || "USD") != "USD") {
       return this.fail("Demo mode: only USD is simulated.");
     }
     if (card.status != "ACT") {
       return this.fail("This card is frozen. Activate it again before using it.");
     }
-    if (amount > this.account.balance) {
+    if (to_cents(amount) > to_cents(this.account.balance)) {
       return this.fail("Not enough balance in your wallet for this purchase.");
     }
     let now = this.now();
@@ -463,7 +691,7 @@ export class DemoApi {
   }
 
   private money(value: number) {
-    return Math.round(value * 100) / 100;
+    return round_money(value);
   }
 
   private id(length: number) {

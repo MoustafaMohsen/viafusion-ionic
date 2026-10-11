@@ -1,6 +1,7 @@
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
 import { IDBMetaContact, ITransaction } from 'src/app/interfaces/db/idbmetacontact';
 import { ListPayments, RequiredFields } from 'src/app/interfaces/rapyd/ipayment';
+import { IGetPayoutRequiredFields, IListPayout } from 'src/app/interfaces/rapyd/ipayout';
 import { IWalletTransaction } from 'src/app/interfaces/rapyd/iwallet';
 import { WalletTransactionTypes } from 'src/app/interfaces/rapyd/types';
 
@@ -13,6 +14,28 @@ export const DEMO_PIN = "654321";
 export const DEMO_CONTACT_REFERENCE_ID = 10000001;
 export const DEMO_EWALLET = "ewallet_demo000000000000000000000001";
 export const DEMO_CONTACT_ID = "cont_demo000000000000000000000001";
+
+/** Fictional people a visitor can send to, so nobody has to type real details */
+export const DEMO_RECIPIENTS = [
+  { phone: "+12025550171", name: "Jordan Lee" },
+  { phone: "+12025550188", name: "Priya Nair" },
+  { phone: "+442079460958", name: "Alex Morgan" },
+];
+
+/** Sample answers for the recipient form of a payout */
+export const DEMO_BENEFICIARY = {
+  first_name: "Jordan",
+  last_name: "Lee",
+  account_number: "000123456789",
+};
+
+/** Fixed, made-up exchange rates: units of the currency per 1 USD. They never change and are not market rates */
+export const DEMO_RATES: { [currency: string]: number } = {
+  USD: 1,
+  EUR: 0.9,
+  GBP: 0.8,
+  EGP: 50,
+};
 
 /** limits of the simulated operations */
 export const DEMO_MAX_TOP_UP = 10000;
@@ -204,5 +227,76 @@ export function demo_transaction(id: string, type: ITransaction["type"], amount:
     closed_payouts_amount: 0,
     execution_date: date,
     status: "closed",
+  };
+}
+
+/** Fictional places money can be sent to. Recipient details are sample values, nothing is delivered anywhere */
+export function demo_payout_methods(country: string): IListPayout.Response[] {
+  const method = (payout_method_type: string, name: string, category: IListPayout.Response["category"], image: string, payout_currencies: string[]): IListPayout.Response => ({
+    payout_method_type, name, category, image, payout_currencies,
+    is_cancelable: 0,
+    is_expirable: 0,
+    is_location_specific: 0,
+    is_online: 1,
+    status: 1,
+    beneficiary_country: country,
+    sender_entity_types: ["individual"],
+    beneficiary_entity_types: ["individual"],
+    amount_range_per_currency: [],
+    minimum_expiration_seconds: null,
+    maximum_expiration_seconds: null,
+    sender_currencies: ["USD"],
+  });
+  return [
+    method("demo_bank_payout", "Demo bank account", "bank", "assets/svg/bank.svg", Object.keys(DEMO_RATES)),
+    method("demo_cash_pickup", "Demo cash pickup", "cash", "assets/svg/cash.svg", ["USD", "EUR"]),
+    method("demo_wallet_payout", "Demo mobile wallet", "ewallet", "assets/svg/ewallet.svg", ["USD", "EGP"]),
+  ];
+}
+
+export function demo_payout_required_fields(query: IGetPayoutRequiredFields.QueryRequest): IGetPayoutRequiredFields.Response {
+  const field = (name: string, sample: string) => ({ name, type: "string", regex: "", is_required: true, instructions: "", description: "Sample: " + sample });
+  let beneficiary = [field("first_name", DEMO_BENEFICIARY.first_name), field("last_name", DEMO_BENEFICIARY.last_name)];
+  if (query.payout_method_type == "demo_bank_payout") {
+    beneficiary.push(field("account_number", DEMO_BENEFICIARY.account_number));
+  }
+  return {
+    payout_method_type: query.payout_method_type,
+    sender_currency: "USD",
+    sender_country: query.sender_country,
+    sender_entity_type: "individual",
+    beneficiary_country: query.beneficiary_country,
+    payout_currency: query.payout_currency,
+    beneficiary_entity_type: "individual",
+    is_cancelable: 0,
+    is_location_specific: 0,
+    is_expirable: 0,
+    minimum_expiration_seconds: null,
+    maximum_expiration_seconds: null,
+    is_online: 1,
+    image: "",
+    status: 1,
+    beneficiary_required_fields: beneficiary,
+    sender_required_fields: [],
+    payout_options: [],
+    minimum_amount: 1,
+    maximum_amount: DEMO_MAX_TOP_UP,
+    batch_file_header: "",
+  };
+}
+
+/** A completed payout of `amount` USD, delivered as `paid_amount` in the destination currency */
+export function demo_payout_response(id: string, amount: number, currency: string, rate: number, date: number, paid_amount: number) {
+  return {
+    statusCode: 200,
+    headers: {},
+    body: {
+      status: { status: "SUCCESS", error_code: "", message: "", response_code: "", operation_id: "demo-" + id },
+      data: {
+        id: "payout_demo_" + id, payout_type: "demo", amount, sender_amount: amount, sender_currency: "USD", payout_currency: currency,
+        fx_rate: rate, paid_amount, status: "Completed", created_at: date, paid_at: date,
+        instructions: {}, description: "Simulated payout, nothing was sent",
+      },
+    },
   };
 }
