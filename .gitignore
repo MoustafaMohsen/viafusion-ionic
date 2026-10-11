@@ -32,3 +32,6 @@ npm-debug.log*
 /.vercel
 android/
 ios/
+
+# local secrets, such as the file the Vercel CLI writes when linking
+.env*
