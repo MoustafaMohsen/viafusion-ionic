@@ -19,7 +19,7 @@ export class SourcePage implements OnInit {
   payment_method: string = "";
   required_fields: RequiredFields.Response = {} as any;
   fields_form = new FormGroup({
-    amount: new FormControl("", [Validators.required])
+    amount: new FormControl("", [Validators.required, Validators.min(1)])
   });
   diable_submit = true;
 

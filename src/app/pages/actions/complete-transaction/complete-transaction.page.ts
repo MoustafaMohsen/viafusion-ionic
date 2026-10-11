@@ -142,7 +142,13 @@ export class CompleteTransactionPage implements OnInit {
     modal.present();
   }
 
+  doing_payments = false;
   async do_payments() {
+    // a second click while the first is on its way must not pay twice
+    if (this.loading.loading || this.doing_payments) {
+      return;
+    }
+    this.doing_payments = true;
     const alert = await this.alertController.create({
       cssClass: 'alert-class',
       message: "You might have done this action before, are you sure you want to repeat is?",
@@ -160,14 +166,19 @@ export class CompleteTransactionPage implements OnInit {
       this.loading.start();
       this.transaction.status = "created"
       this.transaction.execute_payments = true
-      this.walletSrv.do_payments(this.transaction).then(d =>{this.refresh_transaction()})
+      this.walletSrv.do_payments(this.transaction).then(d =>{this.refresh_transaction()}).catch(() => {
+        // the wallet service has already shown why it failed
+        this.loading.stop();
+      }).then(() => {
+        this.doing_payments = false;
+      })
     }
 
     if(this.transaction.payments_executed || this.transaction.payments.filter(p=>p.response).length){
       await alert.present();
       const { role } = await alert.onDidDismiss();
       console.log('onDidDismiss resolved with role', role);
-      role=="yes" && do_action();
+      role=="yes" ? do_action() : (this.doing_payments = false);
     }
     else{
       do_action();

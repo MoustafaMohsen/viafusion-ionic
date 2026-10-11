@@ -18,6 +18,10 @@ export class VccDetailsPage implements OnInit {
 
   ionViewWillEnter() {
     this.card_details = this.rx.temp.vcc_details
+    // the card is picked in the list, after a refresh or a direct link there is none
+    if (!this.card_details) {
+      this.router.navigateByUrl("/cc/list-of-cc");
+    }
   }
   segmentChanged(e){
     let tab = e.detail.value;

@@ -22,6 +22,10 @@ export class CreateVccPage implements OnInit {
 
   vcc_name = "My Card"
   create_vcard_btn(){
+    // a second click while the first is on its way must not create a second card
+    if (this.loading.loading) {
+      return;
+    }
     this.loading.start();
     let metadata:ICreateVccToUser_Metadata={
       name:this.vcc_name
@@ -31,6 +35,7 @@ export class CreateVccPage implements OnInit {
       this.rx.get_db_contact();
       this.rx.get_db_metacontact();
       if (d.success) {
+        this.router.navigateByUrl("/cc/list-of-cc");
         this.rx.toast("Credit Card Created 💳")
       }else{
         this.rx.toastError(d as any)

@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class DemoHintComponent {
 
-  @Input() step: "phone" | "otp" | "pin" = "phone";
+  @Input() step: "phone" | "otp" | "pin" | "sources" = "phone";
   /** emits the sample phone number when the visitor asks to fill it in */
   @Output() use_sample = new EventEmitter<string>();
 

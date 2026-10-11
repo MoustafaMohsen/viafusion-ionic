@@ -76,7 +76,7 @@
   <footer>
     <div class="row button-row mt-8">
     
-      <button (click)="create_vcard_btn()" class="py-3 px-5  focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1" >
+      <button [disabled]="loading.loading" (click)="create_vcard_btn()" class="py-3 px-5  focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center  font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full flex justify-center items-center gold-gradient text-xl  letspac-1" >
          create
       </button>
     </div>

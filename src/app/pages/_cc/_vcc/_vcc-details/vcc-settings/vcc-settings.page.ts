@@ -35,6 +35,7 @@ export class VccSettingsPage implements OnInit {
       this.vccSrv.set_card_status({card:this.card_details.card_number,status:"block"}).subscribe(r=>{
         this.loading.stop()
         if (r.success) {
+          this.card_details.status = "BLO"
           this.rx.toast("Updated")
         }else{
           this.rx.toastError(r as any)
@@ -48,6 +49,7 @@ export class VccSettingsPage implements OnInit {
       this.vccSrv.set_card_status({card:this.card_details.card_number,status:"unblock"}).subscribe(r=>{
         this.loading.stop()
         if (r.success) {
+          this.card_details.status = "ACT"
           this.rx.toast("Updated")
         }else{
           this.rx.toastError(r as any)
@@ -73,6 +75,10 @@ export class VccSettingsPage implements OnInit {
     })
     modal.present()
     modal.onWillDismiss().then(d=>{
+      // closed without choosing an amount
+      if (!d.data) {
+        return;
+      }
       this.vccSrv.simulate_card_authorization({
         amount:d.data.amount,
         card_id:this.card_details.card_id,
