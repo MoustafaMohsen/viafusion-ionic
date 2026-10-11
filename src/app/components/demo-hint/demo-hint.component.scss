@@ -1,0 +1,26 @@
+.demo-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background: var(--secondary-tint);
+  color: var(--primary);
+  font-size: 0.8rem;
+  line-height: 1.35;
+  text-align: left;
+
+  strong {
+    white-space: nowrap;
+  }
+  button {
+    flex-shrink: 0;
+    padding: 0.25rem 0.9rem;
+    border-radius: 20px;
+    background: #fff;
+    color: var(--secondary);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+}

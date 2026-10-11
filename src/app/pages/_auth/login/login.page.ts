@@ -28,6 +28,10 @@ export class LoginPage {
     }
 
   }
+  use_demo_phone(phone_number: string) {
+    this.form.controls.phone.setValue(phone_number);
+  }
+
   async submit(){
     // let phone_number = this.form.controls.phone.value //(this.form.controls.phone.value as string).replace(/ |\(|\)|-/g,"");
     const phone_number = parsePhoneNumber(this.form.controls.phone.value)

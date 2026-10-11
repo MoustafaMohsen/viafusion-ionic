@@ -23,7 +23,9 @@ export class DashboardPage implements OnInit {
 
   constructor(public loading: LoadingService, public router: Router, public rx: RX, private walletSrv: WalletService,private modatCtrl:ModalController) { }
   ionViewWillEnter() {
-    this.update_balance();
+    this.update_balance().catch((error) => {
+      this.rx.toastError(error)
+    });
     this.rx.reset_temp_transactions();
   }
 

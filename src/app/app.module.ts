@@ -96,6 +96,8 @@ import { IbanDetailsPage } from './pages/_cc/iban/iban-details/iban-details.page
 import { IbanHistoryPage } from './pages/_cc/iban/iban-details/iban-history/iban-history.page';
 import { IbanSettingsPage } from './pages/_cc/iban/iban-details/iban-settings/iban-settings.page';
 import { LandingPage } from './pages/landing/landing.page';
+import { DemoHintComponent } from './components/demo-hint/demo-hint.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   imports: [
@@ -108,7 +110,10 @@ import { LandingPage } from './pages/landing/landing.page';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    IonicStorageModule.forRoot({
+    IonicStorageModule.forRoot(environment.demo ? {
+      name: 'viafusion-demo',
+      driverOrder: [Drivers.LocalStorage]
+    } : {
       name: '__mydb',
       driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage]
     }),
@@ -148,6 +153,7 @@ import { LandingPage } from './pages/landing/landing.page';
   declarations: [
     AppComponent,
     LandingPage,
+    DemoHintComponent,
     LoginPage,
     OtpPage,
     DashboardPage,

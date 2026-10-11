@@ -1,0 +1,10 @@
+<div *ngIf="demo" class="demo-hint" [ngSwitch]="step">
+  <p *ngSwitchCase="'phone'">
+    <span class="font-semibold">Demo login:</span> use the sample number <strong>{{phone}}</strong>. Any valid number opens the same fictional account. Nothing you type is saved.
+  </p>
+  <button *ngSwitchCase="'phone'" type="button" (click)="fill_phone()">Use it</button>
+
+  <p *ngSwitchCase="'otp'"><span class="font-semibold">Demo login:</span> no SMS is sent. Enter the demo code <strong>{{otp}}</strong>.</p>
+
+  <p *ngSwitchCase="'pin'"><span class="font-semibold">Demo login:</span> enter the demo PIN <strong>{{pin}}</strong>.</p>
+</div>

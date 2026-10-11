@@ -27,9 +27,16 @@ export class OtpPage implements OnInit, AfterViewInit {
     let input = document.getElementById('otp_code_input_1') as HTMLInputElement;
     input.focus();
     setTimeout(() => {
-      this.sandbox_message = `You are in sandbox, just enter :${this.rx.user$.value.security.login._otp_value}`;
-      console.log(this.sandbox_message);
+      this.show_sandbox_message();
     }, 2000);
+  }
+
+  show_sandbox_message() {
+    let otp_value = this.rx.user$.value.security?.login?._otp_value;
+    if (otp_value) {
+      this.sandbox_message = `You are in sandbox, just enter :${otp_value}`;
+      console.log(this.sandbox_message);
+    }
   }
 
   update_code(e: Event, i: number) {
@@ -66,8 +73,7 @@ export class OtpPage implements OnInit, AfterViewInit {
           this.login_serv.login_register_sequence();
         }else{
           this.success = "incorrect";
-          this.sandbox_message = `You are in sandbox, just enter :${this.rx.user$.value.security.login._otp_value}`;
-          console.log(this.sandbox_message);
+          this.show_sandbox_message();
 
         }
 

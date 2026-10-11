@@ -7,13 +7,15 @@ import { Injectable } from '@angular/core';
 import { ILoginTransportObj } from 'src/app/interfaces/db/ilogin';
 import { Api } from '../api/api';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
+import { DemoApi } from '../demo/demo-api.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private api: Api, private rx: RX, private router: Router, private loading: LoadingService, private storage: StorageService, private alertController:AlertController) {
+  constructor(private api: Api, private rx: RX, private router: Router, private loading: LoadingService, private storage: StorageService, private alertController:AlertController, private demo: DemoApi) {
   }
 
   async send_login(phone_number: string) {
@@ -124,6 +126,9 @@ export class LoginService {
   async logout() {
     this.rx.init_service();
     await this.rx.reset_storage()
+    if (environment.demo) {
+      this.demo.end_session();
+    }
     window.location.href = '/auth/login';
   }
 

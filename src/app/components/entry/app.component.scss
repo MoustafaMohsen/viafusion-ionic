@@ -1,0 +1,15 @@
+.demo-label {
+  position: fixed;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  padding: 1px 10px;
+  border-radius: 9999px;
+  background: var(--secondary-tint);
+  color: var(--primary);
+  font-size: 10px;
+  line-height: 14px;
+  white-space: nowrap;
+  pointer-events: none;
+}

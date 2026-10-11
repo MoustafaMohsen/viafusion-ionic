@@ -2,6 +2,7 @@ import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { IAPIServerResponse } from 'src/app/interfaces/rapyd/types';
+import { DemoApi } from '../demo/demo-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { IAPIServerResponse } from 'src/app/interfaces/rapyd/types';
 export class Api {
   url: string = 'http://localhost:3005';
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, private demo: DemoApi) {
     if (environment.dev2) {
       this.url='http://192.168.1.3:3005';
     }
@@ -20,6 +21,9 @@ export class Api {
   }
 
   get<T>(endpoint: string, params?: any, reqOpts?: any) {
+    if (environment.demo) {
+      return this.demo.request<T>('GET', endpoint, params);
+    }
     let url = this.url + '/' + endpoint;
     if (endpoint.indexOf('http') == 0) {
       url = endpoint;
@@ -46,6 +50,9 @@ export class Api {
   }
 
   post<T>(endpoint: string, body: any) {
+    if (environment.demo) {
+      return this.demo.request<T>('POST', endpoint, body);
+    }
     let url = this.url + '/' + endpoint;
     if (endpoint.indexOf('http') == 0) {
       url = endpoint;
@@ -54,6 +61,9 @@ export class Api {
   }
 
   put(endpoint: string, body: any, reqOpts?: any) {
+    if (environment.demo) {
+      return this.demo.request('PUT', endpoint, body);
+    }
     let url = this.url + '/' + endpoint;
     if (endpoint.indexOf('http') == 0) {
       url = endpoint;
@@ -62,6 +72,9 @@ export class Api {
   }
 
   delete(endpoint: string, reqOpts?: any) {
+    if (environment.demo) {
+      return this.demo.request('DELETE', endpoint);
+    }
     let url = this.url + '/' + endpoint;
     if (endpoint.indexOf('http') == 0) {
       url = endpoint;
@@ -70,6 +83,9 @@ export class Api {
   }
 
   patch(endpoint: string, body: any, reqOpts?: any) {
+    if (environment.demo) {
+      return this.demo.request('PATCH', endpoint, body);
+    }
     let url = this.url + '/' + endpoint;
     if (endpoint.indexOf('http') == 0) {
       url = endpoint;
