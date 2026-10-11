@@ -16,9 +16,45 @@ ion-content {
     flex-direction: column;
   }
 
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
   .logo {
     width: 11rem;
     max-width: 50%;
+  }
+
+  .award {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1.25rem 0.5rem 0.875rem;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 9px 30px 3px rgba(0, 0, 0, 0.08);
+    color: var(--primary);
+
+    ion-icon {
+      flex-shrink: 0;
+      font-size: 1.5rem;
+      color: var(--secondary);
+    }
+    strong {
+      display: block;
+      font-size: 0.9rem;
+      line-height: 1.3;
+    }
+    small {
+      display: block;
+      font-size: 0.72rem;
+      line-height: 1.3;
+      color: var(--color);
+    }
   }
 
   .hero {
@@ -85,7 +121,7 @@ ion-content {
 
   @media (min-width: 768px) {
     .landing {
-      padding: 2rem 3rem;
+      padding: 1rem 3rem;
     }
     .hero {
       grid-template-columns: 1fr 1fr;
