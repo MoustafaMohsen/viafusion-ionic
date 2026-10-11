@@ -1,4 +1,4 @@
-<ion-app>
+<ion-app [class.app-shell]="!is_landing">
   <div *ngIf="show_demo_label" class="demo-label">Demo — simulated data</div>
   <ion-router-outlet></ion-router-outlet>
 </ion-app>

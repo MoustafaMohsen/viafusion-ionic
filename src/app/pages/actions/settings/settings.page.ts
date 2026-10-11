@@ -21,7 +21,7 @@ export class SettingsPage implements OnInit {
       if (!u.rapyd_contact_data) {
         return
       }
-      this.name = u.rapyd_contact_data.first_name + u.rapyd_contact_data.last_name
+      this.name = u.rapyd_contact_data.first_name + " " + u.rapyd_contact_data.last_name
     })
   }
   wallet_trans(){

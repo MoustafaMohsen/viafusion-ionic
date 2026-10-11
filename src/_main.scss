@@ -199,3 +199,35 @@ input.ng-invalid:not(.mat-input-element){
 .country-row{
   width: 100%;
 }
+
+// ===== App shell
+// On larger screens the app routes live in a phone-sized frame; the landing page and real phones stay full size.
+// ion-app is the containing block for the pages, the fixed bottom navigation and Ionic's overlays, so no transform is needed.
+@media (min-width: 600px) and (min-height: 560px) {
+  body {
+    background: #e4e4e7;
+  }
+
+  ion-app.app-shell {
+    width: 410px;
+    height: calc(100% - 3rem);
+    max-height: 880px;
+    margin: auto;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 28px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+    contain: layout size style;
+    overflow: hidden;
+
+    // the frame is phone-sized whatever the window width, so the desktop variants of these utilities must not apply
+    .md\:mr-16 {
+      margin-right: 0;
+    }
+    .md\:mb-0 {
+      margin-bottom: 1.5rem;
+    }
+    .md\:w-1\/3 {
+      width: 100%;
+    }
+  }
+}
