@@ -72,6 +72,17 @@
     </div>
   </div>
 
+  <div *ngIf="demo" class="row flex justify-start items-center p-4 cursor-pointer" (click)="reset_demo()">
+    <div class="icon">
+      <ion-icon name="refresh-outline" style="font-size: 1.7rem"></ion-icon>
+    </div>
+    <div class="ml-4">
+      <p class="font-bold text-2xl">
+        Reset Demo
+      </p>
+    </div>
+  </div>
+
   <div class="row flex justify-start items-center p-4">
     <div class="icon">
       <svg-icon key="delete" fontSize="1.7rem"></svg-icon>

@@ -132,6 +132,14 @@ export class LoginService {
     window.location.href = '/auth/login';
   }
 
+  /** demo only: put the wallet, cards and history back to their starting values and log out */
+  async reset_demo() {
+    this.rx.init_service();
+    await this.rx.reset_storage()
+    this.demo.reset();
+    window.location.href = '/auth/login';
+  }
+
   is_loggedin(){
     return new Promise(async (resolve,reject)=>{
       setTimeout(async () => {

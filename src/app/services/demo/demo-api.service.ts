@@ -66,6 +66,17 @@ export class DemoApi {
     return !!this.state.session.authenticated;
   }
 
+  /** back to the seeded wallet, cards and history, logged out. Removes only this demo's own storage keys */
+  reset() {
+    try {
+      Object.keys(localStorage).filter(key => key.indexOf("viafusion-demo") == 0).forEach(key => localStorage.removeItem(key));
+    } catch (error) {
+      console.warn("[demo api] demo data could not be cleared", error);
+    }
+    this.state = this.seed();
+    this.save();
+  }
+
   /** forget the session, the wallet, cards and history stay as they are */
   end_session() {
     this.state.session = { otp_passed: false, authenticated: false };

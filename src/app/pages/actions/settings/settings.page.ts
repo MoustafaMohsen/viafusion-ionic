@@ -37,6 +37,27 @@ export class SettingsPage implements OnInit {
     this.loginSrv.logout()
   }
 
+  async reset_demo(){
+    const alert = await this.alertController.create({
+      cssClass: 'alert-class',
+      header:"Reset the demo?",
+      message: "The balance, cards and transactions go back to their starting values and you are logged out. Only this demo's data in this browser is cleared.",
+      buttons: [{
+        text:"RESET",
+        role:"reset"
+      },
+      {
+        text:"cancel",
+        role:"cancel"
+      }
+    ]
+    });
+
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+    (role == "reset" && this.loginSrv.reset_demo())
+  }
+
   async delete_user(){
     const alert = await this.alertController.create({
       cssClass: 'alert-class',
