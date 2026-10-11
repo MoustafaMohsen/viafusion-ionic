@@ -4,7 +4,7 @@ A wallet app for managing payments, transfers and virtual cards in one place, bu
 
 This branch turns the original app into a self-contained portfolio demo.
 
-**Live demo: https://viafusion-demo.vercel.app**
+**Live demo: https://viafusion.vercel.app**
 
 Portfolio demo with simulated data. No real payments.
 
