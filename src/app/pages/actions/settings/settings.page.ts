@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/auth/login.service';
 import { RX } from 'src/app/services/rx/events.service';
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-settings',
@@ -11,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsPage implements OnInit {
 
+  demo = environment.demo;
   phone_number = "";
   name = "";
   constructor(private rx:RX,private loginSrv:LoginService,private router:Router,private alertController:AlertController) { }
@@ -21,7 +23,7 @@ export class SettingsPage implements OnInit {
       if (!u.rapyd_contact_data) {
         return
       }
-      this.name = u.rapyd_contact_data.first_name + u.rapyd_contact_data.last_name
+      this.name = u.rapyd_contact_data.first_name + " " + u.rapyd_contact_data.last_name
     })
   }
   wallet_trans(){
@@ -33,6 +35,27 @@ export class SettingsPage implements OnInit {
 
   logout(){
     this.loginSrv.logout()
+  }
+
+  async reset_demo(){
+    const alert = await this.alertController.create({
+      cssClass: 'alert-class',
+      header:"Reset the demo?",
+      message: "The balance, cards and transactions go back to their starting values and you are logged out. Only this demo's data in this browser is cleared.",
+      buttons: [{
+        text:"RESET",
+        role:"reset"
+      },
+      {
+        text:"cancel",
+        role:"cancel"
+      }
+    ]
+    });
+
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+    (role == "reset" && this.loginSrv.reset_demo())
   }
 
   async delete_user(){

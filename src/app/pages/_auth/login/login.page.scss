@@ -20,15 +20,49 @@ ion-content {
       color: var(--secondary);
     }
   }
+  // the button sits at the bottom on tall screens and follows the form on short ones, where the page scrolls
+  &::part(scroll) {
+    display: flex;
+    flex-direction: column;
+  }
+  > .row {
+    flex-shrink: 0;
+  }
   .button-row {
     --offset-bottom: 0 !important;
     width: 100%;
-    padding: 2rem;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    margin-top: auto;
+    padding-top: 1.5rem;
     button {
       width: 100%;
+    }
+  }
+
+  // short screens: smaller illustration and heading so the form and the button fit
+  @media (max-height: 720px) {
+    --padding-top: 1.25rem;
+    .illustration-row {
+      margin-top: 0.75rem;
+      img {
+        max-height: 18vh;
+        margin: 0 auto;
+      }
+    }
+    .header-row {
+      h1 {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+      }
+      p {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+      }
+    }
+    .phone-row {
+      padding-top: 1rem;
+    }
+    .button-row {
+      padding-top: 1rem;
     }
   }
 }

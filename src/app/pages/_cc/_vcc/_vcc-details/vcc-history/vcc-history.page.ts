@@ -19,6 +19,11 @@ export class VccHistoryPage implements OnInit {
   sub: Subscription
   ionViewWillEnter() {
     this.card_details = this.rx.temp.vcc_details
+    // the card is picked in the list, after a refresh or a direct link there is none
+    if (!this.card_details) {
+      this.router.navigateByUrl("/cc/list-of-cc");
+      return;
+    }
     this.sub = this.vccSrv.get_vcc_transactions(this.card_details.card_id).subscribe(r => {
       if (r.success) {
         this.transactions = r.data.body.data
@@ -35,7 +40,7 @@ export class VccHistoryPage implements OnInit {
   ionViewWillLeave() {
     console.log("unsubscribe()");
 
-    this.sub.unsubscribe();
+    this.sub && this.sub.unsubscribe();
   }
 
 

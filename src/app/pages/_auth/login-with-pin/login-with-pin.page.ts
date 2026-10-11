@@ -4,6 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/services/loading.service';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login-with-pin',
@@ -19,9 +20,10 @@ export class LoginWithPinPage implements OnInit  {
 
   ngOnInit() {
   }
-  ngAfterViewInit(): void {
-    let input = document.getElementById('register_code_input_1') as HTMLInputElement;
-    input.focus();
+  // the inputs can only take focus once the page transition has finished
+  ionViewDidEnter(): void {
+    let input = document.getElementById('login_code_input_1') as HTMLInputElement;
+    input && input.focus();
   }
 
   update_code(e: Event, i: number) {
@@ -54,7 +56,8 @@ export class LoginWithPinPage implements OnInit  {
         if (user.security.login.authenticated) {
           this.rx.user$.next(user);
           this.success = "correct"
-          this.router.navigateByUrl("/verification/verify-wallet");
+          // the demo user already has a wallet and a card, skip the onboarding checks
+          this.router.navigateByUrl(environment.demo ? "/dashboard" : "/verification/verify-wallet");
         }else{
           this.success = "incorrect";
         }

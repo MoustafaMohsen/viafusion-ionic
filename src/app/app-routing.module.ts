@@ -45,13 +45,15 @@ import { GenerateCheckoutPage } from './pages/_payment/generate-checkout/generat
 import { IbanDetailsPage } from './pages/_cc/iban/iban-details/iban-details.page';
 import { IbanHistoryPage } from './pages/_cc/iban/iban-details/iban-history/iban-history.page';
 import { IbanSettingsPage } from './pages/_cc/iban/iban-details/iban-settings/iban-settings.page';
+import { LandingPage } from './pages/landing/landing.page';
+import { DemoGuard } from './services/demo/demo.guard';
 
 
 const routes: Routes = [
   //
   {
     path: '',
-    redirectTo: 'auth/login',
+    component: LandingPage,
     pathMatch: 'full',
   },
 
@@ -344,6 +346,12 @@ const routes: Routes = [
 
 
 ];
+
+// every route except the landing page goes through the demo guard, which lets everything pass outside demo mode
+routes.filter(route => route.path != '').forEach(route => {
+  route.canActivate = [DemoGuard];
+  route.canActivateChild = [DemoGuard];
+});
 
 @NgModule({
   imports: [

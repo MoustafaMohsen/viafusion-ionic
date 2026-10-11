@@ -9,6 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActionStatusesTypes } from 'src/app/interfaces/interfaces';
 import { PaymentModalComponent } from 'src/app/components/payment-modal/payment-modal.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-complete-transaction',
@@ -22,9 +23,14 @@ export class CompleteTransactionPage implements OnInit {
   constructor(private rx: RX, private router: Router, private walletSrv: WalletService, public loading: LoadingService, private modalCtrl: ModalController, private h: HelperService, private alertController: AlertController) { }
 
   @Input() transaction: ITransaction;
+  demo = environment.demo;
   _sub: Subscription
   ionViewWillEnter() {
     console.log("Entred: Complete Transaction ionViewWillEnter()");
+    // the opened transaction lives in memory: after a refresh, return to the dashboard where it can be reopened
+    if (!this.rx.temp.view_transaction.value) {
+      this.router.navigateByUrl("/dashboard");
+    }
 
     this._sub = this.rx.temp.view_transaction.subscribe(t => {
       if (!t) return;
@@ -142,7 +148,13 @@ export class CompleteTransactionPage implements OnInit {
     modal.present();
   }
 
+  doing_payments = false;
   async do_payments() {
+    // a second click while the first is on its way must not pay twice
+    if (this.loading.loading || this.doing_payments) {
+      return;
+    }
+    this.doing_payments = true;
     const alert = await this.alertController.create({
       cssClass: 'alert-class',
       message: "You might have done this action before, are you sure you want to repeat is?",
@@ -160,14 +172,19 @@ export class CompleteTransactionPage implements OnInit {
       this.loading.start();
       this.transaction.status = "created"
       this.transaction.execute_payments = true
-      this.walletSrv.do_payments(this.transaction).then(d =>{this.refresh_transaction()})
+      this.walletSrv.do_payments(this.transaction).then(d =>{this.refresh_transaction()}).catch(() => {
+        // the wallet service has already shown why it failed
+        this.loading.stop();
+      }).then(() => {
+        this.doing_payments = false;
+      })
     }
 
     if(this.transaction.payments_executed || this.transaction.payments.filter(p=>p.response).length){
       await alert.present();
       const { role } = await alert.onDidDismiss();
       console.log('onDidDismiss resolved with role', role);
-      role=="yes" && do_action();
+      role=="yes" ? do_action() : (this.doing_payments = false);
     }
     else{
       do_action();
@@ -177,6 +194,10 @@ export class CompleteTransactionPage implements OnInit {
   }
 
   do_payouts() {
+    // a second click while the first is on its way must not pay out twice
+    if (this.loading.loading) {
+      return;
+    }
     console.log("do_payouts() btn");
     this.loading.start()
     this.transaction.status = "created"

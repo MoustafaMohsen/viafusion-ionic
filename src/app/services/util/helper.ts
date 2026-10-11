@@ -1,3 +1,4 @@
+import { round_money, sum_money } from './money';
 import { FormGroup } from "@angular/forms";
 import { IReducedTransaction, ITransaction, ITransactionFull_payment, ITransactionFull_payout } from "src/app/interfaces/db/idbmetacontact";
 import { PaymentPayoutDetails_internal, RquiredFormTypes } from "src/app/interfaces/interfaces";
@@ -85,7 +86,7 @@ export class HelperService {
 
   create_payout_object(request_query: IGetPayoutRequiredFields.QueryRequest, effected_ewallet: string, sender: ICreatePayout.Sender, beneficiary: ICreatePayout.Beneficiary) {
     let payout: ICreatePayout.Request = {
-      payout_amount: parseInt(request_query.payout_amount as any),
+      payout_amount: round_money(request_query.payout_amount),
       payout_method_type: request_query.payout_method_type,
       payout_currency: request_query.payout_currency,
 
@@ -145,16 +146,16 @@ export class HelperService {
     var destination_amount = 0
     var closed_payments_amount = 0
     var closed_payouts_amount = 0
-    source_amount = tran?.payments?.map(s => s.request?.amount).reduce((a, b) => a + b, 0) || 0;
-    destination_amount = tran?.payouts?.map(s => s.request?.payout_amount).reduce((a, b) => a + b, 0) || 0;
+    source_amount = sum_money(tran?.payments?.map(s => s.request?.amount)) || 0;
+    destination_amount = sum_money(tran?.payouts?.map(s => s.request?.payout_amount)) || 0;
 
     try {
-      closed_payments_amount = tran.payments.map(s => s.response?.body?.data?.amount).reduce((a, b) => a + b, 0) || 0;
+      closed_payments_amount = sum_money(tran.payments.map(s => s.response?.body?.data?.amount)) || 0;
     } catch (e) {
       closed_payments_amount = 0
     }
     try {
-      closed_payouts_amount = tran.payouts.map(s => s.response?.body?.data?.amount).reduce((a, b) => a + b, 0) || 0;
+      closed_payouts_amount = sum_money(tran.payouts.map(s => s.response?.body?.data?.amount)) || 0;
     } catch (e) {
       closed_payouts_amount = 0
     }
@@ -171,8 +172,9 @@ export class HelperService {
 
       // update closed amount if you can
       let r = this.reduce_transaction_amounts(t);
-      t.source_amount = r.source_amount as any
-      t.destination_amount = r.destination_amount as any
+      // a transaction paid from the wallet has no payments to add up: use its destinations, or keep the amount it carries
+      t.source_amount = (t.payments?.length ? r.source_amount : (r.destination_amount || t.source_amount || 0)) as any
+      t.destination_amount = (t.payouts?.length ? r.destination_amount : (t.destination_amount || 0)) as any
       t.closed_payments_amount = r.closed_payments_amount
       t.closed_payouts_amount = r.closed_payouts_amount
       console.log("-----> closed t.closed_payments_amount", t.closed_payments_amount);
@@ -203,6 +205,11 @@ export class HelperService {
 
       if (update)
         t.status = canceled ? "canceled" : closed ? "closed" : requries_action ? "requires_action" : "saved";
+
+      // payments collected but destinations not paid yet: the transfer still needs its payouts
+      if (t.status == "closed" && t.payouts?.length && !t.payouts_executed) {
+        t.status = "requires_action";
+      }
     })
     return trans;
   }

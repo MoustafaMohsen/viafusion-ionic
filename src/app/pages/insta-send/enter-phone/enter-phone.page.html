@@ -12,6 +12,7 @@
             </button>
             <input id="searchphones" [formControl]="search_form" class="w-full rounded mr-4" type="number" inputmode="tel" maxlength="15" placeholder="Search...">
         </div>
+        <app-demo-hint step="recipients"></app-demo-hint>
 
         <ion-list>
           <ion-item (click)="initModal(user)" *ngFor="let user of results.users">

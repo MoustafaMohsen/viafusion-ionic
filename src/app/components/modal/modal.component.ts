@@ -24,12 +24,20 @@ export class ModalComponent implements OnInit {
     const closeModal: string = "Modal Closed";
     await this.modalCtr.dismiss(closeModal);
   }
+  sending = false;
+  /** one id per drawer: a repeated confirmation is recognised as the same transfer */
+  transfer_id = this.rx.makeid(12);
   transfer() {
+    // a second click while the first is on its way must not send twice
+    if (this.sending) {
+      return;
+    }
+    this.sending = true;
     console.log("==== Transfer to ====V");
 
     console.log(this.rx.temp.wallet2wallet.value);
     setTimeout(() => {
-      this.walletSrv.do_wallet_2_wallet(this.rx.temp.wallet2wallet.value).subscribe(async (res)=>{
+      this.walletSrv.do_wallet_2_wallet({ ...this.rx.temp.wallet2wallet.value, transfer_id: this.transfer_id }).subscribe(async (res)=>{
         console.log("w2w res",res);
 
         if (res.success) {
@@ -47,10 +55,12 @@ export class ModalComponent implements OnInit {
           this.close();
           this.router.navigateByUrl("/dashboard");
         }else{
+          this.sending = false;
           this.rx.toastError(res as any)
         }
       },
       error=>{
+        this.sending = false;
         this.rx.toastError(error as any)
       }
       )

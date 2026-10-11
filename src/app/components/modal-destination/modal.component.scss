@@ -14,3 +14,13 @@ ion-content {
   bottom: -35%;
   width: 100%;
 }
+// the amount and currency fields sit side by side and must fit the drawer:
+// Material gives each field a fixed 180px input area, which pushed the currency field past the edge
+mat-form-field {
+  width: 46%;
+  min-width: 0;
+  ::ng-deep .mat-form-field-infix {
+    width: auto;
+    min-width: 0;
+  }
+}

@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PostCreatePayment, RequiredFields } from 'src/app/interfaces/rapyd/ipayment';
 import { PaymentService } from 'src/app/services/auth/payment';
 import { LoadingService } from 'src/app/services/loading.service';
+import { MONEY_PATTERN, round_money } from 'src/app/services/util/money';
 
 @Component({
   selector: 'app-source',
@@ -19,13 +20,18 @@ export class SourcePage implements OnInit {
   payment_method: string = "";
   required_fields: RequiredFields.Response = {} as any;
   fields_form = new FormGroup({
-    amount: new FormControl("", [Validators.required])
+    amount: new FormControl("", [Validators.required, Validators.min(0.01), Validators.pattern(MONEY_PATTERN)])
   });
   diable_submit = true;
 
   is_edit = false;
   edit_index = -1;
   ionViewWillEnter() {
+    // opened without a chosen source: pick one first
+    if (!this.route.snapshot.queryParamMap.get("payment_method")) {
+      this.router.navigateByUrl("/transaction/sources-sequence/available-sources");
+      return;
+    }
     this.payment_method = decodeURIComponent(this.route.snapshot.queryParamMap.get("payment_method"));
     this.route.queryParamMap.subscribe(m => {
       this.update_query(m.get("payment_method"));
@@ -43,6 +49,8 @@ export class SourcePage implements OnInit {
 
 
   update_query(payment_method) {
+    this.is_edit = false;
+    this.edit_index = -1;
     this.render_required_fields();
     // validate payment is uniqe
     for (let i = 0; i < this.rx.temp["transaction"]["payments"].value.length; i++) {
@@ -127,7 +135,7 @@ export class SourcePage implements OnInit {
     console.log(fields);
     delete fields.amount;
     let payment: PostCreatePayment.Request = {
-      amount: parseInt(this.fields_form.get("amount").value),
+      amount: round_money(this.fields_form.get("amount").value),
       payment_method: {
         type: this.payment_method as any,
         fields: fields

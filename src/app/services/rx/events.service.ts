@@ -26,6 +26,10 @@ export class RX {
     this.init_service();
   }
 
+  /** resolves once the stored user and history have been read back at startup */
+  private mark_restored: () => void;
+  restored = new Promise<void>(resolve => this.mark_restored = resolve);
+
   public user$: BehaviorSubject<IDBContact>;
 
   public meta$: BehaviorSubject<IDBMetaContact>;
@@ -123,7 +127,7 @@ export class RX {
     await this.storage.set("meta", null);
   }
   async init_subscribe() {
-    this.storage.get("user").then(storage_user => {
+    let user_read = this.storage.get("user").then(storage_user => {
       console.log("====== First time ==== storage get user 🏪>>");
       console.log(this.storage.get("user"));
       if (storage_user) {
@@ -138,7 +142,7 @@ export class RX {
       console.log("=== storage was set with value", u);
     })
 
-    this.storage.get("meta").then(storage_meta => {
+    let meta_read = this.storage.get("meta").then(storage_meta => {
       console.log("====== First time ==== storage get meta 🏪>>");
       console.log(this.storage.get("meta"));
       if (storage_meta) {
@@ -157,6 +161,10 @@ export class RX {
         console.log("=== Meta storage was set with value", u);
       }
     })
+
+    Promise.all([user_read, meta_read]).then(() => this.mark_restored(), () => this.mark_restored());
+    // never keep the app waiting on storage
+    setTimeout(() => this.mark_restored(), 4000);
   }
 
   // save_temp() {
@@ -186,7 +194,7 @@ export class RX {
   }
 
 
-  async toast(message = "okay", title = "", duration = 30000) {
+  async toast(message = "okay", title = "", duration = 3500) {
     const toast = await this.toastController.create({
       header: title,
       message,
@@ -215,9 +223,9 @@ export class RX {
 
     if (!error.success) {
       if (typeof error.message === "string") {
-        this.toast(error.message, "Error")
+        this.toast(error.message, "Error", 6000)
       } else {
-        this.toast(error.message.body.status.message + "" + error.message.body.status.error_code, "Error")
+        this.toast(error.message.body.status.message + "" + error.message.body.status.error_code, "Error", 6000)
       }
     }
   }

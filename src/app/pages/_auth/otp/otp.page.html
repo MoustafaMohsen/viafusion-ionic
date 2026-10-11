@@ -27,6 +27,8 @@
       <code class="letspac-1 ml-2 sms-subtext text-yellow-600">{{sandbox_message}}</code>
     </div>
 
+    <app-demo-hint step="otp"></app-demo-hint>
+
     <div *ngIf="!loading.loading && this.success=='incorrect'" class="validating flex justify-between">
       <p class="letspac-1 ml-2 danger">Incorrect code</p>
     </div>

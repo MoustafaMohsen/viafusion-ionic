@@ -1,0 +1,19 @@
+<div *ngIf="demo" class="demo-hint" [ngSwitch]="step">
+  <p *ngSwitchCase="'phone'">
+    <span class="font-semibold">Demo login:</span> use the sample number <strong>{{phone}}</strong>. Any valid number opens the same fictional account. Nothing you type is saved.
+  </p>
+  <button *ngSwitchCase="'phone'" type="button" (click)="fill_phone()">Use it</button>
+
+  <p *ngSwitchCase="'otp'"><span class="font-semibold">Demo login:</span> no SMS is sent. Enter the demo code <strong>{{otp}}</strong>.</p>
+
+  <p *ngSwitchCase="'sources'"><span class="font-semibold">Demo top-up:</span> pick any country, then one of the demo sources. No payment details are needed and no real money moves.</p>
+
+  <p *ngSwitchCase="'destinations'"><span class="font-semibold">Demo transfer:</span> pick any country, then a demo destination. Other currencies use fixed simulated rates, and nothing is really sent.</p>
+
+  <p *ngSwitchCase="'recipient'"><span class="font-semibold">Demo transfer:</span> use a fictional recipient instead of real details.</p>
+  <button *ngSwitchCase="'recipient'" type="button" (click)="fill_sample()">Use sample</button>
+
+  <p *ngSwitchCase="'recipients'"><span class="font-semibold">Demo recipients:</span> search <strong>555</strong> to find fictional numbers such as <strong>+1 202 555 0171</strong>. No real person receives anything.</p>
+
+  <p *ngSwitchCase="'pin'"><span class="font-semibold">Demo login:</span> enter the demo PIN <strong>{{pin}}</strong>.</p>
+</div>

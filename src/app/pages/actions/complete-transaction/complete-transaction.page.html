@@ -12,10 +12,11 @@
   <ng-container *ngIf="transaction?.payments?.length > 0">
 
     <div class="flex jusitfy-between items-center mb-4">
-      <ion-button [disabled]="transaction.status != 'created'" (click)="schedual_transaction()" expand="full" fill="solid" shape="round" class="w-full">
+      <ion-button [disabled]="demo || transaction.status != 'created'" (click)="schedual_transaction()" expand="full" fill="solid" shape="round" class="w-full">
         {{'Schedual payment'}}
       </ion-button>
     </div>
+    <app-demo-unavailable class="block text-center -mt-3 mb-4"></app-demo-unavailable>
     <div class="flex jusitfy-between items-center mb-4">
       <ion-button [disabled]="transaction.status != 'created'" (click)="save_transaction()" expand="full" fill="solid" shape="round" class="w-full">
         {{transaction.status == 'created'?'Save for Later':"Saved"}}
@@ -58,10 +59,10 @@
           <div class="w-full">
             <div class="flex justify-between items-center">
 
-              <div *ngIf="transaction?.status == 'closed'" class="done-badge w-auto text-base font-medium dark:text-white text-gray-800">
+              <div *ngIf="transaction?.status == 'closed' || (transaction?.payments_executed && payment?.response)" class="done-badge w-auto text-base font-medium dark:text-white text-gray-800">
                 <h4 class="">DONE</h4>
               </div>
-              <div   *ngIf="transaction?.status == 'requires_action'" class="require-badge bg-yellow-200 w-auto text-base font-medium dark:text-white text-gray-800">
+              <div   *ngIf="transaction?.status == 'requires_action' && !transaction?.payments_executed" class="require-badge bg-yellow-200 w-auto text-base font-medium dark:text-white text-gray-800">
                 <h4 class="">Requires Action</h4>
               </div>
               <div   *ngIf="transaction?.status == 'canceled'" class="done-badge w-auto text-base font-medium dark:text-white text-gray-800">
@@ -172,8 +173,11 @@
           <div class="w-full">
             <div class="flex justify-between items-center">
 
-              <div class="done-badge w-auto text-base font-medium dark:text-white text-gray-800">
+              <div *ngIf="payout?.response" class="done-badge w-auto text-base font-medium dark:text-white text-gray-800">
                 <h4 class="">DONE</h4>
+              </div>
+              <div *ngIf="!(payout?.response)" class="require-badge w-auto text-base font-medium dark:text-white text-gray-800">
+                <h4 class="">Not executed</h4>
               </div>
 
 

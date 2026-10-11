@@ -13,6 +13,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { LoadingService } from 'src/app/services/loading.service';
 import { IUtilitiesResponse } from 'src/app/interfaces/rapyd/rest-response';
 import { IdentityVerification } from 'src/app/interfaces/rapyd/iwallet';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,7 +24,9 @@ export class DashboardPage implements OnInit {
 
   constructor(public loading: LoadingService, public router: Router, public rx: RX, private walletSrv: WalletService,private modatCtrl:ModalController) { }
   ionViewWillEnter() {
-    this.update_balance();
+    this.update_balance().catch((error) => {
+      this.rx.toastError(error)
+    });
     this.rx.reset_temp_transactions();
   }
 
@@ -37,6 +40,8 @@ export class DashboardPage implements OnInit {
   }
 
   balance: number;
+
+  demo = environment.demo;
 
   user: IDBContact = {} as any;
 

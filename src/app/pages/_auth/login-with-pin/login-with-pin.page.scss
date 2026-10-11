@@ -40,6 +40,17 @@
   .code-inputs input:nth-child(3n) {
     margin-right: 24px;
   }
+  // six boxes must fit narrow screens: let them shrink instead of overflowing
+  .code-inputs input {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 47px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .code-inputs input:last-child {
+    margin-right: 4px;
+  }
 }
 
 .dialpad {

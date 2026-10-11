@@ -98,8 +98,16 @@ export class AvailabeDestinationsPage implements OnInit {
 
         }
       })
+    } else {
+      // nothing was picked from the list
+      this.loading.stop();
     }
   }
+  /** demo destinations ship their own images, real ones come from the provider's icon library */
+  image_url(image: string) {
+    return image && image.indexOf("assets/") == 0 ? image : 'https://iconslib.rapyd.net' + image;
+  }
+
   private _filterCountries(value: string): ICountry[] {
     const filterValue = value.toLowerCase();
     return this.countries.filter(country => country.name.toLowerCase().includes(filterValue));

@@ -19,8 +19,9 @@ export class TransactionHistoryPage implements OnInit {
   constructor(public loading:LoadingService, public router:Router,private rx:RX) { }
 
   ionViewWillEnter() {
-    this.saved_trans = this.rx.meta$.value.transactions.filter(t=>t.status=="saved")
-    this.past_trans = this.rx.meta$.value.transactions.filter(t=>t.status!="saved")
+    let transactions = this.rx.meta$.value?.transactions || []
+    this.saved_trans = transactions.filter(t=>t.status=="saved")
+    this.past_trans = transactions.filter(t=>t.status!="saved")
   }
   ngOnInit() {
   }

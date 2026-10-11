@@ -6,6 +6,7 @@ import { PostCreatePayment } from 'src/app/interfaces/rapyd/ipayment';
 import { LoadingService } from 'src/app/services/loading.service';
 import { RX } from 'src/app/services/rx/events.service';
 import { BehaviorSubject } from 'rxjs';
+import { sum_money } from 'src/app/services/util/money';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class SelectedSourcesPage implements OnInit {
     this.rx.temp.transaction.payments.subscribe(d=>{
       this.selected_sources = d;
       // calculate source total
-      this.source_amount = this.rx.temp["transaction"].source_amount = this.selected_sources.map(s=>s.amount).reduce((a, b) => a + b, 0)+"" || 0+"";
+      this.source_amount = this.rx.temp["transaction"].source_amount = sum_money(this.selected_sources.map(s=>s.amount))+"";
     })
   }
   continue_to_destination() {

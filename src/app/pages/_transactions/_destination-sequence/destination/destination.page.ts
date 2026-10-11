@@ -8,6 +8,7 @@ import { IGetPayoutRequiredFields } from 'src/app/interfaces/rapyd/ipayout';
 import { RquiredFormTypes } from 'src/app/interfaces/interfaces';
 import { HelperService } from 'src/app/services/util/helper';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { DEMO_BENEFICIARY } from 'src/app/services/demo/demo-data';
 
 @Component({
   selector: 'app-destination',
@@ -54,8 +55,12 @@ export class DestinationPage implements OnInit {
 
   update_query(query_id) {
     this.query_id = query_id;
+    this.is_edit = false;
+    this.edit_index = -1;
+    // the chosen destination lives in memory: after a refresh or a direct link there is none
     if (!this.rx.temp.destination_queries[query_id]) {
       this.router.navigateByUrl("/dashboard");
+      return;
     }
     this.request_query = this.rx.temp.destination_queries[query_id].request_query
     this.response_query = this.rx.temp.destination_queries[query_id].response_query
@@ -181,6 +186,7 @@ export class DestinationPage implements OnInit {
     console.log(payout);
     this.payoutSrv.simulate_payout(payout).subscribe(async (res) => {
       var result = res.data
+      this.loading.stop();
       loading.dismiss();
       const alert = await this.alertController.create({
         cssClass: 'alert-class',
@@ -224,8 +230,16 @@ export class DestinationPage implements OnInit {
     console.log("this.sender_required_fields_form", this.sender_required_fields_form);
     console.log("this.beneficiary_required_fields_form", this.beneficiary_required_fields_form);
     console.log("----");
-    return;
     this.router.navigateByUrl("/transaction/destinations-sequence/selected-destinations");
+  }
+
+  /** fills the recipient form with the fictional sample person */
+  use_demo_recipient() {
+    Object.keys(this.beneficiary_required_fields_form.controls).forEach(name => {
+      if (DEMO_BENEFICIARY[name] !== undefined) {
+        this.beneficiary_required_fields_form.controls[name].setValue(DEMO_BENEFICIARY[name]);
+      }
+    })
   }
 
   get is_disable() {

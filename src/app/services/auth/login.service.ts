@@ -7,13 +7,15 @@ import { Injectable } from '@angular/core';
 import { ILoginTransportObj } from 'src/app/interfaces/db/ilogin';
 import { Api } from '../api/api';
 import { IDBContact } from 'src/app/interfaces/db/idbcontact';
+import { DemoApi } from '../demo/demo-api.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private api: Api, private rx: RX, private router: Router, private loading: LoadingService, private storage: StorageService, private alertController:AlertController) {
+  constructor(private api: Api, private rx: RX, private router: Router, private loading: LoadingService, private storage: StorageService, private alertController:AlertController, private demo: DemoApi) {
   }
 
   async send_login(phone_number: string) {
@@ -124,13 +126,26 @@ export class LoginService {
   async logout() {
     this.rx.init_service();
     await this.rx.reset_storage()
+    if (environment.demo) {
+      this.demo.end_session();
+    }
+    window.location.href = '/auth/login';
+  }
+
+  /** demo only: put the wallet, cards and history back to their starting values and log out */
+  async reset_demo() {
+    this.rx.init_service();
+    await this.rx.reset_storage()
+    this.demo.reset();
     window.location.href = '/auth/login';
   }
 
   is_loggedin(){
     return new Promise(async (resolve,reject)=>{
       setTimeout(async () => {
-        return resolve((await this.storage.get("user") as IDBContact)?.security?.login?.authenticated)
+        let authenticated = (await this.storage.get("user") as IDBContact)?.security?.login?.authenticated
+        // in demo mode the simulated session decides, the stored user is only a copy of it
+        return resolve(authenticated && (!environment.demo || this.demo.is_authenticated()))
       }, 0);
     })
   }

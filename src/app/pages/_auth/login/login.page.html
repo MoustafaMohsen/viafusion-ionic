@@ -5,7 +5,7 @@
     <img src="../../../../assets/images/logo/via-logo.svg" width="40%" alt="" srcset="">
   </div>
 
-  <div class="row mt-8">
+  <div class="row mt-8 illustration-row">
     <img src="../../../assets/images/login.svg" alt="" srcset="">
   </div>
   <div class="row header-row">
@@ -31,6 +31,7 @@
           </lac-mat-tel-input>
         </mat-form-field>
       </form>
+      <app-demo-hint step="phone" (use_sample)="use_demo_phone($event)"></app-demo-hint>
 
       <!-- <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
         <span class="text-gray-500 sm:text-sm text-2xl p-2 pt-3">

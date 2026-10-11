@@ -66,6 +66,9 @@ export class AvailabeSourcesPage implements OnInit {
 
         }
       })
+    } else {
+      // nothing was picked from the list
+      this.loading.stop();
     }
   }
   private _filterCountries(value: string): ICountry[] {
