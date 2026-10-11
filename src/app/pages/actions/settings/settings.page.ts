@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/auth/login.service';
 import { RX } from 'src/app/services/rx/events.service';
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-settings',
@@ -11,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsPage implements OnInit {
 
+  demo = environment.demo;
   phone_number = "";
   name = "";
   constructor(private rx:RX,private loginSrv:LoginService,private router:Router,private alertController:AlertController) { }

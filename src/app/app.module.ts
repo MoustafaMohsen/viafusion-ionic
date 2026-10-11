@@ -97,6 +97,7 @@ import { IbanHistoryPage } from './pages/_cc/iban/iban-details/iban-history/iban
 import { IbanSettingsPage } from './pages/_cc/iban/iban-details/iban-settings/iban-settings.page';
 import { LandingPage } from './pages/landing/landing.page';
 import { DemoHintComponent } from './components/demo-hint/demo-hint.component';
+import { DemoUnavailableComponent } from './components/demo-unavailable/demo-unavailable.component';
 import { environment } from 'src/environments/environment';
 
 @NgModule({
@@ -154,6 +155,7 @@ import { environment } from 'src/environments/environment';
     AppComponent,
     LandingPage,
     DemoHintComponent,
+    DemoUnavailableComponent,
     LoginPage,
     OtpPage,
     DashboardPage,

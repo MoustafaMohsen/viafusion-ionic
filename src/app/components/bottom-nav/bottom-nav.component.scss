@@ -17,3 +17,19 @@
     color: #000;
     }
 }
+// a tab whose screen the demo does not simulate
+.unavailable {
+    pointer-events: none;
+    padding-top: 0.5rem;
+    padding-bottom: 0.25rem;
+    svg-icon, .tab {
+        opacity: 0.4;
+    }
+    .unavailable-note {
+        display: block;
+        padding: 0 2px;
+        font-size: 8px;
+        line-height: 1.15;
+        color: #9ca3af;
+    }
+}

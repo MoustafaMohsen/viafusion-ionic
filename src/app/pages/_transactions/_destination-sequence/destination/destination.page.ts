@@ -57,8 +57,10 @@ export class DestinationPage implements OnInit {
     this.query_id = query_id;
     this.is_edit = false;
     this.edit_index = -1;
+    // the chosen destination lives in memory: after a refresh or a direct link there is none
     if (!this.rx.temp.destination_queries[query_id]) {
       this.router.navigateByUrl("/dashboard");
+      return;
     }
     this.request_query = this.rx.temp.destination_queries[query_id].request_query
     this.response_query = this.rx.temp.destination_queries[query_id].response_query

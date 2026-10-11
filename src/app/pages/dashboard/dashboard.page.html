@@ -137,9 +137,10 @@
             </button>
           </div>
           <div class="w-5/12">
-            <button (click)="onClick()" class="w-full disabled">
+            <button [disabled]="demo" (click)="onClick()" class="w-full disabled">
               Receive
             </button>
+            <app-demo-unavailable></app-demo-unavailable>
           </div>
         </div>
 
@@ -185,10 +186,11 @@
         </div>
 
         <div class="flex text-lg leading-6 font-medium dark:text-white text-gray-800 mt-4 buttons-div">
-          <button (click)="generate_checkout_page()" class="w-full">
+          <button [disabled]="demo" (click)="generate_checkout_page()" class="w-full">
             Generate QR Code or Link
           </button>
         </div>
+        <app-demo-unavailable></app-demo-unavailable>
       </div>
 
       <div class="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 p-4 source-item mt-4">
@@ -205,16 +207,17 @@
 
         <div class="flex justify-between text-lg leading-6 font-medium dark:text-white text-gray-800 mt-4 buttons-div">
           <div class="w-5/12">
-            <button (click)="sell()" class="w-full">
+            <button [disabled]="demo" (click)="sell()" class="w-full">
               sell
             </button>
           </div>
           <div class="w-5/12">
-            <button (click)="store()" class="w-full">
+            <button [disabled]="demo" (click)="store()" class="w-full">
               store
             </button>
           </div>
         </div>
+        <app-demo-unavailable></app-demo-unavailable>
 
       </div>
 

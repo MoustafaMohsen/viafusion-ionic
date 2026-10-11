@@ -3,6 +3,7 @@ import { WalletService } from 'src/app/services/wallet/wallet.service';
 import { FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { ILookup_user } from 'src/app/interfaces/db/idbwallet';
 import { throttleTime, filter } from 'rxjs/operators';
@@ -14,13 +15,20 @@ import { throttleTime, filter } from 'rxjs/operators';
 })
 export class EnterPhonePage implements OnInit {
 
-  constructor(public modalCtrl: ModalController,private walletSrv:WalletService,private rx:RX) {}
+  constructor(public modalCtrl: ModalController,private walletSrv:WalletService,private rx:RX,private router:Router) {}
 
   search_form:FormControl=new FormControl("",[Validators.required]);
   entred_phone_numer;
   results:ILookup_user = {users:[]}
 
 
+
+  ionViewWillEnter() {
+    // the amount is entered on the previous page and lives in memory
+    if (!(this.rx.temp.wallet2wallet.value?.amount > 0)) {
+      this.router.navigateByUrl("/insta-send/enter-amount");
+    }
+  }
 
   ngOnInit() {
     this.search_form.valueChanges.pipe().subscribe(v=>{

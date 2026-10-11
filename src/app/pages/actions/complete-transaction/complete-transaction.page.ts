@@ -9,6 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActionStatusesTypes } from 'src/app/interfaces/interfaces';
 import { PaymentModalComponent } from 'src/app/components/payment-modal/payment-modal.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-complete-transaction',
@@ -22,6 +23,7 @@ export class CompleteTransactionPage implements OnInit {
   constructor(private rx: RX, private router: Router, private walletSrv: WalletService, public loading: LoadingService, private modalCtrl: ModalController, private h: HelperService, private alertController: AlertController) { }
 
   @Input() transaction: ITransaction;
+  demo = environment.demo;
   _sub: Subscription
   ionViewWillEnter() {
     console.log("Entred: Complete Transaction ionViewWillEnter()");

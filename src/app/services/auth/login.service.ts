@@ -135,7 +135,9 @@ export class LoginService {
   is_loggedin(){
     return new Promise(async (resolve,reject)=>{
       setTimeout(async () => {
-        return resolve((await this.storage.get("user") as IDBContact)?.security?.login?.authenticated)
+        let authenticated = (await this.storage.get("user") as IDBContact)?.security?.login?.authenticated
+        // in demo mode the simulated session decides, the stored user is only a copy of it
+        return resolve(authenticated && (!environment.demo || this.demo.is_authenticated()))
       }, 0);
     })
   }

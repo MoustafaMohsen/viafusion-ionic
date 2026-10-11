@@ -62,6 +62,10 @@ export class DemoApi {
     return of(response).pipe(delay(250));
   }
 
+  is_authenticated() {
+    return !!this.state.session.authenticated;
+  }
+
   /** forget the session, the wallet, cards and history stay as they are */
   end_session() {
     this.state.session = { otp_passed: false, authenticated: false };

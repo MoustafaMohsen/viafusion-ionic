@@ -27,6 +27,11 @@ export class SourcePage implements OnInit {
   is_edit = false;
   edit_index = -1;
   ionViewWillEnter() {
+    // opened without a chosen source: pick one first
+    if (!this.route.snapshot.queryParamMap.get("payment_method")) {
+      this.router.navigateByUrl("/transaction/sources-sequence/available-sources");
+      return;
+    }
     this.payment_method = decodeURIComponent(this.route.snapshot.queryParamMap.get("payment_method"));
     this.route.queryParamMap.subscribe(m => {
       this.update_query(m.get("payment_method"));

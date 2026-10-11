@@ -208,6 +208,13 @@ input.ng-invalid:not(.mat-input-element){
     background: #e4e4e7;
   }
 
+  // Material menus (the country picker) open on the page body, outside ion-app: keep them short enough to stay
+  // beside the field that opened them instead of stretching over the full window height
+  // (the extra selectors outrank Material's own rule, which is added to the page after this file)
+  body .cdk-overlay-pane .mat-menu-panel {
+    max-height: 20rem;
+  }
+
   ion-app.app-shell {
     width: 410px;
     height: calc(100% - 3rem);

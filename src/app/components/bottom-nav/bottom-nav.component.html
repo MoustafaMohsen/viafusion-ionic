@@ -2,9 +2,10 @@
  <section id="bottom-navigation" class="block fixed inset-x-0 bottom-0 z-10 bg-white shadow">
 	<section id="bottom-navigation" class="block fixed inset-x-0 bottom-0 z-10 bg-white shadow">
 		<div id="tabs" class="flex justify-between">
-			<a [routerLink]="['/marketplace/shop']" class="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center py-4">
+			<a [routerLink]="demo ? null : ['/marketplace/shop']" [class.unavailable]="demo" class="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center py-4">
 				<svg-icon key="store" fontSize="2rem"></svg-icon>
 				<span class="tab tab-home block text-xs">store</span>
+					<span *ngIf="demo" class="unavailable-note">Not available in this demo</span>
 			</a>
 			<a [routerLink]="['/cc/list-of-cc']" class="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center py-4">
 				<svg-icon key="card" fontSize="2rem"></svg-icon>
