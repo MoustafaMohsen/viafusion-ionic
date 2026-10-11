@@ -1,0 +1,52 @@
+<ion-content [fullscreen]="true">
+  <div class="landing">
+
+    <header class="row">
+      <img class="logo" src="assets/images/logo/via-logo.svg" alt="ViaFusion">
+    </header>
+
+    <section class="hero">
+      <div class="hero-text">
+        <h1 class="text-5xl font-bold letspac-1 lg:text-6xl">Move money <span>your way.</span></h1>
+        <p class="text-gray-600 text-xl mt-6">
+          A wallet app designed to help individuals and freelancers manage payments, transfers, and virtual cards in one place.
+        </p>
+
+        <div class="actions mt-8">
+          <a routerLink="/auth/login" class="py-4 px-8 text-white transition ease-in duration-200 text-center font-semibold shadow-md rounded-full flex justify-center items-center gold-gradient text-xl letspac-1">
+            Try the Demo <ion-icon name="arrow-forward-outline" class="ml-3 text-2xl"></ion-icon>
+          </a>
+          <a class="secondary-link text-lg font-medium" href="https://devpost.com/software/viafusion" target="_blank" rel="noopener">
+            View on Devpost
+          </a>
+        </div>
+
+        <p class="demo-note mt-8">
+          <svg-icon key="sandbox" fontSize="1.25rem" class="svg-secondary flex mr-2"></svg-icon>
+          Portfolio demo with simulated data. No real payments.
+        </p>
+      </div>
+
+      <div class="hero-image">
+        <img src="assets/images/transfer_money.svg" alt="">
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="rounded-card feature" *ngFor="let feature of features">
+        <svg-icon [key]="feature.icon" fontSize="3rem" class="svg-secondary flex"></svg-icon>
+        <h2 class="text-xl font-semibold text-gray-700 mt-4">{{feature.title}}</h2>
+        <p class="text-gray-600 mt-2">{{feature.text}}</p>
+      </div>
+    </section>
+
+    <footer class="text-sm text-gray-600">
+      <p>Originally built for the 2021 Rapyd Fintech Hackathon.</p>
+      <p class="credits">
+        <a href="https://github.com/roqayamourad" target="_blank" rel="noopener">Frontend — Roqaya Mourad</a>
+        <a href="https://github.com/MoustafaMohsen" target="_blank" rel="noopener">Backend — Moustafa Mohsen</a>
+      </p>
+    </footer>
+
+  </div>
+</ion-content>

@@ -95,6 +95,7 @@ import { NgxKjuaModule } from 'ngx-kjua';
 import { IbanDetailsPage } from './pages/_cc/iban/iban-details/iban-details.page';
 import { IbanHistoryPage } from './pages/_cc/iban/iban-details/iban-history/iban-history.page';
 import { IbanSettingsPage } from './pages/_cc/iban/iban-details/iban-settings/iban-settings.page';
+import { LandingPage } from './pages/landing/landing.page';
 
 @NgModule({
   imports: [
@@ -146,6 +147,7 @@ import { IbanSettingsPage } from './pages/_cc/iban/iban-details/iban-settings/ib
   ],
   declarations: [
     AppComponent,
+    LandingPage,
     LoginPage,
     OtpPage,
     DashboardPage,

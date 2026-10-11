@@ -1,0 +1,110 @@
+ion-content {
+  // the global ion-content rule pads and caps every page at the container width, the landing page centers its own column
+  max-width: none;
+  padding: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+
+  .landing {
+    max-width: 72rem;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo {
+    width: 11rem;
+    max-width: 50%;
+  }
+
+  .hero {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+    padding: 2.5rem 0 3rem;
+
+    h1 span {
+      color: var(--secondary);
+    }
+    .actions {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1.25rem;
+    }
+    .secondary-link {
+      color: var(--secondary);
+      text-align: center;
+      text-decoration: underline;
+    }
+    .demo-note {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      background-color: var(--secondary-tint);
+      color: var(--primary);
+      font-size: 0.875rem;
+    }
+    .hero-image img {
+      width: 100%;
+      max-width: 30rem;
+      margin: 0 auto;
+    }
+  }
+
+  .features {
+    display: grid;
+    gap: 1.5rem;
+
+    .feature {
+      padding: 1.5rem;
+    }
+  }
+
+  footer {
+    margin-top: auto;
+    padding-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .credits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+    }
+    a {
+      color: var(--secondary);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .landing {
+      padding: 2rem 3rem;
+    }
+    .hero {
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      padding: 3rem 0;
+
+      .actions {
+        flex-direction: row;
+        align-items: center;
+        gap: 2rem;
+      }
+    }
+    .features {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    footer {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}

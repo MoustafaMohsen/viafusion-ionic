@@ -45,13 +45,14 @@ import { GenerateCheckoutPage } from './pages/_payment/generate-checkout/generat
 import { IbanDetailsPage } from './pages/_cc/iban/iban-details/iban-details.page';
 import { IbanHistoryPage } from './pages/_cc/iban/iban-details/iban-history/iban-history.page';
 import { IbanSettingsPage } from './pages/_cc/iban/iban-details/iban-settings/iban-settings.page';
+import { LandingPage } from './pages/landing/landing.page';
 
 
 const routes: Routes = [
   //
   {
     path: '',
-    redirectTo: 'auth/login',
+    component: LandingPage,
     pathMatch: 'full',
   },
 
